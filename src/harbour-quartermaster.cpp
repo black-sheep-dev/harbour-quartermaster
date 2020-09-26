@@ -12,6 +12,9 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain(QStringLiteral("nubecula.org"));
 
     qmlRegisterType<Device>("org.nubecula.harbour.quartermaster", 1, 0, "Device");
+    qmlRegisterType<DeviceSensor>("org.nubecula.harbour.quartermaster", 1, 0, "DeviceSensor");
+    qmlRegisterType<DeviceSensorModel>("org.nubecula.harbour.quartermaster", 1, 0, "DeviceSensorModel");
+    qmlRegisterType<DeviceTracker>("org.nubecula.harbour.quartermaster", 1, 0, "DeviceTracker");
     qmlRegisterType<HomeassistantInfo>("org.nubecula.harbour.quartermaster", 1, 0, "HomeassistantInfo");
 
     qmlRegisterSingletonType<ClientInterface>("org.nubecula.harbour.quartermaster",

@@ -1,35 +1,35 @@
 #include "device.h"
 
+#ifdef QT_DEBUG
+#include <QDebug>
+#endif
+
+#include <QSettings>
+
 #include <mdm-sysinfo.h>
+
+#include "sensors/devicesensorbattery.h"
+#include "sensors/devicesensorbatterycharging.h"
 
 Device::Device(QObject *parent) :
     QObject(parent),
-    m_name(Sailfish::Mdm::SysInfo::productName())
+    m_sensorModel(new DeviceSensorModel(this)),
+    m_trackerGPS(nullptr),
+    m_name(Sailfish::Mdm::SysInfo::productName()),
+    m_sensorAutoUpdate(false)
 {
-    connect(&m_battery, &Sailfish::Mdm::BatteryInfo::chargePercentageChanged, this, [=](int percentage) {
-        QJsonObject sensor;
-        sensor.insert(QStringLiteral("icon"), batteryIcon(percentage));
-        sensor.insert(QStringLiteral("state"), percentage);
-        sensor.insert(QStringLiteral("type"), QStringLiteral("sensor"));
-        sensor.insert(QStringLiteral("unique_id"), QStringLiteral("battery_state"));
+    DeviceSensorBattery *battery = new DeviceSensorBattery;
+    registerSensor(battery);
 
-        emit sensorUpdated(sensor);
-    });
-    connect(&m_battery, &Sailfish::Mdm::BatteryInfo::chargerStatusChanged, this, [=](Sailfish::Mdm::BatteryInfo::ChargerStatus status) {
-        QJsonObject sensor;
-        sensor.insert(QStringLiteral("icon"),
-                      status == Sailfish::Mdm::BatteryInfo::Connected ? QStringLiteral("mdi:battery-charging") : batteryIcon(m_battery.chargePercentage()));
-        sensor.insert(QStringLiteral("state"), m_battery.chargerStatus() == Sailfish::Mdm::BatteryInfo::Connected);
-        sensor.insert(QStringLiteral("type"), QStringLiteral("binary_sensor"));
-        sensor.insert(QStringLiteral("unique_id"), QStringLiteral("battery_charging"));
+    DeviceSensorBatteryCharging *batteryCharging = new DeviceSensorBatteryCharging;
+    registerSensor(batteryCharging);
 
-        emit sensorUpdated(sensor);
-    });
+    readSettings();
 }
 
-int Device::batteryChargePercentage() const
+Device::~Device()
 {
-    return m_battery.chargePercentage();
+    writeSettings();
 }
 
 QString Device::id() const
@@ -62,39 +62,46 @@ QString Device::wlanMacAddress() const
     return Sailfish::Mdm::SysInfo::wlanMacAddress();
 }
 
-QJsonArray Device::sensors() const
+DeviceSensorModel *Device::sensorModel()
 {
-    QJsonArray sensors;
+    return m_sensorModel;
+}
 
-    // battery state
-    QJsonObject batteryState;
-    batteryState.insert(QStringLiteral("device_class"), QStringLiteral("battery"));
-    batteryState.insert(QStringLiteral("icon"), batteryIcon(m_battery.chargePercentage()));
-    batteryState.insert(QStringLiteral("name"), QStringLiteral("Battery State"));
-    batteryState.insert(QStringLiteral("state"), m_battery.chargePercentage());
-    batteryState.insert(QStringLiteral("type"), QStringLiteral("sensor"));
-    batteryState.insert(QStringLiteral("unique_id"), QStringLiteral("battery_state"));
-    batteryState.insert(QStringLiteral("unit_of_measurement"), QStringLiteral("%"));
-    sensors.append(batteryState);
+QList<DeviceSensor *> Device::sensors() const
+{
+    return m_sensorModel->sensors();
+}
 
-    // battery charging
-    QJsonObject batteryCharging;
-    batteryCharging.insert(QStringLiteral("device_class"), QStringLiteral("battery_charging"));
-    batteryCharging.insert(QStringLiteral("icon"),
-                           m_battery.chargerStatus() == Sailfish::Mdm::BatteryInfo::Connected ? QStringLiteral("mdi:battery-charging") : batteryIcon(m_battery.chargePercentage()));
-    batteryCharging.insert(QStringLiteral("name"), QStringLiteral("Battery Charging"));
-    batteryCharging.insert(QStringLiteral("state"), m_battery.chargerStatus() == Sailfish::Mdm::BatteryInfo::Connected);
-    batteryCharging.insert(QStringLiteral("type"), QStringLiteral("binary_sensor"));
-    batteryCharging.insert(QStringLiteral("unique_id"), QStringLiteral("battery_charging"));
-    batteryCharging.insert(QStringLiteral("unit_of_measurement"), QString());
-    sensors.append(batteryCharging);
-
-    return sensors;
+DeviceTracker *Device::trackerGPS()
+{
+    return m_trackerGPS;
 }
 
 QString Device::name() const
 {
     return m_name;
+}
+
+bool Device::sensorAutoUpdate() const
+{
+    return m_sensorAutoUpdate;
+}
+
+bool Device::trackingGPS() const
+{
+    return m_trackingGPS;
+}
+
+bool Device::trackingWifi() const
+{
+    return m_trackingWifi;
+}
+
+void Device::update()
+{
+#ifdef QT_DEBUG
+    qDebug() << "UPDATE DEVICE LOCATION";
+#endif
 }
 
 void Device::setName(const QString &name)
@@ -106,29 +113,80 @@ void Device::setName(const QString &name)
     emit nameChanged(m_name);
 }
 
-QString Device::batteryIcon(int percentage) const
+void Device::setSensorAutoUpdate(bool enable)
 {
-    if (percentage >= 5 && percentage < 15) {
-        return QStringLiteral("mdi:battery-10");
-    } else if (percentage >= 15 && percentage < 25) {
-        return QStringLiteral("mdi:battery-20");
-    } else if (percentage >= 25 && percentage < 35) {
-        return QStringLiteral("mdi:battery-30");
-    } else if (percentage >= 35 && percentage < 45) {
-        return QStringLiteral("mdi:battery-40");
-    } else if (percentage >= 45 && percentage < 55) {
-        return QStringLiteral("mdi:battery-50");
-    } else if (percentage >= 55 && percentage < 65) {
-        return QStringLiteral("mdi:battery-60");
-    } else if (percentage >= 65 && percentage < 75) {
-        return QStringLiteral("mdi:battery-70");
-    } else if (percentage >= 75 && percentage < 85) {
-        return QStringLiteral("mdi:battery-80");
-    } else if (percentage >= 85 && percentage < 95) {
-        return QStringLiteral("mdi:battery-90");
-    } else if (percentage >= 95) {
-        return QStringLiteral("mdi:battery");
-    } else {
-        return QStringLiteral("mdi:battery-alert");
+    if (m_sensorAutoUpdate == enable)
+        return;
+
+    m_sensorAutoUpdate = enable;
+    emit sensorAutoUpdateChanged(m_sensorAutoUpdate);
+
+    for (DeviceSensor *sensors : sensors()) {
+        sensors->setEnabled(enable);
     }
+
+    writeSettings();
+}
+
+void Device::setTrackingGPS(bool enable)
+{
+    if (m_trackingGPS == enable)
+        return;
+
+    m_trackingGPS = enable;
+    emit trackingGPSChanged(m_trackingGPS);
+
+    // enable / disable tracker
+
+    if (enable) {
+        m_trackerGPS = new DeviceTrackerGPS(this);
+        connect(m_trackerGPS, &DeviceTracker::locationUpdated, this, &Device::locationUpdated);
+    } else {
+        m_trackerGPS->deleteLater();
+        m_trackerGPS = nullptr;
+    }
+}
+
+void Device::setTrackingWifi(bool enable)
+{
+    if (m_trackingWifi == enable)
+        return;
+
+    m_trackingWifi = enable;
+    emit trackingWifiChanged(m_trackingWifi);
+}
+
+void Device::registerSensor(DeviceSensor *sensor)
+{
+    connect(sensor, &DeviceSensor::sensorUpdated, this, &Device::sensorUpdated);
+
+    m_sensorModel->addSensor(sensor);
+}
+
+void Device::readSettings()
+{
+    QSettings settings;
+
+    settings.beginGroup(QStringLiteral("SENSORS"));
+    setSensorAutoUpdate(settings.value(QStringLiteral("autoupdate"), false).toBool());
+    settings.endGroup();
+
+    settings.beginGroup(QStringLiteral("TRACKING"));
+    setTrackingGPS(settings.value(QStringLiteral("gps"), false).toBool());
+    setTrackingWifi(settings.value(QStringLiteral("wifi"), false).toBool());
+    settings.endGroup();
+}
+
+void Device::writeSettings()
+{
+    QSettings settings;
+
+    settings.beginGroup(QStringLiteral("SENSORS"));
+    settings.setValue(QStringLiteral("autoupdate"), m_sensorAutoUpdate);
+    settings.endGroup();
+
+    settings.beginGroup(QStringLiteral("TRACKING"));
+    settings.setValue(QStringLiteral("gps"), m_trackingGPS);
+    settings.setValue(QStringLiteral("wifi"), m_trackingWifi);
+    settings.endGroup();
 }

@@ -54,6 +54,7 @@ signals:
 public slots:
     // webhook api
     void registerSensors();
+    void updateLocation(const QJsonObject &location);
     void updateSensor(const QJsonObject &sensor);
 
     // properties

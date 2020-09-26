@@ -89,9 +89,14 @@ QString WebhookInterface::webhookId() const
 
 void WebhookInterface::registerSensors()
 {
-    for (const QJsonValue value : m_device->sensors()) {
-        sendRequest(QStringLiteral("register_sensor"), value.toObject());
+    for (const DeviceSensor *sensor : m_device->sensors()) {
+        sendRequest(QStringLiteral("register_sensor"), sensor->toJson());
     }
+}
+
+void WebhookInterface::updateLocation(const QJsonObject &location)
+{
+    sendRequest(QStringLiteral("update_location"), location);
 }
 
 void WebhookInterface::updateSensor(const QJsonObject &sensor)

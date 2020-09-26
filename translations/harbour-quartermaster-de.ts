@@ -55,6 +55,20 @@
     </message>
 </context>
 <context>
+    <name>DeviceSensorBattery</name>
+    <message>
+        <source>Battery State</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DeviceSensorBatteryCharging</name>
+    <message>
+        <source>Battery Charging</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>OverviewPage</name>
     <message>
         <source>About</source>
@@ -100,23 +114,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Access Token</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enter access token</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Resetting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Use SSL</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Register</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -164,6 +166,60 @@
     </message>
 </context>
 <context>
+    <name>SettingsDeviceSensorsPage</name>
+    <message>
+        <source>Device Sensors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sensor List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Here you can activate / deactivate automatic sensors updates. Automatic sensor updates can lead to more network traffic and battery drain.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activate / deactivate automatic updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This toggles all sensors on/off</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SettingsDeviceTrackingPage</name>
+    <message>
+        <source>Here you can activate / deactivate different device tracking options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GPS Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WiFi SSID Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use GPS data to track the device position.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Device Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activating these options leads to higher battery consumption and network traffic.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WiFi networks will be used to track the device. You need to add WiFi SSID informations to your different zones. If the device connects to a known WiFi network, it will use the position info of the zone.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SettingsPage</name>
     <message>
         <source>Connection</source>
@@ -183,6 +239,22 @@
     </message>
     <message>
         <source>Show and edit device informations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Device Sensors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage device sensors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Device Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage device tracking options</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -59,6 +59,8 @@ void ClientInterface::reset()
     setPort(8123);
     setSsl(false);
     setToken(QString());
+
+    m_webhook->resetSettings();
 }
 
 void ClientInterface::saveSettings()

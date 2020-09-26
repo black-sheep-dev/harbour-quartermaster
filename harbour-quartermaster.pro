@@ -17,8 +17,12 @@ DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 TARGET = harbour-quartermaster
 DEFINES += APP_TARGET=\\\"$$TARGET\\\"
 
+QT += positioning
+
 PKGCONFIG += \
     sailfishmdm
+
+LIBS        += -L../../lib -lkeepalive
 
 CONFIG += sailfishapp
 
@@ -26,7 +30,13 @@ SOURCES += src/harbour-quartermaster.cpp \
     src/client/clientinterface.cpp \
     src/client/homeassistantinfo.cpp \
     src/client/webhookinterface.cpp \
-    src/device/device.cpp
+    src/device/device.cpp \
+    src/device/devicesensor.cpp \
+    src/device/devicesensormodel.cpp \
+    src/device/devicetracker.cpp \
+    src/device/sensors/devicesensorbattery.cpp \
+    src/device/sensors/devicesensorbatterycharging.cpp \
+    src/device/trackers/devicetrackergps.cpp
 
 DISTFILES += qml/harbour-quartermaster.qml \
     qml/components/ConnectionSettings.qml \
@@ -36,6 +46,8 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/OverviewPage.qml \
     qml/pages/SettingsConnectionPage.qml \
     qml/pages/SettingsDeviceInfoPage.qml \
+    qml/pages/SettingsDeviceSensorsPage.qml \
+    qml/pages/SettingsDeviceTrackingPage.qml \
     qml/pages/SettingsPage.qml \
     qml/pages/wizard/WizardConnectionPage.qml \
     qml/pages/wizard/WizardDeviceRegistrationPage.qml \
@@ -69,4 +81,10 @@ HEADERS += \
     src/client/clientinterface.h \
     src/client/homeassistantinfo.h \
     src/client/webhookinterface.h \
-    src/device/device.h
+    src/device/device.h \
+    src/device/devicesensor.h \
+    src/device/devicesensormodel.h \
+    src/device/devicetracker.h \
+    src/device/sensors/devicesensorbattery.h \
+    src/device/sensors/devicesensorbatterycharging.h \
+    src/device/trackers/devicetrackergps.h

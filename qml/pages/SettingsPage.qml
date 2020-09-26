@@ -17,9 +17,21 @@ Page {
                 page: "SettingsConnectionPage.qml"
             }
             ListElement {
+                title: qsTr("Device Tracking");
+                description: qsTr("Manage device tracking options")
+                icon: "image://theme/icon-m-location"
+                page: "SettingsDeviceTrackingPage.qml"
+            }
+            ListElement {
+                title: qsTr("Device Sensors");
+                description: qsTr("Manage device sensors")
+                icon: "image://theme/icon-m-diagnostic"
+                page: "SettingsDeviceSensorsPage.qml"
+            }
+            ListElement {
                 title: qsTr("Device Info");
                 description: qsTr("Show and edit device informations")
-                icon: "image://theme/icon-m-device"
+                icon: "image://theme/icon-m-about"
                 page: "SettingsDeviceInfoPage.qml"
             }
         }

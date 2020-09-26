@@ -10,7 +10,6 @@ Page {
         Client.hostname = hostnameField.text;
         Client.ssl = sslSwitch.checked;
         Client.port = portField.text;
-        Client.token = tokenField.text;
 
         Client.saveSettings();
     }
@@ -24,12 +23,6 @@ Page {
             MenuItem {
                 text: qsTr("Reset")
                 onClicked: resetPopup.execute(qsTr("Resetting"), function() { Client.reset() })
-            }
-            MenuItem {
-                text: qsTr("Register")
-                onClicked: {
-                    page.applyChanges()
-                }
             }
         }
 
@@ -84,20 +77,7 @@ Page {
                 validator: IntValidator { bottom: 1; top: 65535;}
 
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
-                EnterKey.onClicked: tokenField.focus = true
-            }
-
-            TextField {
-                id: tokenField
-                width: parent.width
-
-                label: qsTr("Access Token")
-                placeholderText: qsTr("Enter access token")
-
-                text: Client.token
-
-                EnterKey.iconSource: "image://theme/icon-m-enter-next"
-                EnterKey.onClicked: tokenField.focus = false
+                EnterKey.onClicked: focus = false
             }
         }
     }
