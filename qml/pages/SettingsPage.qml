@@ -29,6 +29,12 @@ Page {
                 page: "SettingsDeviceSensorsPage.qml"
             }
             ListElement {
+                title: qsTr("Zones");
+                description: qsTr("Manage zones")
+                icon: "image://theme/icon-m-dot"
+                page: "SettingsZonesPage.qml"
+            }
+            ListElement {
                 title: qsTr("Device Info");
                 description: qsTr("Show and edit device informations")
                 icon: "image://theme/icon-m-about"

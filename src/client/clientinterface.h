@@ -1,16 +1,12 @@
 #ifndef CLIENTINTERFACE_H
 #define CLIENTINTERFACE_H
 
-#define     HASS_API_ENDPOINT_CONFIG                    "/api/config"
-#define     HASS_API_ENDPOINT_DEVICE_REGISTRATION       "/api/mobile_app/registrations"
-#define     HASS_API_ENDPOINT_WEBHOOK                   "/api/webhook"
-
 #include <QObject>
 
-#include <QNetworkAccessManager>
+#include "src/api/homeassistantapi.h"
+#include "src/api/webhookapi.h"
 
 #include "homeassistantinfo.h"
-#include "webhookinterface.h"
 #include "src/device/device.h"
 
 class ClientInterface : public QObject
@@ -20,7 +16,6 @@ class ClientInterface : public QObject
     Q_PROPERTY(bool busy READ busy WRITE setBusy NOTIFY busyChanged)
     Q_PROPERTY(QString hostname READ hostname WRITE setHostname NOTIFY hostnameChanged)
     Q_PROPERTY(quint16 port READ port WRITE setPort NOTIFY portChanged)
-    Q_PROPERTY(bool registered READ registered WRITE setRegistered NOTIFY registeredChanged)
     Q_PROPERTY(bool ssl READ ssl WRITE setSsl NOTIFY sslChanged)
     Q_PROPERTY(QString token READ token WRITE setToken NOTIFY tokenChanged)
 
@@ -43,10 +38,8 @@ public:
     bool busy() const;
     QString hostname() const;
     quint16 port() const;
-    bool registered() const;
     bool ssl() const;
     QString token() const;
-
 
 signals:
     // properties
@@ -54,7 +47,6 @@ signals:
     void hostnameChanged(const QString &hostname);
     void portChanged(quint16 port);
     void sslChanged(bool ssl);
-    void registeredChanged(bool registered);
     void tokenChanged(const QString &token);  
 
 public slots:
@@ -63,30 +55,23 @@ public slots:
     void setHostname(const QString &hostname);
     void setPort(quint16 port);
     void setSsl(bool ssl);
-    void setRegistered(bool registered);
     void setToken(const QString &token);
 
 private slots:
-    void onApiReply(QNetworkReply *reply);
-    void onSslErrors(QNetworkReply *reply, const QList<QSslError> &errors);
-    void onWebhookReply();
+    void onDataAvailable(const QString &endpoint, const QJsonDocument &doc);
 
 private:
-    QNetworkRequest getApiRequest(const QString &endpoint, bool token = true);
     void updateBaseUrl();
-
-    // API
-    void apiGet(const QString &endpoint);
-    void apiPost(const QString &endpoint, const QJsonObject &payload);
 
     // settings
     void readSettings();
     void writeSettings();
 
+    HomeassistantApi *m_api;
+    WebhookApi *m_webhook;
+
     Device *m_device;
     HomeassistantInfo *m_homeassistantInfo;
-    QNetworkAccessManager *m_manager;
-    WebhookInterface *m_webhook;
 
     QString m_baseUrl;
 
@@ -95,8 +80,6 @@ private:
     QString m_hostname;
     quint16 m_port;
     bool m_ssl;
-    bool m_registered;
-    QString m_token;
 };
 
 #endif // CLIENTINTERFACE_H

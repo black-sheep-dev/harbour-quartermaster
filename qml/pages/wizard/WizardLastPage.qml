@@ -13,6 +13,8 @@ Page {
     PageBusyIndicator {
         size: BusyIndicatorSize.Large
         running: Client.busy
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
     }
 
     SilicaFlickable {
@@ -68,9 +70,9 @@ Page {
     onStatusChanged: if (status == PageStatus.Active) Client.registerDevice()
 
     Connections {
-        target: Client
+        target: Client.device()
         onRegisteredChanged: {
-            if (Client.registered) {
+            if (Client.device().registered) {
                 pageStack.clear()
                 pageStack.push(Qt.resolvedUrl("../OverviewPage.qml"))
             }

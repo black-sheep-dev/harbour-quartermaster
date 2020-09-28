@@ -1,14 +1,11 @@
-#ifndef WEBHOOKINTERFACE_H
-#define WEBHOOKINTERFACE_H
+#ifndef WEBHOOKAPI_H
+#define WEBHOOKAPI_H
 
-#include <QObject>
-
-#include <QJsonObject>
-#include <QNetworkAccessManager>
+#include "apiinterface.h"
 
 #include "src/device/device.h"
 
-class WebhookInterface : public QObject
+class WebhookApi : public ApiInterface
 {
     Q_OBJECT
 
@@ -27,14 +24,18 @@ public:
     };
     Q_DECLARE_FLAGS(ConnectionFailures, ConnectionFailure)
 
-    explicit WebhookInterface(Device *device, QObject *parent = nullptr);
-    ~WebhookInterface();
+    explicit WebhookApi(QObject *parent = nullptr);
 
-    bool isValid() const;
-    void resetSettings();
-    void saveSettings();
-    void setBaseUrl(const QString &url);
-    void setSsl(bool enable);
+    bool isRegistered() const;
+    void reset();
+    void setRegistrationData(const QJsonObject &obj);
+
+    // api
+    void getZones();
+    void registerSensor(const DeviceSensor *sensor);
+    void updateLocation(const QJsonObject &location);
+    void updateRegistration(const Device *device);
+    void updateSensor(const QJsonObject &sensor);
 
     // properties
     QString cloudhookUrl() const;
@@ -46,42 +47,27 @@ public:
 signals:
     // properties
     void cloudhookUrlChanged(const QString &url);
-    void encryptionChanged(bool enabled);
+    void encryptionChanged(bool encryption);
     void remoteUiUrlChanged(const QString &url);
     void secretChanged(const QString &secret);
     void webhookIdChanged(const QString &id);
 
 public slots:
-    // webhook api
-    void registerSensors();
-    void updateLocation(const QJsonObject &location);
-    void updateSensor(const QJsonObject &sensor);
-
     // properties
-    void setCloudhookUrl(const QString &cloudhookUrl);
-    void setEncryption(bool enabled);
+    void setCloudhookUrl(const QString &url);
+    void setEncryption(bool encryption);
     void setRemoteUiUrl(const QString &url);
     void setSecret(const QString &secret);
     void setWebhookId(const QString &id);
 
 private slots:
-    void onReply();
-    void onSslErrors(QNetworkReply *reply, const QList<QSslError> &errors);
-    void sendRequest(const QString &type, const QJsonObject &payload);
-
-private:
-    // api helper
+    void onReplyFinished(const QString &identifier, QNetworkReply *reply);
     void updateWebhookUrl();
 
-    // settings
-    void readSettings();
-    void writeSettings();
+private:
+    void sendRequest(const QString &type, const QJsonObject &payload = QJsonObject());
 
-    QString m_baseUrl;
     ConnectionFailures m_connectionFailures;
-    Device *m_device;
-    QNetworkAccessManager *m_manager;
-    bool m_ssl;
     QString m_webhookUrl;
 
     // properties
@@ -90,7 +76,12 @@ private:
     QString m_remoteUiUrl;
     QString m_secret;
     QString m_webhookId;
-};
-Q_DECLARE_OPERATORS_FOR_FLAGS(WebhookInterface::ConnectionFailures)
 
-#endif // WEBHOOKINTERFACE_H
+    // ApiInterface interface
+public:
+    void initialize() override;
+
+};
+Q_DECLARE_OPERATORS_FOR_FLAGS(WebhookApi::ConnectionFailures)
+
+#endif // WEBHOOKAPI_H

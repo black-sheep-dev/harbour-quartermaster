@@ -7,25 +7,24 @@
 #include <QCoreApplication>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QJsonParseError>
-#include <QNetworkReply>
-#include <QNetworkRequest>
 #include <QSettings>
 
 ClientInterface::ClientInterface(QObject *parent) :
     QObject(parent),
+    m_api(new HomeassistantApi(this)),
+    m_webhook(new WebhookApi(this)),
     m_device(new Device(this)),
     m_homeassistantInfo(new HomeassistantInfo(this)),
-    m_manager(new QNetworkAccessManager(this)),
-    m_webhook(new WebhookInterface(m_device, this)),
-    m_busy(false),
-    m_registered(false)
+    m_busy(false)
 {
-    connect(m_manager, &QNetworkAccessManager::finished, this, &ClientInterface::onApiReply);
-    connect(m_manager, &QNetworkAccessManager::sslErrors, this ,&ClientInterface::onSslErrors);
+    connect(m_api, &HomeassistantApi::tokenChanged, this, &ClientInterface::tokenChanged);
+    connect(m_api, &HomeassistantApi::dataAvailable, this, &ClientInterface::onDataAvailable);
+    connect(m_device, &Device::sensorUpdated, m_webhook, &WebhookApi::updateSensor);
+    connect(m_device, &Device::locationUpdated, m_webhook, &WebhookApi::updateLocation);
 
     readSettings();
-    m_registered = m_webhook->isValid();
+
+    m_device->setRegistered(m_webhook->isRegistered());
 }
 
 ClientInterface::~ClientInterface()
@@ -50,7 +49,8 @@ HomeassistantInfo *ClientInterface::homeassistantInfo()
 
 void ClientInterface::initialize()
 {
-
+    m_webhook->initialize();
+    m_webhook->updateRegistration(m_device);
 }
 
 void ClientInterface::reset()
@@ -60,7 +60,9 @@ void ClientInterface::reset()
     setSsl(false);
     setToken(QString());
 
-    m_webhook->resetSettings();
+    m_webhook->reset();
+
+    writeSettings();
 }
 
 void ClientInterface::saveSettings()
@@ -71,27 +73,13 @@ void ClientInterface::saveSettings()
 void ClientInterface::getConfig()
 {
     m_homeassistantInfo->setLoading(true);
-    apiGet(QStringLiteral(HASS_API_ENDPOINT_CONFIG));
+    m_api->getConfig();
 }
 
 void ClientInterface::registerDevice()
 {
-    if (m_registered)
-        return;
-
-    QJsonObject device;
-    device.insert(QStringLiteral("device_id"), m_device->id());
-    device.insert(QStringLiteral("app_id"), "org.nubecula.harbour.quartermaster");
-    device.insert(QStringLiteral("app_name"), QCoreApplication::applicationName());
-    device.insert(QStringLiteral("app_version"), QCoreApplication::applicationVersion());
-    device.insert(QStringLiteral("device_name"), m_device->name());
-    device.insert(QStringLiteral("manufacturer"), m_device->manufacturer());
-    device.insert(QStringLiteral("model"), m_device->model());
-    device.insert(QStringLiteral("os_name"), m_device->softwareName());
-    device.insert(QStringLiteral("os_version"), m_device->softwareVersion());
-    device.insert(QStringLiteral("supports_encryption"), m_webhook->encryption());
-
-    apiPost(QStringLiteral(HASS_API_ENDPOINT_DEVICE_REGISTRATION), device);
+    setBusy(true);
+    m_api->registerDevice(m_device);
 }
 
 bool ClientInterface::busy() const
@@ -109,11 +97,6 @@ quint16 ClientInterface::port() const
     return m_port;
 }
 
-bool ClientInterface::registered() const
-{
-    return m_registered;
-}
-
 bool ClientInterface::ssl() const
 {
     return m_ssl;
@@ -121,7 +104,7 @@ bool ClientInterface::ssl() const
 
 QString ClientInterface::token() const
 {
-    return m_token;
+    return m_api->token();
 }
 
 void ClientInterface::setBusy(bool busy)
@@ -175,139 +158,31 @@ void ClientInterface::setSsl(bool ssl)
     updateBaseUrl();
 }
 
-void ClientInterface::setRegistered(bool registered)
-{
-    if (m_registered == registered)
-        return;
-
-    m_registered = registered;
-    emit registeredChanged(m_registered);
-}
-
 void ClientInterface::setToken(const QString &token)
 {
-    if (m_token == token)
-        return;
-
-    m_token = token;
-    emit tokenChanged(m_token);
+    m_api->setToken(token);
 }
 
-void ClientInterface::onApiReply(QNetworkReply *reply)
+void ClientInterface::onDataAvailable(const QString &endpoint, const QJsonDocument &doc)
 {
-    if (!reply)
-        return;
-
 #ifdef QT_DEBUG
-    qDebug() << "API REPLY";
+    qDebug() << endpoint;
 #endif
 
-    // read data
-    const QString url = reply->url().toString();
-    const QByteArray &data = reply->readAll();
-    const int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-
-#ifdef QT_DEBUG
-    qDebug() << url;
-    qDebug() << data;
-    qDebug() << status;
-#endif
-
-    // handel errors
-    if (reply->error()) {
-#ifdef QT_DEBUG
-        qDebug() << reply->errorString();
-#endif
-        if (url.endsWith(QStringLiteral("/api/config"))) {
-            m_homeassistantInfo->setError(reply->errorString());
-            m_homeassistantInfo->setAvailable(false);
-            m_homeassistantInfo->setLoading(false);
-        }
-
-        reply->deleteLater();
-        return;
-    }
-
-    // delete reply
-    reply->deleteLater();
-
-    // parse data
-    if (data.isEmpty()) {
-        setBusy(false);
-        return;
-    }
-
-    QJsonParseError error;
-
-    const QJsonObject obj = QJsonDocument::fromJson(data, &error).object();
-
-    if (error.error) {
-#ifdef QT_DEBUG
-        qDebug() << "JSON PARSE ERROR";
-#endif
-        setBusy(false);
-        return;
-    }
-
-    if ( status != 200 && status != 201 ) {
-        setBusy(false);
-        return;
-    }
-
-    // transfer data to endpoints
-    if ( url.endsWith(QStringLiteral(HASS_API_ENDPOINT_CONFIG)) ) {
-        m_homeassistantInfo->setData(obj);
+    if (endpoint == QStringLiteral(HASS_API_ENDPOINT_CONFIG)) {
+        m_homeassistantInfo->setData(doc.object());
         m_homeassistantInfo->setAvailable(true);
         m_homeassistantInfo->setLoading(false);
+    } else if (endpoint == QStringLiteral(HASS_API_ENDPOINT_DEVICE_REGISTRATION)) {
+        m_webhook->setRegistrationData(doc.object());
+        m_device->setRegistered(m_webhook->isRegistered());
 
-    } else if ( url.endsWith(QStringLiteral(HASS_API_ENDPOINT_DEVICE_REGISTRATION)) ) {
-        m_webhook->setCloudhookUrl(obj.value(QStringLiteral("cloudhook_url")).toString());
-        m_webhook->setRemoteUiUrl(obj.value(QStringLiteral("remote_ui_url")).toString());
-        m_webhook->setSecret(obj.value(QStringLiteral("secret")).toString());
-        m_webhook->setWebhookId(obj.value(QStringLiteral("webhook_id")).toString());
-
-        if (!m_webhook->webhookId().isEmpty()) {
-            m_webhook->saveSettings();
-            setRegistered(true);
-            m_webhook->registerSensors();
+        for (const DeviceSensor *sensor : m_device->sensors()) {
+            m_webhook->registerSensor(sensor);
         }
+        setBusy(false);
+        writeSettings();
     }
-
-    setBusy(false);
-}
-
-void ClientInterface::onSslErrors(QNetworkReply *reply, const QList<QSslError> &errors)
-{
-    reply->deleteLater();
-    setBusy(false);
-
-#ifdef QT_DEBUG
-    for (const QSslError &error : errors) {
-        qDebug() << error.errorString();
-    }
-#endif
-}
-
-void ClientInterface::onWebhookReply()
-{
-
-}
-
-QNetworkRequest ClientInterface::getApiRequest(const QString &endpoint, bool token)
-{
-    QNetworkRequest request(QUrl(m_baseUrl + endpoint));
-
-    if (m_ssl) {
-        QSslConfiguration sslConfig(QSslConfiguration::defaultConfiguration());
-        request.setSslConfiguration(sslConfig);
-    }
-
-    request.setRawHeader("Content-Type", "application/json");
-
-    if (token)
-        request.setRawHeader("Authorization", "Bearer " + m_token.toLatin1());
-
-    return request;
 }
 
 void ClientInterface::updateBaseUrl()
@@ -316,18 +191,11 @@ void ClientInterface::updateBaseUrl()
                                           m_hostname,
                                           QString::number(m_port));
 
+    m_api->setBaseUrl(m_baseUrl);
+    m_api->setSsl(m_ssl);
+
     m_webhook->setBaseUrl(m_baseUrl);
-}
-
-void ClientInterface::apiGet(const QString &endpoint)
-{
-    m_manager->get(getApiRequest(endpoint));
-}
-
-void ClientInterface::apiPost(const QString &endpoint, const QJsonObject &payload)
-{
-    m_manager->post(getApiRequest(endpoint),
-                    QJsonDocument(payload).toJson(QJsonDocument::Compact));
+    m_webhook->setSsl(m_ssl);
 }
 
 void ClientInterface::readSettings()
@@ -338,7 +206,15 @@ void ClientInterface::readSettings()
     m_hostname = settings.value(QStringLiteral("hostname"), QString()).toString();
     m_port = quint16(settings.value(QStringLiteral("port"), 8123).toInt());
     m_ssl = settings.value(QStringLiteral("ssl"), false).toBool();
-    m_token = settings.value(QStringLiteral("token"), QString()).toString();
+    m_api->setToken(settings.value(QStringLiteral("token"), QString()).toString());
+    settings.endGroup();
+
+    settings.beginGroup(QStringLiteral("WEBHOOK_API"));
+    m_webhook->setCloudhookUrl(settings.value(QStringLiteral("cloudhook_url"), QString()).toString());
+    m_webhook->setEncryption(settings.value(QStringLiteral("encryption"), false).toBool());
+    m_webhook->setRemoteUiUrl(settings.value(QStringLiteral("remote_ui_url"), QString()).toString());
+    m_webhook->setSecret(settings.value(QStringLiteral("secret"), QString()).toString());
+    m_webhook->setWebhookId(settings.value(QStringLiteral("webhook_id"), QString()).toString());
     settings.endGroup();
 
     settings.beginGroup(QStringLiteral("DEVICE"));
@@ -359,7 +235,15 @@ void ClientInterface::writeSettings()
     settings.setValue(QStringLiteral("hostname"), m_hostname);
     settings.setValue(QStringLiteral("port"), m_port);
     settings.setValue(QStringLiteral("ssl"), m_ssl);
-    settings.setValue(QStringLiteral("token"), m_token);
+    settings.setValue(QStringLiteral("token"), m_api->token());
+    settings.endGroup();
+
+    settings.beginGroup(QStringLiteral("WEBHOOK_API"));
+    settings.setValue(QStringLiteral("cloudhook_url"), m_webhook->cloudhookUrl());
+    settings.setValue(QStringLiteral("encryption"), m_webhook->encryption());
+    settings.setValue(QStringLiteral("remote_ui_url"), m_webhook->remoteUiUrl());
+    settings.setValue(QStringLiteral("secret"), m_webhook->secret());
+    settings.setValue(QStringLiteral("webhook_id"), m_webhook->webhookId());
     settings.endGroup();
 
     settings.beginGroup(QStringLiteral("DEVICE"));

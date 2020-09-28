@@ -15,8 +15,12 @@ Device::Device(QObject *parent) :
     QObject(parent),
     m_sensorModel(new DeviceSensorModel(this)),
     m_trackerGPS(nullptr),
+    m_zonesModel(new EntityModel(this)),
+    m_encryption(false),
     m_name(Sailfish::Mdm::SysInfo::productName()),
+    m_registered(false),
     m_sensorAutoUpdate(false)
+
 {
     DeviceSensorBattery *battery = new DeviceSensorBattery;
     registerSensor(battery);
@@ -77,9 +81,24 @@ DeviceTracker *Device::trackerGPS()
     return m_trackerGPS;
 }
 
+EntityModel *Device::zonesModel()
+{
+    return m_zonesModel;
+}
+
+bool Device::encryption() const
+{
+    return m_encryption;
+}
+
 QString Device::name() const
 {
     return m_name;
+}
+
+bool Device::registered() const
+{
+    return m_registered;
 }
 
 bool Device::sensorAutoUpdate() const
@@ -104,6 +123,20 @@ void Device::update()
 #endif
 }
 
+void Device::updateZones()
+{
+    emit updateZonesRequested();
+}
+
+void Device::setEncryption(bool enable)
+{
+    if (m_encryption == enable)
+        return;
+
+    m_encryption = enable;
+    emit encryptionChanged(m_encryption);
+}
+
 void Device::setName(const QString &name)
 {
     if (m_name == name)
@@ -111,6 +144,15 @@ void Device::setName(const QString &name)
 
     m_name = name;
     emit nameChanged(m_name);
+}
+
+void Device::setRegistered(bool registered)
+{
+    if (m_registered == registered)
+        return;
+
+    m_registered = registered;
+    emit registeredChanged(m_registered);
 }
 
 void Device::setSensorAutoUpdate(bool enable)

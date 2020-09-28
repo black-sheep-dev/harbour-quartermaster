@@ -257,6 +257,40 @@
         <source>Manage device tracking options</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Zones</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage zones</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SettingsZonePage</name>
+    <message>
+        <source>Reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit zone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hello Sailors</source>
+        <translation type="unfinished">Hallo Matrosen</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsZonesPage</name>
+    <message>
+        <source>Zones</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TestResultItem</name>

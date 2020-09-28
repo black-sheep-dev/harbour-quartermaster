@@ -91,6 +91,8 @@ void DeviceSensor::setEnabled(bool enable)
 
     m_enabled = enable;
     emit enabledChanged(m_enabled);
+
+    onEnabledChanged();
 }
 
 void DeviceSensor::setIcon(const QString &icon)

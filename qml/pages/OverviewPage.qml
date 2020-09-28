@@ -49,7 +49,7 @@ Page {
 
     onStatusChanged: {
         if (status == PageStatus.Active) {
-            if (!Client.registered) {
+            if (!Client.device().registered) {
                 pageStack.clear()
                 pageStack.push(Qt.resolvedUrl("wizard/WizardIntroPage.qml"))
             }

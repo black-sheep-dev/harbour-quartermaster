@@ -13,6 +13,8 @@ Page {
     PageBusyIndicator {
         size: BusyIndicatorSize.Large
         running: Client.homeassistantInfo().loading
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
     }
 
     SilicaFlickable {
