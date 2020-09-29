@@ -58,8 +58,9 @@ void HomeassistantApi::setToken(const QString &token)
 QNetworkRequest HomeassistantApi::getRequest(const QString &endpoint)
 {
     QNetworkRequest request = ApiInterface::getRequest(endpoint);
-
     request.setRawHeader("Authorization", "Bearer " + m_token.toLatin1());
+
+    m_activeRequests.append(endpoint);
 
     return request;
 }
@@ -74,12 +75,14 @@ void HomeassistantApi::onRequestFinished(QNetworkReply *reply)
 #endif
 
     // read data
-    QString url = reply->url().toString();
+    const QString endpoint = reply->url().toString().remove(baseUrl());
     const QByteArray &data = reply->readAll();
     const int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
+    m_activeRequests.removeAll(endpoint);
+
 #ifdef QT_DEBUG
-    qDebug() << url;
+    qDebug() << endpoint;
     qDebug() << data;
     qDebug() << status;
 #endif
@@ -109,6 +112,6 @@ void HomeassistantApi::onRequestFinished(QNetworkReply *reply)
         return;
     }
 
-    emit dataAvailable(url.remove(baseUrl()), doc);
+    emit dataAvailable(endpoint, doc);
 }
 

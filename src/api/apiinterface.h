@@ -26,6 +26,7 @@ public:
     bool ssl() const;
 
 signals:
+    void dataAvailable(const QString &endpoint, const QJsonDocument &data);
     void requestFinished(const QString &identifier, QNetworkReply *reply);
 
     // properties

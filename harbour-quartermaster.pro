@@ -39,8 +39,13 @@ SOURCES += src/harbour-quartermaster.cpp \
     src/device/sensors/devicesensorbattery.cpp \
     src/device/sensors/devicesensorbatterycharging.cpp \
     src/device/trackers/devicetrackergps.cpp \
+    src/device/trackers/devicetrackerwifi.cpp \
     src/entities/entity.cpp \
-    src/entities/entitymodel.cpp
+    src/entities/wifinetwork.cpp \
+    src/entities/zone.cpp \
+    src/models/entitymodel.cpp \
+    src/models/wifinetworkmodel.cpp \
+    src/models/zonesmodel.cpp
 
 DISTFILES += qml/harbour-quartermaster.qml \
     qml/components/ConnectionSettings.qml \
@@ -96,5 +101,10 @@ HEADERS += \
     src/device/sensors/devicesensorbattery.h \
     src/device/sensors/devicesensorbatterycharging.h \
     src/device/trackers/devicetrackergps.h \
+    src/device/trackers/devicetrackerwifi.h \
     src/entities/entity.h \
-    src/entities/entitymodel.h
+    src/entities/wifinetwork.h \
+    src/entities/zone.h \
+    src/models/entitymodel.h \
+    src/models/wifinetworkmodel.h \
+    src/models/zonesmodel.h

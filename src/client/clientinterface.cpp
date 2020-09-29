@@ -11,16 +11,22 @@
 
 ClientInterface::ClientInterface(QObject *parent) :
     QObject(parent),
+    m_gpsTracker(nullptr),
+    m_wifiTracker(nullptr),
+    m_zones(new ZonesModel(this)),
     m_api(new HomeassistantApi(this)),
     m_webhook(new WebhookApi(this)),
     m_device(new Device(this)),
     m_homeassistantInfo(new HomeassistantInfo(this)),
     m_busy(false)
 {
+    connect(m_wifiTracker, &DeviceTrackerWifi::networkChanged, this, &ClientInterface::setDebugOutput);
+
+
     connect(m_api, &HomeassistantApi::tokenChanged, this, &ClientInterface::tokenChanged);
     connect(m_api, &HomeassistantApi::dataAvailable, this, &ClientInterface::onDataAvailable);
+    connect(m_webhook, &WebhookApi::dataAvailable, this, &ClientInterface::onWebhookDataAvailable);
     connect(m_device, &Device::sensorUpdated, m_webhook, &WebhookApi::updateSensor);
-    connect(m_device, &Device::locationUpdated, m_webhook, &WebhookApi::updateLocation);
 
     readSettings();
 
@@ -49,8 +55,10 @@ HomeassistantInfo *ClientInterface::homeassistantInfo()
 
 void ClientInterface::initialize()
 {
-    m_webhook->initialize();
-    m_webhook->updateRegistration(m_device);
+    if (m_webhook->isRegistered()) {
+        m_webhook->updateRegistration(m_device);
+        getZones();
+    }
 }
 
 void ClientInterface::reset()
@@ -70,10 +78,21 @@ void ClientInterface::saveSettings()
     writeSettings();
 }
 
+ZonesModel *ClientInterface::zonesModel()
+{
+    return m_zones;
+}
+
 void ClientInterface::getConfig()
 {
     m_homeassistantInfo->setLoading(true);
     m_api->getConfig();
+}
+
+void ClientInterface::getZones()
+{
+    m_zones->setLoading(true);
+    m_webhook->getZones();
 }
 
 void ClientInterface::registerDevice()
@@ -105,6 +124,21 @@ bool ClientInterface::ssl() const
 QString ClientInterface::token() const
 {
     return m_api->token();
+}
+
+bool ClientInterface::trackingGPS() const
+{
+    return m_trackingGPS;
+}
+
+bool ClientInterface::trackingWifi() const
+{
+    return m_trackingWifi;
+}
+
+QString ClientInterface::debugOutput() const
+{
+    return m_debugOutput;
 }
 
 void ClientInterface::setBusy(bool busy)
@@ -163,6 +197,58 @@ void ClientInterface::setToken(const QString &token)
     m_api->setToken(token);
 }
 
+void ClientInterface::setTrackingGPS(bool enable)
+{
+    if (m_trackingGPS == enable)
+        return;
+
+    m_trackingGPS = enable;
+    emit trackingGPSChanged(m_trackingGPS);
+
+    // enable / disable tracker
+    if (m_gpsTracker)
+        m_gpsTracker->deleteLater();
+
+    m_gpsTracker = nullptr;
+
+    if (enable) {
+        m_gpsTracker = new DeviceTrackerGPS(this);
+        connect(m_gpsTracker, &DeviceTracker::locationUpdated, m_webhook, &WebhookApi::updateLocation);
+        m_gpsTracker->updateLocation();
+    }
+}
+
+void ClientInterface::setTrackingWifi(bool enable)
+{
+    if (m_trackingWifi == enable)
+        return;
+
+    m_trackingWifi = enable;
+    emit trackingWifiChanged(m_trackingWifi);
+
+    // enable / disable tracker
+    if (m_wifiTracker)
+        m_wifiTracker->deleteLater();
+
+    m_wifiTracker = nullptr;
+
+    if (enable) {
+        m_wifiTracker = new DeviceTrackerWifi(m_zones, this);
+        connect(m_wifiTracker, &DeviceTracker::locationUpdated, m_webhook, &WebhookApi::updateLocation);
+        m_wifiTracker->updateWifiNetworks();
+        m_wifiTracker->updateLocation();
+    }
+}
+
+void ClientInterface::setDebugOutput(QString debugOutput)
+{
+    if (m_debugOutput == debugOutput)
+        return;
+
+    m_debugOutput = debugOutput;
+    emit debugOutputChanged(m_debugOutput);
+}
+
 void ClientInterface::onDataAvailable(const QString &endpoint, const QJsonDocument &doc)
 {
 #ifdef QT_DEBUG
@@ -182,6 +268,13 @@ void ClientInterface::onDataAvailable(const QString &endpoint, const QJsonDocume
         }
         setBusy(false);
         writeSettings();
+    }
+}
+
+void ClientInterface::onWebhookDataAvailable(const QString &identifier, const QJsonDocument &doc)
+{
+    if (identifier == QStringLiteral("get_zones")) {
+        m_zones->setZones(doc.array());
     }
 }
 
@@ -224,6 +317,11 @@ void ClientInterface::readSettings()
         m_device->setName(name);
     settings.endGroup();
 
+    settings.beginGroup(QStringLiteral("TRACKING"));
+    setTrackingGPS(settings.value(QStringLiteral("gps"), false).toBool());
+    setTrackingWifi(settings.value(QStringLiteral("wifi"), false).toBool());
+    settings.endGroup();
+
     updateBaseUrl();
 }
 
@@ -248,5 +346,10 @@ void ClientInterface::writeSettings()
 
     settings.beginGroup(QStringLiteral("DEVICE"));
     settings.setValue(QStringLiteral("name"), m_device->name());
+    settings.endGroup();
+
+    settings.beginGroup(QStringLiteral("TRACKING"));
+    settings.setValue(QStringLiteral("gps"), m_trackingGPS);
+    settings.setValue(QStringLiteral("wifi"), m_trackingWifi);
     settings.endGroup();
 }

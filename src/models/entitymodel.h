@@ -3,7 +3,7 @@
 
 #include <QAbstractListModel>
 
-#include "entity.h"
+#include "src/entities/entity.h"
 
 class EntityModel : public QAbstractListModel
 {
@@ -25,6 +25,7 @@ public:
     explicit EntityModel(QObject *parent = nullptr);
     ~EntityModel() override;
 
+    Q_INVOKABLE Entity *entityAt(int index);
     QList<Entity *> entities() const;
     bool isEmpty() const;
 
@@ -52,7 +53,6 @@ private:
     bool m_loading;
 
     // QAbstractItemModel interface
-
 public:
     int rowCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const override;

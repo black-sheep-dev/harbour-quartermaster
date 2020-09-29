@@ -3,7 +3,7 @@ import Sailfish.Silica 1.0
 
 import org.nubecula.harbour.quartermaster 1.0
 
-import "../components/"
+import "../../components/"
 
 Page {
     id: page

@@ -161,6 +161,8 @@ void WebhookApi::onReplyFinished(const QString &identifier, QNetworkReply *reply
     if (!reply || identifier.isEmpty())
         return;
 
+    m_activeRequests.removeAll(identifier);
+
 #ifdef QT_DEBUG
     qDebug() << "WEBHOOK REPLY";
 #endif
@@ -178,6 +180,7 @@ void WebhookApi::onReplyFinished(const QString &identifier, QNetworkReply *reply
     const int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
 #ifdef QT_DEBUG
+    qDebug() << identifier;
     qDebug() << data;
     qDebug() << status;
 #endif
@@ -203,6 +206,7 @@ void WebhookApi::onReplyFinished(const QString &identifier, QNetworkReply *reply
     }
 
     // handle data
+    emit dataAvailable(identifier, doc);
 }
 
 void WebhookApi::updateWebhookUrl()
@@ -218,6 +222,11 @@ void WebhookApi::updateWebhookUrl()
 
 void WebhookApi::sendRequest(const QString &type, const QJsonObject &payload)
 {
+    if (m_activeRequests.contains(type))
+        return;
+
+    m_activeRequests.append(type);
+
     QJsonObject message;
     message.insert(QStringLiteral("type"), type);
 

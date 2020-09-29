@@ -12,6 +12,14 @@ EntityModel::~EntityModel()
     qDeleteAll(m_entities.begin(), m_entities.end());
 }
 
+Entity *EntityModel::entityAt(int index)
+{
+    if (index < 0 || index >= rowCount(QModelIndex()))
+        return nullptr;
+
+    return m_entities.at(index);
+}
+
 QList<Entity *> EntityModel::entities() const
 {
     return m_entities;
@@ -47,6 +55,15 @@ void EntityModel::updateEntity(Entity *entity)
 {
     if (!entity)
         return;
+
+    const int idx = m_entities.indexOf(entity);
+
+    if (idx < 0) {
+        addEntity(entity);
+    } else {
+        const QModelIndex index = QAbstractListModel::createIndex(idx, 0, entity);
+        emit dataChanged(index, index);
+    }
 }
 
 bool EntityModel::loading() const

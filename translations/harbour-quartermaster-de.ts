@@ -79,10 +79,6 @@
         <translation type="unfinished">UI-Vorlage</translation>
     </message>
     <message>
-        <source>Hello Sailors</source>
-        <translation type="unfinished">Hallo Matrosen</translation>
-    </message>
-    <message>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -218,6 +214,10 @@
         <source>WiFi networks will be used to track the device. You need to add WiFi SSID informations to your different zones. If the device connects to a known WiFi network, it will use the position info of the zone.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Position is updated every 30 seconds when activated.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>
@@ -269,16 +269,28 @@
 <context>
     <name>SettingsZonePage</name>
     <message>
-        <source>Reset</source>
+        <source>Zone Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Edit zone</source>
+        <source>Latitude</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Hello Sailors</source>
-        <translation type="unfinished">Hallo Matrosen</translation>
+        <source>Longitude</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wifi Networks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Wifi Network</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

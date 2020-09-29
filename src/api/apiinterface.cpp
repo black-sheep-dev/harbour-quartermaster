@@ -70,7 +70,7 @@ void ApiInterface::onReplyFinished()
     if (!reply)
         return;
 
-    const QString identifier = reply->property("itentifier").toString();
+    const QString identifier = reply->property("identifier").toString();
 
     if (identifier.isEmpty())
         return;

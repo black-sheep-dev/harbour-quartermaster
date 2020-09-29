@@ -21,7 +21,7 @@ Page {
             }
             MenuItem {
                 text: qsTr("Settings")
-                onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
+                onClicked: pageStack.push(Qt.resolvedUrl("settings/SettingsPage.qml"))
             }
         }
 
@@ -40,7 +40,7 @@ Page {
             }
             Label {
                 x: Theme.horizontalPageMargin
-                text: qsTr("Hello Sailors")
+                text: Client.debugOutput
                 color: Theme.secondaryHighlightColor
                 font.pixelSize: Theme.fontSizeExtraLarge
             }

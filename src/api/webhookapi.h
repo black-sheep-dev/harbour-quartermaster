@@ -67,6 +67,7 @@ private slots:
 private:
     void sendRequest(const QString &type, const QJsonObject &payload = QJsonObject());
 
+    QStringList m_activeRequests;
     ConnectionFailures m_connectionFailures;
     QString m_webhookUrl;
 

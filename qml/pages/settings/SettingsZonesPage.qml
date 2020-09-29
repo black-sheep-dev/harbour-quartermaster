@@ -10,18 +10,16 @@ Page {
 
     PageBusyIndicator {
         size: BusyIndicatorSize.Large
-        running: Client.device().zonesModel().loading
+        running: Client.zonesModel().loading
     }
 
     SilicaListView {
         PullDownMenu {
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: Client.device().updateZones()
+                onClicked: Client.getZones()
             }
         }
-
-        opacity: Client.device().zonesModel().loading ? 0.1 : 1.0
 
         id: listView
 
@@ -31,7 +29,8 @@ Page {
 
         anchors.fill: parent
 
-        model: Client.device().zonesModel()
+        opacity: Client.zonesModel().loading ? 0 : 1.0
+        model: Client.zonesModel()
 
 
         delegate: ListItem {
@@ -80,12 +79,13 @@ Page {
                         font.pixelSize: Theme.fontSizeLarge
                     }
                     Label{
-                        text: entity_id
+                        text: guid
                         color: Theme.secondaryColor
                         font.pixelSize: Theme.fontSizeMedium
                     }
                 }
             }
+            onClicked: pageStack.push(Qt.resolvedUrl("SettingsZonePage.qml"), { zone: Client.zonesModel().zoneAt(index)})
         }
         VerticalScrollDecorator {}
     }

@@ -3,7 +3,7 @@ import Sailfish.Silica 1.0
 
 import org.nubecula.harbour.quartermaster 1.0
 
-import "../components/"
+import "../../components/"
 
 Page {
     id: page
@@ -40,10 +40,10 @@ Page {
             TextSwitch {
                 id: gpsTrackingSwitch
                 text: qsTr("GPS Tracking")
-                description: qsTr("Use GPS data to track the device position.")
+                description: qsTr("Use GPS data to track the device position.") + "\n" + qsTr("Position is updated every 30 seconds when activated.")
 
-                onCheckedChanged: Client.device().trackingGPS = checked
-                Component.onCompleted: checked = Client.device().trackingGPS
+                onCheckedChanged: Client.trackingGPS = checked
+                Component.onCompleted: checked = Client.trackingGPS
             }
 
             TextSwitch {
@@ -51,8 +51,8 @@ Page {
                 text: qsTr("WiFi SSID Tracking")
                 description: qsTr("WiFi networks will be used to track the device. You need to add WiFi SSID informations to your different zones. If the device connects to a known WiFi network, it will use the position info of the zone.")
 
-                onCheckedChanged: Client.device().trackingWifi = checked
-                Component.onCompleted: checked = Client.device().trackingWifi
+                onCheckedChanged: Client.trackingWifi = checked
+                Component.onCompleted: checked = Client.trackingWifi
             }
 
         }

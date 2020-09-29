@@ -25,8 +25,6 @@ public:
     QString token() const;
 
 signals:
-    void dataAvailable(const QString &endpoint, const QJsonDocument &data);
-
     // properties
     void tokenChanged(const QString &token);
 
@@ -35,6 +33,8 @@ public slots:
     void setToken(const QString &token);
 
 private:
+    QStringList m_activeRequests;
+
     // properties
     QString m_token;
 
