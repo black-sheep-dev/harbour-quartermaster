@@ -3,17 +3,14 @@
 
 #include "apiinterface.h"
 
+
 #include "src/device/device.h"
 
 class WebhookApi : public ApiInterface
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString cloudhookUrl READ cloudhookUrl WRITE setCloudhookUrl NOTIFY cloudhookUrlChanged)
     Q_PROPERTY(bool encryption READ encryption WRITE setEncryption NOTIFY encryptionChanged)
-    Q_PROPERTY(QString remoteUiUrl READ remoteUiUrl WRITE setRemoteUiUrl NOTIFY remoteUiUrlChanged)
-    Q_PROPERTY(QString secret READ secret WRITE setSecret NOTIFY secretChanged)
-    Q_PROPERTY(QString webhookId READ webhookId WRITE setWebhookId NOTIFY webhookIdChanged)
 
 public:
     enum ConnectionFailure {
@@ -24,9 +21,9 @@ public:
     };
     Q_DECLARE_FLAGS(ConnectionFailures, ConnectionFailure)
 
-    explicit WebhookApi(QObject *parent = nullptr);
+    explicit WebhookApi(Wallet *wallet, QObject *parent = nullptr);
 
-    bool isRegistered() const;
+    bool isRegistered();
     void reset();
     void setRegistrationData(const QJsonObject &obj);
 
@@ -38,27 +35,17 @@ public:
     void updateSensor(const QJsonObject &sensor);
 
     // properties
-    QString cloudhookUrl() const;
     bool encryption() const;
-    QString remoteUiUrl() const;
-    QString secret() const;
-    QString webhookId() const;
 
 signals:
+    void secretsNeedSave(const Secrets &secrets);
+
     // properties
-    void cloudhookUrlChanged(const QString &url);
-    void encryptionChanged(bool encryption);
-    void remoteUiUrlChanged(const QString &url);
-    void secretChanged(const QString &secret);
-    void webhookIdChanged(const QString &id);
+    void encryptionChanged(bool enabled);
 
 public slots:
     // properties
-    void setCloudhookUrl(const QString &url);
-    void setEncryption(bool encryption);
-    void setRemoteUiUrl(const QString &url);
-    void setSecret(const QString &secret);
-    void setWebhookId(const QString &id);
+    void setEncryption(bool enable);
 
 private slots:
     void onReplyFinished(const QString &identifier, QNetworkReply *reply);
@@ -72,11 +59,7 @@ private:
     QString m_webhookUrl;
 
     // properties
-    QString m_cloudhookUrl;
     bool m_encryption{false};
-    QString m_remoteUiUrl;
-    QString m_secret;
-    QString m_webhookId;
 
     // ApiInterface interface
 public:

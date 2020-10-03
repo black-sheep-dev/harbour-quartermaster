@@ -8,13 +8,19 @@
 
 #include <QNetworkReply>
 
-ApiInterface::ApiInterface(QObject *parent) :
+ApiInterface::ApiInterface(Wallet *wallet, QObject *parent) :
     QObject(parent),
     m_manager(new QNetworkAccessManager(this)),
+    m_wallet(wallet),
     m_baseUrl(QString())
 {
     connect(m_manager, &QNetworkAccessManager::finished, this, &ApiInterface::onRequestFinished);
     connect(m_manager, &QNetworkAccessManager::sslErrors, this ,&ApiInterface::onSslErrors);
+}
+
+Wallet *ApiInterface::wallet()
+{
+    return m_wallet;
 }
 
 void ApiInterface::request(const QNetworkRequest &request, const QJsonObject &data, const QString &identifier)
@@ -39,6 +45,11 @@ QString ApiInterface::baseUrl() const
     return m_baseUrl;
 }
 
+Secrets *ApiInterface::secrets()
+{
+    return m_secrets;
+}
+
 bool ApiInterface::ssl() const
 {
     return m_ssl;
@@ -51,6 +62,15 @@ void ApiInterface::setBaseUrl(const QString &url)
 
     m_baseUrl = url;
     emit baseUrlChanged(m_baseUrl);
+}
+
+void ApiInterface::setSecrets(Secrets *secrets)
+{
+    if (m_secrets == secrets)
+        return;
+
+    m_secrets = secrets;
+    emit secretsChanged(m_secrets);
 }
 
 void ApiInterface::setSsl(bool ssl)

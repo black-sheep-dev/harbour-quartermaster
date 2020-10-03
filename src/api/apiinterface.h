@@ -6,15 +6,20 @@
 #include <QJsonObject>
 #include <QNetworkAccessManager>
 
+#include "src/crypto/wallet.h"
+
 class ApiInterface : public QObject
 {
     Q_OBJECT
 
     Q_PROPERTY(QString baseUrl READ baseUrl WRITE setBaseUrl NOTIFY baseUrlChanged)
+    Q_PROPERTY(Secrets *secrets READ secrets WRITE setSecrets NOTIFY secretsChanged)
     Q_PROPERTY(bool ssl READ ssl WRITE setSsl NOTIFY sslChanged)
 
 public:
-    explicit ApiInterface(QObject *parent = nullptr);
+    explicit ApiInterface(Wallet *wallet, QObject *parent = nullptr);
+
+    Wallet *wallet();
 
     // api functions
     void request(const QNetworkRequest &request,
@@ -23,6 +28,7 @@ public:
 
     // properties
     QString baseUrl() const;
+    Secrets *secrets();
     bool ssl() const;
 
 signals:
@@ -31,11 +37,13 @@ signals:
 
     // properties
     void baseUrlChanged(const QString &url);
+    void secretsChanged(Secrets *secrets);
     void sslChanged(bool ssl);
 
 public slots:
     // properties
     void setBaseUrl(const QString &url);
+    void setSecrets(Secrets *secrets);
     void setSsl(bool ssl);
 
 private slots:
@@ -44,12 +52,16 @@ private slots:
 
 private:
     QNetworkAccessManager *m_manager{nullptr};
+    Wallet *m_wallet{nullptr};
 
     // properties
     QString m_baseUrl;
+    Secrets *m_secrets{new Secrets()};
     bool m_ssl{false};
 
     // virtual function
+
+
 public:
     virtual QNetworkRequest getRequest(const QString &endpoint);
     virtual void initialize();

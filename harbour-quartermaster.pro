@@ -20,7 +20,8 @@ DEFINES += APP_TARGET=\\\"$$TARGET\\\"
 QT += positioning
 
 PKGCONFIG += \
-    sailfishmdm
+    sailfishmdm \
+    sailfishsecrets
 
 LIBS        += -L../../lib -lkeepalive
 
@@ -32,6 +33,7 @@ SOURCES += src/harbour-quartermaster.cpp \
     src/api/webhookapi.cpp \
     src/client/clientinterface.cpp \
     src/client/homeassistantinfo.cpp \
+    src/crypto/wallet.cpp \
     src/device/device.cpp \
     src/device/devicesensor.cpp \
     src/device/devicesensormodel.cpp \
@@ -95,6 +97,8 @@ HEADERS += \
     src/api/webhookapi.h \
     src/client/clientinterface.h \
     src/client/homeassistantinfo.h \
+    src/crypto/secrets.h \
+    src/crypto/wallet.h \
     src/device/device.h \
     src/device/devicesensor.h \
     src/device/devicesensormodel.h \

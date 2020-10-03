@@ -7,8 +7,8 @@
 #include "src/api/webhookapi.h"
 
 #include "homeassistantinfo.h"
+#include "src/crypto/wallet.h"
 #include "src/device/device.h"
-
 #include "src/device/trackers/devicetrackergps.h"
 #include "src/device/trackers/devicetrackerwifi.h"
 
@@ -19,6 +19,7 @@ class ClientInterface : public QObject
     Q_PROPERTY(bool busy READ busy WRITE setBusy NOTIFY busyChanged)
     Q_PROPERTY(QString hostname READ hostname WRITE setHostname NOTIFY hostnameChanged)
     Q_PROPERTY(quint16 port READ port WRITE setPort NOTIFY portChanged)
+    Q_PROPERTY(bool ready READ ready WRITE setReady NOTIFY readyChanged)
     Q_PROPERTY(bool ssl READ ssl WRITE setSsl NOTIFY sslChanged)
     Q_PROPERTY(QString token READ token WRITE setToken NOTIFY tokenChanged)
     Q_PROPERTY(bool trackingGPS READ trackingGPS WRITE setTrackingGPS NOTIFY trackingGPSChanged)
@@ -34,6 +35,7 @@ public:
     Q_INVOKABLE Device *device();
     Q_INVOKABLE HomeassistantInfo *homeassistantInfo();
     Q_INVOKABLE void initialize();
+    Q_INVOKABLE bool isRegistered();
     Q_INVOKABLE void reset();
     Q_INVOKABLE void saveSettings();
     Q_INVOKABLE WifiNetworkModel *networksModel();
@@ -48,6 +50,7 @@ public:
     bool busy() const;
     QString hostname() const;
     quint16 port() const;
+    bool ready() const;
     bool ssl() const;
     QString token() const;
     bool trackingGPS() const;
@@ -60,6 +63,7 @@ signals:
     void busyChanged(bool busy);
     void hostnameChanged(const QString &hostname);
     void portChanged(quint16 port);
+    void readyChanged(bool ready);
     void sslChanged(bool ssl);
     void tokenChanged(const QString &token);  
     void trackingGPSChanged(bool enabled);
@@ -67,11 +71,14 @@ signals:
 
     void debugOutputChanged(QString debugOutput);
 
+
+
 public slots:
     // properties
     void setBusy(bool busy);
     void setHostname(const QString &hostname);
     void setPort(quint16 port);
+    void setReady(bool ready);
     void setSsl(bool ssl);
     void setToken(const QString &token);
     void setTrackingGPS(bool enable);
@@ -98,6 +105,8 @@ private:
     HomeassistantApi *m_api{nullptr};
     WebhookApi *m_webhook{nullptr};
 
+    Wallet *m_wallet{nullptr};
+
     Device *m_device{nullptr};
     HomeassistantInfo *m_homeassistantInfo{nullptr};
 
@@ -107,6 +116,7 @@ private:
     bool m_busy{false};
     QString m_hostname;
     quint16 m_port{8123};
+    bool m_ready{false};
     bool m_ssl{false};
     bool m_trackingGPS{false};
     bool m_trackingWifi{false};

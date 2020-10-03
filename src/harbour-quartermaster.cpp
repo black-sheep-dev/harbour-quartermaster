@@ -11,6 +11,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName(QStringLiteral("nubecula.org"));
     QCoreApplication::setOrganizationDomain(QStringLiteral("nubecula.org"));
 
+    qRegisterMetaTypeStreamOperators<Secrets>("WebhookSecrets");
+
     //qRegisterMetaType<EntityContext>("EntityContext");
 
     qmlRegisterType<Device>("org.nubecula.harbour.quartermaster", 1, 0, "Device");

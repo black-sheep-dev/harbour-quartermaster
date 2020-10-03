@@ -6,14 +6,18 @@ import org.nubecula.harbour.quartermaster 1.0
 Page {
     id: page
 
-    // The effective value will be restricted by ApplicationWindow.allowedOrientations
     allowedOrientations: Orientation.All
 
-    // To enable PullDownMenu, place our content in a SilicaFlickable
+    PageBusyIndicator {
+        size: BusyIndicatorSize.Large
+        running: !Client.ready
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+    }
+
     SilicaFlickable {
         anchors.fill: parent
 
-        // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
             MenuItem {
                 text: qsTr("About")
@@ -25,18 +29,15 @@ Page {
             }
         }
 
-        // Tell SilicaFlickable the height of its content.
         contentHeight: column.height
 
-        // Place our content in a Column.  The PageHeader is always placed at the top
-        // of the page, followed by our content.
         Column {
             id: column
 
             width: page.width
             spacing: Theme.paddingLarge
             PageHeader {
-                title: qsTr("UI Template")
+                title: qsTr("Overview")
             }
             Label {
                 x: Theme.horizontalPageMargin
@@ -47,9 +48,12 @@ Page {
         }
     }
 
-    onStatusChanged: {
-        if (status == PageStatus.Active) {
-            if (!Client.device().registered) {
+    Connections {
+        target: Client
+        onReadyChanged: {
+            if (!Client.ready) return
+
+            if (!Client.isRegistered()) {
                 pageStack.clear()
                 pageStack.push(Qt.resolvedUrl("wizard/WizardIntroPage.qml"))
             }

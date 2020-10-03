@@ -75,11 +75,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>UI Template</source>
+        <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Settings</source>
+        <source>Overview</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

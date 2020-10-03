@@ -22,7 +22,12 @@ Page {
         PullDownMenu {
             MenuItem {
                 text: qsTr("Reset")
-                onClicked: resetPopup.execute(qsTr("Resetting"), function() { Client.reset() })
+                onClicked: resetPopup.execute(qsTr("Resetting"), function() {
+                    Client.reset()
+
+                    pageStack.clear()
+                    pageStack.push(Qt.resolvedUrl("../wizard/WizardIntroPage.qml"))
+                })
             }
         }
 

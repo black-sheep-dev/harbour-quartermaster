@@ -6,32 +6,32 @@
 #include <QNetworkReply>
 #include <QNetworkRequest>
 
-WebhookApi::WebhookApi(QObject *parent) :
-    ApiInterface(parent),
-    m_connectionFailures(ConnectionFailureNone),
-    m_cloudhookUrl(QString()),
-    m_remoteUiUrl(QString()),
-    m_secret(QString()),
-    m_webhookId(QString())
+WebhookApi::WebhookApi(Wallet *wallet, QObject *parent) :
+    ApiInterface(wallet, parent),
+    m_connectionFailures(ConnectionFailureNone)
 {
     connect(this, &ApiInterface::baseUrlChanged, this, &WebhookApi::updateWebhookUrl);
     connect(this, &ApiInterface::requestFinished, this, &WebhookApi::onReplyFinished);
+    connect(this->wallet(), &Wallet::initialized, this, &WebhookApi::updateWebhookUrl);
 }
 
-bool WebhookApi::isRegistered() const
+bool WebhookApi::isRegistered()
 {
-    return !m_webhookId.isEmpty();
+    return !wallet()->webhookId().isEmpty();
 }
 
 void WebhookApi::reset()
 {
     m_connectionFailures = ConnectionFailureNone;
-    m_cloudhookUrl = QString();
+
     m_encryption = false;
-    m_remoteUiUrl = QString();
-    m_secret = QString();
-    m_webhookId = QString();
-    m_webhookUrl = QString();
+
+    wallet()->setCloudhookUrl(QString());
+    wallet()->setRemoteUiUrl(QString());
+    wallet()->setSecret(QString());
+    wallet()->setWebhookId(QString());
+
+    wallet()->storeSecrets();
 }
 
 void WebhookApi::setRegistrationData(const QJsonObject &obj)
@@ -40,10 +40,12 @@ void WebhookApi::setRegistrationData(const QJsonObject &obj)
     qDebug() << obj;
 #endif
 
-    setCloudhookUrl(obj.value(QStringLiteral("cloudhook_url")).toString());
-    setRemoteUiUrl(obj.value(QStringLiteral("remote_ui_url")).toString());
-    setSecret(obj.value(QStringLiteral("secret")).toString());
-    setWebhookId(obj.value(QStringLiteral("webhook_id")).toString());
+    wallet()->setCloudhookUrl(obj.value(QStringLiteral("cloudhook_url")).toString());
+    wallet()->setRemoteUiUrl(obj.value(QStringLiteral("remote_ui_url")).toString());
+    wallet()->setSecret(obj.value(QStringLiteral("secret")).toString());
+    wallet()->setWebhookId(obj.value(QStringLiteral("webhook_id")).toString());
+
+    wallet()->storeSecrets();
 
     updateWebhookUrl();
 }
@@ -85,74 +87,18 @@ void WebhookApi::updateSensor(const QJsonObject &sensor)
     sendRequest(QStringLiteral("update_sensor_states"), sensor);
 }
 
-QString WebhookApi::cloudhookUrl() const
-{
-    return m_cloudhookUrl;
-}
-
 bool WebhookApi::encryption() const
 {
     return m_encryption;
 }
 
-QString WebhookApi::remoteUiUrl() const
+void WebhookApi::setEncryption(bool enable)
 {
-    return m_remoteUiUrl;
-}
-
-QString WebhookApi::secret() const
-{
-    return m_secret;
-}
-
-QString WebhookApi::webhookId() const
-{
-    return m_webhookId;
-}
-
-void WebhookApi::setCloudhookUrl(const QString &url)
-{
-    if (m_cloudhookUrl == url)
+    if (m_encryption == enable)
         return;
 
-    m_cloudhookUrl = url;
-    emit cloudhookUrlChanged(m_cloudhookUrl);
-}
-
-void WebhookApi::setEncryption(bool encryption)
-{
-    if (m_encryption == encryption)
-        return;
-
-    m_encryption = encryption;
+    m_encryption = enable;
     emit encryptionChanged(m_encryption);
-}
-
-void WebhookApi::setRemoteUiUrl(const QString &url)
-{
-    if (m_remoteUiUrl == url)
-        return;
-
-    m_remoteUiUrl = url;
-    emit remoteUiUrlChanged(m_remoteUiUrl);
-}
-
-void WebhookApi::setSecret(const QString &secret)
-{
-    if (m_secret == secret)
-        return;
-
-    m_secret = secret;
-    emit secretChanged(m_secret);
-}
-
-void WebhookApi::setWebhookId(const QString &id)
-{
-    if (m_webhookId == id)
-        return;
-
-    m_webhookId = id;
-    emit webhookIdChanged(m_webhookId);
 }
 
 void WebhookApi::onReplyFinished(const QString &identifier, QNetworkReply *reply)
@@ -210,12 +156,12 @@ void WebhookApi::onReplyFinished(const QString &identifier, QNetworkReply *reply
 
 void WebhookApi::updateWebhookUrl()
 {
-    if ( !m_cloudhookUrl.isEmpty() && !(m_connectionFailures & ConnectionFailureCloudhook) ) {
-        m_webhookUrl = m_cloudhookUrl;
-    } else if ( !m_remoteUiUrl.isEmpty() && !(m_connectionFailures & ConnectionFailureRemoteUi) ) {
-        m_webhookUrl = m_remoteUiUrl + QStringLiteral("/api/webhook/") + m_webhookId;
+    if ( !wallet()->cloudhookUrl().isEmpty() && !(m_connectionFailures & ConnectionFailureCloudhook) ) {
+        m_webhookUrl = wallet()->cloudhookUrl();
+    } else if ( !wallet()->remoteUiUrl().isEmpty() && !(m_connectionFailures & ConnectionFailureRemoteUi) ) {
+        m_webhookUrl = wallet()->remoteUiUrl() + QStringLiteral("/api/webhook/") + wallet()->webhookId();
     } else {
-        m_webhookUrl = baseUrl() + QStringLiteral("/api/webhook/") + m_webhookId;
+        m_webhookUrl = baseUrl() + QStringLiteral("/api/webhook/") + wallet()->webhookId();
     }
 }
 

@@ -12,13 +12,16 @@
 ClientInterface::ClientInterface(QObject *parent) :
     QObject(parent),
     m_zones(new ZonesModel(this)),
-    m_api(new HomeassistantApi(this)),
-    m_webhook(new WebhookApi(this)),
+    m_wallet(new Wallet(this)),
     m_device(new Device(this)),
     m_homeassistantInfo(new HomeassistantInfo(this))
 {
-    connect(m_wifiTracker, &DeviceTrackerWifi::networkChanged, this, &ClientInterface::setDebugOutput);
+    m_api = new HomeassistantApi(m_wallet, this);
+    m_webhook = new WebhookApi(m_wallet, this);
 
+    connect(m_wallet, &Wallet::initialized, this, &ClientInterface::setReady);
+
+    connect(m_wifiTracker, &DeviceTrackerWifi::networkChanged, this, &ClientInterface::setDebugOutput);
 
     connect(m_api, &HomeassistantApi::tokenChanged, this, &ClientInterface::tokenChanged);
     connect(m_api, &HomeassistantApi::dataAvailable, this, &ClientInterface::onDataAvailable);
@@ -52,10 +55,17 @@ HomeassistantInfo *ClientInterface::homeassistantInfo()
 
 void ClientInterface::initialize()
 {
-    if (m_webhook->isRegistered()) {
-        m_webhook->updateRegistration(m_device);
-        getZones();
-    }
+    m_wallet->initialize();
+
+//    if (m_webhook->isRegistered()) {
+//        m_webhook->updateRegistration(m_device);
+//        getZones();
+    //    }
+}
+
+bool ClientInterface::isRegistered()
+{
+    return m_webhook->isRegistered();
 }
 
 void ClientInterface::reset()
@@ -121,6 +131,11 @@ quint16 ClientInterface::port() const
     return m_port;
 }
 
+bool ClientInterface::ready() const
+{
+    return m_ready;
+}
+
 bool ClientInterface::ssl() const
 {
     return m_ssl;
@@ -184,6 +199,15 @@ void ClientInterface::setPort(quint16 port)
     emit portChanged(m_port);
 
     updateBaseUrl();
+}
+
+void ClientInterface::setReady(bool ready)
+{
+    if (m_ready == ready)
+        return;
+
+    m_ready = ready;
+    emit readyChanged(m_ready);
 }
 
 void ClientInterface::setSsl(bool ssl)
@@ -308,11 +332,7 @@ void ClientInterface::readSettings()
     settings.endGroup();
 
     settings.beginGroup(QStringLiteral("WEBHOOK_API"));
-    m_webhook->setCloudhookUrl(settings.value(QStringLiteral("cloudhook_url"), QString()).toString());
     m_webhook->setEncryption(settings.value(QStringLiteral("encryption"), false).toBool());
-    m_webhook->setRemoteUiUrl(settings.value(QStringLiteral("remote_ui_url"), QString()).toString());
-    m_webhook->setSecret(settings.value(QStringLiteral("secret"), QString()).toString());
-    m_webhook->setWebhookId(settings.value(QStringLiteral("webhook_id"), QString()).toString());
     settings.endGroup();
 
     settings.beginGroup(QStringLiteral("DEVICE"));
@@ -338,15 +358,11 @@ void ClientInterface::writeSettings()
     settings.setValue(QStringLiteral("hostname"), m_hostname);
     settings.setValue(QStringLiteral("port"), m_port);
     settings.setValue(QStringLiteral("ssl"), m_ssl);
-    settings.setValue(QStringLiteral("token"), m_api->token());
+    //settings.setValue(QStringLiteral("token"), m_api->token());
     settings.endGroup();
 
     settings.beginGroup(QStringLiteral("WEBHOOK_API"));
-    settings.setValue(QStringLiteral("cloudhook_url"), m_webhook->cloudhookUrl());
     settings.setValue(QStringLiteral("encryption"), m_webhook->encryption());
-    settings.setValue(QStringLiteral("remote_ui_url"), m_webhook->remoteUiUrl());
-    settings.setValue(QStringLiteral("secret"), m_webhook->secret());
-    settings.setValue(QStringLiteral("webhook_id"), m_webhook->webhookId());
     settings.endGroup();
 
     settings.beginGroup(QStringLiteral("DEVICE"));

@@ -9,8 +9,8 @@
 #include <QJsonParseError>
 #include <QNetworkReply>
 
-HomeassistantApi::HomeassistantApi(QObject *parent) :
-    ApiInterface(parent),
+HomeassistantApi::HomeassistantApi(Wallet *wallet, QObject *parent) :
+    ApiInterface(wallet, parent),
     m_token(QString())
 {
 

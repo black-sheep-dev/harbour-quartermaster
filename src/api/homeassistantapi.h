@@ -6,6 +6,7 @@
 #define     HASS_API_ENDPOINT_CONFIG                    "/api/config"
 #define     HASS_API_ENDPOINT_DEVICE_REGISTRATION       "/api/mobile_app/registrations"
 
+#include "src/crypto/secrets.h"
 #include "src/device/device.h"
 
 class HomeassistantApi : public ApiInterface
@@ -15,7 +16,7 @@ class HomeassistantApi : public ApiInterface
     Q_PROPERTY(QString token READ token WRITE setToken NOTIFY tokenChanged)
 
 public:
-    explicit HomeassistantApi(QObject *parent = nullptr);
+    explicit HomeassistantApi(Wallet *wallet, QObject *parent = nullptr);
 
     // api calls
     void getConfig();
@@ -37,6 +38,7 @@ private:
 
     // properties
     QString m_token;
+    Secrets m_secrets;
 
     // ApiInterface interface
 public:
