@@ -48,14 +48,14 @@ public slots:
     void setRadius(double radius);
 
 private:
-    WifiNetworkModel *m_networks;
+    WifiNetworkModel *m_networks{nullptr};
 
     // properties
     QString m_guid;
-    double m_latitude;
-    double m_longitude;
+    double m_latitude{0.0};
+    double m_longitude{0.0};
     QString m_name;
-    double m_radius;
+    double m_radius{0.0};
 };
 
 #endif // ZONE_H

@@ -14,16 +14,12 @@
 Device::Device(QObject *parent) :
     QObject(parent),
     m_sensorModel(new DeviceSensorModel(this)),
-    m_encryption(false),
-    m_name(Sailfish::Mdm::SysInfo::productName()),
-    m_registered(false),
-    m_sensorAutoUpdate(false)
-
+    m_name(Sailfish::Mdm::SysInfo::productName())
 {
-    DeviceSensorBattery *battery = new DeviceSensorBattery;
+    auto *battery = new DeviceSensorBattery;
     registerSensor(battery);
 
-    DeviceSensorBatteryCharging *batteryCharging = new DeviceSensorBatteryCharging;
+    auto *batteryCharging = new DeviceSensorBatteryCharging;
     registerSensor(batteryCharging);
 
     readSettings();
@@ -97,7 +93,7 @@ bool Device::sensorAutoUpdate() const
 void Device::update()
 {
 #ifdef QT_DEBUG
-    qDebug() << "UPDATE DEVICE LOCATION";
+    qDebug() << QStringLiteral("UPDATE DEVICE LOCATION");
 #endif
 }
 

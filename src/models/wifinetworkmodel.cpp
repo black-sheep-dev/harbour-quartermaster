@@ -1,8 +1,7 @@
 #include "wifinetworkmodel.h"
 
 WifiNetworkModel::WifiNetworkModel(QObject *parent) :
-    QAbstractListModel(parent),
-    m_loading(false)
+    QAbstractListModel(parent)
 {
 
 }
@@ -35,7 +34,7 @@ void WifiNetworkModel::addNetwork(const QString &ssid, const QString &identifier
             return;
     }
 
-    WifiNetwork *network = new WifiNetwork;
+    auto *network = new WifiNetwork;
     network->setName(ssid);
     network->setIdentifier(identifier);
 

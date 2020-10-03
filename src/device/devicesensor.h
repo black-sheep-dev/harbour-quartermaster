@@ -66,7 +66,7 @@ private:
 
     // properties
     QString m_deviceClass;
-    bool m_enabled;
+    bool m_enabled{false};
     QString m_icon;
     QString m_name;
     QString m_sensorType;

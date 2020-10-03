@@ -20,7 +20,7 @@ DeviceTrackerGPS::DeviceTrackerGPS(QObject *parent) :
 void DeviceTrackerGPS::updateLocation()
 {
 #ifdef QT_DEBUG
-    qDebug() << "UPDATE GPS POSITION";
+    qDebug() << QStringLiteral("UPDATE GPS POSITION");
 #endif
 
     onPositionChanged(m_gps->lastKnownPosition());

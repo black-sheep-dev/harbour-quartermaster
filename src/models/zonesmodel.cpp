@@ -4,8 +4,7 @@
 #include <QJsonObject>
 
 ZonesModel::ZonesModel(QObject *parent) :
-    QAbstractListModel(parent),
-    m_loading(false)
+    QAbstractListModel(parent)
 {
 
 }

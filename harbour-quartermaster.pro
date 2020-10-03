@@ -60,6 +60,7 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/SettingsPage.qml \
     qml/pages/SettingsZonePage.qml \
     qml/pages/SettingsZonesPage.qml \
+    qml/pages/settings/SettingsWifiPage.qml \
     qml/pages/wizard/WizardConnectionPage.qml \
     qml/pages/wizard/WizardDeviceRegistrationPage.qml \
     qml/pages/wizard/WizardInfoPage.qml \

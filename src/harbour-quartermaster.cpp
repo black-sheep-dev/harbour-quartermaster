@@ -16,10 +16,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<Device>("org.nubecula.harbour.quartermaster", 1, 0, "Device");
     qmlRegisterType<DeviceSensor>("org.nubecula.harbour.quartermaster", 1, 0, "DeviceSensor");
     qmlRegisterType<DeviceSensorModel>("org.nubecula.harbour.quartermaster", 1, 0, "DeviceSensorModel");
-    //qmlRegisterType<DeviceTracker>("org.nubecula.harbour.quartermaster", 1, 0, "DeviceTracker");
-    //qmlRegisterType<Entity>("org.nubecula.harbour.quartermaster", 1, 0, "Entity");
-    //qmlRegisterType<EntityModel>("org.nubecula.harbour.quartermaster", 1, 0, "EntityModel");
     qmlRegisterType<HomeassistantInfo>("org.nubecula.harbour.quartermaster", 1, 0, "HomeassistantInfo");
+    qmlRegisterType<WifiNetworkModel>("org.nubecula.harbour.quartermaster", 1, 0, "WifiNetworkModel");
     qmlRegisterType<Zone>("org.nubecula.harbour.quartermaster", 1, 0, "Zone");
     qmlRegisterType<ZonesModel>("org.nubecula.harbour.quartermaster", 1, 0, "ZonesModel");
 
@@ -32,7 +30,7 @@ int main(int argc, char *argv[])
         Q_UNUSED(engine)
         Q_UNUSED(scriptEngine)
 
-        ClientInterface *client = new ClientInterface();
+        auto *client = new ClientInterface();
 
         return client;
     });

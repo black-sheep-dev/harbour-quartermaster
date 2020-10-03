@@ -17,7 +17,7 @@ public:
         IdentifierRole,
         SelectedRole
     };
-    Q_ENUMS(WifiNetworkRoles)
+    Q_ENUM(WifiNetworkRoles)
 
     explicit WifiNetworkModel(QObject *parent = nullptr);
     ~WifiNetworkModel() override;
@@ -49,7 +49,7 @@ private:
     QList<WifiNetwork *> m_networks;
 
     // properties
-    bool m_loading;
+    bool m_loading{false};
 
     // QAbstractItemModel interface
 public:

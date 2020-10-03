@@ -28,7 +28,7 @@ class ClientInterface : public QObject
 
 public:
     explicit ClientInterface(QObject *parent = nullptr);
-    ~ClientInterface();
+    ~ClientInterface() override;
 
     Q_INVOKABLE void connectToHost();
     Q_INVOKABLE Device *device();
@@ -36,6 +36,7 @@ public:
     Q_INVOKABLE void initialize();
     Q_INVOKABLE void reset();
     Q_INVOKABLE void saveSettings();
+    Q_INVOKABLE WifiNetworkModel *networksModel();
     Q_INVOKABLE ZonesModel *zonesModel();
 
     // api
@@ -76,7 +77,7 @@ public slots:
     void setTrackingGPS(bool enable);
     void setTrackingWifi(bool enable);
 
-    void setDebugOutput(QString debugOutput);
+    void setDebugOutput(const QString &output);
 
 private slots:
     void onDataAvailable(const QString &endpoint, const QJsonDocument &doc);
@@ -89,26 +90,26 @@ private:
     void readSettings();
     void writeSettings();
 
-    DeviceTrackerGPS *m_gpsTracker;
-    DeviceTrackerWifi *m_wifiTracker;
+    DeviceTrackerGPS *m_gpsTracker{nullptr};
+    DeviceTrackerWifi *m_wifiTracker{nullptr};
 
-    ZonesModel *m_zones;
+    ZonesModel *m_zones{nullptr};
 
-    HomeassistantApi *m_api;
-    WebhookApi *m_webhook;
+    HomeassistantApi *m_api{nullptr};
+    WebhookApi *m_webhook{nullptr};
 
-    Device *m_device;
-    HomeassistantInfo *m_homeassistantInfo;
+    Device *m_device{nullptr};
+    HomeassistantInfo *m_homeassistantInfo{nullptr};
 
     QString m_baseUrl;
 
     // properties
-    bool m_busy;
+    bool m_busy{false};
     QString m_hostname;
-    quint16 m_port;
-    bool m_ssl;
-    bool m_trackingGPS;
-    bool m_trackingWifi;
+    quint16 m_port{8123};
+    bool m_ssl{false};
+    bool m_trackingGPS{false};
+    bool m_trackingWifi{false};
 
     QString m_debugOutput;
 };

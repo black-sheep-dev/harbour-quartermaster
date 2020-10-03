@@ -11,8 +11,7 @@
 ApiInterface::ApiInterface(QObject *parent) :
     QObject(parent),
     m_manager(new QNetworkAccessManager(this)),
-    m_baseUrl(QString()),
-    m_ssl(false)
+    m_baseUrl(QString())
 {
     connect(m_manager, &QNetworkAccessManager::finished, this, &ApiInterface::onRequestFinished);
     connect(m_manager, &QNetworkAccessManager::sslErrors, this ,&ApiInterface::onSslErrors);
@@ -65,7 +64,7 @@ void ApiInterface::setSsl(bool ssl)
 
 void ApiInterface::onReplyFinished()
 {
-    QNetworkReply *reply = qobject_cast<QNetworkReply *>(sender());
+    auto *reply = qobject_cast<QNetworkReply *>(sender());
 
     if (!reply)
         return;

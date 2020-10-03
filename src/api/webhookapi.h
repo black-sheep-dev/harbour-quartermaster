@@ -73,7 +73,7 @@ private:
 
     // properties
     QString m_cloudhookUrl;
-    bool m_encryption;
+    bool m_encryption{false};
     QString m_remoteUiUrl;
     QString m_secret;
     QString m_webhookId;

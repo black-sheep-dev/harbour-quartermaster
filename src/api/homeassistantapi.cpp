@@ -100,7 +100,7 @@ void HomeassistantApi::onRequestFinished(QNetworkReply *reply)
     // delete reply
     reply->deleteLater();
 
-    QJsonParseError error;
+    QJsonParseError error{};
 
     const QJsonDocument doc = QJsonDocument::fromJson(data, &error);
 

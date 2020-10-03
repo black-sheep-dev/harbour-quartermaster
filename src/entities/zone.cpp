@@ -5,10 +5,8 @@
 Zone::Zone(QObject *parent) :
     QObject(parent),
     m_networks(new WifiNetworkModel(this)),
-    m_latitude(0.0),
-    m_longitude(0.0),
-    m_name(QString()),
-    m_radius(0.0)
+    m_name(QString())
+    
 {
 
 }

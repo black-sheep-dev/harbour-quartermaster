@@ -18,7 +18,7 @@ public:
         UniqueIdRole,
         UnitRole
     };
-    Q_ENUMS(DeviceSensorRole)
+    Q_ENUM(DeviceSensorRole)
 
     explicit DeviceSensorModel(QObject *parent = nullptr);
     ~DeviceSensorModel() override;

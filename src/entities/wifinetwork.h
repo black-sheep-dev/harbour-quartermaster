@@ -31,7 +31,7 @@ public slots:
 private:
     QString m_identifier;
     QString m_name;
-    bool m_selected;
+    bool m_selected{false};
 };
 
 #endif // WIFINETWORK_H

@@ -43,11 +43,11 @@ private slots:
     void onSslErrors(QNetworkReply *reply, const QList<QSslError> &errors);
 
 private:
-    QNetworkAccessManager *m_manager;
+    QNetworkAccessManager *m_manager{nullptr};
 
     // properties
     QString m_baseUrl;
-    bool m_ssl;
+    bool m_ssl{false};
 
     // virtual function
 public:

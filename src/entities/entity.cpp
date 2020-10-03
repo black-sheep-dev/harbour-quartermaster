@@ -2,10 +2,20 @@
 
 Entity::Entity(QObject *parent) :
     QObject(parent),
-    m_enityId(QString()),
-    m_name(QString()),
-    m_state(QVariant()),
-    m_type(Unkown)
+    m_entityId(QString()),
+    m_name(QString())
+{
+
+}
+
+Entity::Entity(const Entity &other) :
+    QObject(other.parent()),
+    m_attributes(other.attributes()),
+    m_context(other.context()),
+    m_entityId(other.entityId()),
+    m_name(other.name()),
+    m_state(other.state()),
+    m_type(other.type())
 {
 
 }
@@ -16,19 +26,22 @@ Entity::Entity(const QJsonObject &json, QObject *parent) :
     setJson(json);
 }
 
+Entity::~Entity()
+= default;
+
 void Entity::setJson(const QJsonObject &json)
 {
     if (json.isEmpty())
         return;
 
-    setEnityId(json.value(QStringLiteral("entity_id")).toString());
-    if (m_enityId.isEmpty())
+    setEntityId(json.value(QStringLiteral("entity_id")).toString());
+    if (m_entityId.isEmpty())
         return;
 
     setState(json.value(QStringLiteral("state")).toVariant());
 
     // parse sensor type
-    const QString type = m_enityId.split(".").first();
+    const QString type = m_entityId.split(".").first();
 
     if (type == QStringLiteral("alarm_control_panel"))
         setType(Alarm);
@@ -86,9 +99,9 @@ EntityContext Entity::context() const
     return m_context;
 }
 
-QString Entity::enityId() const
+QString Entity::entityId() const
 {
-    return m_enityId;
+    return m_entityId;
 }
 
 QString Entity::name() const
@@ -124,13 +137,13 @@ void Entity::setContext(const EntityContext &context)
     emit contextChanged(m_context);
 }
 
-void Entity::setEnityId(const QString &id)
+void Entity::setEntityId(const QString &id)
 {
-    if (m_enityId == id)
+    if (m_entityId == id)
         return;
 
-    m_enityId = id;
-    emit enityIdChanged(m_enityId);
+    m_entityId = id;
+    emit entityIdChanged(m_entityId);
 }
 
 void Entity::setName(const QString &name)

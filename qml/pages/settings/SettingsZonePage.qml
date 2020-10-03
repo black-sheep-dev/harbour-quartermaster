@@ -19,6 +19,7 @@ Page {
             MenuItem {
                 text: qsTr("Add Wifi Network")
                 enabled: Client.trackingWifi
+                onClicked: pageStack.push(Qt.resolvedUrl("SettingsWifiPage.qml"));
             }
         }
         contentHeight: column.height

@@ -11,7 +11,7 @@ class HomeassistantInfo : public QObject
 
     Q_PROPERTY(bool available READ available WRITE setAvailable NOTIFY availableChanged)
     Q_PROPERTY(QVariantList componentList READ componentList WRITE setComponentList NOTIFY componentListChanged)
-    Q_PROPERTY(Components components READ components WRITE setComponents NOTIFY componentsChanged)
+    Q_PROPERTY(HomeassistantInfo::Components components READ components WRITE setComponents NOTIFY componentsChanged)
     Q_PROPERTY(QString error READ error WRITE setError NOTIFY errorChanged)
     Q_PROPERTY(QString externalUrl READ externalUrl WRITE setExternalUrl NOTIFY externalUrlChanged)
     Q_PROPERTY(QString internalUrl READ internalUrl WRITE setInternalUrl NOTIFY internalUrlChanged)
@@ -29,7 +29,7 @@ public:
     };
     Q_DECLARE_FLAGS(Components, Component)
     Q_FLAG(Components)
-    Q_ENUMS(Component)
+    Q_ENUM(Component)
 
     explicit HomeassistantInfo(QObject *parent = nullptr);
 
@@ -53,7 +53,7 @@ signals:
     // properties
     void availableChanged(bool available);
     void componentListChanged(const QVariantList &components);
-    void componentsChanged(Components components);
+    void componentsChanged(HomeassistantInfo::Components components);
     void errorChanged(const QString &error);
     void externalUrlChanged(const QString &url);
     void internalUrlChanged(const QString &url);
@@ -66,7 +66,7 @@ public slots:
     // properties
     void setAvailable(bool available);
     void setComponentList(const QVariantList &components);
-    void setComponents(Components components);
+    void setComponents(HomeassistantInfo::Components components);
     void setError(const QString &error);
     void setExternalUrl(const QString &url);
     void setInternalUrl(const QString &url);
@@ -77,17 +77,17 @@ public slots:
 
 private:
     // properties
-    bool m_available;
+    bool m_available{false};
     QVariantList m_componentList;
-    Components m_components;
+    HomeassistantInfo::Components m_components{HomeassistantInfo::ComponentNone};
     QString m_error;
     QString m_externalUrl;
     QString m_internalUrl;
-    bool m_loading;
+    bool m_loading{false};
     QString m_locationName;
     QString m_version;
-    bool m_versionCompatibility;
-    bool m_busy;
+    bool m_versionCompatibility{false};
+    bool m_busy{};
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(HomeassistantInfo::Components)
 

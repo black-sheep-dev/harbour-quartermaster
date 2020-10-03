@@ -19,12 +19,12 @@ public:
         NameRole,
         RadiusRole
     };
-    Q_ENUMS(ZoneRoles)
+    Q_ENUM(ZoneRoles)
 
     explicit ZonesModel(QObject *parent = nullptr);
     ~ZonesModel() override;
 
-    Q_INVOKABLE Zone *zoneAt(const int index);
+    Q_INVOKABLE Zone *zoneAt(int index);
     QList<Zone *> zones() const;
 
     void addZone(Zone *zone);
@@ -45,7 +45,7 @@ private:
     QList<Zone *> m_zones;
 
     // properties
-    bool m_loading;
+    bool m_loading{false};
 
 
     // QAbstractItemModel interface

@@ -3,8 +3,7 @@
 WifiNetwork::WifiNetwork(QObject *parent) :
     QObject(parent),
     m_identifier(QString()),
-    m_name(QString()),
-    m_selected(false)
+    m_name(QString())
 {
 
 }

@@ -21,7 +21,7 @@ class Device : public QObject
 
 public:
     explicit Device(QObject *parent = nullptr);
-    ~Device();
+    ~Device() override;
 
     Q_INVOKABLE QString id() const;
     Q_INVOKABLE QString manufacturer() const;
@@ -69,13 +69,13 @@ private:
     void readSettings();
     void writeSettings();
 
-    DeviceSensorModel *m_sensorModel;
+    DeviceSensorModel *m_sensorModel{nullptr};
 
     // properties
-    bool m_encryption;
+    bool m_encryption{false};
     QString m_name;
-    bool m_registered;
-    bool m_sensorAutoUpdate;
+    bool m_registered{false};
+    bool m_sensorAutoUpdate{false};
 };
 
 #endif // DEVICE_H

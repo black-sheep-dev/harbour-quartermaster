@@ -3,8 +3,7 @@
 #include <QJsonArray>
 
 DeviceTracker::DeviceTracker(QObject *parent) :
-    QObject(parent),
-    m_lastPosition(QGeoPositionInfo())
+    QObject(parent)
 {
 
 }

@@ -28,7 +28,7 @@ class Entity : public QObject
 
     Q_PROPERTY(QVariantMap attributes READ attributes WRITE setAttributes NOTIFY attributesChanged)
     Q_PROPERTY(EntityContext context READ context WRITE setContext NOTIFY contextChanged)
-    Q_PROPERTY(QString enityId READ enityId WRITE setEnityId NOTIFY enityIdChanged)
+    Q_PROPERTY(QString entityId READ entityId WRITE setEntityId NOTIFY entityIdChanged)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(QVariant state READ state WRITE setState NOTIFY stateChanged)
     Q_PROPERTY(EntityType type READ type WRITE setType NOTIFY typeChanged)
@@ -51,17 +51,19 @@ public:
         Weather,
         Zone
     };
-    Q_ENUMS(EntityType)
+    Q_ENUM(EntityType)
 
     explicit Entity(QObject *parent = nullptr);
-    Entity(const QJsonObject &json, QObject *parent = nullptr);
+    explicit Entity(const Entity &other);
+    explicit Entity(const QJsonObject &json, QObject *parent = nullptr);
+    ~Entity() override;
 
     void setJson(const QJsonObject &json);
 
     // properties
     QVariantMap attributes() const;
     EntityContext context() const;
-    QString enityId() const;
+    QString entityId() const;
     QString name() const;
     QVariant state() const;
     EntityType type() const;
@@ -70,28 +72,28 @@ signals:
     // properties
     void attributesChanged(const QVariantMap &attributes);
     void contextChanged(const EntityContext &context);
-    void enityIdChanged(const QString &id);
+    void entityIdChanged(const QString &id);
     void nameChanged(const QString &name);
     void stateChanged(const QVariant &state);
-    void typeChanged(EntityType type);
+    void typeChanged(Entity::EntityType type);
 
 public slots:
     // properties
     void setAttributes(const QVariantMap &attributes);
     void setContext(const EntityContext &context);
-    void setEnityId(const QString &id);
+    void setEntityId(const QString &id);
     void setName(const QString &name);
     void setState(const QVariant &state);
-    void setType(EntityType type);
+    void setType(Entity::EntityType type);
 
 private:
     // properties
     QVariantMap m_attributes;
     EntityContext m_context;
-    QString m_enityId;
+    QString m_entityId;
     QString m_name;
     QVariant m_state;
-    EntityType m_type;
+    Entity::EntityType m_type{Unkown};
 };
 
 #endif // ENTITY_H

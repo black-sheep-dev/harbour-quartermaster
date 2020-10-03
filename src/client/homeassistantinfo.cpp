@@ -10,16 +10,11 @@
 
 HomeassistantInfo::HomeassistantInfo(QObject *parent) :
     QObject(parent),
-    m_available(false),
-    m_componentList(QVariantList()),
-    m_components(ComponentNone),
     m_error(QString()),
     m_externalUrl(QString()),
     m_internalUrl(QString()),
-    m_loading(false),
     m_locationName(QString()),
-    m_version(QString()),
-    m_versionCompatibility(false)
+    m_version(QString())
 {
 
 }

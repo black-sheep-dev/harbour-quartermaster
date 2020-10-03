@@ -35,7 +35,7 @@ void DeviceTrackerWifi::updateWifiNetworks()
             qDebug() << cfg.name();
             qDebug() << cfg.identifier();
 #endif
-            WifiNetwork *network = new WifiNetwork;
+            auto *network = new WifiNetwork;
             network->setName(cfg.name());
             network->setIdentifier(cfg.identifier());
 

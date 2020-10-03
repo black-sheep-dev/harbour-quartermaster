@@ -3,7 +3,6 @@
 DeviceSensor::DeviceSensor(QObject *parent) :
     QObject(parent),
     m_deviceClass(QStringLiteral("None")),
-    m_enabled(false),
     m_name(QString()),
     m_sensorType(QStringLiteral("sensor")),
     m_state(QVariant(0)),

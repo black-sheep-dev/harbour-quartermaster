@@ -11,14 +11,11 @@
 
 ClientInterface::ClientInterface(QObject *parent) :
     QObject(parent),
-    m_gpsTracker(nullptr),
-    m_wifiTracker(nullptr),
     m_zones(new ZonesModel(this)),
     m_api(new HomeassistantApi(this)),
     m_webhook(new WebhookApi(this)),
     m_device(new Device(this)),
-    m_homeassistantInfo(new HomeassistantInfo(this)),
-    m_busy(false)
+    m_homeassistantInfo(new HomeassistantInfo(this))
 {
     connect(m_wifiTracker, &DeviceTrackerWifi::networkChanged, this, &ClientInterface::setDebugOutput);
 
@@ -76,6 +73,14 @@ void ClientInterface::reset()
 void ClientInterface::saveSettings()
 {
     writeSettings();
+}
+
+WifiNetworkModel *ClientInterface::networksModel()
+{
+    if (!m_wifiTracker)
+        return nullptr;
+
+    return m_wifiTracker->localNetworkModel();
 }
 
 ZonesModel *ClientInterface::zonesModel()
@@ -240,12 +245,12 @@ void ClientInterface::setTrackingWifi(bool enable)
     }
 }
 
-void ClientInterface::setDebugOutput(QString debugOutput)
+void ClientInterface::setDebugOutput(const QString &output)
 {
-    if (m_debugOutput == debugOutput)
+    if (m_debugOutput == output)
         return;
 
-    m_debugOutput = debugOutput;
+    m_debugOutput = output;
     emit debugOutputChanged(m_debugOutput);
 }
 

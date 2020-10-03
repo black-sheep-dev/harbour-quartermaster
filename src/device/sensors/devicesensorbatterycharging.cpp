@@ -26,29 +26,34 @@ QString DeviceSensorBatteryCharging::getIcon() const
 
     const int percentage = m_battery.chargePercentage();
 
+    QString icon;
+    icon.reserve(18);
+
     if (percentage >= 5 && percentage < 15) {
-        return QStringLiteral("mdi:battery-10");
+        icon = QStringLiteral("mdi:battery-10");
     } else if (percentage >= 15 && percentage < 25) {
-        return QStringLiteral("mdi:battery-20");
+        icon = QStringLiteral("mdi:battery-20");
     } else if (percentage >= 25 && percentage < 35) {
-        return QStringLiteral("mdi:battery-30");
+        icon = QStringLiteral("mdi:battery-30");
     } else if (percentage >= 35 && percentage < 45) {
-        return QStringLiteral("mdi:battery-40");
+        icon = QStringLiteral("mdi:battery-40");
     } else if (percentage >= 45 && percentage < 55) {
-        return QStringLiteral("mdi:battery-50");
+        icon = QStringLiteral("mdi:battery-50");
     } else if (percentage >= 55 && percentage < 65) {
-        return QStringLiteral("mdi:battery-60");
+        icon = QStringLiteral("mdi:battery-60");
     } else if (percentage >= 65 && percentage < 75) {
-        return QStringLiteral("mdi:battery-70");
+        icon = QStringLiteral("mdi:battery-70");
     } else if (percentage >= 75 && percentage < 85) {
-        return QStringLiteral("mdi:battery-80");
+        icon = QStringLiteral("mdi:battery-80");
     } else if (percentage >= 85 && percentage < 95) {
-        return QStringLiteral("mdi:battery-90");
+        icon = QStringLiteral("mdi:battery-90");
     } else if (percentage >= 95) {
-        return QStringLiteral("mdi:battery");
+        icon = QStringLiteral("mdi:battery");
     } else {
-        return QStringLiteral("mdi:battery-alert");
+        icon = QStringLiteral("mdi:battery-alert");
     }
+
+    return icon;
 }
 
 void DeviceSensorBatteryCharging::onEnabledChanged()

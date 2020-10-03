@@ -267,6 +267,13 @@
     </message>
 </context>
 <context>
+    <name>SettingsWifiPage</name>
+    <message>
+        <source>Wifi Networks</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SettingsZonePage</name>
     <message>
         <source>Zone Settings</source>

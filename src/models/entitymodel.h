@@ -20,7 +20,7 @@ public:
         StateRole,
         TypeRole
     };
-    Q_ENUMS(EntityRole)
+    Q_ENUM(EntityRole)
 
     explicit EntityModel(QObject *parent = nullptr);
     ~EntityModel() override;
@@ -50,7 +50,7 @@ private:
     QList<Entity *> m_entities;
 
     // properties
-    bool m_loading;
+    bool m_loading{false};
 
     // QAbstractItemModel interface
 public:

@@ -10,7 +10,6 @@ WebhookApi::WebhookApi(QObject *parent) :
     ApiInterface(parent),
     m_connectionFailures(ConnectionFailureNone),
     m_cloudhookUrl(QString()),
-    m_encryption(false),
     m_remoteUiUrl(QString()),
     m_secret(QString()),
     m_webhookId(QString())
@@ -193,7 +192,7 @@ void WebhookApi::onReplyFinished(const QString &identifier, QNetworkReply *reply
     }
 
     // parse data
-    QJsonParseError error;
+    QJsonParseError error{};
 
     const QJsonDocument doc = QJsonDocument::fromJson(data, &error);
 

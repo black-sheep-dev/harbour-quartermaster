@@ -1,8 +1,7 @@
 #include "entitymodel.h"
 
 EntityModel::EntityModel(QObject *parent) :
-    QAbstractListModel(parent),
-    m_loading(false)
+    QAbstractListModel(parent)
 {
 
 }
@@ -116,7 +115,7 @@ QVariant EntityModel::data(const QModelIndex &index, int role) const
         return QVariant::fromValue<EntityContext>(entity->context());
 
     case EntityIdRole:
-        return entity->enityId();
+        return entity->entityId();
 
     case StateRole:
         return entity->state();
