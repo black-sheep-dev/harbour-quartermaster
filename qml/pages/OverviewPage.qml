@@ -19,6 +19,8 @@ Page {
         anchors.fill: parent
 
         PullDownMenu {
+            visible: Client.ready
+
             MenuItem {
                 text: qsTr("About")
                 onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))

@@ -20,6 +20,8 @@ signals:
     void networkChanged(const QString &ssid);
 
 public slots:
+    Q_INVOKABLE void loadNetworkSettings();
+    Q_INVOKABLE void saveNetworkSettings();
     Q_INVOKABLE void updateWifiNetworks();
 
 private slots:

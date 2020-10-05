@@ -38,7 +38,9 @@ public:
     Q_INVOKABLE bool isRegistered();
     Q_INVOKABLE void reset();
     Q_INVOKABLE void saveSettings();
+    Q_INVOKABLE void saveZonesSettings();
     Q_INVOKABLE WifiNetworkModel *networksModel();
+    Q_INVOKABLE void updateNetworksModel();
     Q_INVOKABLE ZonesModel *zonesModel();
 
     // api
@@ -71,14 +73,12 @@ signals:
 
     void debugOutputChanged(QString debugOutput);
 
-
-
 public slots:
     // properties
     void setBusy(bool busy);
     void setHostname(const QString &hostname);
     void setPort(quint16 port);
-    void setReady(bool ready);
+    void setReady(bool ready = true);
     void setSsl(bool ssl);
     void setToken(const QString &token);
     void setTrackingGPS(bool enable);
@@ -91,6 +91,7 @@ private slots:
     void onWebhookDataAvailable(const QString &identifier, const QJsonDocument &doc);
 
 private:
+    void onReadyChanged();
     void updateBaseUrl();
 
     // settings

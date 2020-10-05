@@ -8,7 +8,7 @@ Zone::Zone(QObject *parent) :
     m_name(QString())
     
 {
-
+    connect(m_networks, &WifiNetworkModel::changed, this, &Zone::networksChanged);
 }
 
 WifiNetworkModel *Zone::networksModel()

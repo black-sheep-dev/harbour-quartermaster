@@ -84,6 +84,13 @@
     </message>
 </context>
 <context>
+    <name>SelectWifiNetworkDialog</name>
+    <message>
+        <source>Select Wifi networks</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SettingsConnectionPage</name>
     <message>
         <source>Reset</source>
@@ -267,13 +274,6 @@
     </message>
 </context>
 <context>
-    <name>SettingsWifiPage</name>
-    <message>
-        <source>Wifi Networks</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>SettingsZonePage</name>
     <message>
         <source>Zone Settings</source>
@@ -299,6 +299,22 @@
         <source>Add Wifi Network</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resetting networks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deleting network</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsZonesPage</name>
@@ -309,6 +325,16 @@
     <message>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No networks defined</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n network(s) defined</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
 </context>
 <context>

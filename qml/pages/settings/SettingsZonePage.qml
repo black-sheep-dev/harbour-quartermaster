@@ -6,7 +6,7 @@ import org.nubecula.harbour.quartermaster 1.0
 import "../../components/"
 
 Page {
-    property var zone
+    property Zone zone
 
     id: page
 
@@ -17,37 +17,60 @@ Page {
 
         PullDownMenu {
             MenuItem {
+                text: qsTr("Reset")
+                onClicked: resetPopup.execute(qsTr("Resetting networks"), function() {
+                    zone.networksModel().reset()
+                    Client.saveZonesSettings()
+                })
+            }
+
+            MenuItem {
                 text: qsTr("Add Wifi Network")
                 enabled: Client.trackingWifi
-                onClicked: pageStack.push(Qt.resolvedUrl("SettingsWifiPage.qml"));
+                onClicked: {
+                    Client.updateNetworksModel();
+                    Client.networksModel().setSelected(zone.networksModel())
+                    pageStack.push(Qt.resolvedUrl("../../dialogs/SelectWifiNetworkDialog.qml"), {zone: zone});
+                }
             }
         }
+
+        RemorsePopup { id: resetPopup }
+
         contentHeight: column.height
 
         Column {
             id: column
 
-            x: Theme.horizontalPageMargin
-            width: page.width - 2 * x
+            width: parent.width
+
             spacing: Theme.paddingLarge
 
             PageHeader {
                 title: qsTr("Zone Settings")
             }
             Label {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
                 text: zone.name
                 color: Theme.secondaryHighlightColor
                 font.pixelSize: Theme.fontSizeExtraLarge
             }
             InfoItem {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
                 name: qsTr("Latitude")
                 value: zone.latitude
             }
             InfoItem {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
                 name: qsTr("Longitude")
                 value: zone.longitude
             }
             InfoItem {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
                 name: qsTr("Radius")
                 value: zone.radius
             }
@@ -57,6 +80,59 @@ Page {
                 font.pixelSize: Theme.fontSizeLarge
             }
 
+            SilicaListView {
+                id: listView
+
+                width: parent.width
+                height: 600
+
+                model: zone.networksModel()
+
+                delegate: ListItem {
+                    id: delegate
+                    width: parent.width
+                    contentHeight: Theme.itemSizeMedium
+
+                    menu: ContextMenu {
+                        MenuItem {
+                            text: qsTr("Delete");
+                            onClicked: remorse.execute(delegate, qsTr("Deleting network"), function() {
+                                zone.networksModel().removeNetwork(identifier)
+                                Client.saveZonesSettings()
+                            } )
+                        }
+                    }
+
+                    RemorseItem { id: remorse }
+
+                    Row {
+                        x: Theme.horizontalPageMargin
+                        width: parent.width - 2 * x
+                        height: parent.height
+
+                        anchors.verticalCenter: parent.verticalCenter
+
+                        spacing: Theme.paddingMedium
+
+                        Image {
+                            id: wlanIcon
+                            source: "image://theme/icon-m-wlan"
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+
+                        Label {
+                            width: parent.width - wlanIcon.width - 2 * Theme.paddingMedium
+                            anchors.verticalCenter: parent.verticalCenter
+
+                            text: name
+                            color: pressed ? Theme.secondaryHighlightColor : Theme.secondaryColor
+                            font.pixelSize: Theme.fontSizeMedium
+                        }
+                    }
+                }
+
+                VerticalScrollDecorator {}
+            }
         }
     }
 }

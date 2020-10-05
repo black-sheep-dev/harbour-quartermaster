@@ -9,6 +9,7 @@ Page {
     allowedOrientations: Orientation.All
 
     PageBusyIndicator {
+        id: busyIndicator
         size: BusyIndicatorSize.Large
         running: Client.zonesModel().loading
     }
@@ -29,7 +30,8 @@ Page {
 
         anchors.fill: parent
 
-        opacity: Client.zonesModel().loading ? 0 : 1.0
+        visible: !Client.zonesModel().loading
+
         model: Client.zonesModel()
 
 
@@ -37,6 +39,7 @@ Page {
             id: delegate
 
             width: parent.width
+            height: Theme.itemSizeLarge
             contentHeight: Theme.itemSizeLarge
 
             Row {
@@ -73,13 +76,18 @@ Page {
                     Label{
                         id: text
                         width: parent.width
-                        elide: Text.ElideRight
                         text: name
                         color: pressed ? Theme.secondaryHighlightColor:Theme.highlightColor
                         font.pixelSize: Theme.fontSizeLarge
                     }
                     Label{
-                        text: guid
+                        text: {
+                            if (networks_count > 0)
+                                return qsTr("%n network(s) defined", "", networks_count)
+                            else
+                                return qsTr("No networks defined");
+                        }
+
                         color: Theme.secondaryColor
                         font.pixelSize: Theme.fontSizeMedium
                     }

@@ -32,6 +32,8 @@ public:
     double radius() const;
 
 signals:
+    void networksChanged();
+
     // properties
     void guidChanged(QString guid);
     void latitudeChanged(double latitude);

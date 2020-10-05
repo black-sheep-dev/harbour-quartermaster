@@ -17,6 +17,7 @@ public:
         LatitudeRole,
         LongitudeRole,
         NameRole,
+        NetworkCountRole,
         RadiusRole
     };
     Q_ENUM(ZoneRoles)
@@ -35,11 +36,14 @@ public:
     bool loading() const;
 
 signals:
-    void loadingChanged(bool loading);
+    void loadingChanged(bool loading); 
+    void refreshed();
 
 public slots:
     void setLoading(bool loading);
 
+private slots:
+    void onNetworksChanged();
 
 private:
     QList<Zone *> m_zones;

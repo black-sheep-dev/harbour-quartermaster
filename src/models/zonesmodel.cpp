@@ -34,6 +34,7 @@ void ZonesModel::addZone(Zone *zone)
 
     beginInsertRows(QModelIndex(), m_zones.count(), m_zones.count());
     m_zones.append(zone);
+    connect(zone, &Zone::networksChanged, this, &ZonesModel::onNetworksChanged);
     endInsertRows();
 }
 
@@ -43,9 +44,15 @@ void ZonesModel::setZones(const QList<Zone *> &zones)
     qDeleteAll(m_zones.begin(), m_zones.end());
     m_zones.clear();
     m_zones = zones;
+
+    for (Zone *zone : m_zones) {
+        connect(zone, &Zone::networksChanged, this, &ZonesModel::onNetworksChanged);
+    }
+
     endResetModel();
 
     setLoading(false);
+    emit refreshed();
 }
 
 void ZonesModel::setZones(const QJsonArray &array)
@@ -76,6 +83,21 @@ void ZonesModel::setLoading(bool loading)
     emit loadingChanged(m_loading);
 }
 
+void ZonesModel::onNetworksChanged()
+{
+    auto *zone = qobject_cast<Zone *>(sender());
+
+    if (!zone)
+        return;
+
+    const QModelIndex idx = index(m_zones.indexOf(zone));
+
+    if (!idx.isValid())
+        return;
+
+    emit dataChanged(idx, idx);
+}
+
 int ZonesModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
@@ -96,6 +118,9 @@ QVariant ZonesModel::data(const QModelIndex &index, int role) const
 
     case NameRole:
         return zone->name();
+
+    case NetworkCountRole:
+        return zone->networksModel()->networks().count();
 
     case GuidRole:
         return zone->guid();
@@ -122,6 +147,7 @@ QHash<int, QByteArray> ZonesModel::roleNames() const
     roles[LatitudeRole]         = "latitude";
     roles[LongitudeRole]        = "longitude";
     roles[NameRole]             = "name";
+    roles[NetworkCountRole]     = "networks_count";
     roles[RadiusRole]           = "radius";
 
     return roles;

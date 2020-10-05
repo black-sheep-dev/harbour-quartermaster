@@ -22,20 +22,25 @@ public:
     explicit WifiNetworkModel(QObject *parent = nullptr);
     ~WifiNetworkModel() override;
 
+    Q_INVOKABLE void addSelectedToModel(WifiNetworkModel *model);
+    Q_INVOKABLE void resetSelection();
+    Q_INVOKABLE void setSelected(WifiNetworkModel *model);
     Q_INVOKABLE void update();
 
 
     void addNetwork(WifiNetwork *network);
-    Q_INVOKABLE void addNetwork(const QString &ssid, const QString &identifier);
+    Q_INVOKABLE void addNetwork(const QString &name, const QString &identifier);
     void removeNetwork(WifiNetwork *network);
     Q_INVOKABLE void removeNetwork(const QString &identifier);
-    void reset();
+    Q_INVOKABLE void reset();
     void setNetworks(const QList<WifiNetwork *> &networks);
+    QList<WifiNetwork *> networks() const;
 
     // properties
     bool loading() const;
 
 signals:
+    void changed();
     void requestUpdate();
 
     // properties
@@ -55,10 +60,8 @@ private:
 public:
     int rowCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const override;
+    bool setData(const QModelIndex &index, const QVariant &value, int role) override;
     QHash<int, QByteArray> roleNames() const override;
-
-
-
 };
 
 #endif // WIFINETWORKMODEL_H

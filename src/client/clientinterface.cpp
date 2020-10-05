@@ -85,12 +85,22 @@ void ClientInterface::saveSettings()
     writeSettings();
 }
 
+void ClientInterface::saveZonesSettings()
+{
+    m_wifiTracker->saveNetworkSettings();
+}
+
 WifiNetworkModel *ClientInterface::networksModel()
 {
     if (!m_wifiTracker)
         return nullptr;
 
     return m_wifiTracker->localNetworkModel();
+}
+
+void ClientInterface::updateNetworksModel()
+{
+    m_wifiTracker->updateWifiNetworks();
 }
 
 ZonesModel *ClientInterface::zonesModel()
@@ -208,6 +218,8 @@ void ClientInterface::setReady(bool ready)
 
     m_ready = ready;
     emit readyChanged(m_ready);
+
+    onReadyChanged();
 }
 
 void ClientInterface::setSsl(bool ssl)
@@ -305,6 +317,12 @@ void ClientInterface::onWebhookDataAvailable(const QString &identifier, const QJ
     if (identifier == QStringLiteral("get_zones")) {
         m_zones->setZones(doc.array());
     }
+}
+
+void ClientInterface::onReadyChanged()
+{
+    if ( m_ready && m_webhook->isRegistered() )
+        m_webhook->getZones();
 }
 
 void ClientInterface::updateBaseUrl()

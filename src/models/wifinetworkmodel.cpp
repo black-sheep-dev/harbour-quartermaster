@@ -1,5 +1,9 @@
 #include "wifinetworkmodel.h"
 
+#ifdef QT_DEBUG
+#include <QDebug>
+#endif
+
 WifiNetworkModel::WifiNetworkModel(QObject *parent) :
     QAbstractListModel(parent)
 {
@@ -9,6 +13,46 @@ WifiNetworkModel::WifiNetworkModel(QObject *parent) :
 WifiNetworkModel::~WifiNetworkModel()
 {
     qDeleteAll(m_networks.begin(), m_networks.end());
+}
+
+void WifiNetworkModel::addSelectedToModel(WifiNetworkModel *model)
+{
+    if (!model)
+        return;
+
+    for (WifiNetwork *network : m_networks) {
+        if (network->selected())
+            model->addNetwork(network->name(), network->identifier());
+        else
+            model->removeNetwork(network->identifier());
+    }
+}
+
+void WifiNetworkModel::resetSelection()
+{
+    beginResetModel();
+    for (WifiNetwork *network : m_networks) {
+        network->setSelected(false);
+    }
+    endResetModel();
+}
+
+void WifiNetworkModel::setSelected(WifiNetworkModel *model)
+{
+    if (!model)
+        return;
+
+
+    for (const WifiNetwork *selected : model->networks()) {
+        for (WifiNetwork *network : m_networks) {
+            if (network->identifier() != selected->identifier())
+                continue;
+
+            network->setSelected(true);
+            break;
+        }
+    }
+    emit dataChanged(index(0), index(m_networks.count() - 1));
 }
 
 void WifiNetworkModel::update()
@@ -25,9 +69,11 @@ void WifiNetworkModel::addNetwork(WifiNetwork *network)
     beginInsertRows(QModelIndex(), m_networks.count(), m_networks.count());
     m_networks.append(network);
     endInsertRows();
+
+    emit changed();
 }
 
-void WifiNetworkModel::addNetwork(const QString &ssid, const QString &identifier)
+void WifiNetworkModel::addNetwork(const QString &name, const QString &identifier)
 {
     for (const WifiNetwork *network : m_networks) {
         if (network->identifier() == identifier)
@@ -35,7 +81,7 @@ void WifiNetworkModel::addNetwork(const QString &ssid, const QString &identifier
     }
 
     auto *network = new WifiNetwork;
-    network->setName(ssid);
+    network->setName(name);
     network->setIdentifier(identifier);
 
     addNetwork(network);
@@ -51,6 +97,8 @@ void WifiNetworkModel::removeNetwork(WifiNetwork *network)
     beginRemoveRows(QModelIndex(), idx, idx);
     m_networks.takeAt(idx)->deleteLater();
     endRemoveRows();
+
+    emit changed();
 }
 
 void WifiNetworkModel::removeNetwork(const QString &identifier)
@@ -70,6 +118,8 @@ void WifiNetworkModel::reset()
     qDeleteAll(m_networks.begin(), m_networks.end());
     m_networks.clear();
     endResetModel();
+
+    emit changed();
 }
 
 void WifiNetworkModel::setNetworks(const QList<WifiNetwork *> &networks)
@@ -81,6 +131,13 @@ void WifiNetworkModel::setNetworks(const QList<WifiNetwork *> &networks)
     endResetModel();
 
     setLoading(false);
+
+    emit changed();
+}
+
+QList<WifiNetwork *> WifiNetworkModel::networks() const
+{
+    return m_networks;
 }
 
 bool WifiNetworkModel::loading() const
@@ -127,6 +184,19 @@ QVariant WifiNetworkModel::data(const QModelIndex &index, int role) const
     default:
         return QVariant();
     }
+}
+
+bool WifiNetworkModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (!index.isValid())
+        return false;
+
+    if (role != SelectedRole)
+        return false;
+
+    m_networks.at(index.row())->setSelected(value.toBool());
+    emit dataChanged(index, index);
+    return true;
 }
 
 QHash<int, QByteArray> WifiNetworkModel::roleNames() const

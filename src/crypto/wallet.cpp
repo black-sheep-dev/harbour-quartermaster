@@ -161,6 +161,11 @@ void Wallet::onSecretsLoaded()
     QDataStream stream(&data, QIODevice::ReadOnly);
     stream >> m_secrets;
 
+#ifdef QT_DEBUG
+    qDebug() << QStringLiteral("WEBHOOK ID");
+    qDebug() << m_secrets.webhookId;
+#endif
+
     fetchCode->deleteLater();
 
     emit initialized(true);

@@ -50,6 +50,7 @@ SOURCES += src/harbour-quartermaster.cpp \
     src/models/zonesmodel.cpp
 
 DISTFILES += qml/harbour-quartermaster.qml \
+    qml/SelectWifiNetworkDialog.qml \
     qml/components/ConnectionSettings.qml \
     qml/components/InfoItem.qml \
     qml/components/TestResultItem.qml \
@@ -62,7 +63,6 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/SettingsPage.qml \
     qml/pages/SettingsZonePage.qml \
     qml/pages/SettingsZonesPage.qml \
-    qml/pages/settings/SettingsWifiPage.qml \
     qml/pages/wizard/WizardConnectionPage.qml \
     qml/pages/wizard/WizardDeviceRegistrationPage.qml \
     qml/pages/wizard/WizardInfoPage.qml \
