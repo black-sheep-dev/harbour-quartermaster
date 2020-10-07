@@ -32,7 +32,7 @@ Page {
                 color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeMedium
 
-                text: qsTr("Here you can activate / deactivate automatic sensors updates. Automatic sensor updates can lead to more network traffic and battery drain.");
+                text: qsTr("Here you can activate / deactivate automatic sensors updates. Automatic sensor updates can lead to more network traffic and battery consumption.");
             }
 
             TextSwitch {
@@ -50,7 +50,8 @@ Page {
 
             ListView {
                 width: parent.width
-                height: Theme.itemSizeMedium
+                height: 600
+                contentHeight: Theme.itemSizeMedium
 
                 model: Client.device().sensorModel()
 
