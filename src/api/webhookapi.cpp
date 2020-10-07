@@ -63,11 +63,12 @@ void WebhookApi::registerSensor(const DeviceSensor *sensor)
 void WebhookApi::updateLocation(const QJsonObject &location)
 {
     sendRequest(QStringLiteral("update_location"), location);
-    qDebug() << "LOCATION";
 }
 
 void WebhookApi::updateRegistration(const Device *device)
 {
+    qDebug() << "UPDATE REGISTRATION";
+
     if (!device->registered())
         return;
 

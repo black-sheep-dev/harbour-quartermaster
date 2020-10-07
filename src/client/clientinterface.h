@@ -41,6 +41,7 @@ public:
     Q_INVOKABLE void saveZonesSettings();
     Q_INVOKABLE WifiNetworkModel *networksModel();
     Q_INVOKABLE void updateNetworksModel();
+    Q_INVOKABLE void updateRegistration();
     Q_INVOKABLE ZonesModel *zonesModel();
 
     // api

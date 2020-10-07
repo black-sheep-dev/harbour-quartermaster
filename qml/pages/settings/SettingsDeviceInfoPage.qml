@@ -80,7 +80,7 @@ Page {
         if (status != PageStatus.Deactivating) return;
 
         Client.device().name = nameField.text
-
         Client.saveSettings()
+        Client.updateRegistration();
     }
 }

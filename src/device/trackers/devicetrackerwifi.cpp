@@ -129,8 +129,8 @@ void DeviceTrackerWifi::updateWifiNetworks()
         if (cfg.bearerType() == QNetworkConfiguration::BearerWLAN) {
 
 #ifdef QT_DEBUG
-            //qDebug() << cfg.name();
-            //qDebug() << cfg.identifier();
+            qDebug() << cfg.name();
+            qDebug() << cfg.identifier();
 #endif
             auto *network = new WifiNetwork;
             network->setName(cfg.name());

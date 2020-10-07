@@ -29,8 +29,6 @@ ClientInterface::ClientInterface(QObject *parent) :
     connect(m_device, &Device::sensorUpdated, m_webhook, &WebhookApi::updateSensor);
 
     readSettings();
-
-    m_device->setRegistered(m_webhook->isRegistered());
 }
 
 ClientInterface::~ClientInterface()
@@ -55,12 +53,7 @@ HomeassistantInfo *ClientInterface::homeassistantInfo()
 
 void ClientInterface::initialize()
 {
-    m_wallet->initialize();
-
-//    if (m_webhook->isRegistered()) {
-//        m_webhook->updateRegistration(m_device);
-//        getZones();
-    //    }
+    m_wallet->initialize(); 
 }
 
 bool ClientInterface::isRegistered()
@@ -107,6 +100,11 @@ void ClientInterface::updateNetworksModel()
         return;
 
     m_wifiTracker->updateWifiNetworks();
+}
+
+void ClientInterface::updateRegistration()
+{
+    m_webhook->updateRegistration(m_device);
 }
 
 ZonesModel *ClientInterface::zonesModel()
@@ -284,7 +282,6 @@ void ClientInterface::setTrackingWifi(bool enable)
     writeSettings();
 
     if (enable) {
-        qDebug() << "WIFI TRACKER ENABLED";
         m_wifiTracker = new DeviceTrackerWifi(m_zones, this);
         connect(m_wifiTracker, &DeviceTracker::locationUpdated, m_webhook, &WebhookApi::updateLocation);
         m_wifiTracker->updateWifiNetworks();
@@ -332,8 +329,11 @@ void ClientInterface::onWebhookDataAvailable(const QString &identifier, const QJ
 
 void ClientInterface::onReadyChanged()
 {
-    if ( m_ready && m_webhook->isRegistered() )
+    if ( m_ready && m_webhook->isRegistered() ) {
+        m_device->setRegistered(true);
+        m_webhook->updateRegistration(m_device);
         m_webhook->getZones();
+    }
 }
 
 void ClientInterface::updateBaseUrl()

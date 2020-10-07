@@ -179,15 +179,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Here you can activate / deactivate automatic sensors updates. Automatic sensor updates can lead to more network traffic and battery drain.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Activate / deactivate automatic updates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>This toggles all sensors on/off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Here you can activate / deactivate automatic sensors updates. Automatic sensor updates can lead to more network traffic and battery consumption.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
