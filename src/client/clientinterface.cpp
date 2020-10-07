@@ -87,6 +87,9 @@ void ClientInterface::saveSettings()
 
 void ClientInterface::saveZonesSettings()
 {
+    if (!m_wifiTracker)
+        return;
+
     m_wifiTracker->saveNetworkSettings();
 }
 
@@ -100,6 +103,9 @@ WifiNetworkModel *ClientInterface::networksModel()
 
 void ClientInterface::updateNetworksModel()
 {
+    if (!m_wifiTracker)
+        return;
+
     m_wifiTracker->updateWifiNetworks();
 }
 
@@ -274,6 +280,7 @@ void ClientInterface::setTrackingWifi(bool enable)
     m_wifiTracker = nullptr;
 
     if (enable) {
+        qDebug() << "WIFI TRACKER ENABLED";
         m_wifiTracker = new DeviceTrackerWifi(m_zones, this);
         connect(m_wifiTracker, &DeviceTracker::locationUpdated, m_webhook, &WebhookApi::updateLocation);
         m_wifiTracker->updateWifiNetworks();

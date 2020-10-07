@@ -34,13 +34,17 @@ Page {
                 color: Theme.secondaryColor
                 font.pixelSize: Theme.fontSizeMedium
 
-                text: qsTr("Here you can activate / deactivate different device tracking options.") + "\n" + qsTr("Activating these options leads to higher battery consumption and network traffic.");
+                text: qsTr("Here you can activate / deactivate different device tracking options.")
+                      + "\n"
+                      + qsTr("Activating these options leads to higher battery consumption and network traffic.");
             }
 
             TextSwitch {
                 id: gpsTrackingSwitch
                 text: qsTr("GPS Tracking")
-                description: qsTr("Use GPS data to track the device position.") + "\n" + qsTr("Position is updated every 30 seconds when activated.")
+                description: qsTr("Use GPS data to track the device position.")
+                             + "\n"
+                             + qsTr("Position is updated every 30 seconds when activated.")
 
                 onCheckedChanged: Client.trackingGPS = checked
                 Component.onCompleted: checked = Client.trackingGPS
@@ -48,8 +52,12 @@ Page {
 
             TextSwitch {
                 id: wifiTrackingSwitch
-                text: qsTr("WiFi SSID Tracking")
-                description: qsTr("WiFi networks will be used to track the device. You need to add WiFi SSID informations to your different zones. If the device connects to a known WiFi network, it will use the position info of the zone.")
+                text: qsTr("Wifi Tracking")
+                description: qsTr("WiFi networks will be used to track the device. You need to add Wifi Networks to your different zones in zone settings.")
+                             + "\n"
+                             + qsTr("If the device connects to a known wireless network, it will send the position information of its parent zone.")
+                             + "\n"
+                             + qsTr("Zones can be created in the Homeassistant web interface.")
 
                 onCheckedChanged: Client.trackingWifi = checked
                 Component.onCompleted: checked = Client.trackingWifi

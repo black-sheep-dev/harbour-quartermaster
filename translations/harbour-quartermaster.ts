@@ -202,10 +202,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>WiFi SSID Tracking</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Use GPS data to track the device position.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -218,11 +214,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>WiFi networks will be used to track the device. You need to add WiFi SSID informations to your different zones. If the device connects to a known WiFi network, it will use the position info of the zone.</source>
+        <source>Position is updated every 30 seconds when activated.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Position is updated every 30 seconds when activated.</source>
+        <source>Wifi Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WiFi networks will be used to track the device. You need to add Wifi Networks to your different zones in zone settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If the device connects to a known wireless network, it will send the position information of its parent zone.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zones can be created in the Homeassistant web interface.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

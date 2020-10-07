@@ -63,6 +63,7 @@ void WebhookApi::registerSensor(const DeviceSensor *sensor)
 void WebhookApi::updateLocation(const QJsonObject &location)
 {
     sendRequest(QStringLiteral("update_location"), location);
+    qDebug() << "LOCATION";
 }
 
 void WebhookApi::updateRegistration(const Device *device)
@@ -114,6 +115,7 @@ void WebhookApi::onReplyFinished(const QString &identifier, QNetworkReply *reply
 
     if (reply->error()) {
 #ifdef QT_DEBUG
+        qDebug() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         qDebug() << reply->errorString();
 #endif
         reply->deleteLater();

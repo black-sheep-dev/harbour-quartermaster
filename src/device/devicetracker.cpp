@@ -1,5 +1,9 @@
 #include "devicetracker.h"
 
+#ifdef QT_DEBUG
+#include <QDebug>
+#endif
+
 #include <QJsonArray>
 
 DeviceTracker::DeviceTracker(QObject *parent) :
@@ -10,6 +14,10 @@ DeviceTracker::DeviceTracker(QObject *parent) :
 
 void DeviceTracker::onPositionChanged(const QGeoPositionInfo &info)
 {
+#ifdef QT_DEBUG
+    qDebug() << info.isValid();
+#endif
+
     if (!info.isValid())
         return;
 
@@ -17,8 +25,8 @@ void DeviceTracker::onPositionChanged(const QGeoPositionInfo &info)
         return;
 
     QJsonArray position;
-        position.append(info.coordinate().latitude());
-        position.append(info.coordinate().longitude());
+    position.append(info.coordinate().latitude());
+    position.append(info.coordinate().longitude());
 
 
     QJsonObject location;

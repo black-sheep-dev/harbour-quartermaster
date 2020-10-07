@@ -11,6 +11,7 @@
 #include <QJsonParseError>
 #include <QStandardPaths>
 #include <QTextStream>
+#include <QTimer>
 
 DeviceTrackerWifi::DeviceTrackerWifi(ZonesModel *zones, QObject *parent) :
     DeviceTracker(parent),
@@ -74,6 +75,9 @@ void DeviceTrackerWifi::loadNetworkSettings()
         
         zone->networksModel()->setNetworks(list);
     }
+
+    // update location
+    checkNetworkIdentifier(getActiveNetworkIdentifier());
 }
 
 void DeviceTrackerWifi::saveNetworkSettings()
@@ -114,16 +118,14 @@ void DeviceTrackerWifi::updateWifiNetworks()
 {
     m_localNetworks->setLoading(true);
 
-    QNetworkConfigurationManager ncm;
-
     QList<WifiNetwork *> networks;
 
-    for (const QNetworkConfiguration &cfg : ncm.allConfigurations()) {
+    for (const QNetworkConfiguration &cfg : m_ncm->allConfigurations()) {
         if (cfg.bearerType() == QNetworkConfiguration::BearerWLAN) {
 
 #ifdef QT_DEBUG
-            qDebug() << cfg.name();
-            qDebug() << cfg.identifier();
+            //qDebug() << cfg.name();
+            //qDebug() << cfg.identifier();
 #endif
             auto *network = new WifiNetwork;
             network->setName(cfg.name());
@@ -140,18 +142,60 @@ void DeviceTrackerWifi::updateWifiNetworks()
 
 void DeviceTrackerWifi::onConfigurationChanged(const QNetworkConfiguration &config)
 {
+    if ( config.state() != QNetworkConfiguration::Active
+         || config.bearerType() != QNetworkConfiguration::BearerWLAN) {
+
+        return;
+    }
+
 #ifdef QT_DEBUG
     qDebug() << config.name();
     qDebug() << config.identifier();
 #endif
 
-    if (config.state() != QNetworkConfiguration::Active)
-        return;
-
-    emit networkChanged(config.identifier());
+    checkNetworkIdentifier(config.identifier());
 }
+
+void DeviceTrackerWifi::checkNetworkIdentifier(const QString &identifier)
+{
+    for (Zone *zone : m_zones->zones()) {
+        for (const WifiNetwork *network : zone->networksModel()->networks()) {
+            if (network->identifier() != identifier)
+                continue;
+
+            m_currentPositionInfo.setCoordinate(QGeoCoordinate(zone->latitude(), zone->longitude()));
+            m_currentPositionInfo.setTimestamp(QDateTime::currentDateTimeUtc());
+            m_currentPositionInfo.setAttribute(QGeoPositionInfo::HorizontalAccuracy, qreal(zone->radius()));
+
+#ifdef QT_DEBUG
+            qDebug() << zone->name();
+            qDebug() << m_currentPositionInfo.coordinate();
+#endif
+
+            QTimer::singleShot(1000, this, &DeviceTrackerWifi::updateLocation);
+
+            return;
+        }
+    }
+}
+
+QString DeviceTrackerWifi::getActiveNetworkIdentifier() const
+{
+    for (const QNetworkConfiguration &cfg : m_ncm->allConfigurations()) {
+        if ( cfg.bearerType() != QNetworkConfiguration::BearerWLAN
+             || cfg.state() != QNetworkConfiguration::Active) {
+
+            continue;
+        }
+
+        return cfg.identifier();
+    }
+
+    return QString();
+}
+
 
 void DeviceTrackerWifi::updateLocation()
 {
-
+    onPositionChanged(m_currentPositionInfo);
 }

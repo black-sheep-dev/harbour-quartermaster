@@ -28,6 +28,10 @@ private slots:
     void onConfigurationChanged(const QNetworkConfiguration &config);
 
 private:
+    void checkNetworkIdentifier(const QString &identifier);
+    QString getActiveNetworkIdentifier() const;
+
+    QGeoPositionInfo m_currentPositionInfo;
     QNetworkConfigurationManager *m_ncm;
     WifiNetworkModel *m_localNetworks;
     ZonesModel *m_zones;

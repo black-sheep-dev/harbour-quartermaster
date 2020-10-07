@@ -17,6 +17,7 @@ Page {
 
         PullDownMenu {
             MenuItem {
+                enabled: Client.trackingWifi
                 text: qsTr("Reset")
                 onClicked: resetPopup.execute(qsTr("Resetting networks"), function() {
                     zone.networksModel().reset()
@@ -25,8 +26,8 @@ Page {
             }
 
             MenuItem {
-                text: qsTr("Add Wifi Network")
                 enabled: Client.trackingWifi
+                text: qsTr("Add Wifi Network")
                 onClicked: {
                     Client.updateNetworksModel();
                     Client.networksModel().setSelected(zone.networksModel())
@@ -95,6 +96,7 @@ Page {
 
                     menu: ContextMenu {
                         MenuItem {
+                            enabled: Client.trackingWifi
                             text: qsTr("Delete");
                             onClicked: remorse.execute(delegate, qsTr("Deleting network"), function() {
                                 zone.networksModel().removeNetwork(identifier)
