@@ -63,7 +63,7 @@ Page {
             Label {
                 width: parent.width
 
-                color: Theme.secondaryColor
+                color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeMedium
 
                 wrapMode: Text.WordWrap
@@ -74,7 +74,7 @@ Page {
             Label {
                 width: parent.width
 
-                color: Theme.secondaryColor
+                color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeMedium
 
                 wrapMode: Text.WordWrap

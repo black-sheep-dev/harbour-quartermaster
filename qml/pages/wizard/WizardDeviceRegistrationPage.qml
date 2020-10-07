@@ -48,7 +48,7 @@ Page {
 
                 text: qsTr("Device registration")
 
-                color: Theme.secondaryHighlightColor
+                color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeLarge
             }
 
@@ -57,14 +57,14 @@ Page {
                 wrapMode: Text.WordWrap
 
                 text: qsTr("This is the final step. You can change the device name which shows up in Homeassistant if you want before starting the registration.")
-                color: Theme.secondaryColor
+                color: Theme.highlightColor
             }
 
             Label {
                 width: parent.width
                 text: qsTr("Change device name")
 
-                color: Theme.secondaryHighlightColor
+                color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeLarge
             }
 

@@ -48,7 +48,7 @@ Page {
 
                 text: qsTr("Connection Settings")
 
-                color: Theme.secondaryHighlightColor
+                color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeLarge
             }
 
@@ -58,14 +58,14 @@ Page {
 
                 text: qsTr("You need to provide the connection details to your Homeassistant instance.\n"
                            + "This can either be the hostname / IP in your local network or a remote url if your Homeassistant is reachable from the internet.")
-                color: Theme.secondaryColor
+                color: Theme.highlightColor
             }
 
             Label {
                 width: parent.width
                 text: qsTr("Enter connection details")
 
-                color: Theme.secondaryHighlightColor
+                color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeLarge
             }
 

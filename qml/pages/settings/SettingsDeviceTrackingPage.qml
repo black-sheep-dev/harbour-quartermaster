@@ -31,7 +31,7 @@ Page {
                 width: parent.width
                 wrapMode: Text.WordWrap
 
-                color: Theme.secondaryColor
+                color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeMedium
 
                 text: qsTr("Here you can activate / deactivate different device tracking options.")
