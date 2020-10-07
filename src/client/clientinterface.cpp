@@ -316,6 +316,9 @@ void ClientInterface::onDataAvailable(const QString &endpoint, const QJsonDocume
             m_webhook->registerSensor(sensor);
         }
         setBusy(false);
+
+        getZones();
+
         writeSettings();
     }
 }

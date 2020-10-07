@@ -19,20 +19,6 @@ Page {
     SilicaFlickable {
         anchors.fill: parent
 
-        PullDownMenu {
-            MenuItem {
-                text: qsTr("Reset")
-                onClicked: resetPopup.execute(qsTr("Resetting"), function() {
-                    Client.reset()
-
-                    pageStack.clear()
-                    pageStack.push(Qt.resolvedUrl("../wizard/WizardIntroPage.qml"))
-                })
-            }
-        }
-
-        RemorsePopup { id: resetPopup }
-
         contentHeight: column.height
 
         Column {
@@ -65,7 +51,7 @@ Page {
             TextSwitch {
                 id: sslSwitch
                 text: qsTr("Use SSL")
-                description: qsTr("It is highly recommend to use a ssl connection if your homeasstiant server support this!")
+                description: qsTr("It is highly recommend to use a ssl connection if your homeassistant server supports it!")
 
                 checked: Client.ssl
             }

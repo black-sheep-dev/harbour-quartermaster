@@ -11,8 +11,21 @@ Page {
     allowedOrientations: Orientation.All
 
     SilicaFlickable {
-        anchors.fill: parent
+        PullDownMenu {
+            MenuItem {
+                text: qsTr("Reset Registration")
+                onClicked: resetPopup.execute(qsTr("Resetting device registration"), function() {
+                    Client.reset()
 
+                    pageStack.clear()
+                    pageStack.push(Qt.resolvedUrl("../wizard/WizardIntroPage.qml"))
+                })
+            }
+        }
+
+        RemorsePopup { id: resetPopup }
+
+        anchors.fill: parent
         contentHeight: column.height
 
         Column {

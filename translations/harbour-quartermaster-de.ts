@@ -93,10 +93,6 @@
 <context>
     <name>SettingsConnectionPage</name>
     <message>
-        <source>Reset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Connection</source>
         <translation type="unfinished"></translation>
     </message>
@@ -109,19 +105,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>It is highly recommend to use a ssl connection if your homeasstiant server support this!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Resetting</source>
+        <source>Use SSL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use SSL</source>
+        <source>It is highly recommend to use a ssl connection if your homeassistant server supports it!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -165,6 +157,14 @@
     </message>
     <message>
         <source>Wifi MAC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset Registration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resetting device registration</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
