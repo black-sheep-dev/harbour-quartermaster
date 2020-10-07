@@ -1,11 +1,11 @@
-#ifndef ENTITYMODEL_H
-#define ENTITYMODEL_H
+#ifndef ENTITIESMODEL_H
+#define ENTITIESMODEL_H
 
 #include <QAbstractListModel>
 
 #include "src/entities/entity.h"
 
-class EntityModel : public QAbstractListModel
+class EntitiesModel : public QAbstractListModel
 {
     Q_OBJECT
 
@@ -22,8 +22,8 @@ public:
     };
     Q_ENUM(EntityRole)
 
-    explicit EntityModel(QObject *parent = nullptr);
-    ~EntityModel() override;
+    explicit EntitiesModel(QObject *parent = nullptr);
+    ~EntitiesModel() override;
 
     Q_INVOKABLE Entity *entityAt(int index);
     QList<Entity *> entities() const;
@@ -37,6 +37,8 @@ public:
     bool loading() const;
 
 signals:
+    void changed();
+
     // properties
     void loadingChanged(bool loading);
 
@@ -59,4 +61,4 @@ public:
     QHash<int, QByteArray> roleNames() const override;
 };
 
-#endif // ENTITYMODEL_H
+#endif // ENTITIESMODEL_H

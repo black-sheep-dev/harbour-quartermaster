@@ -6,6 +6,7 @@
 #include "src/api/homeassistantapi.h"
 #include "src/api/webhookapi.h"
 
+#include "entitiesprovider.h"
 #include "homeassistantinfo.h"
 #include "src/crypto/wallet.h"
 #include "src/device/device.h"
@@ -31,8 +32,10 @@ public:
     explicit ClientInterface(QObject *parent = nullptr);
     ~ClientInterface() override;
 
+    Q_INVOKABLE QString baseUrl() const;
     Q_INVOKABLE void connectToHost();
     Q_INVOKABLE Device *device();
+    Q_INVOKABLE EntitiesProvider *entitiesProvider();
     Q_INVOKABLE HomeassistantInfo *homeassistantInfo();
     Q_INVOKABLE void initialize();
     Q_INVOKABLE bool isRegistered();
@@ -99,20 +102,16 @@ private:
     void readSettings();
     void writeSettings();
 
-    DeviceTrackerGPS *m_gpsTracker{nullptr};
-    DeviceTrackerWifi *m_wifiTracker{nullptr};
-
-    ZonesModel *m_zones{nullptr};
-
     HomeassistantApi *m_api{nullptr};
-    WebhookApi *m_webhook{nullptr};
-
-    Wallet *m_wallet{nullptr};
-
-    Device *m_device{nullptr};
-    HomeassistantInfo *m_homeassistantInfo{nullptr};
-
     QString m_baseUrl;
+    Device *m_device{nullptr};
+    EntitiesProvider *m_entitiesProvider{nullptr};
+    DeviceTrackerGPS *m_gpsTracker{nullptr};
+    HomeassistantInfo *m_homeassistantInfo{nullptr};
+    DeviceTrackerWifi *m_wifiTracker{nullptr};
+    Wallet *m_wallet{nullptr};
+    WebhookApi *m_webhook{nullptr};
+    ZonesModel *m_zones{nullptr};
 
     // properties
     bool m_busy{false};

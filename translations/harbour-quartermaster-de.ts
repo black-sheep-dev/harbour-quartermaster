@@ -69,6 +69,73 @@
     </message>
 </context>
 <context>
+    <name>EntitiesPage</name>
+    <message>
+        <source>Persons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of all persons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Entities</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of all automations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lights</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of all lights</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sensors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of all sensors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Switches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of all switches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alarms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of all alarms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Climates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of all climates</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>OverviewPage</name>
     <message>
         <source>About</source>
@@ -80,6 +147,17 @@
     </message>
     <message>
         <source>Overview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Entities</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PersonsListPage</name>
+    <message>
+        <source>Persons</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

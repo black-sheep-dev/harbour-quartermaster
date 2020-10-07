@@ -1,17 +1,17 @@
-#include "entitymodel.h"
+#include "entitiesmodel.h"
 
-EntityModel::EntityModel(QObject *parent) :
+EntitiesModel::EntitiesModel(QObject *parent) :
     QAbstractListModel(parent)
 {
 
 }
 
-EntityModel::~EntityModel()
+EntitiesModel::~EntitiesModel()
 {
     qDeleteAll(m_entities.begin(), m_entities.end());
 }
 
-Entity *EntityModel::entityAt(int index)
+Entity *EntitiesModel::entityAt(int index)
 {
     if (index < 0 || index >= rowCount(QModelIndex()))
         return nullptr;
@@ -19,17 +19,17 @@ Entity *EntityModel::entityAt(int index)
     return m_entities.at(index);
 }
 
-QList<Entity *> EntityModel::entities() const
+QList<Entity *> EntitiesModel::entities() const
 {
     return m_entities;
 }
 
-bool EntityModel::isEmpty() const
+bool EntitiesModel::isEmpty() const
 {
     return m_entities.isEmpty();
 }
 
-void EntityModel::addEntity(Entity *entity)
+void EntitiesModel::addEntity(Entity *entity)
 {
     if (!entity)
         return;
@@ -37,20 +37,22 @@ void EntityModel::addEntity(Entity *entity)
     beginInsertRows(QModelIndex(), m_entities.count(), m_entities.count());
     m_entities.append(entity);
     endInsertRows();
+
+    emit changed();
 }
 
-void EntityModel::setEntities(const QList<Entity *> &entities)
+void EntitiesModel::setEntities(const QList<Entity *> &entities)
 {
-    beginResetModel();
     beginResetModel();
     qDeleteAll(m_entities.begin(), m_entities.end());
     m_entities.clear();
     m_entities = entities;
     endResetModel();
-    endResetModel();
+
+    emit changed();
 }
 
-void EntityModel::updateEntity(Entity *entity)
+void EntitiesModel::updateEntity(Entity *entity)
 {
     if (!entity)
         return;
@@ -63,14 +65,16 @@ void EntityModel::updateEntity(Entity *entity)
         const QModelIndex index = QAbstractListModel::createIndex(idx, 0, entity);
         emit dataChanged(index, index);
     }
+
+    emit changed();
 }
 
-bool EntityModel::loading() const
+bool EntitiesModel::loading() const
 {
     return m_loading;
 }
 
-void EntityModel::reset()
+void EntitiesModel::reset()
 {
     beginResetModel();
     qDeleteAll(m_entities.begin(), m_entities.end());
@@ -78,7 +82,7 @@ void EntityModel::reset()
     endResetModel();
 }
 
-void EntityModel::setLoading(bool loading)
+void EntitiesModel::setLoading(bool loading)
 {
     if (m_loading == loading)
         return;
@@ -87,14 +91,14 @@ void EntityModel::setLoading(bool loading)
     emit loadingChanged(m_loading);
 }
 
-int EntityModel::rowCount(const QModelIndex &parent) const
+int EntitiesModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
 
     return m_entities.count();
 }
 
-QVariant EntityModel::data(const QModelIndex &index, int role) const
+QVariant EntitiesModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid())
         return QVariant();
@@ -128,7 +132,7 @@ QVariant EntityModel::data(const QModelIndex &index, int role) const
     }
 }
 
-QHash<int, QByteArray> EntityModel::roleNames() const
+QHash<int, QByteArray> EntitiesModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
 

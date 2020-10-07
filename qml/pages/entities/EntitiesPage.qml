@@ -1,49 +1,72 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
+import org.nubecula.harbour.quartermaster 1.0
+
 Page {
     id: page
 
     allowedOrientations: Orientation.All
 
     SilicaListView {
+        PullDownMenu {
+           MenuItem {
+               text: qsTr("Refresh")
+               onClicked: Client.getStates()
+           }
+       }
+
+
         id: listView
-        model: ListModel {
-            ListElement {
-                title: qsTr("Connection");
-                description: qsTr("Edit connections settings")
-                icon: "image://theme/icon-m-mobile-network"
-                page: "SettingsConnectionPage.qml"
-            }
-            ListElement {
-                title: qsTr("Device Tracking");
-                description: qsTr("Manage device tracking options")
-                icon: "image://theme/icon-m-location"
-                page: "SettingsDeviceTrackingPage.qml"
-            }
-            ListElement {
-                title: qsTr("Device Sensors");
-                description: qsTr("Manage device sensors")
-                icon: "image://theme/icon-m-diagnostic"
-                page: "SettingsDeviceSensorsPage.qml"
-            }
-            ListElement {
-                title: qsTr("Zones");
-                description: qsTr("Manage zones")
-                icon: "image://theme/icon-m-dot"
-                page: "SettingsZonesPage.qml"
-            }
-            ListElement {
-                title: qsTr("Device Info");
-                description: qsTr("Show and edit device informations")
-                icon: "image://theme/icon-m-about"
-                page: "SettingsDeviceInfoPage.qml"
-            }
-        }
 
         anchors.fill: parent
         header: PageHeader {
-            title: qsTr("Settings")
+            title: qsTr("Entities")
+        }
+
+        model: ListModel {
+            ListElement {
+                title: qsTr("Alarms");
+                description: qsTr("List of all alarms")
+                icon: "image://theme/icon-m-alarm"
+                page: ""
+            }
+            ListElement {
+                title: qsTr("Automations");
+                description: qsTr("List of all automations")
+                icon: "image://theme/icon-m-toy"
+                page: ""
+            }
+            ListElement {
+                title: qsTr("Climates");
+                description: qsTr("List of all climates")
+                icon: "image://theme/icon-m-ambience"
+                page: ""
+            }
+            ListElement {
+                title: qsTr("Lights");
+                description: qsTr("List of all lights")
+                icon: "image://theme/icon-m-day"
+                page: ""
+            }
+            ListElement {
+                title: qsTr("Persons");
+                description: qsTr("List of all persons")
+                icon: "image://theme/icon-m-users"
+                page: "PersonsListPage.qml"
+            }
+            ListElement {
+                title: qsTr("Sensors");
+                description: qsTr("List of all sensors")
+                icon: "image://theme/icon-m-wizard"
+                page: ""
+            }
+            ListElement {
+                title: qsTr("Switches");
+                description: qsTr("List of all switches")
+                icon: "image://theme/icon-m-charging"
+                page: ""
+            }
         }
 
         delegate: ListItem {
@@ -87,10 +110,9 @@ Page {
                 }
             }
 
-            onClicked: pageStack.push(Qt.resolvedUrl(page))
+            onClicked: if (page.length > 0 ) pageStack.push(Qt.resolvedUrl(page))
         }
 
         VerticalScrollDecorator {}
     }
 }
-

@@ -29,6 +29,10 @@ Page {
                 text: qsTr("Settings")
                 onClicked: pageStack.push(Qt.resolvedUrl("settings/SettingsPage.qml"))
             }
+            MenuItem {
+                text: qsTr("Entities")
+                onClicked: pageStack.push(Qt.resolvedUrl("entities/EntitiesPage.qml"))
+            }
         }
 
         contentHeight: column.height

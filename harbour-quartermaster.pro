@@ -32,6 +32,7 @@ SOURCES += src/harbour-quartermaster.cpp \
     src/api/homeassistantapi.cpp \
     src/api/webhookapi.cpp \
     src/client/clientinterface.cpp \
+    src/client/entitiesprovider.cpp \
     src/client/homeassistantinfo.cpp \
     src/crypto/wallet.cpp \
     src/device/device.cpp \
@@ -45,7 +46,8 @@ SOURCES += src/harbour-quartermaster.cpp \
     src/entities/entity.cpp \
     src/entities/wifinetwork.cpp \
     src/entities/zone.cpp \
-    src/models/entitymodel.cpp \
+    src/models/entitiesmodel.cpp \
+    src/models/entitiessortfiltermodel.cpp \
     src/models/wifinetworkmodel.cpp \
     src/models/zonesmodel.cpp
 
@@ -63,6 +65,8 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/SettingsPage.qml \
     qml/pages/SettingsZonePage.qml \
     qml/pages/SettingsZonesPage.qml \
+    qml/pages/entities/EntitiesPage.qml \
+    qml/pages/entities/PersonsListPage.qml \
     qml/pages/wizard/WizardConnectionPage.qml \
     qml/pages/wizard/WizardDeviceRegistrationPage.qml \
     qml/pages/wizard/WizardInfoPage.qml \
@@ -96,6 +100,7 @@ HEADERS += \
     src/api/homeassistantapi.h \
     src/api/webhookapi.h \
     src/client/clientinterface.h \
+    src/client/entitiesprovider.h \
     src/client/homeassistantinfo.h \
     src/crypto/secrets.h \
     src/crypto/wallet.h \
@@ -110,6 +115,7 @@ HEADERS += \
     src/entities/entity.h \
     src/entities/wifinetwork.h \
     src/entities/zone.h \
-    src/models/entitymodel.h \
+    src/models/entitiesmodel.h \
+    src/models/entitiessortfiltermodel.h \
     src/models/wifinetworkmodel.h \
     src/models/zonesmodel.h

@@ -11,10 +11,11 @@
 
 ClientInterface::ClientInterface(QObject *parent) :
     QObject(parent),
-    m_zones(new ZonesModel(this)),
-    m_wallet(new Wallet(this)),
     m_device(new Device(this)),
-    m_homeassistantInfo(new HomeassistantInfo(this))
+    m_entitiesProvider(new EntitiesProvider(this)),
+    m_homeassistantInfo(new HomeassistantInfo(this)),
+    m_wallet(new Wallet(this)),
+    m_zones(new ZonesModel(this))
 {
     m_api = new HomeassistantApi(m_wallet, this);
     m_webhook = new WebhookApi(m_wallet, this);
@@ -34,6 +35,11 @@ ClientInterface::~ClientInterface()
     writeSettings();
 }
 
+QString ClientInterface::baseUrl() const
+{
+    return m_baseUrl;
+}
+
 void ClientInterface::connectToHost()
 {
     getConfig();
@@ -42,6 +48,11 @@ void ClientInterface::connectToHost()
 Device *ClientInterface::device()
 {
     return m_device;
+}
+
+EntitiesProvider *ClientInterface::entitiesProvider()
+{
+    return m_entitiesProvider;
 }
 
 HomeassistantInfo *ClientInterface::homeassistantInfo()
@@ -118,6 +129,7 @@ void ClientInterface::getConfig()
 
 void ClientInterface::getStates()
 {
+    m_entitiesProvider->setLoading(true);
     m_api->getStates();
 }
 
@@ -313,7 +325,7 @@ void ClientInterface::onDataAvailable(const QString &endpoint, const QJsonDocume
         m_homeassistantInfo->setAvailable(true);
         m_homeassistantInfo->setLoading(false);
     } else if (endpoint == QStringLiteral(HASS_API_ENDPOINT_STATES)) {
-
+        m_entitiesProvider->parseStates(doc.array());
     } else if (endpoint == QStringLiteral(HASS_API_ENDPOINT_DEVICE_REGISTRATION)) {
         m_webhook->setRegistrationData(doc.object());
         m_device->setRegistered(m_webhook->isRegistered());
