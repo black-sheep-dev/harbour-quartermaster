@@ -15,15 +15,20 @@
 
 DeviceTrackerWifi::DeviceTrackerWifi(ZonesModel *zones, QObject *parent) :
     DeviceTracker(parent),
+//    m_activity(new BackgroundActivity(this)),
     m_ncm(new QNetworkConfigurationManager(this)),
     m_localNetworks(new WifiNetworkModel(this)),
     m_zones(zones)
 {
+    //connect(m_activity, &BackgroundActivity::running, this, &DeviceTrackerWifi::onBackroundServiceRunning);
     connect(m_ncm, &QNetworkConfigurationManager::configurationChanged, this, &DeviceTrackerWifi::onConfigurationChanged);
     connect(m_localNetworks, &WifiNetworkModel::requestUpdate, this, &DeviceTrackerWifi::updateWifiNetworks);
     connect(m_zones, &ZonesModel::refreshed, this, &DeviceTrackerWifi::loadNetworkSettings);
 
     updateWifiNetworks();
+    loadNetworkSettings();
+
+//    m_activity->run();
 }
 
 WifiNetworkModel *DeviceTrackerWifi::localNetworkModel()
@@ -138,6 +143,17 @@ void DeviceTrackerWifi::updateWifiNetworks()
     m_localNetworks->setNetworks(networks);
 
     m_localNetworks->setLoading(false);
+}
+
+void DeviceTrackerWifi::onBackroundServiceRunning()
+{
+#ifdef QT_DEBUG
+    qDebug() << QStringLiteral("WIFI BACKGROUND SERVICE");
+#endif
+
+
+
+    m_activity->wait(BackgroundActivity::ThirtySeconds);
 }
 
 void DeviceTrackerWifi::onConfigurationChanged(const QNetworkConfiguration &config)

@@ -33,7 +33,7 @@ void DeviceTracker::onPositionChanged(const QGeoPositionInfo &info)
 
     location.insert(QStringLiteral("gps"), position);
     location.insert(QStringLiteral("altitude"), int(info.coordinate().altitude()));
-    location.insert(QStringLiteral("battery"), m_battery.chargePercentage());
+    location.insert(QStringLiteral("battery"), m_battery.chargePercentage() > 0 ? m_battery.chargePercentage() : 0);
 
     if (info.hasAttribute(QGeoPositionInfo::HorizontalAccuracy))
         location.insert(QStringLiteral("gps_accuracy"), int(info.attribute(QGeoPositionInfo::HorizontalAccuracy)));

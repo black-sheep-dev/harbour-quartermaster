@@ -258,6 +258,8 @@ void ClientInterface::setTrackingGPS(bool enable)
 
     m_gpsTracker = nullptr;
 
+    writeSettings();
+
     if (enable) {
         m_gpsTracker = new DeviceTrackerGPS(this);
         connect(m_gpsTracker, &DeviceTracker::locationUpdated, m_webhook, &WebhookApi::updateLocation);
@@ -278,6 +280,8 @@ void ClientInterface::setTrackingWifi(bool enable)
         m_wifiTracker->deleteLater();
 
     m_wifiTracker = nullptr;
+
+    writeSettings();
 
     if (enable) {
         qDebug() << "WIFI TRACKER ENABLED";

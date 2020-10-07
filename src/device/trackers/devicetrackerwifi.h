@@ -8,6 +8,8 @@
 #include "src/models/wifinetworkmodel.h"
 #include "src/models/zonesmodel.h"
 
+#include <keepalive/backgroundactivity.h>
+
 class DeviceTrackerWifi : public DeviceTracker
 {
     Q_OBJECT
@@ -25,16 +27,18 @@ public slots:
     Q_INVOKABLE void updateWifiNetworks();
 
 private slots:
+    void onBackroundServiceRunning();
     void onConfigurationChanged(const QNetworkConfiguration &config);
 
 private:
     void checkNetworkIdentifier(const QString &identifier);
     QString getActiveNetworkIdentifier() const;
 
+    BackgroundActivity *m_activity{nullptr};
     QGeoPositionInfo m_currentPositionInfo;
-    QNetworkConfigurationManager *m_ncm;
-    WifiNetworkModel *m_localNetworks;
-    ZonesModel *m_zones;
+    QNetworkConfigurationManager *m_ncm{nullptr};
+    WifiNetworkModel *m_localNetworks{nullptr};
+    ZonesModel *m_zones{nullptr};
 
     // DeviceTracker interface
 public slots:
