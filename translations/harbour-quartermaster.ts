@@ -164,7 +164,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Resetting device registration</source>
+        <source>Resetting device registration &amp; closing app</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

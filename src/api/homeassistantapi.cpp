@@ -10,8 +10,7 @@
 #include <QNetworkReply>
 
 HomeassistantApi::HomeassistantApi(Wallet *wallet, QObject *parent) :
-    ApiInterface(wallet, parent),
-    m_token(QString())
+    ApiInterface(wallet, parent)
 {
 
 }
@@ -19,6 +18,11 @@ HomeassistantApi::HomeassistantApi(Wallet *wallet, QObject *parent) :
 void HomeassistantApi::getConfig()
 {
     request(getRequest(QStringLiteral(HASS_API_ENDPOINT_CONFIG)));
+}
+
+void HomeassistantApi::getStates()
+{
+    request(getRequest(HASS_API_ENDPOINT_STATES));
 }
 
 void HomeassistantApi::registerDevice(Device *device)
@@ -41,24 +45,10 @@ void HomeassistantApi::registerDevice(Device *device)
     request(getRequest(QStringLiteral(HASS_API_ENDPOINT_DEVICE_REGISTRATION)), data);
 }
 
-QString HomeassistantApi::token() const
-{
-    return m_token;
-}
-
-void HomeassistantApi::setToken(const QString &token)
-{
-    if (m_token == token)
-        return;
-
-    m_token = token;
-    emit tokenChanged(m_token);
-}
-
 QNetworkRequest HomeassistantApi::getRequest(const QString &endpoint)
 {
     QNetworkRequest request = ApiInterface::getRequest(endpoint);
-    request.setRawHeader("Authorization", "Bearer " + m_token.toLatin1());
+    request.setRawHeader("Authorization", "Bearer " + wallet()->token().toLatin1());
 
     m_activeRequests.append(endpoint);
 

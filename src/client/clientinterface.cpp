@@ -22,8 +22,6 @@ ClientInterface::ClientInterface(QObject *parent) :
     connect(m_wallet, &Wallet::initialized, this, &ClientInterface::setReady);
 
     connect(m_wifiTracker, &DeviceTrackerWifi::networkChanged, this, &ClientInterface::setDebugOutput);
-
-    connect(m_api, &HomeassistantApi::tokenChanged, this, &ClientInterface::tokenChanged);
     connect(m_api, &HomeassistantApi::dataAvailable, this, &ClientInterface::onDataAvailable);
     connect(m_webhook, &WebhookApi::dataAvailable, this, &ClientInterface::onWebhookDataAvailable);
     connect(m_device, &Device::sensorUpdated, m_webhook, &WebhookApi::updateSensor);
@@ -118,6 +116,11 @@ void ClientInterface::getConfig()
     m_api->getConfig();
 }
 
+void ClientInterface::getStates()
+{
+    m_api->getStates();
+}
+
 void ClientInterface::getZones()
 {
     m_zones->setLoading(true);
@@ -157,7 +160,7 @@ bool ClientInterface::ssl() const
 
 QString ClientInterface::token() const
 {
-    return m_api->token();
+    return m_wallet->token();
 }
 
 bool ClientInterface::trackingGPS() const
@@ -239,7 +242,8 @@ void ClientInterface::setSsl(bool ssl)
 
 void ClientInterface::setToken(const QString &token)
 {
-    m_api->setToken(token);
+    m_wallet->setToken(token);
+    m_wallet->storeSecrets();
 }
 
 void ClientInterface::setTrackingGPS(bool enable)
@@ -308,6 +312,8 @@ void ClientInterface::onDataAvailable(const QString &endpoint, const QJsonDocume
         m_homeassistantInfo->setData(doc.object());
         m_homeassistantInfo->setAvailable(true);
         m_homeassistantInfo->setLoading(false);
+    } else if (endpoint == QStringLiteral(HASS_API_ENDPOINT_STATES)) {
+
     } else if (endpoint == QStringLiteral(HASS_API_ENDPOINT_DEVICE_REGISTRATION)) {
         m_webhook->setRegistrationData(doc.object());
         m_device->setRegistered(m_webhook->isRegistered());
@@ -335,7 +341,11 @@ void ClientInterface::onReadyChanged()
     if ( m_ready && m_webhook->isRegistered() ) {
         m_device->setRegistered(true);
         m_webhook->updateRegistration(m_device);
-        m_webhook->getZones();
+        //m_webhook->getZones();
+    }
+
+    if (m_ready) {
+        m_api->getStates();
     }
 }
 
@@ -360,7 +370,6 @@ void ClientInterface::readSettings()
     m_hostname = settings.value(QStringLiteral("hostname"), QString()).toString();
     m_port = quint16(settings.value(QStringLiteral("port"), 8123).toInt());
     m_ssl = settings.value(QStringLiteral("ssl"), false).toBool();
-    m_api->setToken(settings.value(QStringLiteral("token"), QString()).toString());
     settings.endGroup();
 
     settings.beginGroup(QStringLiteral("WEBHOOK_API"));

@@ -14,11 +14,9 @@ Page {
         PullDownMenu {
             MenuItem {
                 text: qsTr("Reset Registration")
-                onClicked: resetPopup.execute(qsTr("Resetting device registration"), function() {
+                onClicked: resetPopup.execute(qsTr("Resetting device registration & closing app"), function() {
                     Client.reset()
-
-                    pageStack.clear()
-                    pageStack.push(Qt.resolvedUrl("../wizard/WizardIntroPage.qml"))
+                    Qt.quit()
                 })
             }
         }

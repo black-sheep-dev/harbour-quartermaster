@@ -21,7 +21,7 @@ class ClientInterface : public QObject
     Q_PROPERTY(quint16 port READ port WRITE setPort NOTIFY portChanged)
     Q_PROPERTY(bool ready READ ready WRITE setReady NOTIFY readyChanged)
     Q_PROPERTY(bool ssl READ ssl WRITE setSsl NOTIFY sslChanged)
-    Q_PROPERTY(QString token READ token WRITE setToken NOTIFY tokenChanged)
+    Q_PROPERTY(QString token READ token WRITE setToken)
     Q_PROPERTY(bool trackingGPS READ trackingGPS WRITE setTrackingGPS NOTIFY trackingGPSChanged)
     Q_PROPERTY(bool trackingWifi READ trackingWifi WRITE setTrackingWifi NOTIFY trackingWifiChanged)
 
@@ -46,6 +46,7 @@ public:
 
     // api
     Q_INVOKABLE void getConfig();
+    Q_INVOKABLE void getStates();
     Q_INVOKABLE void getZones();
     Q_INVOKABLE void registerDevice();
 
@@ -67,8 +68,7 @@ signals:
     void hostnameChanged(const QString &hostname);
     void portChanged(quint16 port);
     void readyChanged(bool ready);
-    void sslChanged(bool ssl);
-    void tokenChanged(const QString &token);  
+    void sslChanged(bool ssl); 
     void trackingGPSChanged(bool enabled);
     void trackingWifiChanged(bool enabled);
 
