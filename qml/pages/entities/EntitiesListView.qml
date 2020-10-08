@@ -8,6 +8,7 @@ import "../../components/"
 Page {
     property string title
     property int type
+    property string icon
 
     id: page
 
@@ -37,14 +38,10 @@ Page {
                 height: parent.height
                 anchors.verticalCenter: parent.verticalCenter
 
-                CircleImage {
-                    id: avatar
-                    width: parent.height - 2 * Theme.paddingSmall
-                    source: Client.baseUrl() + attributes.entity_picture
+                Image {
+                    id: itemIcon
+                    source: page.icon
                     anchors.verticalCenter: parent.verticalCenter
-
-                    fallbackText: listView.getInitials(name)
-                    fallbackItemVisible: attributes.entity_picture ? false : true
                 }
 
                 Item {
@@ -54,8 +51,8 @@ Page {
 
                 Column {
                     id: data
-                    width: parent.width - avatar.width - Theme.paddingMedium
-                    anchors.verticalCenter: avatar.verticalCenter
+                    width: parent.width - itemIcon.width - Theme.paddingMedium
+                    anchors.verticalCenter: itemIcon.verticalCenter
 
                     Label {
                         width: parent.width
@@ -74,12 +71,7 @@ Page {
         }
 
         VerticalScrollDecorator {}
-
-        function getInitials(name) {
-            var initials = name.match(/\b\w/g) || [];
-            initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
-            return initials
-        }
     }
 }
+
 

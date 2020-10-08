@@ -12,7 +12,7 @@ Page {
         PullDownMenu {
            MenuItem {
                text: qsTr("Refresh")
-               onClicked: Client.getStates()
+               onClicked: Client.entitiesProvider().refresh()
            }
        }
 
@@ -29,25 +29,31 @@ Page {
                 title: qsTr("Alarms");
                 description: qsTr("List of all alarms")
                 icon: "image://theme/icon-m-alarm"
-                page: ""
+                page: "EntitiesListView.qml"
             }
             ListElement {
                 title: qsTr("Automations");
                 description: qsTr("List of all automations")
                 icon: "image://theme/icon-m-toy"
-                page: ""
+                page: "EntitiesListView.qml"
+            }
+            ListElement {
+                title: qsTr("Cameras");
+                description: qsTr("List of all cameras")
+                icon: "image://theme/icon-m-video"
+                page: "EntitiesListView.qml"
             }
             ListElement {
                 title: qsTr("Climates");
                 description: qsTr("List of all climates")
                 icon: "image://theme/icon-m-ambience"
-                page: ""
+                page: "EntitiesListView.qml"
             }
             ListElement {
                 title: qsTr("Lights");
                 description: qsTr("List of all lights")
                 icon: "image://theme/icon-m-day"
-                page: ""
+                page: "EntitiesListView.qml"
             }
             ListElement {
                 title: qsTr("Persons");
@@ -59,13 +65,13 @@ Page {
                 title: qsTr("Sensors");
                 description: qsTr("List of all sensors")
                 icon: "image://theme/icon-m-wizard"
-                page: ""
+                page: "EntitiesListView.qml"
             }
             ListElement {
                 title: qsTr("Switches");
                 description: qsTr("List of all switches")
                 icon: "image://theme/icon-m-charging"
-                page: ""
+                page: "EntitiesListView.qml"
             }
         }
 
@@ -110,7 +116,11 @@ Page {
                 }
             }
 
-            onClicked: if (page.length > 0 ) pageStack.push(Qt.resolvedUrl(page))
+            onClicked: if (page.length > 0 ) pageStack.push(Qt.resolvedUrl(page), {
+                                                                title: title,
+                                                                icon: icon,
+                                                                type: index + 1
+                                                            })
         }
 
         VerticalScrollDecorator {}

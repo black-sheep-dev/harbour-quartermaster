@@ -65,7 +65,8 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/SettingsPage.qml \
     qml/pages/SettingsZonePage.qml \
     qml/pages/SettingsZonesPage.qml \
-    qml/pages/entities/EntitiesPage.qml \
+    qml/pages/entities/EntitiesListView.qml \
+    qml/pages/entities/EntitiesOverviewPage.qml \
     qml/pages/entities/PersonsListPage.qml \
     qml/pages/wizard/WizardConnectionPage.qml \
     qml/pages/wizard/WizardDeviceRegistrationPage.qml \

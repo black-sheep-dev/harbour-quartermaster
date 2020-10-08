@@ -49,7 +49,6 @@ public:
 
     // api
     Q_INVOKABLE void getConfig();
-    Q_INVOKABLE void getStates();
     Q_INVOKABLE void getZones();
     Q_INVOKABLE void registerDevice();
 

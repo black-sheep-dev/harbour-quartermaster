@@ -31,7 +31,7 @@ Page {
             }
             MenuItem {
                 text: qsTr("Entities")
-                onClicked: pageStack.push(Qt.resolvedUrl("entities/EntitiesPage.qml"))
+                onClicked: pageStack.push(Qt.resolvedUrl("entities/EntitiesOverviewPage.qml"))
             }
         }
 
