@@ -8,6 +8,7 @@ import "../../components/"
 Page {
     property string title
     property int type
+    property string icon
 
     id: page
 
@@ -83,7 +84,7 @@ Page {
             delegate: ListItem {
                 id: delegate
                 width: parent.width
-                contentHeight: Theme.itemSizeExtraLarge
+                contentHeight: Theme.itemSizeLarge
 
                 Row {
                     x: Theme.horizontalPageMargin
@@ -91,14 +92,10 @@ Page {
                     height: parent.height
                     anchors.verticalCenter: parent.verticalCenter
 
-                    CircleImage {
-                        id: avatar
-                        width: parent.height - 2 * Theme.paddingSmall
-                        source: Client.baseUrl() + attributes.entity_picture
+                    Image {
+                        id: itemIcon
+                        source: page.icon
                         anchors.verticalCenter: parent.verticalCenter
-
-                        fallbackText: listView.getInitials(name)
-                        fallbackItemVisible: attributes.entity_picture ? false : true
                     }
 
                     Item {
@@ -107,8 +104,8 @@ Page {
                     }
 
                     Column {
-                        width: parent.width - avatar.width - Theme.paddingMedium
-                        anchors.verticalCenter: avatar.verticalCenter
+                        width: parent.width - itemIcon.width - Theme.paddingMedium
+                        anchors.verticalCenter: itemIcon.verticalCenter
 
                         Label {
                             width: parent.width
@@ -117,19 +114,27 @@ Page {
                             font.pixelSize: Theme.fontSizeLarge
                         }
                         Label {
-                            text: entity_id
+                            text: {
+                                if (entity_state === undefined)
+                                    return qsTr("No sensor data available")
+
+                                if (entity_state === "unavailable")
+                                    return qsTr("Unavailable")
+
+                                var str = entity_state
+                                if (attributes.unit_of_measurement !== undefined) {
+                                    str += " "
+                                    str += attributes.unit_of_measurement
+                                }
+
+                                return str
+                            }
 
                             color: Theme.secondaryColor
                             font.pixelSize: Theme.fontSizeMedium
                         }
                     }
                 }
-            }
-
-            function getInitials(name) {
-                var initials = name.match(/\b\w/g) || [];
-                initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
-                return initials
             }
         }
     }

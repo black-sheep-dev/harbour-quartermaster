@@ -8,6 +8,7 @@ import "../../components/"
 Page {
     property string title
     property int type
+    property string icon
 
     id: page
 
@@ -83,7 +84,7 @@ Page {
             delegate: ListItem {
                 id: delegate
                 width: parent.width
-                contentHeight: Theme.itemSizeExtraLarge
+                contentHeight: Theme.itemSizeLarge
 
                 Row {
                     x: Theme.horizontalPageMargin
@@ -91,14 +92,10 @@ Page {
                     height: parent.height
                     anchors.verticalCenter: parent.verticalCenter
 
-                    CircleImage {
-                        id: avatar
-                        width: parent.height - 2 * Theme.paddingSmall
-                        source: Client.baseUrl() + attributes.entity_picture
+                    Image {
+                        id: itemIcon
+                        source: page.icon
                         anchors.verticalCenter: parent.verticalCenter
-
-                        fallbackText: listView.getInitials(name)
-                        fallbackItemVisible: attributes.entity_picture ? false : true
                     }
 
                     Item {
@@ -107,8 +104,8 @@ Page {
                     }
 
                     Column {
-                        width: parent.width - avatar.width - Theme.paddingMedium
-                        anchors.verticalCenter: avatar.verticalCenter
+                        width: parent.width - itemIcon.width - Theme.paddingMedium
+                        anchors.verticalCenter: itemIcon.verticalCenter
 
                         Label {
                             width: parent.width
@@ -117,19 +114,27 @@ Page {
                             font.pixelSize: Theme.fontSizeLarge
                         }
                         Label {
-                            text: entity_id
+                            text: entity_state
 
                             color: Theme.secondaryColor
                             font.pixelSize: Theme.fontSizeMedium
                         }
                     }
                 }
-            }
 
-            function getInitials(name) {
-                var initials = name.match(/\b\w/g) || [];
-                initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
-                return initials
+                onClicked: {
+                    switch (type) {
+                    case Entity.Light:
+                        pageStack.push(Qt.resolvedUrl("types/LightPage.qml"), { entity: filterModel.entityAt(index) })
+                        break;
+
+                    default:
+                        pageStack.push(Qt.resolvedUrl("types/EntityPage.qml"), { entity: filterModel.entityAt(index) })
+                        break;
+                    }
+
+
+                }
             }
         }
     }

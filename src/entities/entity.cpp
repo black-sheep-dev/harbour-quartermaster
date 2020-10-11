@@ -55,6 +55,8 @@ void Entity::setJson(const QJsonObject &json)
         setType(Climate);
     else if (type == QStringLiteral("device_tracker"))
         setType(DeviceTracker);
+    else if (type == QStringLiteral("group"))
+        setType(Group);
     else if (type == QStringLiteral("light"))
         setType(Light);
     else if (type == QStringLiteral("media_player"))
@@ -78,15 +80,10 @@ void Entity::setJson(const QJsonObject &json)
     const QJsonObject attributes = json.value(QStringLiteral("attributes")).toObject();
     setName(attributes.value(QStringLiteral("friendly_name")).toString());
     setAttributes(attributes.toVariantMap());
+    setFeatures(attributes.value(QStringLiteral("supported_features")).toInt(0));
 
     // parse context
-    const QJsonObject ctx = json.value(QStringLiteral("context")).toObject();
-
-    EntityContext context;
-    context.id = ctx.value(QStringLiteral("id")).toString();
-    context.parentId = ctx.value(QStringLiteral("parent_id")).toString();
-    context.userId = ctx.value(QStringLiteral("user_id")).toString();
-    setContext(context);
+    setContext(json.value(QStringLiteral("context")).toObject().toVariantMap());
 }
 
 QVariantMap Entity::attributes() const
@@ -94,7 +91,7 @@ QVariantMap Entity::attributes() const
     return m_attributes;
 }
 
-EntityContext Entity::context() const
+QVariantMap Entity::context() const
 {
     return m_context;
 }
@@ -102,6 +99,11 @@ EntityContext Entity::context() const
 QString Entity::entityId() const
 {
     return m_entityId;
+}
+
+int Entity::features() const
+{
+    return m_features;
 }
 
 QString Entity::name() const
@@ -128,7 +130,7 @@ void Entity::setAttributes(const QVariantMap &attributes)
     emit attributesChanged(m_attributes);
 }
 
-void Entity::setContext(const EntityContext &context)
+void Entity::setContext(const QVariantMap &context)
 {
     if (m_context == context)
         return;
@@ -144,6 +146,15 @@ void Entity::setEntityId(const QString &id)
 
     m_entityId = id;
     emit entityIdChanged(m_entityId);
+}
+
+void Entity::setFeatures(int features)
+{
+    if (m_features == features)
+        return;
+
+    m_features = features;
+    emit featuresChanged(m_features);
 }
 
 void Entity::setName(const QString &name)

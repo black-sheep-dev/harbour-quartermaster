@@ -48,8 +48,12 @@ SOURCES += src/harbour-quartermaster.cpp \
     src/entities/zone.cpp \
     src/models/entitiesmodel.cpp \
     src/models/entitiessortfiltermodel.cpp \
+    src/models/entityattributesmodel.cpp \
+    src/models/entitytypesmodel.cpp \
+    src/models/sortfiltermodel.cpp \
     src/models/wifinetworkmodel.cpp \
-    src/models/zonesmodel.cpp
+    src/models/zonesmodel.cpp \
+    src/tools/cameraprovider.cpp
 
 DISTFILES += qml/harbour-quartermaster.qml \
     qml/SelectWifiNetworkDialog.qml \
@@ -65,9 +69,14 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/SettingsPage.qml \
     qml/pages/SettingsZonePage.qml \
     qml/pages/SettingsZonesPage.qml \
-    qml/pages/entities/EntitiesListView.qml \
+    qml/pages/entities/EntitiesListViewPage.qml \
     qml/pages/entities/EntitiesOverviewPage.qml \
+    qml/pages/entities/EntityAttributesPage.qml \
     qml/pages/entities/PersonsListPage.qml \
+    qml/pages/entities/SensorsListPage.qml \
+    qml/pages/entities/types/CameraPage.qml \
+    qml/pages/entities/types/EntityPage.qml \
+    qml/pages/entities/types/LightPage.qml \
     qml/pages/wizard/WizardConnectionPage.qml \
     qml/pages/wizard/WizardDeviceRegistrationPage.qml \
     qml/pages/wizard/WizardInfoPage.qml \
@@ -118,5 +127,9 @@ HEADERS += \
     src/entities/zone.h \
     src/models/entitiesmodel.h \
     src/models/entitiessortfiltermodel.h \
+    src/models/entityattributesmodel.h \
+    src/models/entitytypesmodel.h \
+    src/models/sortfiltermodel.h \
     src/models/wifinetworkmodel.h \
-    src/models/zonesmodel.h
+    src/models/zonesmodel.h \
+    src/tools/cameraprovider.h

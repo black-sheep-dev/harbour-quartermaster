@@ -19,6 +19,14 @@ Entity *EntitiesModel::entityAt(int index)
     return m_entities.at(index);
 }
 
+Entity *EntitiesModel::entityAt(const QModelIndex &index)
+{
+    if (!index.isValid())
+        return nullptr;
+
+    return m_entities.at(index.row());
+}
+
 QList<Entity *> EntitiesModel::entities() const
 {
     return m_entities;
@@ -69,26 +77,12 @@ void EntitiesModel::updateEntity(Entity *entity)
     emit changed();
 }
 
-bool EntitiesModel::loading() const
-{
-    return m_loading;
-}
-
 void EntitiesModel::reset()
 {
     beginResetModel();
     qDeleteAll(m_entities.begin(), m_entities.end());
     m_entities.clear();
     endResetModel();
-}
-
-void EntitiesModel::setLoading(bool loading)
-{
-    if (m_loading == loading)
-        return;
-
-    m_loading = loading;
-    emit loadingChanged(m_loading);
 }
 
 int EntitiesModel::rowCount(const QModelIndex &parent) const
@@ -116,13 +110,16 @@ QVariant EntitiesModel::data(const QModelIndex &index, int role) const
         return entity->attributes();
 
     case ContextRole:
-        return QVariant::fromValue<EntityContext>(entity->context());
+        return entity->context();
 
     case EntityIdRole:
         return entity->entityId();
 
+    case FeaturesRole:
+        return entity->features();
+
     case StateRole:
-        return entity->state();
+        return entity->state().toString();
 
     case TypeRole:
         return int(entity->type());
@@ -139,8 +136,9 @@ QHash<int, QByteArray> EntitiesModel::roleNames() const
     roles[AttributesRole]   = "attributes";
     roles[ContextRole]      = "context";
     roles[EntityIdRole]     = "entity_id";
+    roles[FeaturesRole]     = "features";
     roles[NameRole]         = "name";
-    roles[StateRole]        = "state";
+    roles[StateRole]        = "entity_state";
     roles[TypeRole]         = "type";
 
     return roles;

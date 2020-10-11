@@ -3,12 +3,8 @@ import Sailfish.Silica 1.0
 
 import org.nubecula.harbour.quartermaster 1.0
 
-import "../../components/"
-
 Page {
-    property string title
-    property int type
-    property string icon
+    property Entity entity
 
     id: page
 
@@ -19,18 +15,20 @@ Page {
 
         anchors.fill: parent
         header: PageHeader {
-            title: title
+            title: qsTr("Attributes")
         }
 
-        model: EntitiesSortFilterModel {
-            id: filterModel
-            sourceModel: Client.entitiesProvider().model(type)
+        model: SortFilterModel {
+            id: sortModel
+            sourceModel: EntityAttributesModel {
+                entity: page.entity
+            }
         }
 
         delegate: ListItem {
             id: delegate
             width: parent.width
-            contentHeight: Theme.itemSizeExtraLarge
+            contentHeight: Theme.itemSizeLarge
 
             Row {
                 x: Theme.horizontalPageMargin
@@ -38,31 +36,18 @@ Page {
                 height: parent.height
                 anchors.verticalCenter: parent.verticalCenter
 
-                Image {
-                    id: itemIcon
-                    source: page.icon
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-
-                Item {
-                    width:Theme.paddingMedium
-                    height:1
-                }
-
                 Column {
-                    id: data
-                    width: parent.width - itemIcon.width - Theme.paddingMedium
-                    anchors.verticalCenter: itemIcon.verticalCenter
+                    width: parent.width
+                    anchors.verticalCenter: parent.verticalCenter
 
                     Label {
                         width: parent.width
-                        text: name
-                        color: pressed ? Theme.secondaryHighlightColor : Theme.highlightColor
+                        text: key
+                        color: pressed?Theme.secondaryHighlightColor:Theme.highlightColor
                         font.pixelSize: Theme.fontSizeLarge
                     }
                     Label {
-                        text: entity_id
-
+                        text: value
                         color: Theme.secondaryColor
                         font.pixelSize: Theme.fontSizeMedium
                     }
@@ -73,5 +58,4 @@ Page {
         VerticalScrollDecorator {}
     }
 }
-
 

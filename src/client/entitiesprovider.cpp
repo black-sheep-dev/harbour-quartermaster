@@ -8,18 +8,10 @@
 #include <QJsonObject>
 
 EntitiesProvider::EntitiesProvider(QObject *parent) :
-    QObject(parent)
+    QObject(parent),
+    m_typesModel(new EntityTypesModel(this))
 {
 
-
-    registerModel(AlarmsModel, new EntitiesModel(this));
-    registerModel(AutomationsModel, new EntitiesModel(this));
-    registerModel(CamerasModel, new EntitiesModel(this));
-    registerModel(ClimatesModel, new EntitiesModel(this));
-    registerModel(LightsModel, new EntitiesModel(this));
-    registerModel(PersonsModel, new EntitiesModel(this));
-    registerModel(SensorsModel, new EntitiesModel(this));
-    registerModel(SwitchesModel, new EntitiesModel(this));
 }
 
 void EntitiesProvider::setApi(HomeassistantApi *api)
@@ -31,9 +23,19 @@ void EntitiesProvider::setApi(HomeassistantApi *api)
     connect(m_api, &HomeassistantApi::dataAvailable, this, &EntitiesProvider::onDataAvailable);
 }
 
-EntitiesModel *EntitiesProvider::model(const EntitiesProvider::ModelType &type)
+void EntitiesProvider::callService(const QString &domain, const QString &service, const QString &entityId, const QJsonObject &data)
 {
-    return m_models.value(type, nullptr);
+    m_api->callService(domain, service, entityId, data);
+}
+
+EntitiesModel *EntitiesProvider::model(const int &type)
+{
+    return m_models.value(Entity::EntityType(type), nullptr);
+}
+
+EntityTypesModel *EntitiesProvider::typesModel()
+{
+    return m_typesModel;
 }
 
 bool EntitiesProvider::loading() const
@@ -66,8 +68,14 @@ void EntitiesProvider::onDataAvailable(const QString &endpoint, const QJsonDocum
         parseStates(doc.array());
         return;
     }
+}
 
-    return;
+void EntitiesProvider::addEntityToModel(const Entity::EntityType &type, Entity *entity)
+{
+    if (!m_models.contains(type))
+        registerModel(type);
+
+    m_models.value(type)->addEntity(entity);
 }
 
 void EntitiesProvider::parseStates(const QJsonArray &states)
@@ -78,42 +86,25 @@ void EntitiesProvider::parseStates(const QJsonArray &states)
     }
 
     // add data to models
-    for (const QJsonValue item : states) {
+    for (const QJsonValue &item : states) {
         Entity *entity = new Entity(item.toObject());
 
         switch (entity->type()) {
+
         case Entity::Alarm:
-            m_models.value(AlarmsModel)->addEntity(entity);
-            break;
-
         case Entity::Automation:
-            m_models.value(AutomationsModel)->addEntity(entity);
-            break;
-
         case Entity::Camera:
-            m_models.value(CamerasModel)->addEntity(entity);
-            break;
-
-
         case Entity::Climate:
-            m_models.value(ClimatesModel)->addEntity(entity);
-            break;
-
+        case Entity::Group:
         case Entity::Light:
-            m_models.value(LightsModel)->addEntity(entity);
-            break;
-
         case Entity::Person:
-            m_models.value(PersonsModel)->addEntity(entity);
+        case Entity::Switch:
+            addEntityToModel(entity->type(), entity);
             break;
 
         case Entity::Sensor:
         case Entity::BinarySensor:
-            m_models.value(SensorsModel)->addEntity(entity);
-            break;
-
-        case Entity::Switch:
-            m_models.value(SwitchesModel)->addEntity(entity);
+            addEntityToModel(Entity::Sensor, entity);
             break;
 
         default:
@@ -125,9 +116,76 @@ void EntitiesProvider::parseStates(const QJsonArray &states)
     setLoading(false);
 }
 
-void EntitiesProvider::registerModel(const ModelType &type, EntitiesModel *model)
+void EntitiesProvider::registerModel(const Entity::EntityType &entityType)
 {
-    connect(this, &EntitiesProvider::loadingChanged, model, &EntitiesModel::setLoading);
+    EntityTypeItem item;
+    item.type = entityType;
 
-    m_models.insert(type, model);
+    switch (entityType) {
+    case Entity::Alarm:
+        item.title = tr("Alarms");
+        item.description = tr("List of all alarms");
+        item.icon = "image://theme/icon-m-alarm";
+        break;
+
+    case Entity::Automation:
+        item.title = tr("Automations");
+        item.description = tr("List of all automations");
+        item.icon = "image://theme/icon-m-toy";
+        break;
+
+    case Entity::Camera:
+        item.title = tr("Cameras");
+        item.description = tr("List of all cameras");
+        item.icon = "image://theme/icon-m-video";
+        break;
+
+    case Entity::Climate:
+        item.title = tr("Climates");
+        item.description = tr("List of all climates");
+        item.icon = "image://theme/icon-m-ambience";
+        break;
+
+    case Entity::Group:
+        item.title = tr("Groups");
+        item.description = tr("List of all groups");
+        item.icon = "image://theme/icon-m-levels";
+        break;
+
+    case Entity::Light:
+        item.title = tr("Lights");
+        item.description = tr("List of all lights");
+        item.icon = "image://theme/icon-m-day";
+        break;
+
+    case Entity::Person:
+        item.title = tr("Persons");
+        item.description = tr("List of all persons");
+        item.icon = "image://theme/icon-m-users";
+        break;
+
+    case Entity::Sensor:
+    case Entity::BinarySensor:
+        item.title = tr("Sensors");
+        item.description = tr("List of all sensors");
+        item.icon = "image://theme/icon-m-global-proxy";
+        item.type = Entity::Sensor;
+        break;
+
+    case Entity::Switch:
+        item.title = tr("Switches");
+        item.description = tr("List of all switches");
+        item.icon = "image://theme/icon-m-charging";
+        break;
+
+    default:
+        return;
+    }
+
+    m_typesModel->addItem(item);
+
+
+    auto *model = new EntitiesModel(this);
+
+    m_models.insert(entityType, model);
 }

@@ -8,6 +8,7 @@
 
 #include "src/api/homeassistantapi.h"
 #include "src/models/entitiesmodel.h"
+#include "src/models/entitytypesmodel.h"
 
 class EntitiesProvider : public QObject
 {
@@ -16,28 +17,16 @@ class EntitiesProvider : public QObject
     Q_PROPERTY(bool loading READ loading WRITE setLoading NOTIFY loadingChanged)
 
 public:
-    enum ModelType {
-        UnknownModel,
-        AlarmsModel,
-        AutomationsModel,
-        CamerasModel,
-        ClimatesModel,
-        LightsModel,
-        PersonsModel,
-        SensorsModel,
-        SwitchesModel
-    };
-    Q_ENUM(ModelType)
-
     explicit EntitiesProvider(QObject *parent = nullptr);
 
     // api
     void setApi(HomeassistantApi *api);
+    Q_INVOKABLE void callService(const QString &domain, const QString &service, const QString &entityId, const QJsonObject &data = QJsonObject());
+
 
     // models
-    Q_INVOKABLE EntitiesModel *model(const ModelType &type);
-
-    // functions
+    Q_INVOKABLE EntitiesModel *model(const int &type);
+    Q_INVOKABLE EntityTypesModel *typesModel();
 
     // properties
     bool loading() const;
@@ -56,11 +45,13 @@ private slots:
     void onDataAvailable(const QString &endpoint, const QJsonDocument &doc);
 
 private:
+    void addEntityToModel(const Entity::EntityType &type, Entity *entity);
     void parseStates(const QJsonArray &states);
-    void registerModel(const ModelType &type, EntitiesModel *model);
+    void registerModel(const Entity::EntityType &entityType);
 
     HomeassistantApi *m_api{nullptr};
-    QMap<EntitiesProvider::ModelType, EntitiesModel *> m_models;
+    QMap<Entity::EntityType, EntitiesModel *> m_models;
+    EntityTypesModel *m_typesModel{nullptr};
 
     // properties
     bool m_loading{false};

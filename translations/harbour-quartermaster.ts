@@ -69,6 +69,13 @@
     </message>
 </context>
 <context>
+    <name>EntitiesListViewPage</name>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>EntitiesOverviewPage</name>
     <message>
         <source>Refresh</source>
@@ -78,6 +85,9 @@
         <source>Entities</source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>EntitiesProvider</name>
     <message>
         <source>Alarms</source>
         <translation type="unfinished"></translation>
@@ -104,10 +114,6 @@
     </message>
     <message>
         <source>Climates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>List of all climates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -142,6 +148,55 @@
         <source>List of all switches</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>List of all climates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of all groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>EntityAttributesPage</name>
+    <message>
+        <source>Attributes</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>EntityPage</name>
+    <message>
+        <source>Attributes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Functionality</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LightPage</name>
+    <message>
+        <source>Attributes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Switch light on/off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Brightness</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Functions</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OverviewPage</name>
@@ -163,9 +218,31 @@
     </message>
 </context>
 <context>
+    <name>PersonsListPage</name>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SelectWifiNetworkDialog</name>
     <message>
         <source>Select Wifi networks</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SensorsListPage</name>
+    <message>
+        <source>No sensor data available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unavailable</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

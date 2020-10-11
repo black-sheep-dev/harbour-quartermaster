@@ -9,13 +9,12 @@ class EntitiesModel : public QAbstractListModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(bool loading READ loading WRITE setLoading NOTIFY loadingChanged)
-
 public:
     enum EntityRole {
         AttributesRole          = Qt::UserRole + 1,
         ContextRole,
         EntityIdRole,
+        FeaturesRole,
         NameRole,
         StateRole,
         TypeRole
@@ -26,6 +25,7 @@ public:
     ~EntitiesModel() override;
 
     Q_INVOKABLE Entity *entityAt(int index);
+    Entity *entityAt(const QModelIndex &index);
     QList<Entity *> entities() const;
     bool isEmpty() const;
 
@@ -33,26 +33,14 @@ public:
     void setEntities(const QList<Entity *> &entities);
     void updateEntity(Entity *entity);
 
-    // properties
-    bool loading() const;
-
 signals:
     void changed();
-
-    // properties
-    void loadingChanged(bool loading);
 
 public slots:
     void reset();
 
-    // properties
-    void setLoading(bool loading);
-
 private:
     QList<Entity *> m_entities;
-
-    // properties
-    bool m_loading{false};
 
     // QAbstractItemModel interface
 public:

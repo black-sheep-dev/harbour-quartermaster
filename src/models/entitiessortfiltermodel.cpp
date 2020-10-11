@@ -9,6 +9,18 @@ EntitiesSortFilterModel::EntitiesSortFilterModel(QObject *parent) :
     setFilterRole(EntitiesModel::NameRole);
 }
 
+Entity *EntitiesSortFilterModel::entityAt(int i)
+{
+    const QModelIndex idx = this->index(i, 0, QModelIndex());
+
+    if (!idx.isValid())
+        return nullptr;
+
+    auto *model = qobject_cast<EntitiesModel *>(sourceModel());
+
+    return model->entityAt(mapToSource(idx));
+}
+
 void EntitiesSortFilterModel::sortModel()
 {
     sort(0, Qt::AscendingOrder);

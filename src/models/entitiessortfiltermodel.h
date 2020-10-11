@@ -3,12 +3,15 @@
 
 #include <QSortFilterProxyModel>
 
+#include "src/entities/entity.h"
+
 class EntitiesSortFilterModel : public QSortFilterProxyModel
 {
     Q_OBJECT
 public:
     explicit EntitiesSortFilterModel(QObject *parent = nullptr); 
 
+    Q_INVOKABLE Entity *entityAt(int i);
     Q_INVOKABLE void sortModel();
 
     // QAbstractProxyModel interface

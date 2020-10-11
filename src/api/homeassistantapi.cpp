@@ -15,6 +15,14 @@ HomeassistantApi::HomeassistantApi(Wallet *wallet, QObject *parent) :
 
 }
 
+void HomeassistantApi::callService(const QString &domain, const QString &service, const QString &entityId, const QJsonObject &data)
+{
+    QJsonObject payload = data;
+    payload.insert(QStringLiteral("entity_id"), entityId);
+
+    request(getRequest(QStringLiteral(HASS_API_ENDPOINT_SERVICES) + "/" + domain + "/" + service), payload);
+}
+
 void HomeassistantApi::getConfig()
 {
     request(getRequest(QStringLiteral(HASS_API_ENDPOINT_CONFIG)));
