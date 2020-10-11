@@ -117,7 +117,13 @@ Page {
                             font.pixelSize: Theme.fontSizeLarge
                         }
                         Label {
-                            text: entity_id
+                            text: {
+                                if (entity_state === "home") return qsTr("At home")
+                                if (entity_state === "not_home") return qsTr("Not at home")
+                                if (entity_state === "unknown") return qsTr("Unkown")
+
+                                return entity_state
+                            }
 
                             color: Theme.secondaryColor
                             font.pixelSize: Theme.fontSizeMedium

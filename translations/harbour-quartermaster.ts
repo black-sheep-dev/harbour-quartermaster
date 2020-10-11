@@ -223,6 +223,18 @@
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>At home</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not at home</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unkown</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SelectWifiNetworkDialog</name>

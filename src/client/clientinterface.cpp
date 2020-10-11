@@ -347,7 +347,7 @@ void ClientInterface::onReadyChanged()
     if ( m_ready && m_webhook->isRegistered() ) {
         m_device->setRegistered(true);
         m_webhook->updateRegistration(m_device);
-        //m_webhook->getZones();
+        m_webhook->getZones();
     }
 
     if (m_ready) {
