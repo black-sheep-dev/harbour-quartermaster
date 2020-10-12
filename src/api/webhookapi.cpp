@@ -153,6 +153,10 @@ void WebhookApi::onReplyFinished(const QString &identifier, QNetworkReply *reply
         return;
     }
 
+    // logging
+    if (logging())
+        logData(QStringLiteral("webhook_reply"), doc.toJson(QJsonDocument::Indented));
+
     // handle data
     emit dataAvailable(identifier, doc);
 }

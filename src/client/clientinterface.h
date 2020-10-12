@@ -17,6 +17,7 @@ class ClientInterface : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool apiLogging READ apiLogging WRITE setApiLogging NOTIFY apiLoggingChanged)
     Q_PROPERTY(bool busy READ busy WRITE setBusy NOTIFY busyChanged)
     Q_PROPERTY(QString hostname READ hostname WRITE setHostname NOTIFY hostnameChanged)
     Q_PROPERTY(quint16 port READ port WRITE setPort NOTIFY portChanged)
@@ -53,6 +54,7 @@ public:
     Q_INVOKABLE void registerDevice();
 
     // properties
+    bool apiLogging() const;
     bool busy() const;
     QString hostname() const;
     quint16 port() const;
@@ -64,8 +66,11 @@ public:
 
     QString debugOutput() const;
 
+
+
 signals:
     // properties
+    void apiLoggingChanged(bool apiLogging);
     void busyChanged(bool busy);
     void hostnameChanged(const QString &hostname);
     void portChanged(quint16 port);
@@ -78,6 +83,7 @@ signals:
 
 public slots:
     // properties
+    void setApiLogging(bool apiLogging);
     void setBusy(bool busy);
     void setHostname(const QString &hostname);
     void setPort(quint16 port);
@@ -88,6 +94,8 @@ public slots:
     void setTrackingWifi(bool enable);
 
     void setDebugOutput(const QString &output);
+
+
 
 private slots:
     void onDataAvailable(const QString &endpoint, const QJsonDocument &doc);
@@ -113,6 +121,7 @@ private:
     ZonesModel *m_zones{nullptr};
 
     // properties
+    bool m_apiLogging{false};
     bool m_busy{false};
     QString m_hostname;
     quint16 m_port{8123};
@@ -122,6 +131,7 @@ private:
     bool m_trackingWifi{false};
 
     QString m_debugOutput;
+
 };
 
 #endif // CLIENTINTERFACE_H

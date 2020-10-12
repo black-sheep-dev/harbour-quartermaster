@@ -110,6 +110,10 @@ void HomeassistantApi::onRequestFinished(QNetworkReply *reply)
         return;
     }
 
+    // logging
+    if (logging())
+        logData(QStringLiteral("rest_api_reply"), doc.toJson(QJsonDocument::Indented));
+
     emit dataAvailable(endpoint, doc);
 }
 

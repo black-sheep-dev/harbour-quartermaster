@@ -387,6 +387,29 @@
     </message>
 </context>
 <context>
+    <name>SettingsDeveloperModePage</name>
+    <message>
+        <source>API logging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Attach this data to a new issue on GitHub if you need support!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log all API requests and replies. This helps to fix errors or to include new devices to Quartermaster.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only turn on logging if needed, because it will create a lot of data! Files are stored into Documents folder.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SettingsDeviceInfoPage</name>
     <message>
         <source>Device Info</source>
@@ -546,7 +569,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Manage zones</source>
+        <source>Manage Zones</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show and edit developer options</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

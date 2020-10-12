@@ -20,6 +20,10 @@ ClientInterface::ClientInterface(QObject *parent) :
     m_api = new HomeassistantApi(m_wallet, this);
     m_webhook = new WebhookApi(m_wallet, this);
 
+    // logging
+    connect(this, &ClientInterface::apiLoggingChanged, m_api, &HomeassistantApi::setLogging);
+    connect(this, &ClientInterface::apiLoggingChanged, m_webhook, &WebhookApi::setLogging);
+
     m_entitiesProvider->setApi(m_api);
 
     connect(m_wallet, &Wallet::initialized, this, &ClientInterface::setReady);
@@ -141,6 +145,11 @@ void ClientInterface::registerDevice()
     m_api->registerDevice(m_device);
 }
 
+bool ClientInterface::apiLogging() const
+{
+    return m_apiLogging;
+}
+
 bool ClientInterface::busy() const
 {
     return m_busy;
@@ -184,6 +193,17 @@ bool ClientInterface::trackingWifi() const
 QString ClientInterface::debugOutput() const
 {
     return m_debugOutput;
+}
+
+void ClientInterface::setApiLogging(bool apiLogging)
+{
+    if (m_apiLogging == apiLogging)
+        return;
+
+    m_apiLogging = apiLogging;
+    emit apiLoggingChanged(m_apiLogging);
+
+    writeSettings();
 }
 
 void ClientInterface::setBusy(bool busy)
@@ -394,6 +414,10 @@ void ClientInterface::readSettings()
     setTrackingWifi(settings.value(QStringLiteral("wifi"), false).toBool());
     settings.endGroup();
 
+    settings.beginGroup(QStringLiteral("DEVELOPER_MODE"));
+    setApiLogging(settings.value(QStringLiteral("api_logging"), false).toBool());
+    settings.endGroup();
+
     updateBaseUrl();
 }
 
@@ -405,7 +429,6 @@ void ClientInterface::writeSettings()
     settings.setValue(QStringLiteral("hostname"), m_hostname);
     settings.setValue(QStringLiteral("port"), m_port);
     settings.setValue(QStringLiteral("ssl"), m_ssl);
-    //settings.setValue(QStringLiteral("token"), m_api->token());
     settings.endGroup();
 
     settings.beginGroup(QStringLiteral("WEBHOOK_API"));
@@ -419,5 +442,9 @@ void ClientInterface::writeSettings()
     settings.beginGroup(QStringLiteral("TRACKING"));
     settings.setValue(QStringLiteral("gps"), m_trackingGPS);
     settings.setValue(QStringLiteral("wifi"), m_trackingWifi);
+    settings.endGroup();
+
+    settings.beginGroup(QStringLiteral("DEVELOPER_MODE"));
+    settings.setValue(QStringLiteral("api_logging"), m_apiLogging);
     settings.endGroup();
 }

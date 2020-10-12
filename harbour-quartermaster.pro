@@ -82,6 +82,7 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/entities/types/EntityPage.qml \
     qml/pages/entities/types/LightPage.qml \
     qml/pages/entities/types/SwitchPage.qml \
+    qml/pages/settings/SettingsDeveloperModePage.qml \
     qml/pages/wizard/WizardConnectionPage.qml \
     qml/pages/wizard/WizardDeviceRegistrationPage.qml \
     qml/pages/wizard/WizardInfoPage.qml \

@@ -29,7 +29,7 @@ Page {
             }
             ListElement {
                 title: qsTr("Zones");
-                description: qsTr("Manage zones")
+                description: qsTr("Manage Zones")
                 icon: "image://theme/icon-m-dot"
                 page: "SettingsZonesPage.qml"
             }
@@ -38,6 +38,12 @@ Page {
                 description: qsTr("Show and edit device informations")
                 icon: "image://theme/icon-m-about"
                 page: "SettingsDeviceInfoPage.qml"
+            }
+            ListElement {
+                title: qsTr("Developer Mode");
+                description: qsTr("Show and edit developer options")
+                icon: "image://theme/icon-m-developer-mode"
+                page: "SettingsDeveloperModePage.qml"
             }
         }
 

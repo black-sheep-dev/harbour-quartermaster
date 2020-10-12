@@ -4,9 +4,13 @@
 #include <QDebug>
 #endif
 
+#include <QDateTime>
+#include <QDir>
+#include <QFile>
 #include <QJsonDocument>
-
 #include <QNetworkReply>
+#include <QStandardPaths>
+#include <QTextStream>
 
 ApiInterface::ApiInterface(Wallet *wallet, QObject *parent) :
     QObject(parent),
@@ -25,10 +29,24 @@ Wallet *ApiInterface::wallet()
 
 void ApiInterface::request(const QNetworkRequest &request, const QJsonObject &data, const QString &identifier)
 {
+
     // GET
     if (data.isEmpty()) {
         m_manager->get(request);
         return;
+    }
+
+
+    // logging
+    if (logging()) {
+        QString name;
+
+        if (identifier.isEmpty())
+            name = QStringLiteral("rest_api_request");
+        else
+            name = QStringLiteral("webhook_request_") + identifier;
+
+        logData(name, QJsonDocument(data).toJson(QJsonDocument::Indented));
     }
 
     // POST
@@ -45,6 +63,11 @@ QString ApiInterface::baseUrl() const
     return m_baseUrl;
 }
 
+bool ApiInterface::logging() const
+{
+    return m_logging;
+}
+
 Secrets *ApiInterface::secrets()
 {
     return m_secrets;
@@ -55,6 +78,25 @@ bool ApiInterface::ssl() const
     return m_ssl;
 }
 
+void ApiInterface::logData(const QString &identifier, const QByteArray &data)
+{
+    QFile file(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)
+               + "/" + APP_TARGET
+               + "/log_"
+               + identifier
+               + "_" + QDateTime::currentDateTime().toString("yyyyMMddhhmmsszzz")
+               + ".txt");
+
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
+
+    QTextStream out(&file);
+
+    out << QString(data);
+
+    file.close();
+}
+
 void ApiInterface::setBaseUrl(const QString &url)
 {
     if (m_baseUrl == url)
@@ -62,6 +104,23 @@ void ApiInterface::setBaseUrl(const QString &url)
 
     m_baseUrl = url;
     emit baseUrlChanged(m_baseUrl);
+}
+
+void ApiInterface::setLogging(bool logging)
+{
+    if (m_logging == logging)
+        return;
+
+    m_logging = logging;
+    emit loggingChanged(m_logging);
+
+    if (!m_logging)
+        return;
+
+    QDir dir(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/" + APP_TARGET);
+
+    if (!dir.exists())
+        dir.mkpath(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/" + APP_TARGET);
 }
 
 void ApiInterface::setSecrets(Secrets *secrets)
