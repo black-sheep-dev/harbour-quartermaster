@@ -34,6 +34,18 @@
         <source>Automation on/off</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Automation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last triggered:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ClimatePage</name>

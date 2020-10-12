@@ -28,7 +28,17 @@ Page {
             spacing: Theme.paddingMedium
 
             PageHeader {
-                title: entity.name
+                title: qsTr("Automation")
+            }
+
+            Label {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2*x
+
+                text: entity.name
+                wrapMode: Text.WordWrap
+
+                color: Theme.highlightColor
             }
 
             TextSwitch {
@@ -40,6 +50,26 @@ Page {
                     Client.entitiesProvider().callService("homeassistant",
                                                           checked ? "turn_on" : "turn_off",
                                                           entity.entityId)
+                }
+            }
+
+            SectionHeader{
+                text: qsTr("Info")
+            }
+
+            Row {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2*x
+
+                Label {
+                    text: qsTr("Last triggered:")
+                    width: parent.width * 0.5
+                    color: Theme.highlightColor
+                }
+
+                Label {
+                    text: new Date(entity.attributes.last_triggered).toLocaleString(Qt.locale(), Locale.ShortFormat);
+                    color: Theme.highlightColor
                 }
             }
         }
