@@ -11,12 +11,13 @@ Page {
     allowedOrientations: Orientation.All
 
     Timer {
-        interval: 5000
-        running: true
+        interval: 10000
         repeat: true
+        running: true
 
         onTriggered: {
-            cameraView.update()
+            cameraView.source = ""
+            cameraView.source = Client.baseUrl() + entity.attributes.entity_picture
         }
     }
 
@@ -42,7 +43,7 @@ Page {
                 smooth: true
                 width: column.width * 0.8
 
-                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.horizontalCenter: parent.horizontalCenter          
             }
         }
     }

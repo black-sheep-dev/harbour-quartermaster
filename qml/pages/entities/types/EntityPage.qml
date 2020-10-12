@@ -37,14 +37,5 @@ Page {
                 text: qsTr("Functionality")
             }
         }
-
-        Connections {
-            target: powerButton
-            onToggled: {
-                Client.entitiesProvider().callService("homeassistant",
-                                                      enabled ? "turn_on" : "turn_off",
-                                                      page.entity.entityId)
-            }
-        }
     }
 }

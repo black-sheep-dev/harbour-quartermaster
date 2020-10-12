@@ -128,6 +128,10 @@ Page {
                         pageStack.push(Qt.resolvedUrl("types/AutomationPage.qml"), { entity: filterModel.entityAt(index) })
                         break;
 
+                    case Entity.Camera:
+                        pageStack.push(Qt.resolvedUrl("types/CameraPage.qml"), { entity: filterModel.entityAt(index) })
+                        break;
+
                     case Entity.Climate:
                         pageStack.push(Qt.resolvedUrl("types/ClimatePage.qml"), { entity: filterModel.entityAt(index) })
                         break;

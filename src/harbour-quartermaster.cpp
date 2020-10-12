@@ -7,7 +7,6 @@
 #include "models/entitiessortfiltermodel.h"
 #include "models/hvacmodesmodel.h"
 #include "models/sortfiltermodel.h"
-#include "tools/cameraprovider.h"
 
 int main(int argc, char *argv[])
 {
@@ -21,7 +20,6 @@ int main(int argc, char *argv[])
     qmlRegisterType<Climate>("org.nubecula.harbour.quartermaster", 1, 0, "Climate");
     qmlRegisterType<Light>("org.nubecula.harbour.quartermaster", 1, 0, "Light");
 
-    qmlRegisterType<CameraProvider>("org.nubecula.harbour.quartermaster", 1, 0, "CameraProvider");
     qmlRegisterType<Device>("org.nubecula.harbour.quartermaster", 1, 0, "Device");
     qmlRegisterType<DeviceSensor>("org.nubecula.harbour.quartermaster", 1, 0, "DeviceSensor");
     qmlRegisterType<DeviceSensorModel>("org.nubecula.harbour.quartermaster", 1, 0, "DeviceSensorModel");

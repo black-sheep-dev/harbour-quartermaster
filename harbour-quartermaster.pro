@@ -55,8 +55,7 @@ SOURCES += src/harbour-quartermaster.cpp \
     src/models/hvacmodesmodel.cpp \
     src/models/sortfiltermodel.cpp \
     src/models/wifinetworkmodel.cpp \
-    src/models/zonesmodel.cpp \
-    src/tools/cameraprovider.cpp
+    src/models/zonesmodel.cpp
 
 DISTFILES += qml/harbour-quartermaster.qml \
     qml/SelectWifiNetworkDialog.qml \
@@ -140,5 +139,4 @@ HEADERS += \
     src/models/hvacmodesmodel.h \
     src/models/sortfiltermodel.h \
     src/models/wifinetworkmodel.h \
-    src/models/zonesmodel.h \
-    src/tools/cameraprovider.h
+    src/models/zonesmodel.h
