@@ -25,6 +25,17 @@
     </message>
 </context>
 <context>
+    <name>AutomationPage</name>
+    <message>
+        <source>Attributes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automation on/off</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ClimatePage</name>
     <message>
         <source>Attributes</source>
@@ -589,6 +600,41 @@
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
+    </message>
+</context>
+<context>
+    <name>SwitchPage</name>
+    <message>
+        <source>Attributes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Switch on/off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current power usage:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Today energy usage:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total energy usage:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voltage:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

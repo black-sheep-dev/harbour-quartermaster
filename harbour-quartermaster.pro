@@ -77,10 +77,12 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/entities/EntityAttributesPage.qml \
     qml/pages/entities/PersonsListPage.qml \
     qml/pages/entities/SensorsListPage.qml \
+    qml/pages/entities/types/AutomationPage.qml \
     qml/pages/entities/types/CameraPage.qml \
     qml/pages/entities/types/ClimatePage.qml \
     qml/pages/entities/types/EntityPage.qml \
     qml/pages/entities/types/LightPage.qml \
+    qml/pages/entities/types/SwitchPage.qml \
     qml/pages/wizard/WizardConnectionPage.qml \
     qml/pages/wizard/WizardDeviceRegistrationPage.qml \
     qml/pages/wizard/WizardInfoPage.qml \

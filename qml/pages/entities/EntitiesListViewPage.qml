@@ -124,12 +124,20 @@ Page {
 
                 onClicked: {
                     switch (type) {
+                    case Entity.Automation:
+                        pageStack.push(Qt.resolvedUrl("types/AutomationPage.qml"), { entity: filterModel.entityAt(index) })
+                        break;
+
                     case Entity.Climate:
                         pageStack.push(Qt.resolvedUrl("types/ClimatePage.qml"), { entity: filterModel.entityAt(index) })
                         break;
 
                     case Entity.Light:
                         pageStack.push(Qt.resolvedUrl("types/LightPage.qml"), { entity: filterModel.entityAt(index) })
+                        break;
+
+                    case Entity.Switch:
+                        pageStack.push(Qt.resolvedUrl("types/SwitchPage.qml"), { entity: filterModel.entityAt(index) })
                         break;
 
                     default:
