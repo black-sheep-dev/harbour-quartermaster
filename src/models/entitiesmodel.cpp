@@ -11,6 +11,16 @@ EntitiesModel::~EntitiesModel()
     qDeleteAll(m_entities.begin(), m_entities.end());
 }
 
+Entity *EntitiesModel::entityById(const QString &entityId)
+{
+    for (Entity *entity : m_entities) {
+        if (entity->entityId() == entityId)
+            return entity;
+    }
+
+    return nullptr;
+}
+
 Entity *EntitiesModel::entityAt(int index)
 {
     if (index < 0 || index >= rowCount(QModelIndex()))
@@ -115,8 +125,8 @@ QVariant EntitiesModel::data(const QModelIndex &index, int role) const
     case EntityIdRole:
         return entity->entityId();
 
-    case FeaturesRole:
-        return entity->features();
+    case SupportedFeaturesRole:
+        return entity->supportedFeatures();
 
     case StateRole:
         return entity->state().toString();
@@ -133,13 +143,13 @@ QHash<int, QByteArray> EntitiesModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
 
-    roles[AttributesRole]   = "attributes";
-    roles[ContextRole]      = "context";
-    roles[EntityIdRole]     = "entity_id";
-    roles[FeaturesRole]     = "features";
-    roles[NameRole]         = "name";
-    roles[StateRole]        = "entity_state";
-    roles[TypeRole]         = "type";
+    roles[AttributesRole]           = "attributes";
+    roles[ContextRole]              = "context";
+    roles[EntityIdRole]             = "entity_id";
+    roles[SupportedFeaturesRole]    = "supported_features";
+    roles[NameRole]                 = "name";
+    roles[StateRole]                = "entity_state";
+    roles[TypeRole]                 = "type";
 
     return roles;
 }

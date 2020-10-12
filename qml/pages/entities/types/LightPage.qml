@@ -1,14 +1,10 @@
 import QtQuick 2.0
-
-import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 import org.nubecula.harbour.quartermaster 1.0
 
-import "../../../components"
-
 Page {
-    property Entity entity
+    property Light entity
 
     id: page
 
@@ -27,46 +23,47 @@ Page {
 
         Column {
             id: column
-            x: Theme.horizontalPageMargin
-            width: parent.width - 2*x
+
+            width: parent.width
             spacing: Theme.paddingMedium
 
             PageHeader {
                 title: entity.name
             }
 
-            SectionHeader {
-                text: qsTr("Functions")
-            }
-
             TextSwitch {
+                x: Theme.horizontalPageMargin
                 text: qsTr("Switch light on/off")
                 checked: entity.state === "on"
 
                 onClicked: {
                     Client.entitiesProvider().callService("light",
                                                           checked ? "turn_on" : "turn_off",
-                                                          page.entity.entityId)
+                                                          entity.entityId)
                 }
             }
 
-            Label {
-                visible: page.entity.features & Entity.LightBrightness
-                text: qsTr("Brightness")
-                color: Theme.highlightColor
+            SectionHeader {
+                text: qsTr("Features")
             }
+
+            // ------------------------------------------------------------------------------------------------------------
+            // BRIGHTNESS
+            // ------------------------------------------------------------------------------------------------------------
 
             Slider {
                 id: brightnessSlider
 
-                visible: page.entity.features & Entity.LightBrightness
+                label: qsTr("Brightness")
+
+                visible: entity.hasFeature(Light.LightBrightness)
 
                 width: parent.width
                 stepSize: 1
                 minimumValue: 0
                 maximumValue: 255
 
-                value: page.entity.attributes.brightness
+                value: entity.attributes.brightness
 
                 onPressedChanged: {
                     if (pressed)
@@ -74,36 +71,139 @@ Page {
 
                     Client.entitiesProvider().callService("light",
                                                           "turn_on",
-                                                          page.entity.entityId,
+                                                          entity.entityId,
                                                           {
                                                               brightness: value
                                                           })
-
-                    page.entity.attributes.brightness = value
                 }
             }
 
-            Label {
-                visible: page.entity.features & Entity.LightColor
-                text: qsTr("Brightness")
-                color: Theme.highlightColor
+            // ------------------------------------------------------------------------------------------------------------
+            // COLOR TEMPERATURE
+            // ------------------------------------------------------------------------------------------------------------
+
+            Slider {
+                id: colorTempSlider
+
+                label: qsTr("Color temperature")
+
+                visible: entity.hasFeature(Light.LightColorTemp)
+
+                width: parent.width
+                stepSize: 1
+                minimumValue: entity.attributes.min_mireds
+                maximumValue: entity.attributes.max_mireds
+
+                value: entity.attributes.color_temp
+
+                onPressedChanged: {
+                    if (pressed)
+                        return;
+
+                    Client.entitiesProvider().callService("light",
+                                                          "turn_on",
+                                                          entity.entityId,
+                                                          {
+                                                              color_temp: value
+                                                          })
+                }
             }
 
-            ColorPicker {
-                id: colorPicker
-                width: 512
-                height: 512
+            // ------------------------------------------------------------------------------------------------------------
+            // COLOR
+            // ------------------------------------------------------------------------------------------------------------
 
-                onColorsChanged: Client.entitiesProvider().callService("light",
-                                                                       "turn_on",
-                                                                       page.entity.entityId,
-                                                                       {
-                                                                           rgb_color: [
-                                                                               125,
-                                                                               255,
-                                                                               0
-                                                                           ]
-                                                                       })
+            Row {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2*x
+
+                Label {
+                    visible: entity.hasFeature(Light.LightColor)
+
+                    text: qsTr("Color")
+
+                    anchors.verticalCenter: colorSelect.verticalCenter
+
+                    color: Theme.highlightColor
+                }
+
+                Item {
+                    width: Theme.paddingLarge
+                    height: 1
+                }
+
+                Rectangle {
+                    visible: entity.hasFeature(Light.LightColor)
+
+                    id: colorSelect
+                    width: 96
+                    height: 96
+
+                    radius: 48
+
+                    color: entity.color
+
+                    MouseArea {
+                        anchors.fill: colorSelect
+
+                        onClicked: {
+                            var dialog = pageStack.push("Sailfish.Silica.ColorPickerDialog")
+                            dialog.accepted.connect(function() {
+                                entity.color = dialog.color
+                                Client.entitiesProvider().callService("light",
+                                                                      "turn_on",
+                                                                      entity.entityId,
+                                                                      {
+                                                                          rgb_color: [
+                                                                            entity.red(),
+                                                                            entity.green(),
+                                                                            entity.blue()
+                                                                          ]
+                                                                      })
+                            })
+                        }
+                    }
+                }
+            }
+
+            // ------------------------------------------------------------------------------------------------------------
+            // EFFECT
+            // ------------------------------------------------------------------------------------------------------------
+
+            ComboBox {
+                id: effectCombo
+                visible: entity.hasFeature(Light.LightEffect)
+                width: parent.width
+                label: qsTr("Effect")
+
+                menu: ContextMenu {
+                    MenuItem {
+                        text: qsTr("off")
+                    }
+
+                    Repeater {
+                        model: entity.attributes.effect_list
+
+                        MenuItem {
+                            text: modelData
+                        }
+                    }
+                }
+
+                onCurrentIndexChanged: {
+                    var effect
+                    if (currentIndex === 0)
+                        effect = "none"
+                    else
+                        effect = currentItem.text
+
+                    Client.entitiesProvider().callService("light",
+                                                          "turn_on",
+                                                          entity.entityId,
+                                                          {
+                                                              effect: effect
+                                                          })
+                }
             }
         }
     }

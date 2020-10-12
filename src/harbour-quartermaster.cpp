@@ -5,6 +5,7 @@
 #include "client/clientinterface.h"
 #include "models/entityattributesmodel.h"
 #include "models/entitiessortfiltermodel.h"
+#include "models/hvacmodesmodel.h"
 #include "models/sortfiltermodel.h"
 #include "tools/cameraprovider.h"
 
@@ -16,6 +17,9 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain(QStringLiteral("nubecula.org"));
 
     qRegisterMetaTypeStreamOperators<Secrets>("WebhookSecrets");
+
+    qmlRegisterType<Climate>("org.nubecula.harbour.quartermaster", 1, 0, "Climate");
+    qmlRegisterType<Light>("org.nubecula.harbour.quartermaster", 1, 0, "Light");
 
     qmlRegisterType<CameraProvider>("org.nubecula.harbour.quartermaster", 1, 0, "CameraProvider");
     qmlRegisterType<Device>("org.nubecula.harbour.quartermaster", 1, 0, "Device");

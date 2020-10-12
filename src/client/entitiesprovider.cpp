@@ -66,7 +66,8 @@ void EntitiesProvider::onDataAvailable(const QString &endpoint, const QJsonDocum
 
     if (endpoint == QStringLiteral(HASS_API_ENDPOINT_STATES)) {
         parseStates(doc.array());
-        return;
+    } else if (endpoint.startsWith("/api/services")) {
+        updateEntities(doc.array());
     }
 }
 
@@ -78,6 +79,45 @@ void EntitiesProvider::addEntityToModel(const Entity::EntityType &type, Entity *
     m_models.value(type)->addEntity(entity);
 }
 
+Entity::EntityType EntitiesProvider::getEntityType(const QString &entityId) const
+{
+    const QString type = entityId.split(".").first();
+
+    if (type == QStringLiteral("alarm_control_panel")) {
+        return Entity::Alarm;
+    } else if (type == QStringLiteral("automation")) {
+        return Entity::Automation;
+    } else if (type == QStringLiteral("binary_sensor")) {
+        return Entity::BinarySensor;
+    } else if (type == QStringLiteral("camera")) {
+        return Entity::Camera;
+    } else if (type == QStringLiteral("climate")) {
+        return Entity::Climate;
+    } else if (type == QStringLiteral("device_tracker")) {
+        return Entity::DeviceTracker;
+    } else if (type == QStringLiteral("group")) {
+        return Entity::Group;
+    } else if (type == QStringLiteral("light")) {
+        return Entity::Light;
+    } else if (type == QStringLiteral("media_player")) {
+        return Entity::MediaPlayer;
+    } else if (type == QStringLiteral("person")) {
+        return Entity::Person;
+    } else if (type == QStringLiteral("sensor")) {
+        return Entity::Sensor;
+    } else if (type == QStringLiteral("sun")) {
+        return Entity::Sun;
+    } else if (type == QStringLiteral("switch")) {
+        return Entity::Switch;
+    } else if (type == QStringLiteral("weather")) {
+        return Entity::Weather;
+    } else if (type == QStringLiteral("zone")) {
+        return Entity::Zone;
+    } else {
+        return Entity::Unkown;
+    }
+}
+
 void EntitiesProvider::parseStates(const QJsonArray &states)
 {
     // reset models
@@ -87,8 +127,59 @@ void EntitiesProvider::parseStates(const QJsonArray &states)
 
     // add data to models
     for (const QJsonValue &item : states) {
-        Entity *entity = new Entity(item.toObject());
+        const QJsonObject obj = item.toObject();
 
+        // check entity type
+        const Entity::EntityType type = getEntityType(obj.value(QStringLiteral("entity_id")).toString());
+
+        Entity *entity{nullptr};
+
+        switch (type) {
+        case Entity::Alarm:
+        case Entity::Automation:
+        case Entity::BinarySensor:
+        case Entity::Camera:
+        case Entity::DeviceTracker:
+        case Entity::Group:
+        case Entity::MediaPlayer:
+        case Entity::Person:
+        case Entity::Sensor:
+        case Entity::Sun:
+        case Entity::Switch:
+        case Entity::Weather:
+        case Entity::Zone:
+            entity = new Entity;
+            entity->setType(type);
+            break;
+
+        case Entity::Climate:
+            entity = new Climate;
+            break;
+
+        case Entity::Light:
+            entity = new Light;
+            break;
+
+        default:
+            entity = new Entity;
+            entity->setType(Entity::Unkown);
+            break;
+        }
+
+        // set data to entity
+        entity->setEntityId(obj.value(QStringLiteral("entity_id")).toString());
+        entity->setState(obj.value(QStringLiteral("state")).toVariant());
+
+        // parse attributes
+        const QJsonObject attributes = obj.value(QStringLiteral("attributes")).toObject();
+        entity->setName(attributes.value(QStringLiteral("friendly_name")).toString());
+        entity->setAttributes(attributes.toVariantMap());
+        entity->setSupportedFeatures(quint16(attributes.value(QStringLiteral("supported_features")).toInt(0)));
+
+        // parse context
+        entity->setContext(obj.value(QStringLiteral("context")).toObject().toVariantMap());
+
+        // add to model or delete
         switch (entity->type()) {
 
         case Entity::Alarm:
@@ -188,4 +279,37 @@ void EntitiesProvider::registerModel(const Entity::EntityType &entityType)
     auto *model = new EntitiesModel(this);
 
     m_models.insert(entityType, model);
+}
+
+void EntitiesProvider::updateEntities(const QJsonArray &entities)
+{
+    for (const QJsonValue item : entities) {
+        const QJsonObject obj = item.toObject();
+        const QString id = obj.value(QStringLiteral("entity_id")).toString();
+
+        const Entity::EntityType type = getEntityType(id);
+
+        EntitiesModel *model = m_models.value(type, nullptr);
+
+        if (!model)
+            return;
+
+        Entity *entity = model->entityById(id);
+
+        if (!entity)
+            continue;
+
+        // set state
+        entity->setState(obj.value(QStringLiteral("state")).toVariant());
+
+        // parse attributes
+        const QJsonObject attributes = obj.value(QStringLiteral("attributes")).toObject();
+        entity->setAttributes(attributes.toVariantMap());
+        entity->setSupportedFeatures(quint16(attributes.value(QStringLiteral("supported_features")).toInt(0)));
+
+        // parse context
+        entity->setContext(obj.value(QStringLiteral("context")).toObject().toVariantMap());
+
+        model->updateEntity(entity);
+    }
 }

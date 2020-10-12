@@ -10,6 +10,9 @@
 #include "src/models/entitiesmodel.h"
 #include "src/models/entitytypesmodel.h"
 
+#include "src/entities/climate.h"
+#include "src/entities/light.h"
+
 class EntitiesProvider : public QObject
 {
     Q_OBJECT
@@ -46,8 +49,10 @@ private slots:
 
 private:
     void addEntityToModel(const Entity::EntityType &type, Entity *entity);
+    Entity::EntityType getEntityType(const QString &entityId) const;
     void parseStates(const QJsonArray &states);
     void registerModel(const Entity::EntityType &entityType);
+    void updateEntities(const QJsonArray &entities);
 
     HomeassistantApi *m_api{nullptr};
     QMap<Entity::EntityType, EntitiesModel *> m_models;

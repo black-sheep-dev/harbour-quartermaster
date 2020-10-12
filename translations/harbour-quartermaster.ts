@@ -25,6 +25,61 @@
     </message>
 </context>
 <context>
+    <name>ClimatePage</name>
+    <message>
+        <source>Attributes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target temperature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current room temperature:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preset mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Away</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Boost</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comfort</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Eco</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Home</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sleep</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current state:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConnectionSettings</name>
     <message>
         <source>Hostname</source>
@@ -180,6 +235,41 @@
     </message>
 </context>
 <context>
+    <name>HvacModesModel</name>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cool</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dry</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fan only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heat/Cool</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>LightPage</name>
     <message>
         <source>Attributes</source>
@@ -194,7 +284,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Functions</source>
+        <source>Color temperature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Features</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

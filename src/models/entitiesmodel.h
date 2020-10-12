@@ -14,9 +14,9 @@ public:
         AttributesRole          = Qt::UserRole + 1,
         ContextRole,
         EntityIdRole,
-        FeaturesRole,
         NameRole,
         StateRole,
+        SupportedFeaturesRole,
         TypeRole
     };
     Q_ENUM(EntityRole)
@@ -24,6 +24,7 @@ public:
     explicit EntitiesModel(QObject *parent = nullptr);
     ~EntitiesModel() override;
 
+    Q_INVOKABLE Entity *entityById(const QString &entityId);
     Q_INVOKABLE Entity *entityAt(int index);
     Entity *entityAt(const QModelIndex &index);
     QList<Entity *> entities() const;

@@ -36,13 +36,6 @@ Page {
             SectionHeader {
                 text: qsTr("Functionality")
             }
-
-            PowerButton {
-                id: powerButton
-                height: 512
-                width: 512
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
         }
 
         Connections {

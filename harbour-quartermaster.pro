@@ -43,13 +43,16 @@ SOURCES += src/harbour-quartermaster.cpp \
     src/device/sensors/devicesensorbatterycharging.cpp \
     src/device/trackers/devicetrackergps.cpp \
     src/device/trackers/devicetrackerwifi.cpp \
+    src/entities/climate.cpp \
     src/entities/entity.cpp \
+    src/entities/light.cpp \
     src/entities/wifinetwork.cpp \
     src/entities/zone.cpp \
     src/models/entitiesmodel.cpp \
     src/models/entitiessortfiltermodel.cpp \
     src/models/entityattributesmodel.cpp \
     src/models/entitytypesmodel.cpp \
+    src/models/hvacmodesmodel.cpp \
     src/models/sortfiltermodel.cpp \
     src/models/wifinetworkmodel.cpp \
     src/models/zonesmodel.cpp \
@@ -75,6 +78,7 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/entities/PersonsListPage.qml \
     qml/pages/entities/SensorsListPage.qml \
     qml/pages/entities/types/CameraPage.qml \
+    qml/pages/entities/types/ClimatePage.qml \
     qml/pages/entities/types/EntityPage.qml \
     qml/pages/entities/types/LightPage.qml \
     qml/pages/wizard/WizardConnectionPage.qml \
@@ -122,13 +126,16 @@ HEADERS += \
     src/device/sensors/devicesensorbatterycharging.h \
     src/device/trackers/devicetrackergps.h \
     src/device/trackers/devicetrackerwifi.h \
+    src/entities/climate.h \
     src/entities/entity.h \
+    src/entities/light.h \
     src/entities/wifinetwork.h \
     src/entities/zone.h \
     src/models/entitiesmodel.h \
     src/models/entitiessortfiltermodel.h \
     src/models/entityattributesmodel.h \
     src/models/entitytypesmodel.h \
+    src/models/hvacmodesmodel.h \
     src/models/sortfiltermodel.h \
     src/models/wifinetworkmodel.h \
     src/models/zonesmodel.h \

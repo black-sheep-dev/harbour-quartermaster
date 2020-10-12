@@ -124,6 +124,10 @@ Page {
 
                 onClicked: {
                     switch (type) {
+                    case Entity.Climate:
+                        pageStack.push(Qt.resolvedUrl("types/ClimatePage.qml"), { entity: filterModel.entityAt(index) })
+                        break;
+
                     case Entity.Light:
                         pageStack.push(Qt.resolvedUrl("types/LightPage.qml"), { entity: filterModel.entityAt(index) })
                         break;
