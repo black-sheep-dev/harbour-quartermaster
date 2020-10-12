@@ -23,8 +23,7 @@ Page {
 
         Column {
             id: column
-            x: Theme.horizontalPageMargin
-            width: parent.width - 2*x
+            width: parent.width
             spacing: Theme.paddingMedium
 
             PageHeader {
@@ -32,11 +31,12 @@ Page {
             }
 
             Row {
-                width: parent.width
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2*x
 
                 Label {
-                    text: qsTr("Current state:")
                     width: parent.width * 0.7
+                    text: qsTr("Current state:")
                     color: Theme.highlightColor
                 }
 
@@ -49,7 +49,8 @@ Page {
             Row {
                 visible: entity.hasFeature(Climate.ClimateTemperature)
 
-                width: parent.width
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2*x
 
                 Label {
                     text: qsTr("Current room temperature:")
@@ -58,7 +59,7 @@ Page {
                 }
 
                 Label {
-                    text: entity.attributes.current_temperature + " °C"
+                    text: entity.attributes.current_temperature + " " + Client.homeassistantInfo().unitTemperature
                     color: Theme.highlightColor
                 }
             }
@@ -106,75 +107,22 @@ Page {
                 label: qsTr("Preset mode")
 
                 menu: ContextMenu {
+
                     MenuItem {
-                        text: qsTr("None")
+                        text: qsTr("none")
                     }
-                    MenuItem {
-                        visible: entity.hasPresetMode(Climate.PresetActivity)
-                        text: qsTr("Activity")
-                    }
-                    MenuItem {
-                        visible: entity.hasPresetMode(Climate.PresetAway)
-                        text: qsTr("Away")
-                    }
-                    MenuItem {
-                        visible: entity.hasPresetMode(Climate.PresetBoost)
-                        text: qsTr("Boost")
-                    }
-                    MenuItem {
-                        visible: entity.hasPresetMode(Climate.PresetComfort)
-                        text: qsTr("Comfort")
-                    }
-                    MenuItem {
-                        visible: entity.hasPresetMode(Climate.PresetEco)
-                        text: qsTr("Eco")
-                    }
-                    MenuItem {
-                        visible: entity.hasPresetMode(Climate.PresetHome)
-                        text: qsTr("Home")
-                    }
-                    MenuItem {
-                        visible: entity.hasPresetMode(Climate.PresetSleep)
-                        text: qsTr("Sleep")
+
+                    Repeater {
+                        model: entity.attributes.preset_modes
+
+                        MenuItem {
+                            text: modelData
+                        }
                     }
                 }
 
                 onCurrentIndexChanged: {
-                    var mode
-
-                    switch (currentIndex) {
-                    case 1:
-                        mode = "activity"
-                        break
-
-                    case 2:
-                        mode = "away"
-                        break
-
-                    case 3:
-                        mode = "boost"
-                        break
-
-                    case 4:
-                        mode = "comfort"
-                        break
-
-                    case 5:
-                        mode = "eco"
-                        break
-
-                    case 6:
-                        mode = "home"
-                        break
-
-                    case 7:
-                        mode = "sleep"
-                        break
-
-                    default:
-                        mode = "none"
-                        break
-                    }
+                    const mode = currentItem.text
 
                     Client.entitiesProvider().callService("climate",
                                                           "set_preset_mode",

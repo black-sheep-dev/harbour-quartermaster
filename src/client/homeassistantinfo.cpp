@@ -64,6 +64,8 @@ void HomeassistantInfo::setData(const QJsonObject &object)
     }
 
     setComponents(flags);
+
+    // units
 }
 
 bool HomeassistantInfo::available() const
@@ -109,6 +111,31 @@ QString HomeassistantInfo::locationName() const
 QString HomeassistantInfo::version() const
 {
     return m_version;
+}
+
+QString HomeassistantInfo::unitLength() const
+{
+    return m_unitLength;
+}
+
+QString HomeassistantInfo::unitMass() const
+{
+    return m_unitMass;
+}
+
+QString HomeassistantInfo::unitPressure() const
+{
+    return m_unitPressure;
+}
+
+QString HomeassistantInfo::unitTemperature() const
+{
+    return m_unitTemperature;
+}
+
+QString HomeassistantInfo::unitVolume() const
+{
+    return m_unitVolume;
 }
 
 bool HomeassistantInfo::versionCompatibility() const
@@ -189,6 +216,51 @@ void HomeassistantInfo::setLocationName(const QString &name)
 
     m_locationName = name;
     emit locationNameChanged(m_locationName);
+}
+
+void HomeassistantInfo::setUnitLength(const QString &unit)
+{
+    if (m_unitLength == unit)
+        return;
+
+    m_unitLength = unit;
+    emit unitLengthChanged(m_unitLength);
+}
+
+void HomeassistantInfo::setUnitMass(const QString &unit)
+{
+    if (m_unitMass == unit)
+        return;
+
+    m_unitMass = unit;
+    emit unitMassChanged(m_unitMass);
+}
+
+void HomeassistantInfo::setUnitPressure(const QString &unit)
+{
+    if (m_unitPressure == unit)
+        return;
+
+    m_unitPressure = unit;
+    emit unitPressureChanged(m_unitPressure);
+}
+
+void HomeassistantInfo::setUnitTemperature(const QString &unit)
+{
+    if (m_unitTemperature == unit)
+        return;
+
+    m_unitTemperature = unit;
+    emit unitTemperatureChanged(m_unitTemperature);
+}
+
+void HomeassistantInfo::setUnitVolume(const QString &unit)
+{
+    if (m_unitVolume == unit)
+        return;
+
+    m_unitVolume = unit;
+    emit unitVolumeChanged(m_unitVolume);
 }
 
 void HomeassistantInfo::setVersion(const QString &version)
