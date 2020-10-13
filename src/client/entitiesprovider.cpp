@@ -38,6 +38,42 @@ EntityTypesModel *EntitiesProvider::typesModel()
     return m_typesModel;
 }
 
+QString EntitiesProvider::getEntityIcon(quint16 type) const
+{
+    switch (type) {
+    case Entity::Alarm:
+        return QStringLiteral("image://theme/icon-m-alarm");
+
+    case Entity::Automation:
+        return QStringLiteral("image://theme/icon-m-toy");
+
+    case Entity::Camera:
+        return QStringLiteral("image://theme/icon-m-video");
+
+    case Entity::Climate:
+        return QStringLiteral("image://theme/icon-m-ambience");
+
+    case Entity::Group:
+        return QStringLiteral("image://theme/icon-m-levels");
+
+    case Entity::Light:
+        return QStringLiteral("image://theme/icon-m-day");
+
+    case Entity::Person:
+        return QStringLiteral("image://theme/icon-m-users");
+
+    case Entity::Sensor:
+    case Entity::BinarySensor:
+        return QStringLiteral("image://theme/icon-m-global-proxy");
+
+    case Entity::Switch:
+        return QStringLiteral("image://theme/icon-m-charging");
+
+    default:
+        return QStringLiteral("image://theme/icon-m-asterisk");
+    }
+}
+
 bool EntitiesProvider::loading() const
 {
     return m_loading;
@@ -140,7 +176,6 @@ void EntitiesProvider::parseStates(const QJsonArray &states)
         case Entity::BinarySensor:
         case Entity::Camera:
         case Entity::DeviceTracker:
-        case Entity::Group:
         case Entity::MediaPlayer:
         case Entity::Person:
         case Entity::Sensor:
@@ -154,6 +189,10 @@ void EntitiesProvider::parseStates(const QJsonArray &states)
 
         case Entity::Climate:
             entity = new Climate;
+            break;
+
+        case Entity::Group:
+            entity = new Group;
             break;
 
         case Entity::Light:
@@ -204,6 +243,25 @@ void EntitiesProvider::parseStates(const QJsonArray &states)
         }
     }
 
+    // process group children
+    if (m_models.keys().contains(Entity::Group)) {
+        for (Entity *entity : m_models.value(Entity::Group)->entities()) {
+            auto *group = qobject_cast<Group *>(entity);
+
+            for (const QString &childId : entity->attributes().value(QStringLiteral("entity_id")).toStringList()) {
+                for (EntitiesModel *model : m_models.values()) {
+                    Entity *child = model->entityById(childId);
+
+                    if (!child)
+                        continue;
+
+                    group->childrenModel()->addEntity(child);
+                    break;
+                }
+            }
+        }
+    }
+
     setLoading(false);
 }
 
@@ -211,62 +269,54 @@ void EntitiesProvider::registerModel(const Entity::EntityType &entityType)
 {
     EntityTypeItem item;
     item.type = entityType;
+    item.icon = getEntityIcon(entityType);
 
     switch (entityType) {
     case Entity::Alarm:
         item.title = tr("Alarms");
         item.description = tr("List of all alarms");
-        item.icon = "image://theme/icon-m-alarm";
         break;
 
     case Entity::Automation:
         item.title = tr("Automations");
         item.description = tr("List of all automations");
-        item.icon = "image://theme/icon-m-toy";
         break;
 
     case Entity::Camera:
         item.title = tr("Cameras");
         item.description = tr("List of all cameras");
-        item.icon = "image://theme/icon-m-video";
         break;
 
     case Entity::Climate:
         item.title = tr("Climates");
         item.description = tr("List of all climates");
-        item.icon = "image://theme/icon-m-ambience";
         break;
 
     case Entity::Group:
         item.title = tr("Groups");
         item.description = tr("List of all groups");
-        item.icon = "image://theme/icon-m-levels";
         break;
 
     case Entity::Light:
         item.title = tr("Lights");
         item.description = tr("List of all lights");
-        item.icon = "image://theme/icon-m-day";
         break;
 
     case Entity::Person:
         item.title = tr("Persons");
         item.description = tr("List of all persons");
-        item.icon = "image://theme/icon-m-users";
         break;
 
     case Entity::Sensor:
     case Entity::BinarySensor:
         item.title = tr("Sensors");
         item.description = tr("List of all sensors");
-        item.icon = "image://theme/icon-m-global-proxy";
         item.type = Entity::Sensor;
         break;
 
     case Entity::Switch:
         item.title = tr("Switches");
         item.description = tr("List of all switches");
-        item.icon = "image://theme/icon-m-charging";
         break;
 
     default:
@@ -309,7 +359,5 @@ void EntitiesProvider::updateEntities(const QJsonArray &entities)
 
         // parse context
         entity->setContext(obj.value(QStringLiteral("context")).toObject().toVariantMap());
-
-        model->updateEntity(entity);
     }
 }

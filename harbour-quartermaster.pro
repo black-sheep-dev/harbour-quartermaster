@@ -45,6 +45,7 @@ SOURCES += src/harbour-quartermaster.cpp \
     src/device/trackers/devicetrackerwifi.cpp \
     src/entities/climate.cpp \
     src/entities/entity.cpp \
+    src/entities/group.cpp \
     src/entities/light.cpp \
     src/entities/wifinetwork.cpp \
     src/entities/zone.cpp \
@@ -80,6 +81,7 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/entities/types/CameraPage.qml \
     qml/pages/entities/types/ClimatePage.qml \
     qml/pages/entities/types/EntityPage.qml \
+    qml/pages/entities/types/GroupPage.qml \
     qml/pages/entities/types/LightPage.qml \
     qml/pages/entities/types/SwitchPage.qml \
     qml/pages/settings/SettingsDeveloperModePage.qml \
@@ -130,6 +132,7 @@ HEADERS += \
     src/device/trackers/devicetrackerwifi.h \
     src/entities/climate.h \
     src/entities/entity.h \
+    src/entities/group.h \
     src/entities/light.h \
     src/entities/wifinetwork.h \
     src/entities/zone.h \

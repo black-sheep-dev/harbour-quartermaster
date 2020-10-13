@@ -136,6 +136,10 @@ Page {
                         pageStack.push(Qt.resolvedUrl("types/ClimatePage.qml"), { entity: filterModel.entityAt(index) })
                         break;
 
+                    case Entity.Group:
+                        pageStack.push(Qt.resolvedUrl("types/GroupPage.qml"), { entity: filterModel.entityAt(index) })
+                        break;
+
                     case Entity.Light:
                         pageStack.push(Qt.resolvedUrl("types/LightPage.qml"), { entity: filterModel.entityAt(index) })
                         break;
@@ -148,8 +152,6 @@ Page {
                         pageStack.push(Qt.resolvedUrl("types/EntityPage.qml"), { entity: filterModel.entityAt(index) })
                         break;
                     }
-
-
                 }
             }
         }

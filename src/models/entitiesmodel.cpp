@@ -8,7 +8,8 @@ EntitiesModel::EntitiesModel(QObject *parent) :
 
 EntitiesModel::~EntitiesModel()
 {
-    qDeleteAll(m_entities.begin(), m_entities.end());
+    if (m_parentMode)
+        qDeleteAll(m_entities.begin(), m_entities.end());
 }
 
 Entity *EntitiesModel::entityById(const QString &entityId)
@@ -47,6 +48,11 @@ bool EntitiesModel::isEmpty() const
     return m_entities.isEmpty();
 }
 
+void EntitiesModel::setParentMode(bool enable)
+{
+    m_parentMode = enable;
+}
+
 void EntitiesModel::addEntity(Entity *entity)
 {
     if (!entity)
@@ -54,6 +60,7 @@ void EntitiesModel::addEntity(Entity *entity)
 
     beginInsertRows(QModelIndex(), m_entities.count(), m_entities.count());
     m_entities.append(entity);
+    connect(entity, &Entity::changed, this, &EntitiesModel::onEntityChanged);
     endInsertRows();
 
     emit changed();
@@ -62,9 +69,16 @@ void EntitiesModel::addEntity(Entity *entity)
 void EntitiesModel::setEntities(const QList<Entity *> &entities)
 {
     beginResetModel();
-    qDeleteAll(m_entities.begin(), m_entities.end());
+
+    if (m_parentMode)
+        qDeleteAll(m_entities.begin(), m_entities.end());
+
     m_entities.clear();
     m_entities = entities;
+
+    for (Entity *entity : m_entities) {
+        connect(entity, &Entity::changed, this, &EntitiesModel::onEntityChanged);
+    }
     endResetModel();
 
     emit changed();
@@ -93,6 +107,11 @@ void EntitiesModel::reset()
     qDeleteAll(m_entities.begin(), m_entities.end());
     m_entities.clear();
     endResetModel();
+}
+
+void EntitiesModel::onEntityChanged()
+{
+    updateEntity(qobject_cast<Entity *>(sender()));
 }
 
 int EntitiesModel::rowCount(const QModelIndex &parent) const

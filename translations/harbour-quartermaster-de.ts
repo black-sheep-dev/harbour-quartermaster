@@ -230,6 +230,21 @@
     </message>
 </context>
 <context>
+    <name>GroupPage</name>
+    <message>
+        <source>Attributes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group on/off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Children</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>HvacModesModel</name>
     <message>
         <source>None</source>

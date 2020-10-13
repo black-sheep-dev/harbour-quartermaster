@@ -61,6 +61,8 @@ public:
     EntityType type() const;
 
 signals:
+    void changed();
+
     // properties
     void attributesChanged(const QVariantMap &attributes);
     void contextChanged(const QVariantMap &context);

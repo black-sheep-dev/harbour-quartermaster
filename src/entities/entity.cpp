@@ -72,6 +72,8 @@ void Entity::setAttributes(const QVariantMap &attributes)
     emit attributesChanged(m_attributes);
 
     parseAttributes();
+
+    emit changed();
 }
 
 void Entity::setContext(const QVariantMap &context)
@@ -81,6 +83,8 @@ void Entity::setContext(const QVariantMap &context)
 
     m_context = context;
     emit contextChanged(m_context);
+
+    emit changed();
 }
 
 void Entity::setEntityId(const QString &id)

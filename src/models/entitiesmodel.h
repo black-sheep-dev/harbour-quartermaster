@@ -29,6 +29,8 @@ public:
     Entity *entityAt(const QModelIndex &index);
     QList<Entity *> entities() const;
     bool isEmpty() const;
+    void setParentMode(bool enable);
+
 
     void addEntity(Entity *entity);
     void setEntities(const QList<Entity *> &entities);
@@ -40,8 +42,12 @@ signals:
 public slots:
     void reset();
 
+private slots:
+    void onEntityChanged();
+
 private:
     QList<Entity *> m_entities;
+    bool m_parentMode{true};
 
     // QAbstractItemModel interface
 public:

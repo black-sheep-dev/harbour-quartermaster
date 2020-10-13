@@ -11,6 +11,7 @@
 #include "src/models/entitytypesmodel.h"
 
 #include "src/entities/climate.h"
+#include "src/entities/group.h"
 #include "src/entities/light.h"
 
 class EntitiesProvider : public QObject
@@ -31,10 +32,13 @@ public:
     Q_INVOKABLE EntitiesModel *model(const int &type);
     Q_INVOKABLE EntityTypesModel *typesModel();
 
+    // helpers
+    Q_INVOKABLE QString getEntityIcon(quint16 type) const;
+
     // properties
     bool loading() const;
 
-signals:
+signals:    
     // properties
     void loadingChanged(bool loading);
 

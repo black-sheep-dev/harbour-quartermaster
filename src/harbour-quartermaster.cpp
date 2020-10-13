@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
     qRegisterMetaTypeStreamOperators<Secrets>("WebhookSecrets");
 
     qmlRegisterType<Climate>("org.nubecula.harbour.quartermaster", 1, 0, "Climate");
+    qmlRegisterType<Group>("org.nubecula.harbour.quartermaster", 1, 0, "Group");
     qmlRegisterType<Light>("org.nubecula.harbour.quartermaster", 1, 0, "Light");
 
     qmlRegisterType<Device>("org.nubecula.harbour.quartermaster", 1, 0, "Device");
