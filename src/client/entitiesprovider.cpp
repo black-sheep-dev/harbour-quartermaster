@@ -341,7 +341,7 @@ void EntitiesProvider::registerModel(const Entity::EntityType &entityType)
 
 void EntitiesProvider::updateEntities(const QJsonArray &entities)
 {
-    for (const QJsonValue item : entities) {
+    for (const QJsonValue &item : entities) {
         const QJsonObject obj = item.toObject();
         const QString id = obj.value(QStringLiteral("entity_id")).toString();
 
