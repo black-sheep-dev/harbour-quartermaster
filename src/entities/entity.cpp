@@ -20,7 +20,7 @@ Entity::Entity(const Entity &other) :
 
 }
 
-bool Entity::hasFeature(const quint16 feature) const
+bool Entity::hasFeature(quint16 feature) const
 {
     return (m_supportedFeatures & feature) == feature;
 }

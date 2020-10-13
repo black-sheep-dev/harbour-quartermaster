@@ -70,7 +70,7 @@ public:
 
 signals:
     // properties
-    void apiLoggingChanged(bool apiLogging);
+    void apiLoggingChanged(bool enabled);
     void busyChanged(bool busy);
     void hostnameChanged(const QString &hostname);
     void portChanged(quint16 port);
@@ -83,7 +83,7 @@ signals:
 
 public slots:
     // properties
-    void setApiLogging(bool apiLogging);
+    void setApiLogging(bool enable);
     void setBusy(bool busy);
     void setHostname(const QString &hostname);
     void setPort(quint16 port);

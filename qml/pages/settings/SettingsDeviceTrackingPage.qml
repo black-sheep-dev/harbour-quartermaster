@@ -62,7 +62,8 @@ Page {
                 onCheckedChanged: Client.trackingWifi = checked
                 Component.onCompleted: checked = Client.trackingWifi
             }
-
         }
     }
+
+    onStatusChanged: if (status === PageStatus.Deactivating) Client.saveSettings()
 }

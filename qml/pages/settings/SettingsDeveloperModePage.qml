@@ -40,5 +40,7 @@ Page {
             }
         }
     }
+
+    onStatusChanged: if (status === PageStatus.Deactivating) Client.saveSettings()
 }
 

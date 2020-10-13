@@ -195,15 +195,15 @@ QString ClientInterface::debugOutput() const
     return m_debugOutput;
 }
 
-void ClientInterface::setApiLogging(bool apiLogging)
+void ClientInterface::setApiLogging(bool enable)
 {
-    if (m_apiLogging == apiLogging)
+    if (m_apiLogging == enable)
         return;
 
-    m_apiLogging = apiLogging;
+    m_apiLogging = enable;
     emit apiLoggingChanged(m_apiLogging);
 
-    writeSettings();
+    //writeSettings();
 }
 
 void ClientInterface::setBusy(bool busy)
@@ -288,7 +288,7 @@ void ClientInterface::setTrackingGPS(bool enable)
 
     m_gpsTracker = nullptr;
 
-    writeSettings();
+    //writeSettings();
 
     if (enable) {
         m_gpsTracker = new DeviceTrackerGPS(this);
@@ -311,7 +311,7 @@ void ClientInterface::setTrackingWifi(bool enable)
 
     m_wifiTracker = nullptr;
 
-    writeSettings();
+    //writeSettings();
 
     if (enable) {
         m_wifiTracker = new DeviceTrackerWifi(m_zones, this);

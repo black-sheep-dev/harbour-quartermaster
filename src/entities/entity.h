@@ -49,7 +49,7 @@ public:
     explicit Entity(const Entity &other);
     ~Entity() override;
 
-    Q_INVOKABLE bool hasFeature(const quint16 feature) const;
+    Q_INVOKABLE bool hasFeature(quint16 feature) const;
 
     // properties
     QVariantMap attributes() const;
