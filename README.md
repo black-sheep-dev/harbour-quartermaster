@@ -42,7 +42,7 @@ Here is a list of all implemented features so far. Not all features listed below
 - Update notification if an update of Homeassistant is available.
 
 ## Planned Features
-- Two-Factor authentication to get access token
+- Two-Factor authentication to get access token (Qt OAuth2 functionality needs at least Qt 5.8 / Sailfish OS 3.4 has antique Qt 5.6 libraries)
 - Autodetect Homeassistant instance in local network during setup
 - Device tracking with all available wifi networks (not only connected ones)
 - Encryption of API traffic (webhook api)
