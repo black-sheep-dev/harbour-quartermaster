@@ -48,6 +48,17 @@
     </message>
 </context>
 <context>
+    <name>ClientInterface</name>
+    <message>
+        <source>There is an update to version %1 available.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Homeassistant update available!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ClimatePage</name>
     <message>
         <source>Attributes</source>

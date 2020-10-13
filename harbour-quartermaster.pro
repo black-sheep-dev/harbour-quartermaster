@@ -21,7 +21,8 @@ QT += positioning
 
 PKGCONFIG += \
     sailfishmdm \
-    sailfishsecrets
+    sailfishsecrets \
+    nemonotifications-qt5
 
 LIBS        += -L../../lib -lkeepalive
 

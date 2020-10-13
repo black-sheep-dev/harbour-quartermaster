@@ -218,6 +218,14 @@ void EntitiesProvider::parseStates(const QJsonArray &states)
         // parse context
         entity->setContext(obj.value(QStringLiteral("context")).toObject().toVariantMap());
 
+
+        // --------------------------------------------------------------------
+        // check homeassistant update info is availabel (binary_sensor.updater)
+        if (entity->entityId() == QStringLiteral("binary_sensor.updater")) {
+            emit homeassistantVersionAvailable(entity->attributes().value(QStringLiteral("newest_version")).toString());
+        }
+        // --------------------------------------------------------------------
+
         // add to model or delete
         switch (entity->type()) {
 
@@ -359,5 +367,12 @@ void EntitiesProvider::updateEntities(const QJsonArray &entities)
 
         // parse context
         entity->setContext(obj.value(QStringLiteral("context")).toObject().toVariantMap());
+
+        // --------------------------------------------------------------------
+        // check homeassistant update info is availabel (binary_sensor.updater)
+        if (entity->entityId() == QStringLiteral("binary_sensor.updater")) {
+            emit homeassistantVersionAvailable(entity->attributes().value(QStringLiteral("newest_version")).toString());
+        }
+        // --------------------------------------------------------------------
     }
 }

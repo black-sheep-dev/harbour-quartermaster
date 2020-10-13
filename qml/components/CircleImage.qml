@@ -10,6 +10,7 @@ Image {
     width:parent.height-5
     height: width
 
+    asynchronous: true
     layer.enabled:true
     layer.effect: OpacityMask {
         maskSource: Item {

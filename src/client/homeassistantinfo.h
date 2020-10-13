@@ -39,6 +39,7 @@ public:
     explicit HomeassistantInfo(QObject *parent = nullptr);
 
     Q_INVOKABLE bool isInstanceValid();
+    bool isUpdateAvailable(const QString &version) const;
 
     void setData(const QJsonObject &object);
 
@@ -96,6 +97,10 @@ public slots:
     void setVersionCompatibility(bool compatibility);
 
 private:
+    quint16 m_buildVersion{0};
+    quint16 m_majorVersion{0};
+    quint16 m_minorVersion{0};
+
     // properties
     bool m_available{false};
     QVariantList m_componentList;

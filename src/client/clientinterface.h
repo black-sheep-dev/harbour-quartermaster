@@ -66,8 +66,6 @@ public:
 
     QString debugOutput() const;
 
-
-
 signals:
     // properties
     void apiLoggingChanged(bool enabled);
@@ -95,11 +93,11 @@ public slots:
 
     void setDebugOutput(const QString &output);
 
-
-
 private slots:
     void onDataAvailable(const QString &endpoint, const QJsonDocument &doc);
     void onWebhookDataAvailable(const QString &identifier, const QJsonDocument &doc);
+
+    void onHomeassistantUpdateAvailable(const QString &version);
 
 private:
     void onReadyChanged();
@@ -115,6 +113,7 @@ private:
     EntitiesProvider *m_entitiesProvider{nullptr};
     DeviceTrackerGPS *m_gpsTracker{nullptr};
     HomeassistantInfo *m_homeassistantInfo{nullptr};
+    QString m_homeassistantLastUpdateVersion;
     DeviceTrackerWifi *m_wifiTracker{nullptr};
     Wallet *m_wallet{nullptr};
     WebhookApi *m_webhook{nullptr};

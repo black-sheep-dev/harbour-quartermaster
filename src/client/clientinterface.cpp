@@ -9,6 +9,8 @@
 #include <QJsonObject>
 #include <QSettings>
 
+#include <nemonotifications-qt5/notification.h>
+
 ClientInterface::ClientInterface(QObject *parent) :
     QObject(parent),
     m_device(new Device(this)),
@@ -32,6 +34,7 @@ ClientInterface::ClientInterface(QObject *parent) :
     connect(m_api, &HomeassistantApi::dataAvailable, this, &ClientInterface::onDataAvailable);
     connect(m_webhook, &WebhookApi::dataAvailable, this, &ClientInterface::onWebhookDataAvailable);
     connect(m_device, &Device::sensorUpdated, m_webhook, &WebhookApi::updateSensor);
+    connect(m_entitiesProvider, &EntitiesProvider::homeassistantVersionAvailable, this, &ClientInterface::onHomeassistantUpdateAvailable);
 
     readSettings();
 }
@@ -362,8 +365,31 @@ void ClientInterface::onWebhookDataAvailable(const QString &identifier, const QJ
     }
 }
 
+void ClientInterface::onHomeassistantUpdateAvailable(const QString &version)
+{
+    if (!m_homeassistantInfo->isUpdateAvailable(version))
+        return;
+
+    if (m_homeassistantLastUpdateVersion == version)
+        return;
+
+    m_homeassistantLastUpdateVersion = version;
+
+#ifdef QT_DEBUG
+    qDebug() << QStringLiteral("UPDATE AVAILABLE");
+#endif
+
+    Notification notify;
+    notify.setBody(tr("There is an update to version %1 available.").arg(version));
+    notify.setSummary(tr("Homeassistant update available!"));
+    notify.setIcon(QStringLiteral("image://theme/icon-lock-application-update"));
+    notify.publish();
+}
+
 void ClientInterface::onReadyChanged()
 {
+    m_api->getConfig();
+
     if ( m_ready && m_webhook->isRegistered() ) {
         m_device->setRegistered(true);
         m_webhook->updateRegistration(m_device);

@@ -38,7 +38,9 @@ public:
     // properties
     bool loading() const;
 
-signals:    
+signals:
+    void homeassistantVersionAvailable(const QString &version);
+
     // properties
     void loadingChanged(bool loading);
 

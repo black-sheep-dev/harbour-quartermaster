@@ -24,6 +24,23 @@ bool HomeassistantInfo::isInstanceValid()
     return m_versionCompatibility && (m_components & ComponentMobileApp) && (m_components & ComponentWebhook);
 }
 
+bool HomeassistantInfo::isUpdateAvailable(const QString &version) const
+{
+    const QStringList parts = version.split(".");
+
+    if (parts.count() != 3)
+        return false;
+
+    if (parts.at(0).toInt() > m_majorVersion)
+        return true;
+
+    if (parts.at(1).toInt() > m_minorVersion)
+        return true;
+
+    if (parts.at(2).toInt() > m_buildVersion)
+        return true;
+}
+
 void HomeassistantInfo::setData(const QJsonObject &object)
 {
     if (object.isEmpty()) {
@@ -270,6 +287,15 @@ void HomeassistantInfo::setVersion(const QString &version)
 
     m_version = version;
     emit versionChanged(m_version);
+
+    // split version
+    const QStringList parts = version.split(".");
+    if (parts.count() != 3)
+        return;
+
+    m_majorVersion = quint16(parts.at(0).toInt());
+    m_minorVersion = quint16(parts.at(1).toInt());
+    m_buildVersion = quint16(parts.at(2).toInt());
 }
 
 void HomeassistantInfo::setVersionCompatibility(bool compatibility)

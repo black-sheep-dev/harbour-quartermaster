@@ -10,7 +10,7 @@
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::setApplicationName(QStringLiteral("Quartermaster"));
+    QCoreApplication::setApplicationName("Quartermaster");
     QCoreApplication::setApplicationVersion(APP_VERSION);
     QCoreApplication::setOrganizationName(QStringLiteral("nubecula.org"));
     QCoreApplication::setOrganizationDomain(QStringLiteral("nubecula.org"));
