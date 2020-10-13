@@ -11,13 +11,13 @@ Page {
         model: ListModel {
             ListElement {
                 title: qsTr("Connection");
-                description: qsTr("Edit connections settings")
+                description: qsTr("Manage connections settings")
                 icon: "image://theme/icon-m-mobile-network"
                 page: "SettingsConnectionPage.qml"
             }
             ListElement {
                 title: qsTr("Device Tracking");
-                description: qsTr("Manage device tracking options")
+                description: qsTr("Manage tracking options")
                 icon: "image://theme/icon-m-location"
                 page: "SettingsDeviceTrackingPage.qml"
             }
@@ -29,19 +29,19 @@ Page {
             }
             ListElement {
                 title: qsTr("Zones");
-                description: qsTr("Manage Zones")
+                description: qsTr("Manage zones")
                 icon: "image://theme/icon-m-dot"
                 page: "SettingsZonesPage.qml"
             }
             ListElement {
                 title: qsTr("Device Info");
-                description: qsTr("Show and edit device informations")
+                description: qsTr("Manage device informations")
                 icon: "image://theme/icon-m-about"
                 page: "SettingsDeviceInfoPage.qml"
             }
             ListElement {
                 title: qsTr("Developer Mode");
-                description: qsTr("Show and edit developer options")
+                description: qsTr("Manage developer options")
                 icon: "image://theme/icon-m-developer-mode"
                 page: "SettingsDeveloperModePage.qml"
             }

@@ -23,6 +23,10 @@
         <source>If you like my work you can buy me a beer.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Quartermaster</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AutomationPage</name>
@@ -109,13 +113,6 @@
     </message>
 </context>
 <context>
-    <name>CoverPage</name>
-    <message>
-        <source>My Cover</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>DeviceSensorBattery</name>
     <message>
         <source>Battery State</source>
@@ -145,6 +142,13 @@
     <message>
         <source>Entities</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n entity available</source>
+        <comment>0</comment>
+        <translation type="unfinished">
+            <numerusform>%n entity available</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -251,42 +255,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Children</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>HvacModesModel</name>
-    <message>
-        <source>None</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Auto</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cool</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Dry</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fan only</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Heat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Heat/Cool</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Off</source>
+        <source>Child Entities</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -341,6 +310,10 @@
     </message>
     <message>
         <source>Entities</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not implemented yet</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -497,15 +470,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Activate / deactivate automatic updates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>This toggles all sensors on/off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Here you can activate / deactivate automatic sensors updates. Automatic sensor updates can lead to more network traffic and battery consumption.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatic updates</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -559,19 +532,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Edit connections settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Device Info</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show and edit device informations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -587,15 +552,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Manage device tracking options</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Zones</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Manage Zones</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -603,7 +560,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show and edit developer options</source>
+        <source>Manage connections settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage tracking options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage zones</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage device informations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage developer options</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

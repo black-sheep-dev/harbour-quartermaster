@@ -47,7 +47,7 @@ Page {
             }
             Label {
                 x: Theme.horizontalPageMargin
-                text: Client.debugOutput
+                text: qsTr("Not implemented yet")
                 color: Theme.secondaryHighlightColor
                 font.pixelSize: Theme.fontSizeExtraLarge
             }

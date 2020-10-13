@@ -54,7 +54,6 @@ SOURCES += src/harbour-quartermaster.cpp \
     src/models/entitiessortfiltermodel.cpp \
     src/models/entityattributesmodel.cpp \
     src/models/entitytypesmodel.cpp \
-    src/models/hvacmodesmodel.cpp \
     src/models/sortfiltermodel.cpp \
     src/models/wifinetworkmodel.cpp \
     src/models/zonesmodel.cpp
@@ -141,7 +140,6 @@ HEADERS += \
     src/models/entitiessortfiltermodel.h \
     src/models/entityattributesmodel.h \
     src/models/entitytypesmodel.h \
-    src/models/hvacmodesmodel.h \
     src/models/sortfiltermodel.h \
     src/models/wifinetworkmodel.h \
     src/models/zonesmodel.h

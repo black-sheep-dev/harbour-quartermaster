@@ -87,6 +87,7 @@ void ClientInterface::reset()
     setToken(QString());
 
     m_webhook->reset();
+    m_wallet->reset();
 
     writeSettings();
 }
@@ -352,9 +353,12 @@ void ClientInterface::onDataAvailable(const QString &endpoint, const QJsonDocume
         }
         setBusy(false);
 
-        getZones();
-
+        // write settings
         writeSettings();
+
+        // load intital data
+        getZones();
+        entitiesProvider()->refresh();
     }
 }
 
@@ -366,7 +370,7 @@ void ClientInterface::onWebhookDataAvailable(const QString &identifier, const QJ
 }
 
 void ClientInterface::onHomeassistantUpdateAvailable(const QString &version)
-{
+{ 
     if (!m_homeassistantInfo->isUpdateAvailable(version))
         return;
 

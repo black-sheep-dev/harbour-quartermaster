@@ -14,6 +14,7 @@ Page {
         id: busyIndicator
         size: BusyIndicatorSize.Large
         running: Client.entitiesProvider().loading
+        anchors.centerIn: page
     }
 
     SilicaListView {
@@ -72,7 +73,7 @@ Page {
                         font.pixelSize: Theme.fontSizeLarge
                     }
                     Label {
-                        text: description
+                        text: qsTr("%n entity available", "0", Client.entitiesProvider().model(type).entitiesCount())
                         color: Theme.secondaryColor
                         font.pixelSize: Theme.fontSizeMedium
                     }

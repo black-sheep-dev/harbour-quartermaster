@@ -39,7 +39,7 @@ Page {
                 font.pixelSize: Theme.fontSizeExtraLarge
                 color: Theme.secondaryHighlightColor
 
-                text: "Quartermaster"
+                text: qsTr("Quartermaster")
             }
 
             Label {

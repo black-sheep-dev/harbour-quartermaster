@@ -5,12 +5,11 @@
 #include "client/clientinterface.h"
 #include "models/entityattributesmodel.h"
 #include "models/entitiessortfiltermodel.h"
-#include "models/hvacmodesmodel.h"
 #include "models/sortfiltermodel.h"
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::setApplicationName("Quartermaster");
+    //QCoreApplication::setApplicationName(tr("Quartermaster"));
     QCoreApplication::setApplicationVersion(APP_VERSION);
     QCoreApplication::setOrganizationName(QStringLiteral("nubecula.org"));
     QCoreApplication::setOrganizationDomain(QStringLiteral("nubecula.org"));

@@ -26,6 +26,9 @@ bool HomeassistantInfo::isInstanceValid()
 
 bool HomeassistantInfo::isUpdateAvailable(const QString &version) const
 {
+    if (m_version.isEmpty())
+        return false;
+
     const QStringList parts = version.split(".");
 
     if (parts.count() != 3)
@@ -39,6 +42,8 @@ bool HomeassistantInfo::isUpdateAvailable(const QString &version) const
 
     if (parts.at(2).toInt() > m_buildVersion)
         return true;
+
+    return false;
 }
 
 void HomeassistantInfo::setData(const QJsonObject &object)

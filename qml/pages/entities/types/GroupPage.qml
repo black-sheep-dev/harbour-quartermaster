@@ -43,7 +43,7 @@ Page {
             }
 
             SectionHeader{
-                text: qsTr("Children")
+                text: qsTr("Child Entities")
             }
         }
 

@@ -37,7 +37,7 @@ Page {
 
             TextSwitch {
                 id: toggleAllSwitch
-                text: qsTr("Activate / deactivate automatic updates")
+                text: qsTr("Automatic updates")
                 description: qsTr("This toggles all sensors on/off")
 
                 onCheckedChanged: Client.device().sensorAutoUpdate = checked

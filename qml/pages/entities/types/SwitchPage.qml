@@ -132,7 +132,7 @@ Page {
                 }
 
                 Label {
-                    text: entity.attributes.voltage + " A"
+                    text: entity.attributes.current_a + " A"
                     color: Theme.highlightColor
                 }
             }

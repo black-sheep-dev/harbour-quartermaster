@@ -24,6 +24,7 @@ public:
     explicit EntitiesModel(QObject *parent = nullptr);
     ~EntitiesModel() override;
 
+    Q_INVOKABLE int entitiesCount() const;
     Q_INVOKABLE Entity *entityById(const QString &entityId);
     Q_INVOKABLE Entity *entityAt(int index);
     Entity *entityAt(const QModelIndex &index);

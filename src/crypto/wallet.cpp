@@ -153,6 +153,7 @@ void Wallet::onSecretsLoaded()
 #endif
 
     if (fetchCode->result().code() != Sailfish::Secrets::Result::Succeeded) {
+        emit initialized(true);
         return;
     }
 

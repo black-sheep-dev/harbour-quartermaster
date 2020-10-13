@@ -1,673 +1,648 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.1" language="de_DE">
 <context>
     <name>AboutPage</name>
     <message>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Über</translation>
     </message>
     <message>
         <source>Quartermaster is a native Sailfish OS Homeassistant client.</source>
-        <translation type="unfinished"></translation>
+        <translation>Quartiermeister ist ein nativer Sailfish OS Homeassistant Client.</translation>
     </message>
     <message>
         <source>Sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Quellen</translation>
     </message>
     <message>
         <source>Donations</source>
-        <translation type="unfinished"></translation>
+        <translation>Spenden</translation>
     </message>
     <message>
         <source>If you like my work you can buy me a beer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn dir meine Arbeit gefällt, kannst du mir ein Bier ausgeben.</translation>
+    </message>
+    <message>
+        <source>Quartermaster</source>
+        <translation>Quartiermeister</translation>
     </message>
 </context>
 <context>
     <name>AutomationPage</name>
     <message>
         <source>Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Attribute</translation>
     </message>
     <message>
         <source>Automation on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>Automation an/aus</translation>
     </message>
     <message>
         <source>Automation</source>
-        <translation type="unfinished"></translation>
+        <translation>Automation</translation>
     </message>
     <message>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Info</translation>
     </message>
     <message>
         <source>Last triggered:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zuletzt ausgeführt:</translation>
     </message>
 </context>
 <context>
     <name>ClientInterface</name>
     <message>
         <source>There is an update to version %1 available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Es ist ein Update auf Version %1 verfügbar.</translation>
     </message>
     <message>
         <source>Homeassistant update available!</source>
-        <translation type="unfinished"></translation>
+        <translation>Homeassistant Update verfügbar!</translation>
     </message>
 </context>
 <context>
     <name>ClimatePage</name>
     <message>
         <source>Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Attribute</translation>
     </message>
     <message>
         <source>Target temperature</source>
-        <translation type="unfinished"></translation>
+        <translation>Zieltemperatur</translation>
     </message>
     <message>
         <source>Current room temperature:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuelle Raumtemperatur:</translation>
     </message>
     <message>
         <source>Preset mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Voreingestellter Modus</translation>
     </message>
     <message>
         <source>Current state:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktueller Status:</translation>
     </message>
     <message>
         <source>none</source>
-        <translation type="unfinished"></translation>
+        <translation>keiner</translation>
     </message>
 </context>
 <context>
     <name>ConnectionSettings</name>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Hostname</translation>
     </message>
     <message>
         <source>Enter hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Hostname eingeben</translation>
     </message>
     <message>
         <source>Use SSL</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutze SSL</translation>
     </message>
     <message>
         <source>It is highly recommend to use a ssl connection if your homeasstiant server support this!</source>
-        <translation type="unfinished"></translation>
+        <translation>Es wird dringend empfohlen eine SSL Verbindung zu benutzten, wenn der Homeassistant server dies unterstützt!</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>CoverPage</name>
-    <message>
-        <source>My Cover</source>
-        <translation>Mein Cover</translation>
+        <translation>Port</translation>
     </message>
 </context>
 <context>
     <name>DeviceSensorBattery</name>
     <message>
         <source>Battery State</source>
-        <translation type="unfinished"></translation>
+        <translation>Batterie Status</translation>
     </message>
 </context>
 <context>
     <name>DeviceSensorBatteryCharging</name>
     <message>
         <source>Battery Charging</source>
-        <translation type="unfinished"></translation>
+        <translation>Battery Aufladung</translation>
     </message>
 </context>
 <context>
     <name>EntitiesListViewPage</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Suche</translation>
     </message>
 </context>
 <context>
     <name>EntitiesOverviewPage</name>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualisieren</translation>
     </message>
     <message>
         <source>Entities</source>
-        <translation type="unfinished"></translation>
+        <translation>Entitäten</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n entity available</source>
+        <comment>0</comment>
+        <translation>
+            <numerusform>%n Entität verfügbar</numerusform>
+            <numerusform>%n Entitäten verfügbar</numerusform>
+        </translation>
     </message>
 </context>
 <context>
     <name>EntitiesProvider</name>
     <message>
         <source>Alarms</source>
-        <translation type="unfinished"></translation>
+        <translation>Alarme</translation>
     </message>
     <message>
         <source>List of all alarms</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste aller Alarme</translation>
     </message>
     <message>
         <source>Automations</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatisierungen</translation>
     </message>
     <message>
         <source>List of all automations</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste aller Automatisierungen</translation>
     </message>
     <message>
         <source>Cameras</source>
-        <translation type="unfinished"></translation>
+        <translation>Kameras</translation>
     </message>
     <message>
         <source>List of all cameras</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste aller Kameras</translation>
     </message>
     <message>
         <source>Climates</source>
-        <translation type="unfinished"></translation>
+        <translation>Klimageräte</translation>
     </message>
     <message>
         <source>Lights</source>
-        <translation type="unfinished"></translation>
+        <translation>Lampen</translation>
     </message>
     <message>
         <source>List of all lights</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste aller Lampen</translation>
     </message>
     <message>
         <source>Persons</source>
-        <translation type="unfinished"></translation>
+        <translation>Personen</translation>
     </message>
     <message>
         <source>List of all persons</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste aller Personen</translation>
     </message>
     <message>
         <source>Sensors</source>
-        <translation type="unfinished"></translation>
+        <translation>Sensoren</translation>
     </message>
     <message>
         <source>List of all sensors</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste aller Sensoren</translation>
     </message>
     <message>
         <source>Switches</source>
-        <translation type="unfinished"></translation>
+        <translation>Schalter</translation>
     </message>
     <message>
         <source>List of all switches</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste aller Schalter</translation>
     </message>
     <message>
         <source>List of all climates</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste aller Klimageräte</translation>
     </message>
     <message>
         <source>Groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Gruppen</translation>
     </message>
     <message>
         <source>List of all groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste aller Gruppen</translation>
     </message>
 </context>
 <context>
     <name>EntityAttributesPage</name>
     <message>
         <source>Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Attribute</translation>
     </message>
 </context>
 <context>
     <name>EntityPage</name>
     <message>
         <source>Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Attribute</translation>
     </message>
     <message>
         <source>Functionality</source>
-        <translation type="unfinished"></translation>
+        <translation>Funktionen</translation>
     </message>
 </context>
 <context>
     <name>GroupPage</name>
     <message>
         <source>Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Attribute</translation>
     </message>
     <message>
         <source>Group on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>Gruppe an/aus</translation>
     </message>
     <message>
-        <source>Children</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>HvacModesModel</name>
-    <message>
-        <source>None</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Auto</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cool</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Dry</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fan only</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Heat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Heat/Cool</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Off</source>
-        <translation type="unfinished"></translation>
+        <source>Child Entities</source>
+        <translation>Untergeordnete Entitäten</translation>
     </message>
 </context>
 <context>
     <name>LightPage</name>
     <message>
         <source>Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Attribute</translation>
     </message>
     <message>
         <source>Switch light on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>Lampe an/aus</translation>
     </message>
     <message>
         <source>Brightness</source>
-        <translation type="unfinished"></translation>
+        <translation>Helligkeit</translation>
     </message>
     <message>
         <source>Color temperature</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbtemperatur</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe</translation>
     </message>
     <message>
         <source>Effect</source>
-        <translation type="unfinished"></translation>
+        <translation>Effekt</translation>
     </message>
     <message>
         <source>off</source>
-        <translation type="unfinished"></translation>
+        <translation>aus</translation>
     </message>
     <message>
         <source>Features</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigenschaften</translation>
     </message>
 </context>
 <context>
     <name>OverviewPage</name>
     <message>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Über</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <source>Overview</source>
-        <translation type="unfinished"></translation>
+        <translation>Übersicht</translation>
     </message>
     <message>
         <source>Entities</source>
-        <translation type="unfinished"></translation>
+        <translation>Entitäten</translation>
+    </message>
+    <message>
+        <source>Not implemented yet</source>
+        <translation>Noch nicht implementiert</translation>
     </message>
 </context>
 <context>
     <name>PersonsListPage</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Suche</translation>
     </message>
     <message>
         <source>At home</source>
-        <translation type="unfinished"></translation>
+        <translation>Zuhause</translation>
     </message>
     <message>
         <source>Not at home</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht zuhause</translation>
     </message>
     <message>
         <source>Unkown</source>
-        <translation type="unfinished"></translation>
+        <translation>Unbekannt</translation>
     </message>
 </context>
 <context>
     <name>SelectWifiNetworkDialog</name>
     <message>
         <source>Select Wifi networks</source>
-        <translation type="unfinished"></translation>
+        <translation>Wlan Netzwerk auswählen</translation>
     </message>
 </context>
 <context>
     <name>SensorsListPage</name>
     <message>
         <source>No sensor data available</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Sensordaten verfügbar</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Suche</translation>
     </message>
     <message>
         <source>Unavailable</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht verfügbar</translation>
     </message>
 </context>
 <context>
     <name>SettingsConnectionPage</name>
     <message>
         <source>Connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbindung</translation>
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Hostname</translation>
     </message>
     <message>
         <source>Enter hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Hostname eingeben</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port</translation>
     </message>
     <message>
         <source>Use SSL</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutze SSL</translation>
     </message>
     <message>
         <source>It is highly recommend to use a ssl connection if your homeassistant server supports it!</source>
-        <translation type="unfinished"></translation>
+        <translation>Es wird dringend empfohlen eine SSL Verbindung zu benutzten, wenn der Homeassistant server dies unterstützt!</translation>
     </message>
 </context>
 <context>
     <name>SettingsDeveloperModePage</name>
     <message>
         <source>API logging</source>
-        <translation type="unfinished"></translation>
+        <translation>API Log</translation>
     </message>
     <message>
         <source>Attach this data to a new issue on GitHub if you need support!</source>
-        <translation type="unfinished"></translation>
+        <translation>Füge diese Daten einem Fehlerbericht auf GitHub hinzu, wenn du Hilfe brauchst!</translation>
     </message>
     <message>
         <source>Developer Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Entwickler Modus</translation>
     </message>
     <message>
         <source>Log all API requests and replies. This helps to fix errors or to include new devices to Quartermaster.</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle API Anfragen und Antworten mitloggen. Das hilft dabei Fehler zu beheben und neue Geräte hinzuzufügen.</translation>
     </message>
     <message>
         <source>Only turn on logging if needed, because it will create a lot of data! Files are stored into Documents folder.</source>
-        <translation type="unfinished"></translation>
+        <translation>Loggen nur aktivieren wenn benötigt, da es viele Daten generiert! Die Daten werden im Ordner Documents gespeichert.</translation>
     </message>
 </context>
 <context>
     <name>SettingsDeviceInfoPage</name>
     <message>
         <source>Device Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte Info</translation>
     </message>
     <message>
         <source>Device Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte Name</translation>
     </message>
     <message>
         <source>Enter device name</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte Namen eingeben</translation>
     </message>
     <message>
         <source>Informations</source>
-        <translation type="unfinished"></translation>
+        <translation>Informationen</translation>
     </message>
     <message>
         <source>Device ID</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte ID</translation>
     </message>
     <message>
         <source>Manufacturer</source>
-        <translation type="unfinished"></translation>
+        <translation>Hersteller</translation>
     </message>
     <message>
         <source>Model</source>
-        <translation type="unfinished"></translation>
+        <translation>Modell</translation>
     </message>
     <message>
         <source>Software Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Software Name</translation>
     </message>
     <message>
         <source>Software Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Software Version</translation>
     </message>
     <message>
         <source>Wifi MAC</source>
-        <translation type="unfinished"></translation>
+        <translation>WLAN MAC</translation>
     </message>
     <message>
         <source>Reset Registration</source>
-        <translation type="unfinished"></translation>
+        <translation>Registrierung zurücksetzen</translation>
     </message>
     <message>
         <source>Resetting device registration &amp; closing app</source>
-        <translation type="unfinished"></translation>
+        <translation>Setze Registrierung zurück und beende Anwendung</translation>
     </message>
 </context>
 <context>
     <name>SettingsDeviceSensorsPage</name>
     <message>
         <source>Device Sensors</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte Sensoren</translation>
     </message>
     <message>
         <source>Sensor List</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Activate / deactivate automatic updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Sensor Liste</translation>
     </message>
     <message>
         <source>This toggles all sensors on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>Schaltet alle Sensoren an/aus</translation>
     </message>
     <message>
         <source>Here you can activate / deactivate automatic sensors updates. Automatic sensor updates can lead to more network traffic and battery consumption.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hier kannst du automatische Sensor Updates aktivieren / deaktivieren. Automatische Sensor Updates führen zu einem höhern Verbrauch an Datenvolumen und Batterieverbrauch.</translation>
+    </message>
+    <message>
+        <source>Automatic updates</source>
+        <translation>Automatische Updates</translation>
     </message>
 </context>
 <context>
     <name>SettingsDeviceTrackingPage</name>
     <message>
         <source>Here you can activate / deactivate different device tracking options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivere / deaktiviere verschiedene Geräte Tracker Optionen.</translation>
     </message>
     <message>
         <source>GPS Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>GPS Tracking</translation>
     </message>
     <message>
         <source>Use GPS data to track the device position.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwende GPS Daten zum Tracken des Geräts.</translation>
     </message>
     <message>
         <source>Device Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte Tracking</translation>
     </message>
     <message>
         <source>Activating these options leads to higher battery consumption and network traffic.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das aktivieren dieser Optionen führt zu höherem Batterieverbrauch und Verbrauch von Datenvolumen.</translation>
     </message>
     <message>
         <source>Position is updated every 30 seconds when activated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Position wird alle 30 Sekunden aktualisiert.</translation>
     </message>
     <message>
         <source>Wifi Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>WLAN Tracking</translation>
     </message>
     <message>
         <source>WiFi networks will be used to track the device. You need to add Wifi Networks to your different zones in zone settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwende WLAN Netzwerke  zum Tracken des Geräts. Du musst zuerst WLAN Netzwerke zu deinen Zonen in den Einstellungen hinzufügen.</translation>
     </message>
     <message>
         <source>If the device connects to a known wireless network, it will send the position information of its parent zone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn das Gerät sich mit einem bekannten Netzwerk verbindet, wird die Position der übergeordneten Zone gesenden.</translation>
     </message>
     <message>
         <source>Zones can be created in the Homeassistant web interface.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zonen können in der Weboberfläche von Homeassistant eingerichtet werden.</translation>
     </message>
 </context>
 <context>
     <name>SettingsPage</name>
     <message>
         <source>Connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Edit connections settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbindung</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <source>Device Info</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show and edit device informations</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte Info</translation>
     </message>
     <message>
         <source>Device Sensors</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte Sensoren</translation>
     </message>
     <message>
         <source>Manage device sensors</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte Sensoren verwalten</translation>
     </message>
     <message>
         <source>Device Tracking</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Manage device tracking options</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte Tracking</translation>
     </message>
     <message>
         <source>Zones</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Manage Zones</source>
-        <translation type="unfinished"></translation>
+        <translation>Zonen</translation>
     </message>
     <message>
         <source>Developer Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Entwickler Modus</translation>
     </message>
     <message>
-        <source>Show and edit developer options</source>
-        <translation type="unfinished"></translation>
+        <source>Manage connections settings</source>
+        <translation>Verbindungs Einstellungen verwalten</translation>
+    </message>
+    <message>
+        <source>Manage tracking options</source>
+        <translation>Tracking Optionen verwalten</translation>
+    </message>
+    <message>
+        <source>Manage zones</source>
+        <translation>Zonen verwalten</translation>
+    </message>
+    <message>
+        <source>Manage device informations</source>
+        <translation>Geräte Informationen verwalten</translation>
+    </message>
+    <message>
+        <source>Manage developer options</source>
+        <translation>Entwickler Optionen verwalten</translation>
     </message>
 </context>
 <context>
     <name>SettingsZonePage</name>
     <message>
         <source>Zone Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Zonen Einstellungen</translation>
     </message>
     <message>
         <source>Latitude</source>
-        <translation type="unfinished"></translation>
+        <translation>Breitengrad</translation>
     </message>
     <message>
         <source>Longitude</source>
-        <translation type="unfinished"></translation>
+        <translation>Längengrad</translation>
     </message>
     <message>
         <source>Radius</source>
-        <translation type="unfinished"></translation>
+        <translation>Radius</translation>
     </message>
     <message>
         <source>Wifi Networks</source>
-        <translation type="unfinished"></translation>
+        <translation>WLAN Netzwerke</translation>
     </message>
     <message>
         <source>Add Wifi Network</source>
-        <translation type="unfinished"></translation>
+        <translation>WLAN Netzwerk hinzufügen</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Zurücksetzen</translation>
     </message>
     <message>
         <source>Resetting networks</source>
-        <translation type="unfinished"></translation>
+        <translation>Setze Netzwerke zurück</translation>
     </message>
     <message>
         <source>Deleting network</source>
-        <translation type="unfinished"></translation>
+        <translation>Lösche Netzwerke</translation>
     </message>
 </context>
 <context>
     <name>SettingsZonesPage</name>
     <message>
         <source>Zones</source>
-        <translation type="unfinished"></translation>
+        <translation>Zonen</translation>
     </message>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualisieren</translation>
     </message>
     <message>
         <source>No networks defined</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Netzwerke definiert</translation>
     </message>
     <message numerus="yes">
         <source>%n network(s) defined</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n Netzwerk definiert</numerusform>
+            <numerusform>%n Netzwerke definiert</numerusform>
         </translation>
     </message>
 </context>
@@ -675,254 +650,254 @@
     <name>SwitchPage</name>
     <message>
         <source>Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Attribute</translation>
     </message>
     <message>
         <source>Switch on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>Schalter an/aus</translation>
     </message>
     <message>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Info</translation>
     </message>
     <message>
         <source>Current power usage:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuelle Leistung:</translation>
     </message>
     <message>
         <source>Today energy usage:</source>
-        <translation type="unfinished"></translation>
+        <translation>Heutiger Verbrauch:</translation>
     </message>
     <message>
         <source>Total energy usage:</source>
-        <translation type="unfinished"></translation>
+        <translation>Gesamt Verbrauch:</translation>
     </message>
     <message>
         <source>Voltage:</source>
-        <translation type="unfinished"></translation>
+        <translation>Spannung:</translation>
     </message>
     <message>
         <source>Current:</source>
-        <translation type="unfinished"></translation>
+        <translation>Strom:</translation>
     </message>
 </context>
 <context>
     <name>TestResultItem</name>
     <message>
         <source>FAILED</source>
-        <translation type="unfinished"></translation>
+        <translation>FEHLGESCHLAGEN</translation>
     </message>
     <message>
         <source>PASSED</source>
-        <translation type="unfinished"></translation>
+        <translation>BESTANDEN</translation>
     </message>
 </context>
 <context>
     <name>WizardConnectionPage</name>
     <message>
         <source>Connection Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbindungs Einstellungen</translation>
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Hostname</translation>
     </message>
     <message>
         <source>Enter hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Hostname eingeben</translation>
     </message>
     <message>
         <source>Use SSL</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutze SSL</translation>
     </message>
     <message>
         <source>It is highly recommend to use a ssl connection if your homeasstiant server support this!</source>
-        <translation type="unfinished"></translation>
+        <translation>Es wird dringend empfohlen eine SSL Verbindung zu benutzten, wenn der Homeassistant server dies unterstützt!</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port</translation>
     </message>
     <message>
         <source>You need to provide the connection details to your Homeassistant instance.
 This can either be the hostname / IP in your local network or a remote url if your Homeassistant is reachable from the internet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du musst die Verbindungsdaten zu deiner Homeassistant Instanz eingeben. Das kann entweder der Hostname / IP im loken Netzwerk sein, oder ein Remote-URL wenn Homeassistant aus dem Internet zu erreichen ist.</translation>
     </message>
     <message>
         <source>Enter connection details</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbindungs Details eingeben</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Zurück</translation>
     </message>
     <message>
         <source>Continue</source>
-        <translation type="unfinished"></translation>
+        <translation>Weiter</translation>
     </message>
 </context>
 <context>
     <name>WizardDeviceRegistrationPage</name>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Zurück</translation>
     </message>
     <message>
         <source>Register</source>
-        <translation type="unfinished"></translation>
+        <translation>Registrieren</translation>
     </message>
     <message>
         <source>Device registration</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte Registrierung</translation>
     </message>
     <message>
         <source>This is the final step. You can change the device name which shows up in Homeassistant if you want before starting the registration.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das ist der letzte Schritt. Du kannst den Geräte Namen, welcher in Homeassistant angezeigt wird, anpassen bevor du mit der Registrierung beginnst.</translation>
     </message>
     <message>
         <source>Change device name</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte Namen ändern</translation>
     </message>
     <message>
         <source>Device name</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte Name</translation>
     </message>
     <message>
         <source>Enter device name</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte Namen eingeben</translation>
     </message>
 </context>
 <context>
     <name>WizardInfoPage</name>
     <message>
         <source>Informations</source>
-        <translation type="unfinished"></translation>
+        <translation>Informationen</translation>
     </message>
     <message>
         <source>Location name</source>
-        <translation type="unfinished"></translation>
+        <translation>Standort Name</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Version</translation>
     </message>
     <message>
         <source>External URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Externe URL</translation>
     </message>
     <message>
         <source>Internal URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Interne URL</translation>
     </message>
     <message>
         <source>Version compatibility</source>
-        <translation type="unfinished"></translation>
+        <translation>Versions Kompatibilität</translation>
     </message>
     <message>
         <source>Mobile app component</source>
-        <translation type="unfinished"></translation>
+        <translation>Mobile-App Komponente</translation>
     </message>
     <message>
         <source>Webhook component</source>
-        <translation type="unfinished"></translation>
+        <translation>Webhook Komponente</translation>
     </message>
     <message>
         <source>Version of Homeassistant is incompatible with this app!</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Version von Homeassistant ist inkompatibel mit dieser Anwendung!</translation>
     </message>
     <message>
         <source>Mobile app component is not activated! Please check your Homeassistant configuration.yaml!</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Mobile-App Komponente ist nicht aktiviert! Bitte überprüfe einen Homeassistant configuration.yaml!</translation>
     </message>
     <message>
         <source>Webhook component is not activated! Please check your Homeassistant configuration.yaml!</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Webhook Komponente ist nicht aktiviert! Bitte überprüfe einen Homeassistant configuration.yaml!</translation>
     </message>
     <message>
         <source>Configuration checks</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfigurations Überprüfung</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Homeassistant</source>
-        <translation type="unfinished"></translation>
+        <translation>Homeassistant</translation>
     </message>
     <message>
         <source>Continue</source>
-        <translation type="unfinished"></translation>
+        <translation>Weiter</translation>
     </message>
     <message>
         <source>Connection Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbindungs Fehler</translation>
     </message>
     <message>
         <source>Error connecting to Homeassistant API:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler beim Verbinden zur Homeassistant API:</translation>
     </message>
 </context>
 <context>
     <name>WizardIntroPage</name>
     <message>
         <source>Welcome to Quartermaster</source>
-        <translation type="unfinished"></translation>
+        <translation>Willkommen bei Quartiermeister</translation>
     </message>
     <message>
         <source>This device is not connected to a Homeassistant instance yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Gerät ist noch nicht mit der Homeassistant Instanz verbunden.</translation>
     </message>
     <message>
         <source>This setup wizard will lead you through the connection process.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Assistent führt dich durch den Verbindungsprozess.</translation>
     </message>
     <message>
         <source>Continue</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
     <name>WizardLastPage</name>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Zurück</translation>
     </message>
     <message>
         <source>Registration failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Registrierung fehlgeschlagen</translation>
     </message>
 </context>
 <context>
     <name>WizardTokenPage</name>
     <message>
         <source>Access Token</source>
-        <translation type="unfinished"></translation>
+        <translation>Access Token</translation>
     </message>
     <message>
         <source>Token</source>
-        <translation type="unfinished"></translation>
+        <translation>Token</translation>
     </message>
     <message>
         <source>Enter Long-Lived Access Token</source>
-        <translation type="unfinished"></translation>
+        <translation>Long-Lived Access Token eingeben</translation>
     </message>
     <message>
         <source>You need to provide a valid Long-Lived Access Token.
 You can create one on profile page in your Homeassistant webfrontend and copy the token string into the input field below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du musst einen gültigen Long-Lived Access Token eingeben. Du kannst einen auf der Profil Seite in der Homeassistant Weboberflächer erstellen und diesen in das untere Eingabefeld kopieren.</translation>
     </message>
     <message>
         <source>Enter token</source>
-        <translation type="unfinished"></translation>
+        <translation>Token eingeben</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Connect</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 </TS>

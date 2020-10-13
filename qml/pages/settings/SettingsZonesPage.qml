@@ -12,6 +12,7 @@ Page {
         id: busyIndicator
         size: BusyIndicatorSize.Large
         running: Client.zonesModel().loading
+        anchors.centerIn: page
     }
 
     SilicaListView {

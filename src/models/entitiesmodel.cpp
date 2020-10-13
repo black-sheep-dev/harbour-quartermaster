@@ -12,6 +12,11 @@ EntitiesModel::~EntitiesModel()
         qDeleteAll(m_entities.begin(), m_entities.end());
 }
 
+int EntitiesModel::entitiesCount() const
+{
+    return m_entities.count();
+}
+
 Entity *EntitiesModel::entityById(const QString &entityId)
 {
     for (Entity *entity : m_entities) {

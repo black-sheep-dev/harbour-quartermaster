@@ -67,8 +67,6 @@ void WebhookApi::updateLocation(const QJsonObject &location)
 
 void WebhookApi::updateRegistration(const Device *device)
 {
-    qDebug() << "UPDATE REGISTRATION";
-
     if (!device->registered())
         return;
 
