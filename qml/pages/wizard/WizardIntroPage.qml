@@ -55,8 +55,8 @@ Page {
                 id: logo
                 source: "/usr/share/icons/hicolor/512x512/apps/harbour-quartermaster.png"
                 smooth: true
-                height: 512
-                width: 512
+                height: parent.width / 2
+                width: parent.width / 2
                 anchors.horizontalCenter: parent.horizontalCenter
             }
 
