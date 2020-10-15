@@ -20,7 +20,7 @@ Row {
     Label {
         anchors.verticalCenter: parent.verticalCenter
         text: value
-        font.pixelSize: Theme.fontSizeMedium
+        font.pixelSize: Theme.fontSizeSmall
         wrapMode: Label.WordWrap
     }
 }

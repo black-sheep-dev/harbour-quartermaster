@@ -384,6 +384,14 @@
         <source>It is highly recommend to use a ssl connection if your homeassistant server supports it!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Valid hostname or IP required!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid port required!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsDeveloperModePage</name>
@@ -466,7 +474,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Sensor List</source>
+        <source>Here you can activate / deactivate automatic sensors updates. Automatic sensor updates can lead to more network traffic and battery consumption.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatic updates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -474,11 +486,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Here you can activate / deactivate automatic sensors updates. Automatic sensor updates can lead to more network traffic and battery consumption.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Automatic updates</source>
+        <source>Sensor List</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -731,6 +739,14 @@ This can either be the hostname / IP in your local network or a remote url if yo
     </message>
     <message>
         <source>Continue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid hostname or IP required!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid port required!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

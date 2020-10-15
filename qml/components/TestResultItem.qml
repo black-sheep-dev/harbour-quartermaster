@@ -10,6 +10,7 @@ Column {
 
     width: parent.width
     height: Theme.itemSizeExtraLarge
+    spacing: Theme.paddingMedium
 
     Row {
         width: parent.width
@@ -35,11 +36,6 @@ Column {
             color: result ? "#76ff03" : "#d50000"
             font.pixelSize: Theme.fontSizeMedium
         }
-    }
-
-    Item {
-        height: Theme.paddingMedium
-        width: 1
     }
 
     Label {

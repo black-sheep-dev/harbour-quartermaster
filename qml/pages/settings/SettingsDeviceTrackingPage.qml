@@ -21,7 +21,7 @@ Page {
             x: Theme.horizontalPageMargin
 
             width: page.width - 2 * x
-            spacing: Theme.paddingLarge
+            spacing: Theme.paddingMedium
 
             PageHeader {
                 title: qsTr("Device Tracking")

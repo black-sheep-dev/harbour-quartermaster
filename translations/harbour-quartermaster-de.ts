@@ -385,6 +385,14 @@
         <source>It is highly recommend to use a ssl connection if your homeassistant server supports it!</source>
         <translation>Es wird dringend empfohlen eine SSL Verbindung zu benutzten, wenn der Homeassistant server dies unterstützt!</translation>
     </message>
+    <message>
+        <source>Valid hostname or IP required!</source>
+        <translation>Gültiger Hostname oder IP benötigt!</translation>
+    </message>
+    <message>
+        <source>Valid port required!</source>
+        <translation>Gültiger Port benötigt!</translation>
+    </message>
 </context>
 <context>
     <name>SettingsDeveloperModePage</name>
@@ -467,27 +475,27 @@
         <translation>Geräte Sensoren</translation>
     </message>
     <message>
-        <source>Sensor List</source>
-        <translation>Sensor Liste</translation>
-    </message>
-    <message>
-        <source>This toggles all sensors on/off</source>
-        <translation>Schaltet alle Sensoren an/aus</translation>
-    </message>
-    <message>
         <source>Here you can activate / deactivate automatic sensors updates. Automatic sensor updates can lead to more network traffic and battery consumption.</source>
-        <translation>Hier kannst du automatische Sensor Updates aktivieren / deaktivieren. Automatische Sensor Updates führen zu einem höhern Verbrauch an Datenvolumen und Batterieverbrauch.</translation>
+        <translation>Aktiviere / Deaktiviere automatische Sensor Updates. Automatische Sensor Updates  führen zu einem höheren Verbrauch von Datenvolumen und Batterieverbrauch.</translation>
     </message>
     <message>
         <source>Automatic updates</source>
         <translation>Automatische Updates</translation>
+    </message>
+    <message>
+        <source>This toggles all sensors on/off</source>
+        <translation>Dies schaltet alle Sensoren an/aus</translation>
+    </message>
+    <message>
+        <source>Sensor List</source>
+        <translation>Sensor Liste</translation>
     </message>
 </context>
 <context>
     <name>SettingsDeviceTrackingPage</name>
     <message>
         <source>Here you can activate / deactivate different device tracking options.</source>
-        <translation>Aktivere / deaktiviere verschiedene Geräte Tracker Optionen.</translation>
+        <translation>Aktivere / Deaktiviere verschiedene Geräte Tracker Optionen.</translation>
     </message>
     <message>
         <source>GPS Tracking</source>
@@ -734,6 +742,14 @@ This can either be the hostname / IP in your local network or a remote url if yo
     <message>
         <source>Continue</source>
         <translation>Weiter</translation>
+    </message>
+    <message>
+        <source>Valid hostname or IP required!</source>
+        <translation>Gültiger Hostname oder IP benötigt!</translation>
+    </message>
+    <message>
+        <source>Valid port required!</source>
+        <translation>Gültiger Port benötigt!</translation>
     </message>
 </context>
 <context>

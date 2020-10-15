@@ -24,10 +24,8 @@ Page {
         Column {
             id: column
 
-            x: Theme.horizontalPageMargin
-
-            width: page.width - 2 * x
-            spacing: Theme.paddingLarge
+            width: parent.width
+            spacing: Theme.paddingMedium
 
             PageHeader {
                 title: qsTr("Connection")
@@ -43,17 +41,21 @@ Page {
                 text: Client.hostname
 
                 inputMethodHints: Qt.ImhUrlCharactersOnly
+                validator: RegExpValidator {
+                    regExp: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$|^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$|[a-zA-Z0-9-_]{1,}/gm
+                }
 
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
                 EnterKey.onClicked: portField.focus = true
             }
 
-            TextSwitch {
-                id: sslSwitch
-                text: qsTr("Use SSL")
-                description: qsTr("It is highly recommend to use a ssl connection if your homeassistant server supports it!")
-
-                checked: Client.ssl
+            Label {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
+                visible: !hostnameField.acceptableInput
+                text: qsTr("Valid hostname or IP required!")
+                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeExtraSmall
             }
 
             TextField {
@@ -70,13 +72,30 @@ Page {
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
                 EnterKey.onClicked: focus = false
             }
+
+            Label {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
+                visible: !portField.acceptableInput
+                text: qsTr("Valid port required!") +  " (1-65535)"
+                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeExtraSmall
+            }
+
+            TextSwitch {
+                id: sslSwitch
+                text: qsTr("Use SSL")
+                description: qsTr("It is highly recommend to use a ssl connection if your homeassistant server supports it!")
+
+                checked: Client.ssl
+            }
         }
     }
 
     onStatusChanged: {
         if (status != PageStatus.Deactivating) return;
 
-        page.applyChanges()
+        if (hostnameField.acceptableInput && portField.acceptableInput) page.applyChanges()
     }
 }
 

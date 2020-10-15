@@ -13,14 +13,13 @@ Page {
 
         Column {
             id: column
-            x: Theme.horizontalPageMargin
-            width: page.width - 2 * x
-            spacing: Theme.paddingLarge
+            width: parent.width
+            spacing: Theme.paddingMedium
 
             PageHeader {
                 Row {
-                    x: Theme.paddingMedium
-                    width: parent.width - 2*x
+                    x: Theme.horizontalPageMargin
+                    width: page.width - 2 * x
                     anchors.verticalCenter: parent.verticalCenter
 
                     Label {
@@ -44,7 +43,8 @@ Page {
             }
 
             Label {
-                width: parent.width
+                x: Theme.horizontalPageMargin
+                width: page.width - 2 * x
 
                 text: qsTr("Device registration")
 
@@ -53,7 +53,8 @@ Page {
             }
 
             Label {
-                width: parent.width
+                x: Theme.horizontalPageMargin
+                width: page.width - 2 * x
                 wrapMode: Text.WordWrap
 
                 text: qsTr("This is the final step. You can change the device name which shows up in Homeassistant if you want before starting the registration.")
@@ -61,14 +62,15 @@ Page {
             }
 
             Label {
-                width: parent.width
+                x: Theme.horizontalPageMargin
+                width: page.width - 2 * x
                 text: qsTr("Change device name")
 
                 color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeLarge
             }
 
-            TextArea {
+            TextField {
                 id: deviceNameField
                 width: parent.width
 
@@ -76,8 +78,14 @@ Page {
                 placeholderText: qsTr("Enter device name")
 
                 text: Client.device().name
+
+                onTextChanged: checkInput()
             }
         }
+    }
+
+    function checkInput() {
+        canNavigateForward = deviceNameField.length > 0
     }
 
     onStatusChanged: {
@@ -87,5 +95,7 @@ Page {
             Client.device().name = deviceNameField.text
         }
     }
+
+    Component.onCompleted: checkInput()
 }
 

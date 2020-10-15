@@ -13,14 +13,13 @@ Page {
 
         Column {
             id: column
-            x: Theme.horizontalPageMargin
-            width: page.width - 2 * x
+            width: parent.width
             spacing: Theme.paddingLarge
 
             PageHeader {
                 Row {
-                    x: Theme.paddingMedium
-                    width: parent.width - 2*x
+                    x: Theme.horizontalPageMargin
+                    width: parent.width - 2 * x
                     anchors.verticalCenter: parent.verticalCenter
 
                     Label {
@@ -32,6 +31,7 @@ Page {
                     }
 
                     Label {
+                        id: connectLabel
                         width: parent.width / 2
                         text: qsTr("Connect")
 
@@ -44,7 +44,8 @@ Page {
             }
 
             Label {
-                width: parent.width
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
 
                 text: qsTr("Access Token")
 
@@ -53,7 +54,8 @@ Page {
             }
 
             Label {
-                width: parent.width
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
                 wrapMode: Text.WordWrap
 
                 text: qsTr("You need to provide a valid Long-Lived Access Token.\n"
@@ -62,7 +64,8 @@ Page {
             }
 
             Label {
-                width: parent.width
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
                 text: qsTr("Enter Long-Lived Access Token")
 
                 color: Theme.secondaryHighlightColor
@@ -77,7 +80,19 @@ Page {
                 placeholderText: qsTr("Enter token")
 
                 text: Client.token
+
+                onTextChanged: checkInput()
             }
+        }
+    }
+
+    function checkInput() {
+        if (tokenField.text.length > 0) {
+            canNavigateForward = true
+            connectLabel.visible = true
+        } else {
+            canNavigateForward = false
+            connectLabel.visible = false
         }
     }
 
@@ -89,4 +104,6 @@ Page {
             Client.connectToHost()
         }
     }
+
+    Component.onCompleted: checkInput()
 }

@@ -26,12 +26,12 @@ Page {
             x: Theme.horizontalPageMargin
             width: parent.width - 2 * x
 
+
             opacity: 0
 
             PageHeader {
                 Row {
-                    x: Theme.paddingMedium
-                    width: parent.width - 2*x
+                    width: parent.width
                     anchors.verticalCenter: parent.verticalCenter
 
                     Label {
@@ -220,10 +220,18 @@ Page {
         onLoadingChanged: {
             if (Client.homeassistantInfo().isInstanceValid()) {
                 labelProceed.visible = true
-                pageStack.pushAttached(Qt.resolvedUrl("WizardDeviceRegistrationPage.qml"))
+                canNavigateForward = true
             }
 
             if (!Client.homeassistantInfo().loading) column.opacity = 1
         }
     }
+
+    onStatusChanged: {
+        if (status == PageStatus.Active) {
+            pageStack.pushAttached(Qt.resolvedUrl("WizardDeviceRegistrationPage.qml"))
+        }
+    }
+
+    Component.onCompleted: canNavigateForward = false
 }

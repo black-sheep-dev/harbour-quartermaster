@@ -13,13 +13,12 @@ Page {
 
         Column {
             id: column
-            x: Theme.horizontalPageMargin
-            width: page.width - 2 * x
-            spacing: Theme.paddingLarge
+            width: parent.width
+            spacing: Theme.paddingMedium
 
             PageHeader {
                 Row {
-                    x: Theme.paddingMedium
+                    x: Theme.horizontalPageMargin
                     width: parent.width - 2*x
                     anchors.verticalCenter: parent.verticalCenter
 
@@ -32,6 +31,7 @@ Page {
                     }
 
                     Label {
+                        id: continueLable
                         width: parent.width / 2
                         text: qsTr("Continue")
 
@@ -44,7 +44,8 @@ Page {
             }
 
             Label {
-                width: parent.width
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
 
                 text: qsTr("Connection Settings")
 
@@ -53,7 +54,8 @@ Page {
             }
 
             Label {
-                width: parent.width
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
                 wrapMode: Text.WordWrap
 
                 text: qsTr("You need to provide the connection details to your Homeassistant instance.\n"
@@ -62,7 +64,8 @@ Page {
             }
 
             Label {
-                width: parent.width
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
                 text: qsTr("Enter connection details")
 
                 color: Theme.highlightColor
@@ -76,14 +79,28 @@ Page {
                 label: qsTr("Hostname")
                 placeholderText: qsTr("Enter hostname")
 
-                text: Client.hostname
+                text: Client.hostname   
 
                 inputMethodHints: Qt.ImhUrlCharactersOnly
+                validator: RegExpValidator {
+                    regExp: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$|^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$|[a-zA-Z0-9-_]{1,}/gm
+                }
 
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
                 EnterKey.onClicked: portField.focus = true
 
                 autoScrollEnabled: true
+
+                onTextChanged: checkInput()
+            }
+
+            Label {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
+                visible: !hostnameField.acceptableInput
+                text: qsTr("Valid hostname or IP required!")
+                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeExtraSmall
             }
 
             TextField {
@@ -101,6 +118,17 @@ Page {
                 EnterKey.onClicked: sslSwitch.focus = true
 
                 autoScrollEnabled: true
+
+                onTextChanged: checkInput()
+            }
+
+            Label {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
+                visible: !portField.acceptableInput
+                text: qsTr("Valid port required!") +  " (1-65535)"
+                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeExtraSmall
             }
 
             TextSwitch {
@@ -110,11 +138,19 @@ Page {
 
                 checked: Client.ssl
             }
-
-
         }
 
         VerticalScrollDecorator {}
+    }
+
+    function checkInput() {
+        if (hostnameField.acceptableInput && portField.acceptableInput) {
+            canNavigateForward = true
+            continueLable.visible = true
+        } else {
+            canNavigateForward = false
+            continueLable.visible = false
+        }
     }
 
     onStatusChanged: {
@@ -126,4 +162,6 @@ Page {
             Client.ssl = sslSwitch.checked
         }
     }
+
+    Component.onCompleted: checkInput()
 }
