@@ -181,6 +181,12 @@ QVariant WifiNetworkModel::data(const QModelIndex &index, int role) const
     case SelectedRole:
         return network->selected();
 
+    case DefinedRole:
+        return network->defined();
+
+    case DiscoveredRole:
+        return network->discovered();
+
     default:
         return QVariant();
     }
@@ -203,6 +209,8 @@ QHash<int, QByteArray> WifiNetworkModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
 
+    roles[DefinedRole]      = "defined";
+    roles[DiscoveredRole]   = "discovered";
     roles[NameRole]         = "name";
     roles[IdentifierRole]   = "identifier";
     roles[SelectedRole]     = "selected";

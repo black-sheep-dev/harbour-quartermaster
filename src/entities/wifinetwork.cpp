@@ -8,6 +8,16 @@ WifiNetwork::WifiNetwork(QObject *parent) :
 
 }
 
+bool WifiNetwork::defined() const
+{
+    return m_defined;
+}
+
+bool WifiNetwork::discovered() const
+{
+    return m_discovered;
+}
+
 QString WifiNetwork::identifier() const
 {
     return m_identifier;
@@ -21,6 +31,24 @@ QString WifiNetwork::name() const
 bool WifiNetwork::selected() const
 {
     return m_selected;
+}
+
+void WifiNetwork::setDefined(bool defined)
+{
+    if (m_defined == defined)
+        return;
+
+    m_defined = defined;
+    emit definedChanged(m_defined);
+}
+
+void WifiNetwork::setDiscovered(bool discovered)
+{
+    if (m_discovered == discovered)
+        return;
+
+    m_discovered = discovered;
+    emit discoveredChanged(m_discovered);
 }
 
 void WifiNetwork::setIdentifier(const QString &identifier)

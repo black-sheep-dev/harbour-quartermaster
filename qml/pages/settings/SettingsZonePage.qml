@@ -126,7 +126,7 @@ Page {
                             width: parent.width - wlanIcon.width - 2 * Theme.paddingMedium
                             anchors.verticalCenter: parent.verticalCenter
 
-                            text: name
+                            text: name.length > 0 ? name : qsTr("Hidden network")
                             color: pressed ? Theme.secondaryHighlightColor : Theme.secondaryColor
                             font.pixelSize: Theme.fontSizeMedium
                         }

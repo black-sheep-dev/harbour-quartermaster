@@ -343,6 +343,18 @@
         <source>Select Wifi networks</source>
         <translation>Wlan Netzwerk auswählen</translation>
     </message>
+    <message>
+        <source>Stored network</source>
+        <translation>Gespeichertes Netzwerk</translation>
+    </message>
+    <message>
+        <source>Available network</source>
+        <translation>Verfügbares Netzwerk</translation>
+    </message>
+    <message>
+        <source>Hidden network</source>
+        <translation>Versteckes Netzwerk</translation>
+    </message>
 </context>
 <context>
     <name>SensorsListPage</name>
@@ -630,6 +642,10 @@
     <message>
         <source>Deleting network</source>
         <translation>Lösche Netzwerke</translation>
+    </message>
+    <message>
+        <source>Hidden network</source>
+        <translation>Versteckes Netzwerk</translation>
     </message>
 </context>
 <context>

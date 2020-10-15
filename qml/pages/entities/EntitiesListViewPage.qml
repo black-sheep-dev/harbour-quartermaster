@@ -18,6 +18,7 @@ Page {
         id: busyIndicator
         size: BusyIndicatorSize.Large
         running: Client.entitiesProvider().loading
+        anchors.centerIn: parent
     }
 
     SilicaFlickable {

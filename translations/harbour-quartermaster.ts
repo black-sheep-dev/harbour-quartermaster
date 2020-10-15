@@ -342,6 +342,18 @@
         <source>Select Wifi networks</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Stored network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hidden network</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SensorsListPage</name>
@@ -628,6 +640,10 @@
     </message>
     <message>
         <source>Deleting network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hidden network</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

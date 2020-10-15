@@ -13,6 +13,22 @@ Dialog {
     DialogHeader {
         id: header
         title: qsTr("Select Wifi networks")
+        reserveExtraContent: true
+    }
+
+    IconButton {
+        icon.source: "image://theme/icon-m-refresh"
+        anchors.right: header.right
+        anchors.bottom: header.bottom
+
+        onClicked: Client.updateNetworksModel();
+    }
+
+    PageBusyIndicator {
+        id: busyIndicator
+        size: BusyIndicatorSize.Large
+        running: Client.networksModel().loading
+        anchors.centerIn: parent
     }
 
     SilicaListView {
@@ -40,17 +56,34 @@ Dialog {
 
                 Image {
                     id: wlanIcon
-                    source: "image://theme/icon-m-wlan"
+                    source: {
+                        if (!defined)
+                            return "image://theme/icon-m-wlan"
+
+                        return discovered ? "image://theme/icon-m-wlan" : "image://theme/icon-m-wlan-no-signal"
+                    }
+
                     anchors.verticalCenter: parent.verticalCenter
                 }
 
-                Label {
+                Column {
                     width: parent.width - wlanIcon.width - selectedIcon.width - 2 * Theme.paddingMedium
                     anchors.verticalCenter: parent.verticalCenter
 
-                    text: name
-                    color: pressed ? Theme.secondaryHighlightColor : Theme.secondaryColor
-                    font.pixelSize: Theme.fontSizeMedium
+                    Label {
+                        width: parent.width
+                        text: name.length > 0 ? name : qsTr("Hidden network")
+                        color: pressed ? Theme.secondaryHighlightColor : Theme.highlightColor
+                        font.pixelSize: Theme.fontSizeMedium
+                    }
+
+                    Label {
+                        width: parent.width
+                        text: defined ? qsTr("Stored network") : qsTr("Available network")
+
+                        color: pressed ? Theme.secondaryHighlightColor : Theme.secondaryColor
+                        font.pixelSize: Theme.fontSizeSmall
+                    }
                 }
 
                 Image {
@@ -68,6 +101,8 @@ Dialog {
 
         VerticalScrollDecorator {}
     }
+
+    Component.onCompleted: Client.updateNetworksModel()
 
     onAccepted: {
         Client.networksModel().addSelectedToModel(zone.networksModel())

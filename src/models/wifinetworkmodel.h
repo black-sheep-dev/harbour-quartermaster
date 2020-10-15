@@ -13,7 +13,9 @@ class WifiNetworkModel : public QAbstractListModel
 
 public:
     enum WifiNetworkRoles {
-        NameRole        = Qt::UserRole + 1,
+        DefinedRole         = Qt::UserRole + 1,
+        DiscoveredRole,
+        NameRole,
         IdentifierRole,
         SelectedRole
     };

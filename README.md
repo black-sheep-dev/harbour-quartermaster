@@ -21,7 +21,7 @@ Here is a list of all implemented features so far. Not all features listed below
 - Authentification with Long-Lived Access Token (see "Authentication" section)
 - Secure storage of all secrets using Sailfish-Secrets
 - Device tracking using GPS (not tested well)
-- Device tracking using available wifi networks (only with connected networks)
+- Device tracking using available and connected wifi networks
 - Device sensors:  
  - *Battery level* 
  - *Battery charging*
@@ -44,7 +44,6 @@ Here is a list of all implemented features so far. Not all features listed below
 ## Planned Features
 - Two-Factor authentication to get access token (Qt OAuth2 functionality needs at least Qt 5.8 / Sailfish OS 3.4 has antique Qt 5.6 libraries)
 - Autodetect Homeassistant instance in local network during setup
-- Device tracking with all available wifi networks (not only connected ones)
 - Encryption of API traffic (webhook api)
 - Websocket connection for live updates of entity states
 - Notifications from Homeassistant instance

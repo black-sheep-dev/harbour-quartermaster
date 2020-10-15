@@ -134,8 +134,6 @@ Page {
                     entity.attributes.preset_mode = mode
                 }
             }
-
-
         }
     }
 }

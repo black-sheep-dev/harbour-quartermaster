@@ -15,12 +15,12 @@
 
 DeviceTrackerWifi::DeviceTrackerWifi(ZonesModel *zones, QObject *parent) :
     DeviceTracker(parent),
-//    m_activity(new BackgroundActivity(this)),
+    m_activity(new BackgroundActivity(this)),
     m_ncm(new QNetworkConfigurationManager(this)),
     m_localNetworks(new WifiNetworkModel(this)),
     m_zones(zones)
 {
-    //connect(m_activity, &BackgroundActivity::running, this, &DeviceTrackerWifi::onBackroundServiceRunning);
+    connect(m_activity, &BackgroundActivity::running, this, &DeviceTrackerWifi::onBackroundServiceRunning);
     connect(m_ncm, &QNetworkConfigurationManager::configurationChanged, this, &DeviceTrackerWifi::onConfigurationChanged);
     connect(m_localNetworks, &WifiNetworkModel::requestUpdate, this, &DeviceTrackerWifi::updateWifiNetworks);
     connect(m_zones, &ZonesModel::refreshed, this, &DeviceTrackerWifi::loadNetworkSettings);
@@ -28,7 +28,7 @@ DeviceTrackerWifi::DeviceTrackerWifi(ZonesModel *zones, QObject *parent) :
     updateWifiNetworks();
     loadNetworkSettings();
 
-//    m_activity->run();
+    m_activity->run();
 }
 
 WifiNetworkModel *DeviceTrackerWifi::localNetworkModel()
@@ -130,11 +130,13 @@ void DeviceTrackerWifi::updateWifiNetworks()
 
 #ifdef QT_DEBUG
             qDebug() << cfg.name();
-            qDebug() << cfg.identifier();
+            qDebug() << cfg.state();
 #endif
             auto *network = new WifiNetwork;
             network->setName(cfg.name());
             network->setIdentifier(cfg.identifier());
+            network->setDefined(cfg.state() & QNetworkConfiguration::Defined);
+            network->setDiscovered((cfg.state() & QNetworkConfiguration::Discovered) == QNetworkConfiguration::Discovered);
 
             networks.append(network);
         }
@@ -151,7 +153,17 @@ void DeviceTrackerWifi::onBackroundServiceRunning()
     qDebug() << QStringLiteral("WIFI BACKGROUND SERVICE");
 #endif
 
+    for (const QNetworkConfiguration &cfg : m_ncm->allConfigurations(QNetworkConfiguration::Undefined)) {
+        if (cfg.bearerType() == QNetworkConfiguration::BearerWLAN) {
 
+#ifdef QT_DEBUG
+            qDebug() << cfg.name();
+            qDebug() << cfg.identifier();
+#endif
+            if (checkNetworkIdentifier(cfg.identifier()))
+                break;
+        }
+    }
 
     m_activity->wait(BackgroundActivity::ThirtySeconds);
 }
@@ -172,16 +184,22 @@ void DeviceTrackerWifi::onConfigurationChanged(const QNetworkConfiguration &conf
     checkNetworkIdentifier(config.identifier());
 }
 
-void DeviceTrackerWifi::checkNetworkIdentifier(const QString &identifier)
+bool DeviceTrackerWifi::checkNetworkIdentifier(const QString &identifier)
 {
+    if (m_lastIdentifier == identifier)
+        return false;
+
     for (Zone *zone : m_zones->zones()) {
         for (const WifiNetwork *network : zone->networksModel()->networks()) {
             if (network->identifier() != identifier)
                 continue;
 
+            m_lastIdentifier = identifier;
+
             m_currentPositionInfo.setCoordinate(QGeoCoordinate(zone->latitude(), zone->longitude()));
             m_currentPositionInfo.setTimestamp(QDateTime::currentDateTimeUtc());
             m_currentPositionInfo.setAttribute(QGeoPositionInfo::HorizontalAccuracy, qreal(zone->radius()));
+
 
 #ifdef QT_DEBUG
             qDebug() << zone->name();
@@ -190,9 +208,11 @@ void DeviceTrackerWifi::checkNetworkIdentifier(const QString &identifier)
 
             QTimer::singleShot(1000, this, &DeviceTrackerWifi::updateLocation);
 
-            return;
+            return true;
         }
     }
+
+    return false;
 }
 
 QString DeviceTrackerWifi::getActiveNetworkIdentifier() const

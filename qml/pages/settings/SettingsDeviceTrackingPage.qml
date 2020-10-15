@@ -19,8 +19,8 @@ Page {
             id: column
 
             x: Theme.horizontalPageMargin
+            width: parent.width - 2 * x
 
-            width: page.width - 2 * x
             spacing: Theme.paddingMedium
 
             PageHeader {
