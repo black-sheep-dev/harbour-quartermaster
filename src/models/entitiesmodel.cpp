@@ -6,12 +6,6 @@ EntitiesModel::EntitiesModel(QObject *parent) :
 
 }
 
-EntitiesModel::~EntitiesModel()
-{
-    if (m_parentMode)
-        qDeleteAll(m_entities.begin(), m_entities.end());
-}
-
 int EntitiesModel::entitiesCount() const
 {
     return m_entities.count();
@@ -64,6 +58,9 @@ void EntitiesModel::addEntity(Entity *entity)
         return;
 
     beginInsertRows(QModelIndex(), m_entities.count(), m_entities.count());
+    if (m_parentMode)
+        entity->setParent(this);
+
     m_entities.append(entity);
     connect(entity, &Entity::changed, this, &EntitiesModel::onEntityChanged);
     endInsertRows();
@@ -75,13 +72,17 @@ void EntitiesModel::setEntities(const QList<Entity *> &entities)
 {
     beginResetModel();
 
-    if (m_parentMode)
+    if (m_parentMode) {
         qDeleteAll(m_entities.begin(), m_entities.end());
+        m_entities.clear();
+    }
 
-    m_entities.clear();
     m_entities = entities;
 
     for (Entity *entity : m_entities) {
+        if (m_parentMode)
+            entity->setParent(this);
+
         connect(entity, &Entity::changed, this, &EntitiesModel::onEntityChanged);
     }
     endResetModel();

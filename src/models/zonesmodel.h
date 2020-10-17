@@ -23,7 +23,6 @@ public:
     Q_ENUM(ZoneRoles)
 
     explicit ZonesModel(QObject *parent = nullptr);
-    ~ZonesModel() override;
 
     Q_INVOKABLE Zone *zoneAt(int index);
     QList<Zone *> zones() const;

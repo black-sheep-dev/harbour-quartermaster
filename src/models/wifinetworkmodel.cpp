@@ -10,11 +10,6 @@ WifiNetworkModel::WifiNetworkModel(QObject *parent) :
 
 }
 
-WifiNetworkModel::~WifiNetworkModel()
-{
-    qDeleteAll(m_networks.begin(), m_networks.end());
-}
-
 void WifiNetworkModel::addSelectedToModel(WifiNetworkModel *model)
 {
     if (!model)
@@ -81,6 +76,7 @@ void WifiNetworkModel::addNetwork(const QString &name, const QString &identifier
     }
 
     auto *network = new WifiNetwork;
+    network->setParent(this);
     network->setName(name);
     network->setIdentifier(identifier);
 
@@ -126,7 +122,11 @@ void WifiNetworkModel::setNetworks(const QList<WifiNetwork *> &networks)
 {
     beginResetModel();
     qDeleteAll(m_networks.begin(), m_networks.end());
-    m_networks.clear();
+
+    for (WifiNetwork *network : networks) {
+        network->setParent(this);
+    }
+
     m_networks = networks;
     endResetModel();
 

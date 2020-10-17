@@ -22,7 +22,6 @@ public:
     Q_ENUM(WifiNetworkRoles)
 
     explicit WifiNetworkModel(QObject *parent = nullptr);
-    ~WifiNetworkModel() override;
 
     Q_INVOKABLE void addSelectedToModel(WifiNetworkModel *model);
     Q_INVOKABLE void resetSelection();

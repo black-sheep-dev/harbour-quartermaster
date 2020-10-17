@@ -22,7 +22,6 @@ public:
     Q_ENUM(EntityRole)
 
     explicit EntitiesModel(QObject *parent = nullptr);
-    ~EntitiesModel() override;
 
     Q_INVOKABLE int entitiesCount() const;
     Q_INVOKABLE Entity *entityById(const QString &entityId);

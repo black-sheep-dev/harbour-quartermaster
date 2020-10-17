@@ -9,11 +9,6 @@ ZonesModel::ZonesModel(QObject *parent) :
 
 }
 
-ZonesModel::~ZonesModel()
-{
-    qDeleteAll(m_zones.begin(), m_zones.end());
-}
-
 Zone *ZonesModel::zoneAt(const int index)
 {
     if (index < 0 || index >= m_zones.count())
@@ -33,6 +28,7 @@ void ZonesModel::addZone(Zone *zone)
         return;
 
     beginInsertRows(QModelIndex(), m_zones.count(), m_zones.count());
+    zone->setParent(this);
     m_zones.append(zone);
     connect(zone, &Zone::networksChanged, this, &ZonesModel::onNetworksChanged);
     endInsertRows();
@@ -42,10 +38,10 @@ void ZonesModel::setZones(const QList<Zone *> &zones)
 {
     beginResetModel();
     qDeleteAll(m_zones.begin(), m_zones.end());
-    m_zones.clear();
     m_zones = zones;
 
     for (Zone *zone : m_zones) {
+        zone->setParent(this);
         connect(zone, &Zone::networksChanged, this, &ZonesModel::onNetworksChanged);
     }
 
