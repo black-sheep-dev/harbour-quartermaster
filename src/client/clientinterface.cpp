@@ -194,6 +194,16 @@ bool ClientInterface::trackingWifi() const
     return m_trackingWifi;
 }
 
+bool ClientInterface::updateSingleEntity() const
+{
+    return m_updateSingleEntity;
+}
+
+bool ClientInterface::updateEntityModel() const
+{
+    return m_updateEntityModel;
+}
+
 QString ClientInterface::debugOutput() const
 {
     return m_debugOutput;
@@ -325,6 +335,24 @@ void ClientInterface::setTrackingWifi(bool enable)
     }
 }
 
+void ClientInterface::setUpdateSingleEntity(bool enable)
+{
+    if (m_updateSingleEntity == enable)
+        return;
+
+    m_updateSingleEntity = enable;
+    emit updateSingleEntityChanged(m_updateSingleEntity);
+}
+
+void ClientInterface::setUpdateEntityModel(bool enable)
+{
+    if (m_updateEntityModel == enable)
+        return;
+
+    m_updateEntityModel = enable;
+    emit updateEntityModelChanged(m_updateEntityModel);
+}
+
 void ClientInterface::setDebugOutput(const QString &output)
 {
     if (m_debugOutput == output)
@@ -444,6 +472,11 @@ void ClientInterface::readSettings()
     setTrackingWifi(settings.value(QStringLiteral("wifi"), false).toBool());
     settings.endGroup();
 
+    settings.beginGroup(QStringLiteral("AUTO_UPDATE"));
+    setUpdateEntityModel(settings.value(QStringLiteral("entity_model"), false).toBool());
+    setUpdateSingleEntity(settings.value(QStringLiteral("entity_single"), false).toBool());
+    settings.endGroup();
+
     settings.beginGroup(QStringLiteral("DEVELOPER_MODE"));
     setApiLogging(settings.value(QStringLiteral("api_logging"), false).toBool());
     settings.endGroup();
@@ -472,6 +505,11 @@ void ClientInterface::writeSettings()
     settings.beginGroup(QStringLiteral("TRACKING"));
     settings.setValue(QStringLiteral("gps"), m_trackingGPS);
     settings.setValue(QStringLiteral("wifi"), m_trackingWifi);
+    settings.endGroup();
+
+    settings.beginGroup(QStringLiteral("AUTO_UPDATE"));
+    settings.setValue(QStringLiteral("entity_model"), m_updateEntityModel);
+    settings.setValue(QStringLiteral("entity_single"), m_updateSingleEntity);
     settings.endGroup();
 
     settings.beginGroup(QStringLiteral("DEVELOPER_MODE"));

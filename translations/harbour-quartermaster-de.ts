@@ -50,6 +50,10 @@
         <source>Last triggered:</source>
         <translation>Zuletzt ausgeführt:</translation>
     </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Aktualisieren</translation>
+    </message>
 </context>
 <context>
     <name>ClientInterface</name>
@@ -87,6 +91,10 @@
     <message>
         <source>none</source>
         <translation>keiner</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Aktualisieren</translation>
     </message>
 </context>
 <context>
@@ -131,6 +139,10 @@
     <message>
         <source>Search</source>
         <translation>Suche</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Aktualisieren</translation>
     </message>
 </context>
 <context>
@@ -244,6 +256,10 @@
         <source>Functionality</source>
         <translation>Funktionen</translation>
     </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Aktualisieren</translation>
+    </message>
 </context>
 <context>
     <name>GroupPage</name>
@@ -258,6 +274,10 @@
     <message>
         <source>Child Entities</source>
         <translation>Untergeordnete Entitäten</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Aktualisieren</translation>
     </message>
 </context>
 <context>
@@ -293,6 +313,10 @@
     <message>
         <source>Features</source>
         <translation>Eigenschaften</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Aktualisieren</translation>
     </message>
 </context>
 <context>
@@ -336,6 +360,10 @@
         <source>Unkown</source>
         <translation>Unbekannt</translation>
     </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Aktualisieren</translation>
+    </message>
 </context>
 <context>
     <name>SelectWifiNetworkDialog</name>
@@ -369,6 +397,41 @@
     <message>
         <source>Unavailable</source>
         <translation>Nicht verfügbar</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Aktualisieren</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsAutoUpdatePage</name>
+    <message>
+        <source>Automatic Updates</source>
+        <translation>Automatische Updates</translation>
+    </message>
+    <message>
+        <source>Here you can activate / deactivate automatic updates for your entities.</source>
+        <translation>Aktivere / Deaktiviere automatische Updates deiner Entitäten.</translation>
+    </message>
+    <message>
+        <source>Activating these options leads to higher battery consumption and network traffic.</source>
+        <translation>Das aktivieren dieser Optionen führt zu höherem Batterieverbrauch und Verbrauch von Datenvolumen.</translation>
+    </message>
+    <message>
+        <source>When active the entity will be updated when his property page is shown.</source>
+        <translation>Wenn aktiv wird die Entität aktualisiert wenn deren Eigenschaften Seite angezeigt wird.</translation>
+    </message>
+    <message>
+        <source>When active all entities of one type will be updated when the corresponding list view is shown.</source>
+        <translation>Wenn aktiv werden alle Entitäten eines Typs aktualisiert, wenn die dazugehörige Listenansicht angezeigt wird.</translation>
+    </message>
+    <message>
+        <source>Single entity</source>
+        <translation>Einzelne Entität</translation>
+    </message>
+    <message>
+        <source>Entity list</source>
+        <translation>Enitäten Liste</translation>
     </message>
 </context>
 <context>
@@ -600,6 +663,14 @@
         <source>Manage developer options</source>
         <translation>Entwickler Optionen verwalten</translation>
     </message>
+    <message>
+        <source>Auto Updates</source>
+        <translation>Auto Update</translation>
+    </message>
+    <message>
+        <source>Manage automatic entity updates</source>
+        <translation>Automatische Entität Aktualisierungen verwalten</translation>
+    </message>
 </context>
 <context>
     <name>SettingsZonePage</name>
@@ -703,6 +774,10 @@
     <message>
         <source>Current:</source>
         <translation>Strom:</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Aktualisieren</translation>
     </message>
 </context>
 <context>

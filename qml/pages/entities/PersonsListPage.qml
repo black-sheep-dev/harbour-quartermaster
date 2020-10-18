@@ -22,6 +22,10 @@ Page {
     SilicaFlickable {
         PullDownMenu {
             MenuItem {
+                text: qsTr("Refresh")
+                onClicked: Client.entitiesProvider().updateModel(type)
+            }
+            MenuItem {
                 text: qsTr("Search")
                 onClicked: listView.showSearch = true
             }
@@ -138,5 +142,9 @@ Page {
                 return initials
             }
         }
+    }
+
+    Component.onCompleted: {
+        if (Client.updateEntityModel) Client.entitiesProvider().updateModel(type)
     }
 }

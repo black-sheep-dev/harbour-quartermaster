@@ -28,6 +28,11 @@ void HomeassistantApi::getConfig()
     request(getRequest(QStringLiteral(HASS_API_ENDPOINT_CONFIG)));
 }
 
+void HomeassistantApi::getState(const QString &entityId)
+{
+    request(getRequest(QStringLiteral(HASS_API_ENDPOINT_STATES) + "/" + entityId));
+}
+
 void HomeassistantApi::getStates()
 {
     request(getRequest(HASS_API_ENDPOINT_STATES));

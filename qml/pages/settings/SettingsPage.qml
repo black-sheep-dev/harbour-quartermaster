@@ -34,6 +34,12 @@ Page {
                 page: "SettingsZonesPage.qml"
             }
             ListElement {
+                title: qsTr("Auto Updates");
+                description: qsTr("Manage automatic entity updates")
+                icon: "image://theme/icon-m-sync"
+                page: "SettingsAutoUpdatePage.qml"
+            }
+            ListElement {
                 title: qsTr("Device Info");
                 description: qsTr("Manage device informations")
                 icon: "image://theme/icon-m-about"

@@ -26,6 +26,8 @@ class ClientInterface : public QObject
     Q_PROPERTY(QString token READ token WRITE setToken)
     Q_PROPERTY(bool trackingGPS READ trackingGPS WRITE setTrackingGPS NOTIFY trackingGPSChanged)
     Q_PROPERTY(bool trackingWifi READ trackingWifi WRITE setTrackingWifi NOTIFY trackingWifiChanged)
+    Q_PROPERTY(bool updateSingleEntity READ updateSingleEntity WRITE setUpdateSingleEntity NOTIFY updateSingleEntityChanged)
+    Q_PROPERTY(bool updateEntityModel READ updateEntityModel WRITE setUpdateEntityModel NOTIFY updateEntityModelChanged)
 
     Q_PROPERTY(QString debugOutput READ debugOutput WRITE setDebugOutput NOTIFY debugOutputChanged)
 
@@ -63,9 +65,10 @@ public:
     QString token() const;
     bool trackingGPS() const;
     bool trackingWifi() const;
+    bool updateSingleEntity() const;
+    bool updateEntityModel() const;
 
     QString debugOutput() const;
-
 signals:
     // properties
     void apiLoggingChanged(bool enabled);
@@ -76,6 +79,8 @@ signals:
     void sslChanged(bool ssl); 
     void trackingGPSChanged(bool enabled);
     void trackingWifiChanged(bool enabled);
+    void updateSingleEntityChanged(bool enabled);
+    void updateEntityModelChanged(bool enabled);
 
     void debugOutputChanged(QString debugOutput);
 
@@ -90,8 +95,11 @@ public slots:
     void setToken(const QString &token);
     void setTrackingGPS(bool enable);
     void setTrackingWifi(bool enable);
+    void setUpdateSingleEntity(bool enable);
+    void setUpdateEntityModel(bool enable);
 
     void setDebugOutput(const QString &output);
+
 
 private slots:
     void onDataAvailable(const QString &endpoint, const QJsonDocument &doc);
@@ -128,9 +136,10 @@ private:
     bool m_ssl{false};
     bool m_trackingGPS{false};
     bool m_trackingWifi{false};
+    bool m_updateSingleEntity{false};
+    bool m_updateEntityModel{false};
 
     QString m_debugOutput;
-
 };
 
 #endif // CLIENTINTERFACE_H

@@ -46,6 +46,8 @@ signals:
 
 public slots:
     Q_INVOKABLE void refresh();
+    Q_INVOKABLE void updateEntity(const QString &entityId);
+    Q_INVOKABLE void updateModel(int type);
 
     // properties
     void setLoading(bool loading);
@@ -58,6 +60,7 @@ private:
     Entity::EntityType getEntityType(const QString &entityId) const;
     void parseStates(const QJsonArray &states);
     void registerModel(const Entity::EntityType &entityType);
+    void updateEntity(const QJsonObject &obj);
     void updateEntities(const QJsonArray &entities);
 
     HomeassistantApi *m_api{nullptr};

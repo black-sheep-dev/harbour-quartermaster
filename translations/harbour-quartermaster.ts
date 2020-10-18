@@ -50,6 +50,10 @@
         <source>Last triggered:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ClientInterface</name>
@@ -86,6 +90,10 @@
     </message>
     <message>
         <source>none</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -130,6 +138,10 @@
     <name>EntitiesListViewPage</name>
     <message>
         <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -243,6 +255,10 @@
         <source>Functionality</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GroupPage</name>
@@ -256,6 +272,10 @@
     </message>
     <message>
         <source>Child Entities</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -291,6 +311,10 @@
     </message>
     <message>
         <source>Features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -335,6 +359,10 @@
         <source>Unkown</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SelectWifiNetworkDialog</name>
@@ -367,6 +395,41 @@
     </message>
     <message>
         <source>Unavailable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SettingsAutoUpdatePage</name>
+    <message>
+        <source>Automatic Updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Here you can activate / deactivate automatic updates for your entities.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activating these options leads to higher battery consumption and network traffic.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When active the entity will be updated when his property page is shown.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When active all entities of one type will be updated when the corresponding list view is shown.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single entity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Entity list</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -599,6 +662,14 @@
         <source>Manage developer options</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Auto Updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage automatic entity updates</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsZonePage</name>
@@ -700,6 +771,10 @@
     </message>
     <message>
         <source>Current:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

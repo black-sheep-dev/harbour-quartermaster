@@ -11,10 +11,14 @@ Page {
     allowedOrientations: Orientation.All
 
     SilicaFlickable {
-        PullDownMenu {
+        PullDownMenu {    
             MenuItem {
                 text: qsTr("Attributes")
-                onClicked: pageStack.push(Qt.resolvedUrl("../EntityAttributesPage.qml"), { entity: entity})
+                onClicked: pageStack.push(Qt.resolvedUrl("../EntityAttributesPage.qml"), { entity: entity })
+            }
+            MenuItem {
+                text: qsTr("Refresh")
+                onClicked: Client.entitiesProvider().updateEntity(entity.entityId)
             }
         }
 
@@ -74,6 +78,8 @@ Page {
             }
         }
     }
+
+    Component.onCompleted: if (Client.updateSingleEntity) Client.entitiesProvider().updateEntity(entity.entityId)
 }
 
 

@@ -21,6 +21,7 @@ public:
     // api calls
     void callService(const QString &domain, const QString &service, const QString &entityId, const QJsonObject &data = QJsonObject());
     void getConfig();
+    void getState(const QString &entityId);
     void getStates();
     void registerDevice(Device *device);
 

@@ -10,7 +10,7 @@
 #   - translation filenames have to be changed
 
 # VERSION
-VERSION = 0.1.3
+VERSION = 0.1.4
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # The name of your application
@@ -84,6 +84,7 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/entities/types/GroupPage.qml \
     qml/pages/entities/types/LightPage.qml \
     qml/pages/entities/types/SwitchPage.qml \
+    qml/pages/settings/SettingsAutoUpdatePage.qml \
     qml/pages/settings/SettingsDeveloperModePage.qml \
     qml/pages/wizard/WizardConnectionPage.qml \
     qml/pages/wizard/WizardDeviceRegistrationPage.qml \
