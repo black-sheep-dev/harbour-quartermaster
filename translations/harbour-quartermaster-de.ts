@@ -431,7 +431,7 @@
     </message>
     <message>
         <source>Entity list</source>
-        <translation>Enitäten Liste</translation>
+        <translation>Entitäten Liste</translation>
     </message>
 </context>
 <context>
@@ -669,7 +669,7 @@
     </message>
     <message>
         <source>Manage automatic entity updates</source>
-        <translation>Automatische Entität Aktualisierungen verwalten</translation>
+        <translation>Automatische Aktualisierungen verwalten</translation>
     </message>
 </context>
 <context>
