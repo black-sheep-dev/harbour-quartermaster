@@ -1,6 +1,7 @@
 #include "wallet.h"
 
-#define     WALLET_COLLECTION_NAME      "quartermaster"
+#define     WALLET_COLLECTION_NAME          "quartermaster"
+#define     WALLET_COLLECTION_NAME_DEBUG    "quartermasterdebug"
 
 #ifdef QT_DEBUG
 #include <QDebug>
@@ -16,7 +17,11 @@ Wallet::Wallet(QObject *parent) :
     QObject(parent),
     m_secretsIdentifier(Sailfish::Secrets::Secret::Identifier(
                             QStringLiteral("secrets"),
-                            QStringLiteral(WALLET_COLLECTION_NAME),
+                            #ifdef QT_DEBUG
+                                QStringLiteral(WALLET_COLLECTION_NAME_DEBUG),
+                            #else
+                                QStringLiteral(WALLET_COLLECTION_NAME),
+                            #endif
                             Sailfish::Secrets::SecretManager::DefaultEncryptedStoragePluginName))
 {
 
@@ -180,7 +185,13 @@ void Wallet::createCollection()
     createCollection.setDeviceLockUnlockSemantic(Sailfish::Secrets::SecretManager::DeviceLockKeepUnlocked);
     createCollection.setAccessControlMode(Sailfish::Secrets::SecretManager::OwnerOnlyMode);
     createCollection.setUserInteractionMode(Sailfish::Secrets::SecretManager::SystemInteraction);
-    createCollection.setCollectionName(WALLET_COLLECTION_NAME);
+    createCollection.setCollectionName(
+                                   #ifdef QT_DEBUG
+                                       QStringLiteral(WALLET_COLLECTION_NAME_DEBUG)
+                                   #else
+                                       QStringLiteral(WALLET_COLLECTION_NAME)
+                                   #endif
+                                       );
     createCollection.setStoragePluginName(Sailfish::Secrets::SecretManager::DefaultEncryptedStoragePluginName);
     createCollection.setEncryptionPluginName(Sailfish::Secrets::SecretManager::DefaultEncryptedStoragePluginName);
     createCollection.startRequest();
@@ -197,7 +208,13 @@ void Wallet::deleteCollection()
     Sailfish::Secrets::DeleteCollectionRequest createCollection;
     createCollection.setManager(&m_secretManager);
     createCollection.setUserInteractionMode(Sailfish::Secrets::SecretManager::SystemInteraction);
-    createCollection.setCollectionName(WALLET_COLLECTION_NAME);
+    createCollection.setCollectionName(
+                    #ifdef QT_DEBUG
+                        QStringLiteral(WALLET_COLLECTION_NAME_DEBUG)
+                    #else
+                        QStringLiteral(WALLET_COLLECTION_NAME)
+                    #endif
+                );
     createCollection.setStoragePluginName(Sailfish::Secrets::SecretManager::DefaultEncryptedStoragePluginName);
     createCollection.startRequest();
     createCollection.waitForFinished();

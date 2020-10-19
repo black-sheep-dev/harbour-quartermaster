@@ -3,8 +3,6 @@ import Sailfish.Silica 1.0
 
 import org.nubecula.harbour.quartermaster 1.0
 
-import "../../components/"
-
 Page {
     id: page
 
@@ -55,33 +53,33 @@ Page {
                 text: qsTr("Informations")
             }
 
-            InfoItem {
-                name: qsTr("Device ID")
+            DetailItem {
+                label: qsTr("Device ID")
                 value: Client.device().id()
             }
 
-            InfoItem {
-                name: qsTr("Manufacturer")
+            DetailItem {
+                label: qsTr("Manufacturer")
                 value: Client.device().manufacturer()
             }
 
-            InfoItem {
-                name: qsTr("Model")
+            DetailItem {
+                label: qsTr("Model")
                 value: Client.device().model()
             }
 
-            InfoItem {
-                name: qsTr("Software Name")
+            DetailItem {
+                label: qsTr("Software Name")
                 value: Client.device().softwareName()
             }
 
-            InfoItem {
-                name: qsTr("Software Version")
+            DetailItem {
+                label: qsTr("Software Version")
                 value: Client.device().softwareVersion()
             }
 
-            InfoItem {
-                name: qsTr("Wifi MAC")
+            DetailItem {
+                label: qsTr("Wifi MAC")
                 value: Client.device().wlanMacAddress()
             }
         }
