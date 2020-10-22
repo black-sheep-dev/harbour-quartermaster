@@ -1,4 +1,7 @@
-* Mon Oct 22 2020 Black Sheep <blacksheep@nubecula.org> 0.1.6-1
+* Thu Oct 22 2020 Black Sheep <blacksheep@nubecula.org> 0.1.7-1
+- Increased maximal length of toplevel domain in connection settings from 5 to 8
+
+* Thu Oct 22 2020 Black Sheep <blacksheep@nubecula.org> 0.1.6-1
 - API request with gzip compression support to save bandwidth
 
 * Mon Oct 19 2020 Black Sheep <blacksheep@nubecula.org> 0.1.5-1
