@@ -122,7 +122,7 @@ void WebhookApi::onReplyFinished(const QString &identifier, QNetworkReply *reply
     }
 
     // read data
-    const QByteArray &data = reply->readAll();
+    const QByteArray data = gunzip(reply->readAll());
     const int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
 #ifdef QT_DEBUG

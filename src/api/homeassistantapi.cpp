@@ -79,7 +79,7 @@ void HomeassistantApi::onRequestFinished(QNetworkReply *reply)
 
     // read data
     const QString endpoint = reply->url().toString().remove(baseUrl());
-    const QByteArray &data = reply->readAll();
+    const QByteArray &data = gunzip(reply->readAll());
     const int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
     m_activeRequests.removeAll(endpoint);

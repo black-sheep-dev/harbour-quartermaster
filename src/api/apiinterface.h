@@ -27,6 +27,9 @@ public:
                  const QJsonObject &data = QJsonObject(),
                  const QString &identifier = QString());
 
+    // helper functions
+    QByteArray gunzip(const QByteArray &data);
+
     // properties
     QString baseUrl() const;
     bool logging() const;
