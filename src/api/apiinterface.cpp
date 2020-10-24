@@ -228,8 +228,6 @@ QNetworkRequest ApiInterface::getRequest(const QString &endpoint)
     }
 
     request.setRawHeader("Content-Type", "application/json");
-    request.setRawHeader("Accept-Encoding", "gzip");
-
     return request;
 }
 
