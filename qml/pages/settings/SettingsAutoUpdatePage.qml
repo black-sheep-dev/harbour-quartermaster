@@ -37,13 +37,42 @@ Page {
                       + qsTr("Activating these options leads to higher battery consumption and network traffic.");
             }
 
+            SectionHeader {
+                text: qsTr("Websocket")
+            }
+
+            TextSwitch {
+                id: websocketStatesSwitch
+                text: qsTr("Live updates")
+                description: qsTr("When active the entities will be updated live using websocket connection.")
+                             + "\n"
+                             + qsTr("This can lead to very high data consumption, especially with many entities that often change their state!")
+
+                onCheckedChanged: {
+                    if (checked)
+                        Client.updateModes |= Client.UpdateModeWebsocket
+                    else
+                        Client.updateModes &= ~Client.UpdateModeWebsocket
+                }
+                Component.onCompleted: checked = (Client.updateModes & Client.UpdateModeWebsocket) === Client.UpdateModeWebsocket
+            }
+
+            SectionHeader {
+                text: qsTr("REST API")
+            }
+
             TextSwitch {
                 id: entityUpdateSwitch
                 text: qsTr("Single entity")
                 description: qsTr("When active the entity will be updated when his property page is shown.")
 
-                onCheckedChanged: Client.updateSingleEntity = checked
-                Component.onCompleted: checked = Client.updateSingleEntity
+                onCheckedChanged: {
+                    if (checked)
+                        Client.updateModes |= Client.UpdateModeSingleEntity
+                    else
+                        Client.updateModes &= ~Client.UpdateModeSingleEntity
+                }
+                Component.onCompleted: checked = (Client.updateModes & Client.UpdateModeSingleEntity) === Client.UpdateModeSingleEntity
             }
 
             TextSwitch {
@@ -51,8 +80,13 @@ Page {
                 text: qsTr("Entity list")
                 description: qsTr("When active all entities of one type will be updated when the corresponding list view is shown.")
 
-                onCheckedChanged: Client.updateEntityModel = checked
-                Component.onCompleted: checked = Client.updateEntityModel
+                onCheckedChanged: {
+                    if (checked)
+                        Client.updateModes |= Client.UpdateModeEntityModel
+                    else
+                        Client.updateModes &= ~Client.UpdateModeEntityModel
+                }
+                Component.onCompleted: checked = (Client.updateModes & Client.UpdateModeEntityModel) === Client.UpdateModeEntityModel
             }
 
         }

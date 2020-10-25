@@ -433,6 +433,26 @@
         <source>Entity list</source>
         <translation>Entitäten Liste</translation>
     </message>
+    <message>
+        <source>Websocket</source>
+        <translation>Websocket</translation>
+    </message>
+    <message>
+        <source>When active the entities will be updated live using websocket connection.</source>
+        <translation>Wenn diese Option aktiviert ist, werden die Entitäten live über eine Websocket-Verbindung aktualisiert.</translation>
+    </message>
+    <message>
+        <source>REST API</source>
+        <translation>REST API</translation>
+    </message>
+    <message>
+        <source>Live updates</source>
+        <translation>Live Updates</translation>
+    </message>
+    <message>
+        <source>This can lead to very high data consumption, especially with many entities that often change their state!</source>
+        <translation>Dies kann zu einem sehr hohen Datenverbrauch führen, insbesondere bei vielen Entitäten, die ihren Status häufig ändern!</translation>
+    </message>
 </context>
 <context>
     <name>SettingsConnectionPage</name>

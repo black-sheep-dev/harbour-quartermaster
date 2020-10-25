@@ -46,8 +46,13 @@ Page {
                              + "\n"
                              + qsTr("Position is updated every 30 seconds when activated.")
 
-                onCheckedChanged: Client.trackingGPS = checked
-                Component.onCompleted: checked = Client.trackingGPS
+                onCheckedChanged: {
+                    if (checked)
+                        Client.trackingModes |= Client.TrackingGPS
+                    else
+                        Client.trackingModes &= ~Client.TrackingGPS
+                }
+                Component.onCompleted: checked = (Client.trackingModes & Client.TrackingGPS) === Client.TrackingGPS
             }
 
             TextSwitch {
@@ -59,8 +64,13 @@ Page {
                              + "\n"
                              + qsTr("Zones can be created in the Homeassistant web interface.")
 
-                onCheckedChanged: Client.trackingWifi = checked
-                Component.onCompleted: checked = Client.trackingWifi
+                onCheckedChanged: {
+                    if (checked)
+                        Client.trackingModes |= Client.TrackingWifi
+                    else
+                        Client.trackingModes &= ~Client.TrackingWifi
+                }
+                Component.onCompleted: checked = (Client.trackingModes & Client.TrackingWifi) === Client.TrackingWifi
             }
         }
     }

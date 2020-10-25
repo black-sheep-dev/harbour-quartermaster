@@ -10,14 +10,14 @@
 #   - translation filenames have to be changed
 
 # VERSION
-VERSION = 0.1.7
+VERSION = 0.1.9
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # The name of your application
 TARGET = harbour-quartermaster
 DEFINES += APP_TARGET=\\\"$$TARGET\\\"
 
-QT += positioning
+QT += positioning websockets
 
 PKGCONFIG += \
     sailfishmdm \
@@ -33,6 +33,7 @@ SOURCES += src/harbour-quartermaster.cpp \
     src/api/apiinterface.cpp \
     src/api/homeassistantapi.cpp \
     src/api/webhookapi.cpp \
+    src/api/websocketapi.cpp \
     src/client/clientinterface.cpp \
     src/client/entitiesprovider.cpp \
     src/client/homeassistantinfo.cpp \
@@ -119,6 +120,7 @@ HEADERS += \
     src/api/apiinterface.h \
     src/api/homeassistantapi.h \
     src/api/webhookapi.h \
+    src/api/websocketapi.h \
     src/client/clientinterface.h \
     src/client/entitiesprovider.h \
     src/client/homeassistantinfo.h \

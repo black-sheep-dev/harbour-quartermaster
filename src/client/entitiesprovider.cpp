@@ -38,6 +38,16 @@ EntityTypesModel *EntitiesProvider::typesModel()
     return m_typesModel;
 }
 
+Entity *EntitiesProvider::entityById(const QString &entityId)
+{
+    auto *model = m_models.value(getEntityType(entityId), nullptr);
+
+    if (!model)
+        return nullptr;
+
+    return model->entityById(entityId);
+}
+
 QString EntitiesProvider::getEntityIcon(quint16 type) const
 {
     switch (type) {
@@ -98,6 +108,17 @@ void EntitiesProvider::updateModel(int type)
     for (const Entity *entity : m_models.value(Entity::EntityType(type))->entities()) {
         m_api->getState(entity->entityId());
     }
+}
+
+void EntitiesProvider::updateState(const QJsonObject &obj)
+{
+    auto *entity = entityById(obj.value("entity_id").toString());
+
+    if (!entity)
+        return;
+
+    entity->setState(obj.value(QStringLiteral("state")).toVariant());
+    entity->setAttributes(obj.value(QStringLiteral("attributes")).toObject().toVariantMap());
 }
 
 void EntitiesProvider::setLoading(bool loading)

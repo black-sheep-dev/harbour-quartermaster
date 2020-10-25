@@ -5,6 +5,7 @@
 
 #include "src/api/homeassistantapi.h"
 #include "src/api/webhookapi.h"
+#include "src/api/websocketapi.h"
 
 #include "entitiesprovider.h"
 #include "homeassistantinfo.h"
@@ -24,14 +25,29 @@ class ClientInterface : public QObject
     Q_PROPERTY(bool ready READ ready WRITE setReady NOTIFY readyChanged)
     Q_PROPERTY(bool ssl READ ssl WRITE setSsl NOTIFY sslChanged)
     Q_PROPERTY(QString token READ token WRITE setToken)
-    Q_PROPERTY(bool trackingGPS READ trackingGPS WRITE setTrackingGPS NOTIFY trackingGPSChanged)
-    Q_PROPERTY(bool trackingWifi READ trackingWifi WRITE setTrackingWifi NOTIFY trackingWifiChanged)
-    Q_PROPERTY(bool updateSingleEntity READ updateSingleEntity WRITE setUpdateSingleEntity NOTIFY updateSingleEntityChanged)
-    Q_PROPERTY(bool updateEntityModel READ updateEntityModel WRITE setUpdateEntityModel NOTIFY updateEntityModelChanged)
+    Q_PROPERTY(quint8 trackingModes READ trackingModes WRITE setTrackingModes NOTIFY trackingModesChanged)
+    Q_PROPERTY(quint16 updateModes READ updateModes WRITE setUpdateModes NOTIFY updateModesChanged)
 
     Q_PROPERTY(QString debugOutput READ debugOutput WRITE setDebugOutput NOTIFY debugOutputChanged)
 
 public:
+    enum TrackingMode {
+        TrackingNone                = 0x0,
+        TrackingGPS                 = 0x1,
+        TrackingWifi                = 0x2
+    };
+    Q_ENUM(TrackingMode)
+    Q_DECLARE_FLAGS(TrackingModes, TrackingMode)
+
+    enum UpdateMode {
+        UpdateModeNone              = 0x00,
+        UpdateModeSingleEntity      = 0x01,
+        UpdateModeEntityModel       = 0x02,
+        UpdateModeWebsocket         = 0x04
+    };
+    Q_ENUM(UpdateMode)
+    Q_DECLARE_FLAGS(UpdateModes, UpdateMode)
+
     explicit ClientInterface(QObject *parent = nullptr);
     ~ClientInterface() override;
 
@@ -63,12 +79,11 @@ public:
     bool ready() const;
     bool ssl() const;
     QString token() const;
-    bool trackingGPS() const;
-    bool trackingWifi() const;
-    bool updateSingleEntity() const;
-    bool updateEntityModel() const;
+    quint8 trackingModes() const;
+    quint16 updateModes() const;
 
     QString debugOutput() const;
+
 signals:
     // properties
     void apiLoggingChanged(bool enabled);
@@ -77,10 +92,8 @@ signals:
     void portChanged(quint16 port);
     void readyChanged(bool ready);
     void sslChanged(bool ssl); 
-    void trackingGPSChanged(bool enabled);
-    void trackingWifiChanged(bool enabled);
-    void updateSingleEntityChanged(bool enabled);
-    void updateEntityModelChanged(bool enabled);
+    void trackingModesChanged(quint8 modes);
+    void updateModesChanged(quint16 modes);
 
     void debugOutputChanged(QString debugOutput);
 
@@ -93,13 +106,10 @@ public slots:
     void setReady(bool ready = true);
     void setSsl(bool ssl);
     void setToken(const QString &token);
-    void setTrackingGPS(bool enable);
-    void setTrackingWifi(bool enable);
-    void setUpdateSingleEntity(bool enable);
-    void setUpdateEntityModel(bool enable);
+    void setTrackingModes(quint8 modes);
+    void setUpdateModes(quint16 modes);
 
     void setDebugOutput(const QString &output);
-
 
 private slots:
     void onDataAvailable(const QString &endpoint, const QJsonDocument &doc);
@@ -125,6 +135,7 @@ private:
     DeviceTrackerWifi *m_wifiTracker{nullptr};
     Wallet *m_wallet{nullptr};
     WebhookApi *m_webhook{nullptr};
+    WebsocketApi *m_websocket{nullptr};
     ZonesModel *m_zones{nullptr};
 
     // properties
@@ -134,12 +145,13 @@ private:
     quint16 m_port{8123};
     bool m_ready{false};
     bool m_ssl{false};
-    bool m_trackingGPS{false};
-    bool m_trackingWifi{false};
-    bool m_updateSingleEntity{false};
-    bool m_updateEntityModel{false};
+    quint8 m_trackingModes{TrackingNone};
+    quint16 m_updateModes{UpdateModeNone};
 
     QString m_debugOutput;
+
 };
+Q_DECLARE_OPERATORS_FOR_FLAGS(ClientInterface::TrackingModes)
+Q_DECLARE_OPERATORS_FOR_FLAGS(ClientInterface::UpdateModes)
 
 #endif // CLIENTINTERFACE_H

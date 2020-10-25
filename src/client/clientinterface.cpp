@@ -21,10 +21,12 @@ ClientInterface::ClientInterface(QObject *parent) :
 {
     m_api = new HomeassistantApi(m_wallet, this);
     m_webhook = new WebhookApi(m_wallet, this);
+    m_websocket = new WebsocketApi(m_wallet, this);
 
     // logging
     connect(this, &ClientInterface::apiLoggingChanged, m_api, &HomeassistantApi::setLogging);
     connect(this, &ClientInterface::apiLoggingChanged, m_webhook, &WebhookApi::setLogging);
+    connect(this, &ClientInterface::apiLoggingChanged, m_websocket, &WebsocketApi::setLogging);
 
     m_entitiesProvider->setApi(m_api);
 
@@ -35,6 +37,7 @@ ClientInterface::ClientInterface(QObject *parent) :
     connect(m_webhook, &WebhookApi::dataAvailable, this, &ClientInterface::onWebhookDataAvailable);
     connect(m_device, &Device::sensorUpdated, m_webhook, &WebhookApi::updateSensor);
     connect(m_entitiesProvider, &EntitiesProvider::homeassistantVersionAvailable, this, &ClientInterface::onHomeassistantUpdateAvailable);
+    connect(m_websocket, &WebsocketApi::stateChanged, m_entitiesProvider, &EntitiesProvider::updateState);
 
     readSettings();
 }
@@ -184,24 +187,14 @@ QString ClientInterface::token() const
     return m_wallet->token();
 }
 
-bool ClientInterface::trackingGPS() const
+quint8 ClientInterface::trackingModes() const
 {
-    return m_trackingGPS;
+    return m_trackingModes;
 }
 
-bool ClientInterface::trackingWifi() const
+quint16 ClientInterface::updateModes() const
 {
-    return m_trackingWifi;
-}
-
-bool ClientInterface::updateSingleEntity() const
-{
-    return m_updateSingleEntity;
-}
-
-bool ClientInterface::updateEntityModel() const
-{
-    return m_updateEntityModel;
+    return m_updateModes;
 }
 
 QString ClientInterface::debugOutput() const
@@ -288,69 +281,54 @@ void ClientInterface::setToken(const QString &token)
     m_wallet->storeSecrets();
 }
 
-void ClientInterface::setTrackingGPS(bool enable)
+void ClientInterface::setTrackingModes(quint8 modes)
 {
-    if (m_trackingGPS == enable)
+    if (m_trackingModes == modes)
         return;
 
-    m_trackingGPS = enable;
-    emit trackingGPSChanged(m_trackingGPS);
+    m_trackingModes = modes;
+    emit trackingModesChanged(m_trackingModes);
 
-    // enable / disable tracker
-    if (m_gpsTracker)
-        m_gpsTracker->deleteLater();
+    // enable / disable gps tracker
+    if (m_trackingModes & ClientInterface::TrackingGPS) {
+        if (!m_gpsTracker) {
+            m_gpsTracker = new DeviceTrackerGPS(this);
+            connect(m_gpsTracker, &DeviceTracker::locationUpdated, m_webhook, &WebhookApi::updateLocation);
+            m_gpsTracker->updateLocation();
+        }
+    } else {
+        if (m_gpsTracker)
+            m_gpsTracker->deleteLater();
 
-    m_gpsTracker = nullptr;
+        m_gpsTracker = nullptr;
+    }
 
-    //writeSettings();
+    // enable / disable  wifi tracker
+    if (m_trackingModes & ClientInterface::TrackingWifi) {
+        if (!m_wifiTracker) {
+            m_wifiTracker = new DeviceTrackerWifi(m_zones, this);
+            connect(m_wifiTracker, &DeviceTracker::locationUpdated, m_webhook, &WebhookApi::updateLocation);
+            m_wifiTracker->updateWifiNetworks();
+            m_wifiTracker->updateLocation();
+        }
+    } else {
+        if (m_wifiTracker)
+            m_wifiTracker->deleteLater();
 
-    if (enable) {
-        m_gpsTracker = new DeviceTrackerGPS(this);
-        connect(m_gpsTracker, &DeviceTracker::locationUpdated, m_webhook, &WebhookApi::updateLocation);
-        m_gpsTracker->updateLocation();
+        m_wifiTracker = nullptr;
     }
 }
 
-void ClientInterface::setTrackingWifi(bool enable)
+void ClientInterface::setUpdateModes(quint16 modes)
 {
-    if (m_trackingWifi == enable)
+    if (m_updateModes == modes)
         return;
 
-    m_trackingWifi = enable;
-    emit trackingWifiChanged(m_trackingWifi);
+    m_updateModes = modes;
+    emit updateModesChanged(m_updateModes);
 
-    // enable / disable tracker
-    if (m_wifiTracker)
-        m_wifiTracker->deleteLater();
-
-    m_wifiTracker = nullptr;
-
-    //writeSettings();
-
-    if (enable) {
-        m_wifiTracker = new DeviceTrackerWifi(m_zones, this);
-        connect(m_wifiTracker, &DeviceTracker::locationUpdated, m_webhook, &WebhookApi::updateLocation);
-        m_wifiTracker->updateWifiNetworks();
-        m_wifiTracker->updateLocation();
-    }
-}
-
-void ClientInterface::setUpdateSingleEntity(bool enable)
-{
-    if (m_updateSingleEntity == enable)
-        return;
-
-    m_updateSingleEntity = enable;
-    emit updateSingleEntityChanged(m_updateSingleEntity);
-}
-
-void ClientInterface::setUpdateEntityModel(bool enable)
-{
-    if (m_updateEntityModel == enable)
-        return;
-
-    m_updateEntityModel = enable;
-    emit updateEntityModelChanged(m_updateEntityModel);
+    // websocket
+    m_websocket->setActive((m_updateModes & ClientInterface::UpdateModeWebsocket) == ClientInterface::UpdateModeWebsocket);
 }
 
 void ClientInterface::setDebugOutput(const QString &output)
@@ -440,10 +418,13 @@ void ClientInterface::updateBaseUrl()
                                           QString::number(m_port));
 
     m_api->setBaseUrl(m_baseUrl);
-    m_api->setSsl(m_ssl);
-
     m_webhook->setBaseUrl(m_baseUrl);
-    m_webhook->setSsl(m_ssl);
+
+    const QString websocketUrl = QString("%1://%2:%3").arg(m_ssl ? "wss" : "ws",
+                                                           m_hostname,
+                                                           QString::number(m_port));
+
+    m_websocket->setBaseUrl(websocketUrl);
 }
 
 void ClientInterface::readSettings()
@@ -467,14 +448,9 @@ void ClientInterface::readSettings()
         m_device->setName(name);
     settings.endGroup();
 
-    settings.beginGroup(QStringLiteral("TRACKING"));
-    setTrackingGPS(settings.value(QStringLiteral("gps"), false).toBool());
-    setTrackingWifi(settings.value(QStringLiteral("wifi"), false).toBool());
-    settings.endGroup();
-
-    settings.beginGroup(QStringLiteral("AUTO_UPDATE"));
-    setUpdateEntityModel(settings.value(QStringLiteral("entity_model"), false).toBool());
-    setUpdateSingleEntity(settings.value(QStringLiteral("entity_single"), false).toBool());
+    settings.beginGroup(QStringLiteral("APP"));
+    setTrackingModes(quint8(settings.value(QStringLiteral("tracking_modes"), ClientInterface::TrackingNone).toInt()));
+    setUpdateModes(quint16(settings.value(QStringLiteral("update_modes"), ClientInterface::UpdateModeNone).toInt()));
     settings.endGroup();
 
     settings.beginGroup(QStringLiteral("DEVELOPER_MODE"));
@@ -502,14 +478,9 @@ void ClientInterface::writeSettings()
     settings.setValue(QStringLiteral("name"), m_device->name());
     settings.endGroup();
 
-    settings.beginGroup(QStringLiteral("TRACKING"));
-    settings.setValue(QStringLiteral("gps"), m_trackingGPS);
-    settings.setValue(QStringLiteral("wifi"), m_trackingWifi);
-    settings.endGroup();
-
-    settings.beginGroup(QStringLiteral("AUTO_UPDATE"));
-    settings.setValue(QStringLiteral("entity_model"), m_updateEntityModel);
-    settings.setValue(QStringLiteral("entity_single"), m_updateSingleEntity);
+    settings.beginGroup(QStringLiteral("APP"));
+    settings.setValue(QStringLiteral("tracking_modes"), m_trackingModes);
+    settings.setValue(QStringLiteral("update_modes"), m_updateModes);
     settings.endGroup();
 
     settings.beginGroup(QStringLiteral("DEVELOPER_MODE"));

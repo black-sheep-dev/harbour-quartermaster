@@ -164,6 +164,6 @@ Page {
     }
 
     Component.onCompleted: {
-        if (Client.updateEntityModel) Client.entitiesProvider().updateModel(type)
+        if ((Client.updateModes & Client.UpdateModeEntityModel) === Client.UpdateModeEntityModel) Client.entitiesProvider().updateModel(type)
     }
 }

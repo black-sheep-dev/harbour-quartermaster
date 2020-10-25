@@ -212,6 +212,6 @@ Page {
         }
     }
 
-    Component.onCompleted: if (Client.updateSingleEntity) Client.entitiesProvider().updateEntity(entity.entityId)
+    Component.onCompleted: if ((Client.updateModes & Client.UpdateModeSingleEntity) === Client.UpdateModeSingleEntity) Client.entitiesProvider().updateEntity(entity.entityId)
 }
 

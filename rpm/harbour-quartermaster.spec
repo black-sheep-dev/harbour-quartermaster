@@ -9,7 +9,7 @@ Name:       harbour-quartermaster
 # << macros
 
 Summary:    Quartermaster
-Version:    0.1.7
+Version:    0.1.9
 Release:    1
 Group:      Qt/Qt
 License:    GPLv3
@@ -22,6 +22,7 @@ BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Quick)
+BuildRequires:  pkgconfig(Qt5WebSockets) >= 5.5.1
 BuildRequires:  pkgconfig(sailfishsecrets)
 BuildRequires:  pkgconfig(nemonotifications-qt5)
 BuildRequires:  desktop-file-utils

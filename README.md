@@ -40,12 +40,12 @@ Here is a list of all implemented features so far. Not all features listed below
 - Homeassistant cloud support (not tested)
 - Logging of API traffic for development purpose (deactivated by default)
 - Update notification if an update of Homeassistant is available.
+- Websocket connection for live updates of entity states
 
 ## Planned Features
 - Two-Factor authentication to get access token (Qt OAuth2 functionality needs at least Qt 5.8 / Sailfish OS 3.4 has antique Qt 5.6 libraries)
 - Autodetect Homeassistant instance in local network during setup
 - Encryption of API traffic (webhook api)
-- Websocket connection for live updates of entity states
 - Notifications from Homeassistant instance
 - Customizable overview page (add special entities to the layout)
 - Cover actions

@@ -154,6 +154,7 @@ void Wallet::onSecretsLoaded()
 #ifdef QT_DEBUG
     qDebug() << QStringLiteral("SECRETS LOADED");
     qDebug() << fetchCode->result().code();
+    qDebug() << fetchCode->result().errorCode();
     qDebug() << fetchCode->result().errorMessage();
 #endif
 

@@ -17,7 +17,7 @@ Page {
 
         PullDownMenu {
             MenuItem {
-                enabled: Client.trackingWifi
+                enabled: (Client.trackingModes & Client.TrackingWifi) === Client.TrackingWifi
                 text: qsTr("Reset")
                 onClicked: resetPopup.execute(qsTr("Resetting networks"), function() {
                     zone.networksModel().reset()

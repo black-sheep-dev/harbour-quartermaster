@@ -432,6 +432,26 @@
         <source>Entity list</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Websocket</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When active the entities will be updated live using websocket connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>REST API</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Live updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This can lead to very high data consumption, especially with many entities that often change their state!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsConnectionPage</name>

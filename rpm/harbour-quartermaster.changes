@@ -1,3 +1,10 @@
+* Sun Oct 25 2020 Black Sheep <blacksheep@nubecula.org> 0.1.9-1
+- Websocket integration for live entity states (off by default -> see settings)
+- Code cleanup
+
+* Sat Oct 24 2020 Black Sheep <blacksheep@nubecula.org> 0.1.8-1
+- Fixed bug in webhook api using gzip compression
+
 * Thu Oct 22 2020 Black Sheep <blacksheep@nubecula.org> 0.1.7-1
 - Increased maximal length of toplevel domain in connection settings from 5 to 8
 

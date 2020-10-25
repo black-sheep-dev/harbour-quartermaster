@@ -27,12 +27,12 @@ public:
     void setApi(HomeassistantApi *api);
     Q_INVOKABLE void callService(const QString &domain, const QString &service, const QString &entityId, const QJsonObject &data = QJsonObject());
 
-
     // models
     Q_INVOKABLE EntitiesModel *model(const int &type);
     Q_INVOKABLE EntityTypesModel *typesModel();
 
     // helpers
+    Entity *entityById(const QString &entityId);
     Q_INVOKABLE QString getEntityIcon(quint16 type) const;
 
     // properties
@@ -48,6 +48,7 @@ public slots:
     Q_INVOKABLE void refresh();
     Q_INVOKABLE void updateEntity(const QString &entityId);
     Q_INVOKABLE void updateModel(int type);
+    void updateState(const QJsonObject &obj);           // Websocket
 
     // properties
     void setLoading(bool loading);
