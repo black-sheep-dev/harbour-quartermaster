@@ -5,9 +5,12 @@
 #endif
 
 #include <QCoreApplication>
+#include <QDataStream>
+#include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QSettings>
+#include <QStandardPaths>
 
 #include <nemonotifications-qt5/notification.h>
 
@@ -80,6 +83,13 @@ void ClientInterface::initialize()
 bool ClientInterface::isRegistered()
 {
     return m_webhook->isRegistered();
+}
+
+void ClientInterface::reloadConfig()
+{
+    if (m_wifiTracker) {
+        m_wifiTracker->reloadConfig();
+    }
 }
 
 void ClientInterface::reset()

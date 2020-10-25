@@ -10,7 +10,7 @@
 #   - translation filenames have to be changed
 
 # VERSION
-VERSION = 0.1.9
+VERSION = 0.1.10
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # The name of your application
@@ -58,7 +58,8 @@ SOURCES += src/harbour-quartermaster.cpp \
     src/models/entitytypesmodel.cpp \
     src/models/sortfiltermodel.cpp \
     src/models/wifinetworkmodel.cpp \
-    src/models/zonesmodel.cpp
+    src/models/zonesmodel.cpp \
+    src/tools/backuptool.cpp
 
 DISTFILES += qml/harbour-quartermaster.qml \
     qml/SelectWifiNetworkDialog.qml \
@@ -66,6 +67,8 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/components/InfoItem.qml \
     qml/components/TestResultItem.qml \
     qml/cover/CoverPage.qml \
+    qml/dialogs/BackupDialog.qml \
+    qml/dialogs/RestoreBackupDialog.qml \
     qml/pages/OverviewPage.qml \
     qml/pages/SettingsConnectionPage.qml \
     qml/pages/SettingsDeviceInfoPage.qml \
@@ -87,6 +90,7 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/entities/types/LightPage.qml \
     qml/pages/entities/types/SwitchPage.qml \
     qml/pages/settings/SettingsAutoUpdatePage.qml \
+    qml/pages/settings/SettingsBackupPage.qml \
     qml/pages/settings/SettingsDeveloperModePage.qml \
     qml/pages/wizard/WizardConnectionPage.qml \
     qml/pages/wizard/WizardDeviceRegistrationPage.qml \
@@ -146,4 +150,5 @@ HEADERS += \
     src/models/entitytypesmodel.h \
     src/models/sortfiltermodel.h \
     src/models/wifinetworkmodel.h \
-    src/models/zonesmodel.h
+    src/models/zonesmodel.h \
+    src/tools/backuptool.h

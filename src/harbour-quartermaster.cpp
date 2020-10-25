@@ -6,6 +6,7 @@
 #include "models/entityattributesmodel.h"
 #include "models/entitiessortfiltermodel.h"
 #include "models/sortfiltermodel.h"
+#include "tools/backuptool.h"
 
 int main(int argc, char *argv[])
 {
@@ -20,6 +21,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Group>("org.nubecula.harbour.quartermaster", 1, 0, "Group");
     qmlRegisterType<Light>("org.nubecula.harbour.quartermaster", 1, 0, "Light");
 
+    qmlRegisterType<BackupTool>("org.nubecula.harbour.quartermaster", 1, 0, "BackupTool");
     qmlRegisterType<Device>("org.nubecula.harbour.quartermaster", 1, 0, "Device");
     qmlRegisterType<DeviceSensor>("org.nubecula.harbour.quartermaster", 1, 0, "DeviceSensor");
     qmlRegisterType<DeviceSensorModel>("org.nubecula.harbour.quartermaster", 1, 0, "DeviceSensorModel");

@@ -40,6 +40,12 @@ Page {
                 page: "SettingsAutoUpdatePage.qml"
             }
             ListElement {
+                title: qsTr("Backup & Restore");
+                description: qsTr("Manage backup of settings")
+                icon: "image://theme/icon-m-backup"
+                page: "SettingsBackupPage.qml"
+            }
+            ListElement {
                 title: qsTr("Device Info");
                 description: qsTr("Manage device informations")
                 icon: "image://theme/icon-m-about"

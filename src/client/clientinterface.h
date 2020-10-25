@@ -30,7 +30,7 @@ class ClientInterface : public QObject
 
     Q_PROPERTY(QString debugOutput READ debugOutput WRITE setDebugOutput NOTIFY debugOutputChanged)
 
-public:
+public:    
     enum TrackingMode {
         TrackingNone                = 0x0,
         TrackingGPS                 = 0x1,
@@ -58,6 +58,7 @@ public:
     Q_INVOKABLE HomeassistantInfo *homeassistantInfo();
     Q_INVOKABLE void initialize();
     Q_INVOKABLE bool isRegistered();
+    Q_INVOKABLE void reloadConfig();
     Q_INVOKABLE void reset();
     Q_INVOKABLE void saveSettings();
     Q_INVOKABLE void saveZonesSettings();

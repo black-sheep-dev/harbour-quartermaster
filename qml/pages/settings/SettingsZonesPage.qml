@@ -31,7 +31,8 @@ Page {
 
         anchors.fill: parent
 
-        visible: !Client.zonesModel().loading
+        opacity: Client.zonesModel().loading ? 0.0 : 1.0
+        Behavior on opacity { FadeAnimator {} }
 
         model: Client.zonesModel()
 

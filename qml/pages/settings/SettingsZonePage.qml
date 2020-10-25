@@ -94,6 +94,8 @@ Page {
                     width: parent.width
                     contentHeight: Theme.itemSizeMedium
 
+                    ListView.onRemove: animateRemoval(delegate)
+
                     menu: ContextMenu {
                         MenuItem {
                             enabled: Client.trackingWifi
@@ -101,7 +103,7 @@ Page {
                             onClicked: remorse.execute(delegate, qsTr("Deleting network"), function() {
                                 zone.networksModel().removeNetwork(identifier)
                                 Client.saveZonesSettings()
-                            } )
+                            })
                         }
                     }
 

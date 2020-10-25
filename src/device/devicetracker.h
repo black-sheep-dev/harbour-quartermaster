@@ -26,6 +26,9 @@ private:
     QGeoPositionInfo m_lastPosition;
 
     // virtual
+public:
+    virtual void reloadConfig();
+
 public slots:
     virtual void updateLocation();
 };

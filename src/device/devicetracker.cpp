@@ -53,6 +53,11 @@ void DeviceTracker::onPositionChanged(const QGeoPositionInfo &info)
     emit locationUpdated(location);
 }
 
+void DeviceTracker::reloadConfig()
+{
+
+}
+
 void DeviceTracker::updateLocation()
 {
 

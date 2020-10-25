@@ -230,6 +230,11 @@ QString DeviceTrackerWifi::getActiveNetworkIdentifier() const
     return QString();
 }
 
+void DeviceTrackerWifi::reloadConfig()
+{
+    loadNetworkSettings();
+}
+
 
 void DeviceTrackerWifi::updateLocation()
 {

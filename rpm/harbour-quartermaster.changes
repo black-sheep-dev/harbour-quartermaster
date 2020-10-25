@@ -1,3 +1,6 @@
+* Sun Oct 25 2020 Black Sheep <blacksheep@nubecula.org> 0.1.10-1
+- Backup & Restore function for settings (Wifi only at the moment)
+
 * Sun Oct 25 2020 Black Sheep <blacksheep@nubecula.org> 0.1.9-1
 - Websocket integration for live entity states (off by default -> see settings)
 - Code cleanup

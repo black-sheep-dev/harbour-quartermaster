@@ -56,6 +56,29 @@
     </message>
 </context>
 <context>
+    <name>BackupDialog</name>
+    <message>
+        <source>Create Backup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select options from which a backup should be made. The backup is saved in the Documents folder with the current time stamp.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wifi settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Backup wifi network settings of zones</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ClientInterface</name>
     <message>
         <source>There is an update to version %1 available.</source>
@@ -365,6 +388,21 @@
     </message>
 </context>
 <context>
+    <name>RestoreBackupDialog</name>
+    <message>
+        <source>Restore Backup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restore</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you want to restore the backup? Current settings will be replaced!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SelectWifiNetworkDialog</name>
     <message>
         <source>Select Wifi networks</source>
@@ -450,6 +488,37 @@
     </message>
     <message>
         <source>This can lead to very high data consumption, especially with many entities that often change their state!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Websocket component is not enabled in Homeassistant!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SettingsBackupPage</name>
+    <message>
+        <source>New Backup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available Backups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deleting backup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No backups available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pull down to create a new one</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -688,6 +757,14 @@
     </message>
     <message>
         <source>Manage automatic entity updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage backup of settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Backup &amp; Restore</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

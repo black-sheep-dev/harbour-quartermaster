@@ -9,7 +9,7 @@ Name:       harbour-quartermaster
 # << macros
 
 Summary:    Quartermaster
-Version:    0.1.9
+Version:    0.1.10
 Release:    1
 Group:      Qt/Qt
 License:    GPLv3

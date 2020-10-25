@@ -42,6 +42,9 @@ private:
     ZonesModel *m_zones{nullptr};
 
     // DeviceTracker interface
+public:
+    void reloadConfig() override;
+
 public slots:
     void updateLocation() override;
 };

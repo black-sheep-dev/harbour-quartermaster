@@ -56,6 +56,29 @@
     </message>
 </context>
 <context>
+    <name>BackupDialog</name>
+    <message>
+        <source>Create Backup</source>
+        <translation>Sicherung erstellen</translation>
+    </message>
+    <message>
+        <source>Create</source>
+        <translation>Erstellen</translation>
+    </message>
+    <message>
+        <source>Select options from which a backup should be made. The backup is saved in the Documents folder with the current time stamp.</source>
+        <translation>Optionen auswählen, von denen eine Sciherung erstellt werden soll. Die Sicherung wird im Ordner Dokumente mit dem aktuellen Zeitstempel abgelegt.</translation>
+    </message>
+    <message>
+        <source>Wifi settings</source>
+        <translation>WLAN Einstellungen</translation>
+    </message>
+    <message>
+        <source>Backup wifi network settings of zones</source>
+        <translation>Sicherung der WLAN Einstellungen der Zonen</translation>
+    </message>
+</context>
+<context>
     <name>ClientInterface</name>
     <message>
         <source>There is an update to version %1 available.</source>
@@ -366,6 +389,21 @@
     </message>
 </context>
 <context>
+    <name>RestoreBackupDialog</name>
+    <message>
+        <source>Restore Backup</source>
+        <translation>Sicherung wiederherstellen</translation>
+    </message>
+    <message>
+        <source>Restore</source>
+        <translation>Wiederherstellen</translation>
+    </message>
+    <message>
+        <source>Do you want to restore the backup? Current settings will be replaced!</source>
+        <translation>Möchstes du die Sicherung wiederherstellen? Die Aktuellen Einstellungen werden überschrieben!</translation>
+    </message>
+</context>
+<context>
     <name>SelectWifiNetworkDialog</name>
     <message>
         <source>Select Wifi networks</source>
@@ -452,6 +490,37 @@
     <message>
         <source>This can lead to very high data consumption, especially with many entities that often change their state!</source>
         <translation>Dies kann zu einem sehr hohen Datenverbrauch führen, insbesondere bei vielen Entitäten, die ihren Status häufig ändern!</translation>
+    </message>
+    <message>
+        <source>Websocket component is not enabled in Homeassistant!</source>
+        <translation>Websocket Komponente ist in Homeassistant nicht aktiviert!</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsBackupPage</name>
+    <message>
+        <source>New Backup</source>
+        <translation>Neue Sicherung</translation>
+    </message>
+    <message>
+        <source>Available Backups</source>
+        <translation>Verfügbare Sicherungen</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Löschen</translation>
+    </message>
+    <message>
+        <source>Deleting backup</source>
+        <translation>Lösche Sicherung</translation>
+    </message>
+    <message>
+        <source>No backups available</source>
+        <translation>Keine Sicherungen vorhanden</translation>
+    </message>
+    <message>
+        <source>Pull down to create a new one</source>
+        <translation>Nach unten ziehen um eine neue zu erstellen</translation>
     </message>
 </context>
 <context>
@@ -690,6 +759,14 @@
     <message>
         <source>Manage automatic entity updates</source>
         <translation>Automatische Aktualisierungen verwalten</translation>
+    </message>
+    <message>
+        <source>Manage backup of settings</source>
+        <translation>Verwalte die Sicherungen der Einstellungen</translation>
+    </message>
+    <message>
+        <source>Backup &amp; Restore</source>
+        <translation>Sichern &amp; Wiederherstellen</translation>
     </message>
 </context>
 <context>

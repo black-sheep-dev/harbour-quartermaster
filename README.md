@@ -41,6 +41,7 @@ Here is a list of all implemented features so far. Not all features listed below
 - Logging of API traffic for development purpose (deactivated by default)
 - Update notification if an update of Homeassistant is available.
 - Websocket connection for live updates of entity states
+- Backup & Restore of settings (Wifi, more to come)
 
 ## Planned Features
 - Two-Factor authentication to get access token (Qt OAuth2 functionality needs at least Qt 5.8 / Sailfish OS 3.4 has antique Qt 5.6 libraries)
@@ -70,6 +71,7 @@ To get this app working with Homeassistant you need to activate the following co
 - api
 - mobile_app
 - webhook
+- websocket
 
 If you have "default_config:" in your configuration.yaml these components should already be active. If you need help please refer to [Homeassistant Documentation](https://www.home-assistant.io/docs/).
 
