@@ -75,6 +75,8 @@ void WebhookApi::updateRegistration(const Device *device)
     data.insert(QStringLiteral("app_version"), QCoreApplication::applicationVersion());
     data.insert(QStringLiteral("device_name"), device->name());
     data.insert(QStringLiteral("os_version"), device->softwareVersion());
+    data.insert(QStringLiteral("manufacturer"), device->manufacturer());
+    data.insert(QStringLiteral("model"), device->model());
 
     sendRequest(QStringLiteral("update_registration"), data);
 }
@@ -122,7 +124,7 @@ void WebhookApi::onReplyFinished(const QString &identifier, QNetworkReply *reply
     }
 
     // read data
-    const QByteArray data = gunzip(reply->readAll());
+    const QByteArray data = reply->readAll();
     const int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
 #ifdef QT_DEBUG

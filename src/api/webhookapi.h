@@ -63,8 +63,7 @@ private:
 
     // ApiInterface interface
 public:
-    void initialize() override;
-
+    void initialize() override; 
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(WebhookApi::ConnectionFailures)
 

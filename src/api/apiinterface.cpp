@@ -124,11 +124,6 @@ Secrets *ApiInterface::secrets()
     return m_secrets;
 }
 
-bool ApiInterface::ssl() const
-{
-    return m_ssl;
-}
-
 void ApiInterface::logData(const QString &identifier, const QByteArray &data)
 {
     QFile file(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)
@@ -183,15 +178,6 @@ void ApiInterface::setSecrets(Secrets *secrets)
     emit secretsChanged(m_secrets);
 }
 
-void ApiInterface::setSsl(bool ssl)
-{
-    if (m_ssl == ssl)
-        return;
-
-    m_ssl = ssl;
-    emit sslChanged(m_ssl);
-}
-
 void ApiInterface::onReplyFinished()
 {
     auto *reply = qobject_cast<QNetworkReply *>(sender());
@@ -221,14 +207,9 @@ void ApiInterface::onSslErrors(QNetworkReply *reply, const QList<QSslError> &err
 QNetworkRequest ApiInterface::getRequest(const QString &endpoint)
 {
     QNetworkRequest request(m_baseUrl + endpoint);
-
-    if (m_ssl) {
-        QSslConfiguration sslConfig(QSslConfiguration::defaultConfiguration());
-        request.setSslConfiguration(sslConfig);
-    }
+    request.setSslConfiguration(QSslConfiguration::defaultConfiguration());
 
     request.setRawHeader("Content-Type", "application/json");
-    request.setRawHeader("Accept-Encoding", "gzip");
 
     return request;
 }

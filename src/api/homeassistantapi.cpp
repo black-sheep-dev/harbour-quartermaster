@@ -61,6 +61,7 @@ void HomeassistantApi::registerDevice(Device *device)
 QNetworkRequest HomeassistantApi::getRequest(const QString &endpoint)
 {
     QNetworkRequest request = ApiInterface::getRequest(endpoint);
+    request.setRawHeader("Accept-Encoding", "gzip");
     request.setRawHeader("Authorization", "Bearer " + wallet()->token().toLatin1());
 
     m_activeRequests.append(endpoint);
