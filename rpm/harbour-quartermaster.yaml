@@ -1,6 +1,6 @@
 Name: harbour-quartermaster
 Summary: Quartermaster
-Version: 0.1.10
+Version: 0.1.11
 Release: 1
 # The contents of the Group field should be one of the groups listed here:
 # https://github.com/mer-tools/spectacle/blob/master/data/GROUPS
@@ -12,7 +12,7 @@ License: GPLv3
 Sources:
 - '%{name}-%{version}.tar.bz2'
 Description: |
-  Quartermaster is a native Sailfish OS Homeassistant client
+  Quartermaster is a native Sailfish OS Home Assistant client
 Builder: qmake5
 
 # This section specifies build dependencies that are resolved using pkgconfig.
@@ -22,8 +22,10 @@ PkgConfigBR:
   - Qt5Core
   - Qt5Qml
   - Qt5Quick
+  - Qt5DBus
   - Qt5WebSockets >= 5.5.1
   - sailfishsecrets
+  - nemodbus
   - nemonotifications-qt5
 
 # Build dependencies without a pkgconfig setup can be listed here
@@ -34,6 +36,8 @@ PkgConfigBR:
 Requires:
   - sailfishsilica-qt5 >= 0.10.9 
   - sailfishsecretsdaemon-secretsplugins-default
+  - nemo-qml-plugin-dbus-qt5
+  - nemo-qml-plugin-notifications-qt5
 
 # All installed files
 Files:

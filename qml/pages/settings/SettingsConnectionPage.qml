@@ -85,7 +85,7 @@ Page {
             TextSwitch {
                 id: sslSwitch
                 text: qsTr("Use SSL")
-                description: qsTr("It is highly recommend to use a ssl connection if your homeassistant server supports it!")
+                description: qsTr("It is highly recommend to use a ssl connection if your Home Assistant server supports it!")
 
                 checked: Client.ssl
             }

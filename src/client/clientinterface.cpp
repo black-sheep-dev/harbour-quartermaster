@@ -29,7 +29,6 @@ ClientInterface::ClientInterface(QObject *parent) :
     // logging
     connect(this, &ClientInterface::apiLoggingChanged, m_api, &HomeassistantApi::setLogging);
     connect(this, &ClientInterface::apiLoggingChanged, m_webhook, &WebhookApi::setLogging);
-    connect(this, &ClientInterface::apiLoggingChanged, m_websocket, &WebsocketApi::setLogging);
 
     m_entitiesProvider->setApi(m_api);
 
@@ -207,6 +206,11 @@ quint16 ClientInterface::updateModes() const
     return m_updateModes;
 }
 
+bool ClientInterface::websocketNotify() const
+{
+    return m_websocketNotify;
+}
+
 QString ClientInterface::debugOutput() const
 {
     return m_debugOutput;
@@ -338,7 +342,33 @@ void ClientInterface::setUpdateModes(quint16 modes)
     emit updateModesChanged(m_updateModes);
 
     // websocket
-    m_websocket->setActive((m_updateModes & ClientInterface::UpdateModeWebsocket) == ClientInterface::UpdateModeWebsocket);
+    quint8 subscriptions = m_websocket->subscriptions();
+
+    if ((m_updateModes & ClientInterface::UpdateModeWebsocket) == ClientInterface::UpdateModeWebsocket) {
+        subscriptions |= WebsocketApi::SubscriptionStateChanged;
+    } else {
+        subscriptions &= ~WebsocketApi::SubscriptionStateChanged;
+    }
+    m_websocket->setSubscriptions(subscriptions);
+}
+
+void ClientInterface::setWebsocketNotify(bool enable)
+{
+    if (m_websocketNotify == enable)
+        return;
+
+    m_websocketNotify = enable;
+    emit websocketNotifyChanged(m_websocketNotify);
+
+    // websocket
+    quint8 subscriptions = m_websocket->subscriptions();
+
+    if (m_websocketNotify) {
+        subscriptions |= WebsocketApi::SubscriptionNotifyEvents;
+    } else {
+        subscriptions &= ~WebsocketApi::SubscriptionNotifyEvents;
+    }
+    m_websocket->setSubscriptions(subscriptions);
 }
 
 void ClientInterface::setDebugOutput(const QString &output)
@@ -400,8 +430,9 @@ void ClientInterface::onHomeassistantUpdateAvailable(const QString &version)
 #endif
 
     Notification notify;
+    notify.setCategory("x-nemo.software-update");
     notify.setBody(tr("There is an update to version %1 available.").arg(version));
-    notify.setSummary(tr("Homeassistant update available!"));
+    notify.setSummary(tr("Home Assistant update available!"));
     notify.setIcon(QStringLiteral("image://theme/icon-lock-application-update"));
     notify.publish();
 }
@@ -461,6 +492,7 @@ void ClientInterface::readSettings()
     settings.beginGroup(QStringLiteral("APP"));
     setTrackingModes(quint8(settings.value(QStringLiteral("tracking_modes"), ClientInterface::TrackingNone).toInt()));
     setUpdateModes(quint16(settings.value(QStringLiteral("update_modes"), ClientInterface::UpdateModeNone).toInt()));
+    setWebsocketNotify(settings.value(QStringLiteral("websocket_notify"), false).toBool());
     settings.endGroup();
 
     settings.beginGroup(QStringLiteral("DEVELOPER_MODE"));
@@ -491,6 +523,7 @@ void ClientInterface::writeSettings()
     settings.beginGroup(QStringLiteral("APP"));
     settings.setValue(QStringLiteral("tracking_modes"), m_trackingModes);
     settings.setValue(QStringLiteral("update_modes"), m_updateModes);
+    settings.setValue(QStringLiteral("websocket_notify"), m_websocketNotify);
     settings.endGroup();
 
     settings.beginGroup(QStringLiteral("DEVELOPER_MODE"));

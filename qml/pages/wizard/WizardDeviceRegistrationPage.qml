@@ -57,7 +57,7 @@ Page {
                 width: page.width - 2 * x
                 wrapMode: Text.WordWrap
 
-                text: qsTr("This is the final step. You can change the device name which shows up in Homeassistant if you want before starting the registration.")
+                text: qsTr("This is the final step. You can change the device name which shows up in Home Assistant if you want before starting the registration.")
                 color: Theme.highlightColor
             }
 

@@ -43,7 +43,7 @@ Page {
 
             TextSwitch {
                 id: websocketStatesSwitch
-                enabled: (Client.homeassistantInfo().components() & HomeassistantInfo.ComponentWebsocketApi) === HomeassistantInfo.ComponentWebsocketApi
+                enabled: (Client.homeassistantInfo().components & HomeassistantInfo.ComponentWebsocketApi) === HomeassistantInfo.ComponentWebsocketApi
                 text: qsTr("Live updates")
                 description: qsTr("When active the entities will be updated live using websocket connection.")
                              + "\n"
@@ -59,8 +59,13 @@ Page {
             }
 
             Label {
-                visible: (Client.homeassistantInfo().components() & HomeassistantInfo.ComponentWebsocketApi) !== HomeassistantInfo.ComponentWebsocketApi
-                text: qsTr("Websocket component is not enabled in Homeassistant!")
+                width: parent.width
+
+                visible: (Client.homeassistantInfo().components & HomeassistantInfo.ComponentWebsocketApi) !== HomeassistantInfo.ComponentWebsocketApi
+
+                text: qsTr("Websocket component is not enabled in Home Assistant!")
+                wrapMode: Text.WordWrap
+                color: Theme.highlightColor
             }
 
             SectionHeader {

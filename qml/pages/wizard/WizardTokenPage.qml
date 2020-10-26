@@ -59,7 +59,7 @@ Page {
                 wrapMode: Text.WordWrap
 
                 text: qsTr("You need to provide a valid Long-Lived Access Token.\n"
-                           + "You can create one on profile page in your Homeassistant webfrontend and copy the token string into the input field below.")
+                           + "You can create one on profile page in your Home Assistant webfrontend and copy the token string into the input field below.")
                 color: Theme.highlightColor
             }
 

@@ -62,7 +62,7 @@ Page {
                              + "\n"
                              + qsTr("If the device connects to a known wireless network, it will send the position information of its parent zone.")
                              + "\n"
-                             + qsTr("Zones can be created in the Homeassistant web interface.")
+                             + qsTr("Zones can be created in the Home Assistant web interface.")
 
                 onCheckedChanged: {
                     if (checked)

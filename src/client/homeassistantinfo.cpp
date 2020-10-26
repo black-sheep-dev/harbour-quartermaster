@@ -100,7 +100,7 @@ QVariantList HomeassistantInfo::componentList() const
     return m_componentList;
 }
 
-HomeassistantInfo::Components HomeassistantInfo::components() const
+quint16 HomeassistantInfo::components() const
 {
     return m_components;
 }
@@ -186,7 +186,7 @@ void HomeassistantInfo::setComponentList(const QVariantList &components)
     emit componentListChanged(m_componentList);
 }
 
-void HomeassistantInfo::setComponents(Components components)
+void HomeassistantInfo::setComponents(quint16 components)
 {
     if (m_components == components)
         return;

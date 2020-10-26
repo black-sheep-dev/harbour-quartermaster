@@ -11,7 +11,7 @@ class HomeassistantInfo : public QObject
 
     Q_PROPERTY(bool available READ available WRITE setAvailable NOTIFY availableChanged)
     Q_PROPERTY(QVariantList componentList READ componentList WRITE setComponentList NOTIFY componentListChanged)
-    Q_PROPERTY(HomeassistantInfo::Components components READ components WRITE setComponents NOTIFY componentsChanged)
+    Q_PROPERTY(quint16 components READ components WRITE setComponents NOTIFY componentsChanged)
     Q_PROPERTY(QString error READ error WRITE setError NOTIFY errorChanged)
     Q_PROPERTY(QString externalUrl READ externalUrl WRITE setExternalUrl NOTIFY externalUrlChanged)
     Q_PROPERTY(QString internalUrl READ internalUrl WRITE setInternalUrl NOTIFY internalUrlChanged)
@@ -46,7 +46,7 @@ public:
     // properties
     bool available() const;
     QVariantList componentList() const;
-    Components components() const;
+    quint16 components() const;
     QString error() const;
     QString externalUrl() const;
     QString internalUrl() const;
@@ -64,7 +64,7 @@ signals:
     // properties
     void availableChanged(bool available);
     void componentListChanged(const QVariantList &components);
-    void componentsChanged(HomeassistantInfo::Components components);
+    void componentsChanged(quint16 components);
     void errorChanged(const QString &error);
     void externalUrlChanged(const QString &url);
     void internalUrlChanged(const QString &url);
@@ -82,7 +82,7 @@ public slots:
     // properties
     void setAvailable(bool available);
     void setComponentList(const QVariantList &components);
-    void setComponents(HomeassistantInfo::Components components);
+    void setComponents(quint16 components);
     void setError(const QString &error);
     void setExternalUrl(const QString &url);
     void setInternalUrl(const QString &url);
@@ -104,7 +104,7 @@ private:
     // properties
     bool m_available{false};
     QVariantList m_componentList;
-    HomeassistantInfo::Components m_components{HomeassistantInfo::ComponentNone};
+    quint16 m_components{HomeassistantInfo::ComponentNone};
     QString m_error;
     QString m_externalUrl;
     QString m_internalUrl;

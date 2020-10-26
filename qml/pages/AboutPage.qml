@@ -22,8 +22,10 @@ Page {
                 id: logo
                 source: "/usr/share/icons/hicolor/512x512/apps/harbour-quartermaster.png"
                 smooth: true
-                height: 512
-                width: 512
+                height: width
+                width: parent.width / 2
+                sourceSize.width: 512
+                sourceSize.height: 512
                 anchors.horizontalCenter: parent.horizontalCenter
                 opacity: 0.7
             }
@@ -59,7 +61,7 @@ Page {
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeSmall
 
-                text: qsTr("Quartermaster is a native Sailfish OS Homeassistant client.")
+                text: qsTr("Quartermaster is a native Sailfish OS Home Assistant client.")
             }
 
             SectionHeader{

@@ -59,7 +59,7 @@ Page {
             Label {
                 width: parent.width
 
-                text: qsTr("Homeassistant")
+                text: qsTr("Home Assistant")
 
                 color: Theme.secondaryHighlightColor
                 font.pixelSize: Theme.fontSizeLarge
@@ -74,7 +74,7 @@ Page {
             Label {
                 visible: !Client.homeassistantInfo().available
                 width: parent.width
-                text: qsTr("Error connecting to Homeassistant API:")
+                text: qsTr("Error connecting to Home Assistant API:")
                 font.pixelSize: Theme.fontSizeMedium
             }
 
@@ -195,21 +195,21 @@ Page {
             TestResultItem {
                 visible: Client.homeassistantInfo().available
                 title: qsTr("Version compatibility")
-                description: qsTr("Version of Homeassistant is incompatible with this app!")
+                description: qsTr("Version of Home Assistant is incompatible with this app!")
                 result: Client.homeassistantInfo().versionCompatibility
             }
 
             TestResultItem {
                 visible: Client.homeassistantInfo().available
                 title: qsTr("Mobile app component")
-                description: qsTr("Mobile app component is not activated! Please check your Homeassistant configuration.yaml!")
+                description: qsTr("Mobile app component is not activated! Please check your Home Assistant configuration.yaml!")
                 result: Client.homeassistantInfo().components & HomeassistantInfo.ComponentMobileApp
             }
 
             TestResultItem {
                 visible: Client.homeassistantInfo().available
                 title: qsTr("Webhook component")
-                description: qsTr("Webhook component is not activated! Please check your Homeassistant configuration.yaml!")
+                description: qsTr("Webhook component is not activated! Please check your Home Assistant configuration.yaml!")
                 result: Client.homeassistantInfo().components & HomeassistantInfo.ComponentWebhook
             }
         }

@@ -27,6 +27,7 @@ class ClientInterface : public QObject
     Q_PROPERTY(QString token READ token WRITE setToken)
     Q_PROPERTY(quint8 trackingModes READ trackingModes WRITE setTrackingModes NOTIFY trackingModesChanged)
     Q_PROPERTY(quint16 updateModes READ updateModes WRITE setUpdateModes NOTIFY updateModesChanged)
+    Q_PROPERTY(bool websocketNotify READ websocketNotify WRITE setWebsocketNotify NOTIFY websocketNotifyChanged)
 
     Q_PROPERTY(QString debugOutput READ debugOutput WRITE setDebugOutput NOTIFY debugOutputChanged)
 
@@ -82,6 +83,7 @@ public:
     QString token() const;
     quint8 trackingModes() const;
     quint16 updateModes() const;
+    bool websocketNotify() const;
 
     QString debugOutput() const;
 
@@ -95,8 +97,10 @@ signals:
     void sslChanged(bool ssl); 
     void trackingModesChanged(quint8 modes);
     void updateModesChanged(quint16 modes);
+    void websocketNotifyChanged(bool enabled);
 
     void debugOutputChanged(QString debugOutput);
+
 
 public slots:
     // properties
@@ -109,6 +113,7 @@ public slots:
     void setToken(const QString &token);
     void setTrackingModes(quint8 modes);
     void setUpdateModes(quint16 modes);
+    void setWebsocketNotify(bool enable);
 
     void setDebugOutput(const QString &output);
 
@@ -148,9 +153,9 @@ private:
     bool m_ssl{false};
     quint8 m_trackingModes{TrackingNone};
     quint16 m_updateModes{UpdateModeNone};
+    bool m_websocketNotify{false};
 
-    QString m_debugOutput;
-
+    QString m_debugOutput; 
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(ClientInterface::TrackingModes)
 Q_DECLARE_OPERATORS_FOR_FLAGS(ClientInterface::UpdateModes)

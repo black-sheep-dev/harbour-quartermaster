@@ -10,14 +10,14 @@
 #   - translation filenames have to be changed
 
 # VERSION
-VERSION = 0.1.10
+VERSION = 0.1.11
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # The name of your application
 TARGET = harbour-quartermaster
 DEFINES += APP_TARGET=\\\"$$TARGET\\\"
 
-QT += positioning websockets
+QT += dbus positioning websockets
 
 PKGCONFIG += \
     sailfishmdm \
@@ -92,6 +92,7 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/settings/SettingsAutoUpdatePage.qml \
     qml/pages/settings/SettingsBackupPage.qml \
     qml/pages/settings/SettingsDeveloperModePage.qml \
+    qml/pages/settings/SettingsNotificationsPage.qml \
     qml/pages/wizard/WizardConnectionPage.qml \
     qml/pages/wizard/WizardDeviceRegistrationPage.qml \
     qml/pages/wizard/WizardInfoPage.qml \

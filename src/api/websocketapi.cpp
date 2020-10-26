@@ -4,47 +4,67 @@
 #include <QDebug>
 #endif
 
+#include <QDateTime>
 #include <QJsonParseError>
 #include <QJsonDocument>
+#include <QJsonObject>
 #include <QTimer>
 
-WebsocketApi::WebsocketApi(Wallet *wallet, QObject *parent) :
-    ApiInterface(wallet, parent)
-{
-    m_websocket.setSslConfiguration(QSslConfiguration::defaultConfiguration());
+#include <nemonotifications-qt5/notification.h>
 
+WebsocketApi::WebsocketApi(Wallet *wallet, QObject *parent) :
+    QObject(parent),
+    m_wallet(wallet)
+{
     connect(&m_websocket, &QWebSocket::connected, this, &WebsocketApi::onConnected);
     connect(&m_websocket, &QWebSocket::disconnected, this, &WebsocketApi::onDisconnected);
     connect(wallet, &Wallet::initialized, this, &WebsocketApi::open);
 }
 
-bool WebsocketApi::active() const
+QString WebsocketApi::baseUrl() const
 {
-    return m_active;
+    return m_baseUrl;
+}
+
+quint8 WebsocketApi::subscriptions() const
+{
+    return m_subscriptions;
 }
 
 void WebsocketApi::close()
-{
-    m_websocket.close(QWebSocketProtocol::CloseCodeNormal);
+{ 
+    m_websocket.close();
 }
 
 void WebsocketApi::open()
 {
-    if (!m_active)
-        return;
+    if ( m_websocket.state() != QAbstractSocket::UnconnectedState
+         || m_subscriptions == SubscriptionNone ) {
 
-    m_websocket.open(baseUrl() + QStringLiteral(HASS_WEBSOCKET_API_ENDPOINT));
+        return;
+    }
+
+    m_websocket.open(m_baseUrl + QStringLiteral(HASS_WEBSOCKET_API_ENDPOINT));
 }
 
-void WebsocketApi::setActive(bool active)
+void WebsocketApi::setBaseUrl(const QString &url)
 {
-    if (m_active == active)
+    if (m_baseUrl == url)
         return;
 
-    m_active = active;
-    emit activeChanged(m_active);
+    m_baseUrl = url;
+    emit baseUrlChanged(m_baseUrl);
+}
 
-    m_active ? open() : close();
+void WebsocketApi::setSubscriptions(quint8 subscriptions)
+{
+    if (m_subscriptions == subscriptions)
+        return;
+
+    m_subscriptions = subscriptions;
+    emit subscriptionsChanged(m_subscriptions);
+
+    updateSubscriptions();
 }
 
 void WebsocketApi::onConnected()
@@ -53,7 +73,7 @@ void WebsocketApi::onConnected()
     qDebug() << QStringLiteral("Websocket connected");
 #endif
 
-    connect(&m_websocket, &QWebSocket::textMessageReceived, this, &WebsocketApi::onMessageRecieved);
+    connect(&m_websocket, &QWebSocket::textMessageReceived, this, &WebsocketApi::onMessageReceived);
 }
 
 void WebsocketApi::onDisconnected()
@@ -61,21 +81,12 @@ void WebsocketApi::onDisconnected()
 #ifdef QT_DEBUG
     qDebug() << QStringLiteral("Websocket disconnected");
 #endif
-
-    if ( m_websocket.closeCode() != QWebSocketProtocol::CloseCodeNormal
-         && m_active ) {
-
-        open();
-    }
-
-    m_interactions = 1;
-    m_subscribtionStateEvents = 0;
 }
 
-void WebsocketApi::onMessageRecieved(const QString &message)
+void WebsocketApi::onMessageReceived(const QString &message)
 {
 #ifdef QT_DEBUG
-    qDebug() << QStringLiteral("Websocket message recieved");
+    qDebug() << QStringLiteral("Websocket message received");
     qDebug() << message;
 #endif
 
@@ -94,11 +105,11 @@ void WebsocketApi::onMessageRecieved(const QString &message)
     const QString type = data.value(QStringLiteral("type")).toString();
 
     if (type == QStringLiteral("event")) {
-        parseStateChanged(data);
+        parseEvent(data);
     } else if (type == QStringLiteral("auth_required")) {
         authenticate();
     } else if (type == QStringLiteral("auth_ok")) {
-        subscribeToStateEvents();
+        updateSubscriptions();
     }
 }
 
@@ -111,19 +122,30 @@ void WebsocketApi::authenticate()
 {
     QJsonObject payload;
     payload.insert(QStringLiteral("type"), QStringLiteral("auth"));
-    payload.insert(QStringLiteral("access_token"), wallet()->token());
+    payload.insert(QStringLiteral("access_token"), m_wallet->token());
 
     sendMessage(payload);
 }
 
-void WebsocketApi::parseStateChanged(const QJsonObject &obj)
+void WebsocketApi::parseEvent(const QJsonObject &obj)
 {
-    const QJsonObject data = obj.value(QStringLiteral("event")).toObject().value(QStringLiteral("data")).toObject();
+    const QJsonObject event = obj.value(QStringLiteral("event")).toObject();
+    const QJsonObject data = event.value(QStringLiteral("data")).toObject();
 
     if (data.isEmpty())
         return;
 
-    emit stateChanged(data.value(QStringLiteral("new_state")).toObject());
+    const QString eventType = event.value(QStringLiteral("event_type")).toString();
+
+    if (eventType == QStringLiteral("state_changed")) {
+        emit stateChanged(data.value(QStringLiteral("new_state")).toObject());
+
+    } else if (eventType == QStringLiteral("call_service")) {
+        if ( data.value(QStringLiteral("domain")).toString() == QStringLiteral("notify")
+             && data.value(QStringLiteral("service")).toString() == QStringLiteral("notify") ) {
+            sendNotification(data.value(QStringLiteral("service_data")).toObject());
+        }
+    }
 }
 
 void WebsocketApi::sendCommand(QJsonObject payload)
@@ -139,24 +161,93 @@ void WebsocketApi::sendMessage(const QJsonObject &payload)
     m_websocket.sendTextMessage(QJsonDocument(payload).toJson(QJsonDocument::Compact));
 }
 
-void WebsocketApi::subscribeToStateEvents()
+void WebsocketApi::sendNotification(const QJsonObject &data)
 {
+#ifdef QT_DEBUG
+    qDebug() << QStringLiteral("NOTIFICATION");
+#endif
+
+    Notification notify;
+    notify.setCategory("x-nemo.messaging.sms");
+    notify.setAppIcon(QStringLiteral("image://theme/harbour-quartermaster"));
+    notify.setBody(data.value(QStringLiteral("message")).toString());
+    notify.setSummary(data.value(QStringLiteral("title")).toString());
+    //notify.setIcon(QStringLiteral("image://theme/icon-lock-information"));
+    notify.setUrgency(Notification::Critical);
+    //notify.setHintValue("sound-file", "/usr/share/sounds/jolla-ringtones/stereo/poppy-red-alert-1.ogg");
+    notify.publish();
+}
+
+void WebsocketApi::subscribeToNotifyEvents()
+{
+    if (m_subscriptionNotifyEvents != 0)
+        return;
+
     QJsonObject payload;
     payload.insert(QStringLiteral("type"), QStringLiteral("subscribe_events"));
-    payload.insert(QStringLiteral("event_type"), QStringLiteral("state_changed"));
+    payload.insert(QStringLiteral("event_type"), QStringLiteral("call_service"));
 
-    m_subscribtionStateEvents = m_interactions;
+    m_subscriptionNotifyEvents = m_interactions;
 
     sendCommand(payload);
 }
 
-void WebsocketApi::unsubscribeToStateEvents()
+void WebsocketApi::subscribeToStateChanged()
 {
-    QJsonObject payload;
-    payload.insert(QStringLiteral("type"), QStringLiteral("unsubscribe_events"));
-    payload.insert(QStringLiteral("subscription"), m_subscribtionStateEvents);
+    if (m_subscriptionStateEvents != 0)
+        return;
 
-    m_subscribtionStateEvents = 0;
+    QJsonObject payload;
+    payload.insert(QStringLiteral("type"), QStringLiteral("subscribe_events"));
+    payload.insert(QStringLiteral("event_type"), QStringLiteral("state_changed"));
+
+    m_subscriptionStateEvents = m_interactions;
 
     sendCommand(payload);
+}
+
+void WebsocketApi::unsubscribeFromNotifyEvents()
+{
+    if (m_subscriptionNotifyEvents == 0)
+        return;
+
+    QJsonObject payload;
+    payload.insert(QStringLiteral("type"), QStringLiteral("unsubscribe_events"));
+    payload.insert(QStringLiteral("subscription"), m_subscriptionNotifyEvents);
+
+    m_subscriptionNotifyEvents = 0;
+
+    sendCommand(payload);
+}
+
+void WebsocketApi::unsubscribeFromStateChanged()
+{
+    if (m_subscriptionStateEvents == 0)
+        return;
+
+    QJsonObject payload;
+    payload.insert(QStringLiteral("type"), QStringLiteral("unsubscribe_events"));
+    payload.insert(QStringLiteral("subscription"), m_subscriptionStateEvents);
+
+    m_subscriptionStateEvents = 0;
+
+    sendCommand(payload);
+}
+
+void WebsocketApi::updateSubscriptions()
+{
+    if (!m_websocket.isValid()) {
+        open();
+        return;
+    }
+
+    if (m_subscriptions & SubscriptionNotifyEvents)
+        subscribeToNotifyEvents();
+    else
+        unsubscribeFromNotifyEvents();
+
+    if (m_subscriptions & SubscriptionStateChanged)
+        subscribeToStateChanged();
+    else
+        unsubscribeFromStateChanged();
 }

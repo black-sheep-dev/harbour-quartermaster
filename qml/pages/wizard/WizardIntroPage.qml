@@ -68,7 +68,7 @@ Page {
 
                 wrapMode: Text.WordWrap
 
-                text: qsTr("This device is not connected to a Homeassistant instance yet.")
+                text: qsTr("This device is not connected to a Home Assistant server yet.")
             }
 
             Label {

@@ -8,10 +8,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Quartermaster is a native Sailfish OS Homeassistant client.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Sources</source>
         <translation type="unfinished"></translation>
     </message>
@@ -25,6 +21,10 @@
     </message>
     <message>
         <source>Quartermaster</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quartermaster is a native Sailfish OS Home Assistant client.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -85,7 +85,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Homeassistant update available!</source>
+        <source>Home Assistant update available!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -491,7 +491,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Websocket component is not enabled in Homeassistant!</source>
+        <source>Websocket component is not enabled in Home Assistant!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -545,15 +545,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>It is highly recommend to use a ssl connection if your homeassistant server supports it!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Valid hostname or IP required!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Valid port required!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>It is highly recommend to use a ssl connection if your Home Assistant server supports it!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -693,7 +693,34 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Zones can be created in the Homeassistant web interface.</source>
+        <source>Zones can be created in the Home Assistant web interface.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SettingsNotificationsPage</name>
+    <message>
+        <source>Notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activating these options leads to higher battery consumption and network traffic.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Websocket component is not enabled in Home Assistant!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Here you can activate / deactivate notifications from your Home Assistant server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When active the application will receive notifications from Home Assistant server over websocket connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The data of service calls from the notify integration are used. For details, refer to the Home Assistant&apos;s documentation!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -765,6 +792,14 @@
     </message>
     <message>
         <source>Backup &amp; Restore</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage system notifications</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -905,16 +940,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>It is highly recommend to use a ssl connection if your homeasstiant server support this!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You need to provide the connection details to your Homeassistant instance.
-This can either be the hostname / IP in your local network or a remote url if your Homeassistant is reachable from the internet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -937,6 +963,15 @@ This can either be the hostname / IP in your local network or a remote url if yo
         <source>Valid port required!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>It is highly recommend to use a ssl connection if your Home Assistant server support this!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need to provide the connection details to your Home Assistant server.
+This can either be the hostname / IP in your local network or a remote url if your Home Assistant is reachable from the internet.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>WizardDeviceRegistrationPage</name>
@@ -953,10 +988,6 @@ This can either be the hostname / IP in your local network or a remote url if yo
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This is the final step. You can change the device name which shows up in Homeassistant if you want before starting the registration.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Change device name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -966,6 +997,10 @@ This can either be the hostname / IP in your local network or a remote url if yo
     </message>
     <message>
         <source>Enter device name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is the final step. You can change the device name which shows up in Home Assistant if you want before starting the registration.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1004,27 +1039,11 @@ This can either be the hostname / IP in your local network or a remote url if yo
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Version of Homeassistant is incompatible with this app!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mobile app component is not activated! Please check your Homeassistant configuration.yaml!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Webhook component is not activated! Please check your Homeassistant configuration.yaml!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Configuration checks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Homeassistant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1036,7 +1055,23 @@ This can either be the hostname / IP in your local network or a remote url if yo
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error connecting to Homeassistant API:</source>
+        <source>Home Assistant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error connecting to Home Assistant API:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version of Home Assistant is incompatible with this app!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mobile app component is not activated! Please check your Home Assistant configuration.yaml!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Webhook component is not activated! Please check your Home Assistant configuration.yaml!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1047,15 +1082,15 @@ This can either be the hostname / IP in your local network or a remote url if yo
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This device is not connected to a Homeassistant instance yet.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>This setup wizard will lead you through the connection process.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Continue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This device is not connected to a Home Assistant server yet.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1085,11 +1120,6 @@ This can either be the hostname / IP in your local network or a remote url if yo
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You need to provide a valid Long-Lived Access Token.
-You can create one on profile page in your Homeassistant webfrontend and copy the token string into the input field below.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Enter token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1099,6 +1129,11 @@ You can create one on profile page in your Homeassistant webfrontend and copy th
     </message>
     <message>
         <source>Connect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need to provide a valid Long-Lived Access Token.
+You can create one on profile page in your Home Assistant webfrontend and copy the token string into the input field below.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

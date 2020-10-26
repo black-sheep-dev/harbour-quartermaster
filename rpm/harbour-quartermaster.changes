@@ -1,3 +1,9 @@
+* Mon Oct 26 2020 Black Sheep <blacksheep@nubecula.org> 0.1.11-1
+- Improved websocket connection
+- Basic Notifications over Websocket (see README on GitHub for details)
+- Code cleanup
+- Translation fixes
+
 * Sun Oct 25 2020 Black Sheep <blacksheep@nubecula.org> 0.1.10-1
 - Backup & Restore function for settings (Wifi only at the moment)
 

@@ -58,8 +58,8 @@ Page {
                 width: parent.width - 2 * x
                 wrapMode: Text.WordWrap
 
-                text: qsTr("You need to provide the connection details to your Homeassistant instance.\n"
-                           + "This can either be the hostname / IP in your local network or a remote url if your Homeassistant is reachable from the internet.")
+                text: qsTr("You need to provide the connection details to your Home Assistant server.\n"
+                           + "This can either be the hostname / IP in your local network or a remote url if your Home Assistant is reachable from the internet.")
                 color: Theme.highlightColor
             }
 
@@ -134,7 +134,7 @@ Page {
             TextSwitch {
                 id: sslSwitch
                 text: qsTr("Use SSL")
-                description: qsTr("It is highly recommend to use a ssl connection if your homeasstiant server support this!")
+                description: qsTr("It is highly recommend to use a ssl connection if your Home Assistant server support this!")
 
                 checked: Client.ssl
             }
