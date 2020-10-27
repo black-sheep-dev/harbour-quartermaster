@@ -130,7 +130,7 @@ void ApiInterface::logData(const QString &identifier, const QByteArray &data)
                + "/" + APP_TARGET
                + "/log_"
                + identifier
-               + "_" + QDateTime::currentDateTime().toString("yyyyMMddhhmmsszzz")
+               + "_" + QDateTime::currentDateTime().toString(QStringLiteral("yyyyMMddhhmmsszzz"))
                + ".txt");
 
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))

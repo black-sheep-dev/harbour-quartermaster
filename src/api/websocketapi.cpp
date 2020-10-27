@@ -90,7 +90,7 @@ void WebsocketApi::onMessageReceived(const QString &message)
     qDebug() << message;
 #endif
 
-    QJsonParseError error;
+    QJsonParseError error{};
 
     const QJsonObject data = QJsonDocument::fromJson(message.toLatin1(), &error).object();
 

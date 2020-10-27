@@ -30,37 +30,37 @@ void Climate::parseAttributes()
 {
     // hvac modes
     for (const QString &item : attributes().value(QStringLiteral("hvac_modes")).toStringList()) {
-        if (item == QStringLiteral("auto"))
+        if (item == QLatin1String("auto"))
             m_hvacModes |= HVAC_MODE_AUTO;
-        else if (item == QStringLiteral("cool"))
+        else if (item == QLatin1String("cool"))
             m_hvacModes |= HVAC_MODE_COOL;
-        else if (item == QStringLiteral("dry"))
+        else if (item == QLatin1String("dry"))
             m_hvacModes |= HVAC_MODE_DRY;
-        else if (item == QStringLiteral("fan_only"))
+        else if (item == QLatin1String("fan_only"))
             m_hvacModes |= HVAC_MODE_FAN_ONLY;
-        else if (item == QStringLiteral("heat"))
+        else if (item == QLatin1String("heat"))
             m_hvacModes |= HVAC_MODE_HEAT;
-        else if (item == QStringLiteral("heat_cool"))
+        else if (item == QLatin1String("heat_cool"))
             m_hvacModes |= HVAC_MODE_HEAT_COOL;
-        else if (item == QStringLiteral("off"))
+        else if (item == QLatin1String("off"))
             m_hvacModes |= HVAC_MODE_OFF;
     }
 
     // preset modes
     for (const QString &item : attributes().value(QStringLiteral("preset_modes")).toStringList()) {
-        if (item == QStringLiteral("activity"))
+        if (item == QLatin1String("activity"))
             m_presetModes |= PresetActivity;
-        else if (item == QStringLiteral("away"))
+        else if (item == QLatin1String("away"))
             m_presetModes |= PresetAway;
-        else if (item == QStringLiteral("boost"))
+        else if (item == QLatin1String("boost"))
             m_presetModes |= PresetBoost;
-        else if (item == QStringLiteral("comfort"))
+        else if (item == QLatin1String("comfort"))
             m_presetModes |= PresetComfort;
-        else if (item == QStringLiteral("eco"))
+        else if (item == QLatin1String("eco"))
             m_presetModes |= PresetEco;
-        else if (item == QStringLiteral("home"))
+        else if (item == QLatin1String("home"))
             m_presetModes |= PresetHome;
-        else if (item == QStringLiteral("sleep"))
+        else if (item == QLatin1String("sleep"))
             m_presetModes |= PresetSleep;
     }
 }

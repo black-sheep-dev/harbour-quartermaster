@@ -7,6 +7,8 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
+#include "src/string_constants.h"
+
 EntitiesProvider::EntitiesProvider(QObject *parent) :
     QObject(parent),
     m_typesModel(new EntityTypesModel(this))
@@ -101,7 +103,7 @@ void EntitiesProvider::updateEntity(const QString &entityId)
 }
 
 void EntitiesProvider::updateModel(int type)
-{
+{   
     if (!m_models.keys().contains(Entity::EntityType(type)))
         return;
 
@@ -112,13 +114,13 @@ void EntitiesProvider::updateModel(int type)
 
 void EntitiesProvider::updateState(const QJsonObject &obj)
 {
-    auto *entity = entityById(obj.value("entity_id").toString());
+    auto *entity = entityById(obj.value(API_KEY_ENTITY_ID).toString());
 
     if (!entity)
         return;
 
-    entity->setState(obj.value(QStringLiteral("state")).toVariant());
-    entity->setAttributes(obj.value(QStringLiteral("attributes")).toObject().toVariantMap());
+    entity->setState(obj.value(API_KEY_STATE).toVariant());
+    entity->setAttributes(obj.value(API_KEY_ATTRIBUTES).toObject().toVariantMap());
 }
 
 void EntitiesProvider::setLoading(bool loading)
@@ -136,11 +138,11 @@ void EntitiesProvider::onDataAvailable(const QString &endpoint, const QJsonDocum
     qDebug() << endpoint;
 #endif
 
-    if (endpoint == QStringLiteral(HASS_API_ENDPOINT_STATES)) {
+    if (endpoint == QLatin1String(HASS_API_ENDPOINT_STATES)) {
         parseStates(doc.array());
-    } else if (endpoint.startsWith(QStringLiteral(HASS_API_ENDPOINT_STATES) + "/")) {
+    } else if (endpoint.startsWith(QLatin1String(HASS_API_ENDPOINT_STATES) + "/")) {
         updateEntity(doc.object());
-    } else if (endpoint.startsWith(QStringLiteral(HASS_API_ENDPOINT_SERVICES))) {
+    } else if (endpoint.startsWith(QLatin1String(HASS_API_ENDPOINT_SERVICES))) {
         updateEntities(doc.array());
     }
 }
@@ -157,35 +159,35 @@ Entity::EntityType EntitiesProvider::getEntityType(const QString &entityId) cons
 {
     const QString type = entityId.split(".").first();
 
-    if (type == QStringLiteral("alarm_control_panel")) {
+    if (type == QLatin1String("alarm_control_panel")) {
         return Entity::Alarm;
-    } else if (type == QStringLiteral("automation")) {
+    } else if (type == QLatin1String("automation")) {
         return Entity::Automation;
-    } else if (type == QStringLiteral("binary_sensor")) {
+    } else if (type == QLatin1String("binary_sensor")) {
         return Entity::BinarySensor;
-    } else if (type == QStringLiteral("camera")) {
+    } else if (type == QLatin1String("camera")) {
         return Entity::Camera;
-    } else if (type == QStringLiteral("climate")) {
+    } else if (type == QLatin1String("climate")) {
         return Entity::Climate;
-    } else if (type == QStringLiteral("device_tracker")) {
+    } else if (type == QLatin1String("device_tracker")) {
         return Entity::DeviceTracker;
-    } else if (type == QStringLiteral("group")) {
+    } else if (type == QLatin1String("group")) {
         return Entity::Group;
-    } else if (type == QStringLiteral("light")) {
+    } else if (type == QLatin1String("light")) {
         return Entity::Light;
-    } else if (type == QStringLiteral("media_player")) {
+    } else if (type == QLatin1String("media_player")) {
         return Entity::MediaPlayer;
-    } else if (type == QStringLiteral("person")) {
+    } else if (type == QLatin1String("person")) {
         return Entity::Person;
-    } else if (type == QStringLiteral("sensor")) {
+    } else if (type == QLatin1String("sensor")) {
         return Entity::Sensor;
-    } else if (type == QStringLiteral("sun")) {
+    } else if (type == QLatin1String("sun")) {
         return Entity::Sun;
-    } else if (type == QStringLiteral("switch")) {
+    } else if (type == QLatin1String("switch")) {
         return Entity::Switch;
-    } else if (type == QStringLiteral("weather")) {
+    } else if (type == QLatin1String("weather")) {
         return Entity::Weather;
-    } else if (type == QStringLiteral("zone")) {
+    } else if (type == QLatin1String("zone")) {
         return Entity::Zone;
     } else {
         return Entity::Unkown;
@@ -204,7 +206,7 @@ void EntitiesProvider::parseStates(const QJsonArray &states)
         const QJsonObject obj = item.toObject();
 
         // check entity type
-        const Entity::EntityType type = getEntityType(obj.value(QStringLiteral("entity_id")).toString());
+        const Entity::EntityType type = getEntityType(obj.value(API_KEY_ENTITY_ID).toString());
 
         Entity *entity{nullptr};
 
@@ -244,23 +246,23 @@ void EntitiesProvider::parseStates(const QJsonArray &states)
         }
 
         // set data to entity
-        entity->setEntityId(obj.value(QStringLiteral("entity_id")).toString());
-        entity->setState(obj.value(QStringLiteral("state")).toVariant());
+        entity->setEntityId(obj.value(API_KEY_ENTITY_ID).toString());
+        entity->setState(obj.value(API_KEY_STATE).toVariant());
 
         // parse attributes
-        const QJsonObject attributes = obj.value(QStringLiteral("attributes")).toObject();
-        entity->setName(attributes.value(QStringLiteral("friendly_name")).toString());
+        const QJsonObject attributes = obj.value(API_KEY_ATTRIBUTES).toObject();
+        entity->setName(attributes.value(API_KEY_FRIENDLY_NAME).toString());
         entity->setAttributes(attributes.toVariantMap());
-        entity->setSupportedFeatures(quint16(attributes.value(QStringLiteral("supported_features")).toInt(0)));
+        entity->setSupportedFeatures(quint16(attributes.value(API_KEY_SUPPORTED_FEATURES).toInt(0)));
 
         // parse context
-        entity->setContext(obj.value(QStringLiteral("context")).toObject().toVariantMap());
+        entity->setContext(obj.value(API_KEY_CONTEXT).toObject().toVariantMap());
 
 
         // --------------------------------------------------------------------
         // check homeassistant update info is availabel (binary_sensor.updater)
         if (entity->entityId() == QStringLiteral("binary_sensor.updater")) {
-            emit homeassistantVersionAvailable(entity->attributes().value(QStringLiteral("newest_version")).toString());
+            emit homeassistantVersionAvailable(entity->attributes().value(API_KEY_NEWEST_VERSION).toString());
         }
         // --------------------------------------------------------------------
 
@@ -294,7 +296,7 @@ void EntitiesProvider::parseStates(const QJsonArray &states)
         for (Entity *entity : m_models.value(Entity::Group)->entities()) {
             auto *group = qobject_cast<Group *>(entity);
 
-            for (const QString &childId : entity->attributes().value(QStringLiteral("entity_id")).toStringList()) {
+            for (const QString &childId : entity->attributes().value(API_KEY_ENTITY_ID).toStringList()) {
                 for (EntitiesModel *model : m_models.values()) {
                     Entity *child = model->entityById(childId);
 
@@ -379,7 +381,7 @@ void EntitiesProvider::registerModel(const Entity::EntityType &entityType)
 
 void EntitiesProvider::updateEntity(const QJsonObject &obj)
 {
-    const QString id = obj.value(QStringLiteral("entity_id")).toString();
+    const QString id = obj.value(API_KEY_ENTITY_ID).toString();
 
     const Entity::EntityType type = getEntityType(id);
 
@@ -394,15 +396,15 @@ void EntitiesProvider::updateEntity(const QJsonObject &obj)
         return;
 
     // set state
-    entity->setState(obj.value(QStringLiteral("state")).toVariant());
+    entity->setState(obj.value(API_KEY_STATE).toVariant());
 
     // parse attributes
-    const QJsonObject attributes = obj.value(QStringLiteral("attributes")).toObject();
+    const QJsonObject attributes = obj.value(API_KEY_ATTRIBUTES).toObject();
     entity->setAttributes(attributes.toVariantMap());
-    entity->setSupportedFeatures(quint16(attributes.value(QStringLiteral("supported_features")).toInt(0)));
+    entity->setSupportedFeatures(quint16(attributes.value(API_KEY_SUPPORTED_FEATURES).toInt(0)));
 
     // parse context
-    entity->setContext(obj.value(QStringLiteral("context")).toObject().toVariantMap());
+    entity->setContext(obj.value(API_KEY_CONTEXT).toObject().toVariantMap());
 
     // --------------------------------------------------------------------
     // check homeassistant update info is availabel (binary_sensor.updater)

@@ -152,4 +152,5 @@ HEADERS += \
     src/models/sortfiltermodel.h \
     src/models/wifinetworkmodel.h \
     src/models/zonesmodel.h \
+    src/string_constants.h \
     src/tools/backuptool.h

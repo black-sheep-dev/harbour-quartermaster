@@ -6,6 +6,8 @@
 #include <QNetworkReply>
 #include <QNetworkRequest>
 
+#include "src/string_constants.h"
+
 WebhookApi::WebhookApi(Wallet *wallet, QObject *parent) :
     ApiInterface(wallet, parent),
     m_connectionFailures(ConnectionFailureNone)
@@ -72,11 +74,11 @@ void WebhookApi::updateRegistration(const Device *device)
 
     QJsonObject data;
 
-    data.insert(QStringLiteral("app_version"), QCoreApplication::applicationVersion());
-    data.insert(QStringLiteral("device_name"), device->name());
-    data.insert(QStringLiteral("os_version"), device->softwareVersion());
-    data.insert(QStringLiteral("manufacturer"), device->manufacturer());
-    data.insert(QStringLiteral("model"), device->model());
+    data.insert(API_KEY_APP_VERSION, QCoreApplication::applicationVersion());
+    data.insert(API_KEY_DEVICE_NAME, device->name());
+    data.insert(API_KEY_OS_VERSION, device->softwareVersion());
+    data.insert(API_KEY_MANUFACTURER, device->manufacturer());
+    data.insert(API_KEY_MODEL, device->model());
 
     sendRequest(QStringLiteral("update_registration"), data);
 }

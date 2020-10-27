@@ -2,6 +2,8 @@
 
 #include <QJsonObject>
 
+#include "src/string_constants.h"
+
 Zone::Zone(QObject *parent) :
     QObject(parent),
     m_networks(new WifiNetworkModel(this)),
@@ -21,14 +23,14 @@ void Zone::setJson(const QJsonObject &object)
     if (object.isEmpty())
         return;
 
-    const QJsonObject attributes = object.value(QStringLiteral("attributes")).toObject();
-    const QJsonObject context = object.value(QStringLiteral("context")).toObject();
+    const QJsonObject attributes = object.value(API_KEY_ATTRIBUTES).toObject();
+    const QJsonObject context = object.value(API_KEY_CONTEXT).toObject();
 
-    setGuid(context.value(QStringLiteral("id")).toString());
-    setName(attributes.value(QStringLiteral("friendly_name")).toString());
-    setLatitude(attributes.value(QStringLiteral("latitude")).toDouble());
-    setLongitude(attributes.value(QStringLiteral("longitude")).toDouble());
-    setRadius(attributes.value(QStringLiteral("radius")).toDouble());
+    setGuid(context.value(API_KEY_ID).toString());
+    setName(attributes.value(API_KEY_FRIENDLY_NAME).toString());
+    setLatitude(attributes.value(API_KEY_LATITUDE).toDouble());
+    setLongitude(attributes.value(API_KEY_LONGITUDE).toDouble());
+    setRadius(attributes.value(API_KEY_RADIUS).toDouble());
 }
 
 QString Zone::guid() const

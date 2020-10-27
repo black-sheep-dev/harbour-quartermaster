@@ -9,6 +9,8 @@
 #include <QJsonParseError>
 #include <QNetworkReply>
 
+#include "src/string_constants.h"
+
 HomeassistantApi::HomeassistantApi(Wallet *wallet, QObject *parent) :
     ApiInterface(wallet, parent)
 {
@@ -18,7 +20,7 @@ HomeassistantApi::HomeassistantApi(Wallet *wallet, QObject *parent) :
 void HomeassistantApi::callService(const QString &domain, const QString &service, const QString &entityId, const QJsonObject &data)
 {
     QJsonObject payload = data;
-    payload.insert(QStringLiteral("entity_id"), entityId);
+    payload.insert(API_KEY_ENTITY_ID, entityId);
 
     request(getRequest(QStringLiteral(HASS_API_ENDPOINT_SERVICES) + "/" + domain + "/" + service), payload);
 }
@@ -44,16 +46,16 @@ void HomeassistantApi::registerDevice(Device *device)
         return;
 
     QJsonObject data;
-    data.insert(QStringLiteral("device_id"), device->id());
-    data.insert(QStringLiteral("app_id"), "org.nubecula.harbour.quartermaster");
-    data.insert(QStringLiteral("app_name"), QCoreApplication::applicationName());
-    data.insert(QStringLiteral("app_version"), QCoreApplication::applicationVersion());
-    data.insert(QStringLiteral("device_name"), device->name());
-    data.insert(QStringLiteral("manufacturer"), device->manufacturer());
-    data.insert(QStringLiteral("model"), device->model());
-    data.insert(QStringLiteral("os_name"), device->softwareName());
-    data.insert(QStringLiteral("os_version"), device->softwareVersion());
-    data.insert(QStringLiteral("supports_encryption"), device->encryption());
+    data.insert(API_KEY_DEVICE_ID, device->id());
+    data.insert(API_KEY_APP_ID, QStringLiteral("org.nubecula.harbour.quartermaster"));
+    data.insert(API_KEY_APP_NAME, QCoreApplication::applicationName());
+    data.insert(API_KEY_APP_VERSION, QCoreApplication::applicationVersion());
+    data.insert(API_KEY_DEVICE_NAME, device->name());
+    data.insert(API_KEY_MANUFACTURER, device->manufacturer());
+    data.insert(API_KEY_MODEL, device->model());
+    data.insert(API_KEY_OS_NAME, device->softwareName());
+    data.insert(API_KEY_OS_VERSION, device->softwareVersion());
+    data.insert(API_KEY_SUPPORTS_ENCRYPTION, device->encryption());
 
     request(getRequest(QStringLiteral(HASS_API_ENDPOINT_DEVICE_REGISTRATION)), data);
 }

@@ -8,6 +8,8 @@
 #include <QJsonObject>
 #include <QVariant>
 
+#include "src/string_constants.h"
+
 HomeassistantInfo::HomeassistantInfo(QObject *parent) :
     QObject(parent),
     m_error(QString()),
@@ -52,16 +54,16 @@ void HomeassistantInfo::setData(const QJsonObject &object)
         return;
     }
 
-    const QVariantList components = object.value(QStringLiteral("components")).toArray().toVariantList();
+    const QVariantList components = object.value(API_KEY_COMPONENTS).toArray().toVariantList();
     setComponentList(components);
 
-    setExternalUrl(object.value(QStringLiteral("external_url")).toString());
-    setInternalUrl(object.value(QStringLiteral("internal_url")).toString());
-    setLocationName(object.value(QStringLiteral("location_name")).toString());
+    setExternalUrl(object.value(API_KEY_EXTERNAL_URL).toString());
+    setInternalUrl(object.value(API_KEY_INTERNAL_URL).toString());
+    setLocationName(object.value(API_KEY_LOCATION_NAME).toString());
 
 
     // check version
-    const QString version = object.value(QStringLiteral("version")).toString();
+    const QString version = object.value(API_KEY_VERSION).toString();
     setVersion(version);
 
     const QStringList parts = version.split(".");
@@ -73,15 +75,15 @@ void HomeassistantInfo::setData(const QJsonObject &object)
     // component flags
     Components flags = ComponentNone;
 
-    if (components.contains(QStringLiteral("mobile_app"))) {
+    if (components.contains(QLatin1String("mobile_app"))) {
         flags |= ComponentMobileApp;
     }
 
-    if (components.contains(QStringLiteral("webhook"))) {
+    if (components.contains(QLatin1String("webhook"))) {
         flags |= ComponentWebhook;
     }
 
-    if (components.contains(QStringLiteral("websocket_api"))) {
+    if (components.contains(QLatin1String("websocket_api"))) {
         flags |= ComponentWebsocketApi;
     }
 

@@ -386,11 +386,11 @@ void ClientInterface::onDataAvailable(const QString &endpoint, const QJsonDocume
     qDebug() << endpoint;
 #endif
 
-    if (endpoint == QStringLiteral(HASS_API_ENDPOINT_CONFIG)) {
+    if (endpoint == QLatin1String(HASS_API_ENDPOINT_CONFIG)) {
         m_homeassistantInfo->setData(doc.object());
         m_homeassistantInfo->setAvailable(true);
         m_homeassistantInfo->setLoading(false);
-    } else if (endpoint == QStringLiteral(HASS_API_ENDPOINT_DEVICE_REGISTRATION)) {
+    } else if (endpoint == QLatin1String(HASS_API_ENDPOINT_DEVICE_REGISTRATION)) {
         m_webhook->setRegistrationData(doc.object());
         m_device->setRegistered(m_webhook->isRegistered());
 
@@ -410,7 +410,7 @@ void ClientInterface::onDataAvailable(const QString &endpoint, const QJsonDocume
 
 void ClientInterface::onWebhookDataAvailable(const QString &identifier, const QJsonDocument &doc)
 {
-    if (identifier == QStringLiteral("get_zones")) {
+    if (identifier== QLatin1String("get_zones")) {
         m_zones->setZones(doc.array());
     }
 }
