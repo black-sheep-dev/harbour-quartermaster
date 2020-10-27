@@ -714,7 +714,7 @@
     </message>
     <message>
         <source>Here you can activate / deactivate notifications from your Home Assistant server.</source>
-        <translation>Aktivere / Deaktiviere Benachrichtigungen von deinem Home Assistant server.</translation>
+        <translation>Aktivere / Deaktiviere Benachrichtigungen von deinem Home Assistant Server.</translation>
     </message>
     <message>
         <source>When active the application will receive notifications from Home Assistant server over websocket connection.</source>
