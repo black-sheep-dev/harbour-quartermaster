@@ -20,7 +20,7 @@ Page {
 
             Image {
                 id: logo
-                source: "/usr/share/icons/hicolor/512x512/apps/harbour-quartermaster.png"
+                source: "/usr/share/icons/hicolor/512x512/apps/" + Qt.application.name + ".png"
                 smooth: true
                 height: width
                 width: parent.width / 2
@@ -88,12 +88,12 @@ Page {
                         wrapMode: Text.WrapAnywhere
                         font.pixelSize: Theme.fontSizeSmall
 
-                        text: "https://github.com/black-sheep-dev/harbour-quartermaster"
+                        text: "https://github.com/black-sheep-dev/" + Qt.application.name
                         color: parent.parent.pressed ? Theme.highlightColor : Theme.primaryColor
 
                     }
                 }
-                onClicked: Qt.openUrlExternally("https://github.com/black-sheep-dev/harbour-quartermaster")
+                onClicked: Qt.openUrlExternally("https://github.com/black-sheep-dev/"  + Qt.application.name)
             }
 
             SectionHeader{

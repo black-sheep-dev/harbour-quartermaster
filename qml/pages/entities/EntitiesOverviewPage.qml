@@ -42,7 +42,7 @@ Page {
         delegate: ListItem {
             id: delegate
             width: parent.width
-            contentHeight: Theme.itemSizeExtraLarge
+            contentHeight: Theme.itemSizeLarge
 
             Row {
                 x: Theme.horizontalPageMargin
