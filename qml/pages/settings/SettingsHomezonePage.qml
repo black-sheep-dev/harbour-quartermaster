@@ -6,7 +6,7 @@ import org.nubecula.harbour.quartermaster 1.0
 import "../../components/"
 
 Page {
-    property Zone zone
+    property Zone zone: Client.homeassistantInfo().homezone()
 
     id: page
 
@@ -21,7 +21,7 @@ Page {
                 text: qsTr("Reset")
                 onClicked: resetPopup.execute(qsTr("Resetting networks"), function() {
                     zone.networksModel().reset()
-                    Client.saveZonesSettings()
+                    Client.saveSettings()
                 })
             }
 
@@ -36,7 +36,7 @@ Page {
 
                     dialog.accepted.connect(function() {
                         Client.networksModel().addSelectedToModel(zone.networksModel())
-                        Client.saveZonesSettings();
+                        Client.saveSettings();
                     })
                 }
             }
@@ -54,7 +54,7 @@ Page {
             spacing: Theme.paddingMedium
 
             PageHeader {
-                title: qsTr("Zone Settings")
+                title: qsTr("Homezone")
             }
             Label {
                 x: Theme.horizontalPageMargin
@@ -72,11 +72,6 @@ Page {
             DetailItem {
                 label: qsTr("Longitude")
                 value: zone.longitude
-            }
-
-            DetailItem {
-                label: qsTr("Radius")
-                value: zone.radius
             }
 
             SectionHeader {
@@ -105,7 +100,7 @@ Page {
                             text: qsTr("Delete");
                             onClicked: remorse.execute(delegate, qsTr("Deleting network"), function() {
                                 zone.networksModel().removeNetwork(identifier)
-                                Client.saveZonesSettings()
+                                Client.saveSettings()
                             })
                         }
                     }

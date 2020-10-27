@@ -12,6 +12,7 @@
 
 HomeassistantInfo::HomeassistantInfo(QObject *parent) :
     QObject(parent),
+    m_zone(new Zone(this)),
     m_error(QString()),
     m_externalUrl(QString()),
     m_internalUrl(QString()),
@@ -19,6 +20,11 @@ HomeassistantInfo::HomeassistantInfo(QObject *parent) :
     m_version(QString())
 {
 
+}
+
+Zone *HomeassistantInfo::homezone() const
+{
+    return m_zone;
 }
 
 bool HomeassistantInfo::isInstanceValid()
@@ -60,7 +66,8 @@ void HomeassistantInfo::setData(const QJsonObject &object)
     setExternalUrl(object.value(API_KEY_EXTERNAL_URL).toString());
     setInternalUrl(object.value(API_KEY_INTERNAL_URL).toString());
     setLocationName(object.value(API_KEY_LOCATION_NAME).toString());
-
+    m_zone->setLatitude(object.value(API_KEY_LATITUDE).toDouble());
+    m_zone->setLongitude(object.value(API_KEY_LONGITUDE).toDouble());
 
     // check version
     const QString version = object.value(API_KEY_VERSION).toString();
@@ -73,7 +80,7 @@ void HomeassistantInfo::setData(const QJsonObject &object)
 
 
     // component flags
-    Components flags = ComponentNone;
+    quint16 flags = ComponentNone;
 
     if (components.contains(QLatin1String("mobile_app"))) {
         flags |= ComponentMobileApp;
@@ -129,7 +136,7 @@ bool HomeassistantInfo::loading() const
 
 QString HomeassistantInfo::locationName() const
 {
-    return m_locationName;
+    return m_zone->name();
 }
 
 QString HomeassistantInfo::version() const
@@ -235,10 +242,10 @@ void HomeassistantInfo::setLoading(bool loading)
 
 void HomeassistantInfo::setLocationName(const QString &name)
 {
-    if (m_locationName == name)
+    if (m_zone->name() == name)
         return;
 
-    m_locationName = name;
+    m_zone->setName(name);
     emit locationNameChanged(m_locationName);
 }
 

@@ -28,17 +28,17 @@ Page {
                 page: "SettingsDeviceSensorsPage.qml"
             }
             ListElement {
+                title: qsTr("Homezone");
+                description: qsTr("Manage homezone settings")
+                icon: "image://theme/icon-m-home"
+                page: "SettingsHomezonePage.qml"
+            }
+            ListElement {
                 title: qsTr("Zones");
                 description: qsTr("Manage zones")
                 icon: "image://theme/icon-m-dot"
                 page: "SettingsZonesPage.qml"
             }
-//            ListElement {
-//                title: qsTr("Home Zone");
-//                description: qsTr("Manage home zone settings")
-//                icon: "image://theme/icon-m-home"
-//                page: "SettingsZonesPage.qml"
-//            }
             ListElement {
                 title: qsTr("Notifications");
                 description: qsTr("Manage system notifications")

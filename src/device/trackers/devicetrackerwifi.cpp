@@ -171,7 +171,7 @@ void DeviceTrackerWifi::onBackroundServiceRunning()
 void DeviceTrackerWifi::onConfigurationChanged(const QNetworkConfiguration &config)
 {
     if ( config.state() != QNetworkConfiguration::Active
-         || config.bearerType() != QNetworkConfiguration::BearerWLAN) {
+         || config.bearerType() != QNetworkConfiguration::BearerWLAN ) {
 
         return;
     }
@@ -189,8 +189,8 @@ bool DeviceTrackerWifi::checkNetworkIdentifier(const QString &identifier)
     if (m_lastIdentifier == identifier)
         return false;
 
-    for (Zone *zone : m_zones->zones()) {
-        for (const WifiNetwork *network : zone->networksModel()->networks()) {
+    for (auto *zone : m_zones->zones()) {
+        for (const auto *network : zone->networksModel()->networks()) {
             if (network->identifier() != identifier)
                 continue;
 

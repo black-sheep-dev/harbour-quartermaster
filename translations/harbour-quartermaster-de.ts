@@ -699,6 +699,57 @@
     </message>
 </context>
 <context>
+    <name>SettingsHomezonePage</name>
+    <message>
+        <source>Reset</source>
+        <translation>Zurücksetzen</translation>
+    </message>
+    <message>
+        <source>Resetting networks</source>
+        <translation>Setze Netzwerke zurück</translation>
+    </message>
+    <message>
+        <source>Add Wifi Network</source>
+        <translation>WLAN Netzwerk hinzufügen</translation>
+    </message>
+    <message>
+        <source>Homezone</source>
+        <translation>Homezone</translation>
+    </message>
+    <message>
+        <source>Latitude</source>
+        <translation>Breitengrad</translation>
+    </message>
+    <message>
+        <source>Longitude</source>
+        <translation>Längengrad</translation>
+    </message>
+    <message>
+        <source>Wifi Networks</source>
+        <translation>WLAN Netzwerke</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Löschen</translation>
+    </message>
+    <message>
+        <source>Deleting network</source>
+        <translation>Lösche Netzwerke</translation>
+    </message>
+    <message>
+        <source>Hidden network</source>
+        <translation>Versteckes Netzwerk</translation>
+    </message>
+    <message>
+        <source>No wifi networks defined</source>
+        <translation>Keine WLAN Netzwerke definiert</translation>
+    </message>
+    <message>
+        <source>Pull down to add networks</source>
+        <translation>Nach unten ziehen um Netzwerke hinzuzufügen</translation>
+    </message>
+</context>
+<context>
     <name>SettingsNotificationsPage</name>
     <message>
         <source>Notifications</source>
@@ -803,6 +854,14 @@
         <source>Manage system notifications</source>
         <translation>System Benachrichtigungen verwalten</translation>
     </message>
+    <message>
+        <source>Homezone</source>
+        <translation>Homezone</translation>
+    </message>
+    <message>
+        <source>Manage homezone settings</source>
+        <translation>Verwalte die Homezone Einstellungen</translation>
+    </message>
 </context>
 <context>
     <name>SettingsZonePage</name>
@@ -849,6 +908,14 @@
     <message>
         <source>Hidden network</source>
         <translation>Versteckes Netzwerk</translation>
+    </message>
+    <message>
+        <source>No wifi networks defined</source>
+        <translation>Keine WLAN Netzwerke definiert</translation>
+    </message>
+    <message>
+        <source>Pull down to add networks</source>
+        <translation>Nach unten ziehen um Netzwerke hinzuzufügen</translation>
     </message>
 </context>
 <context>

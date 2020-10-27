@@ -103,9 +103,4 @@ Dialog {
     }
 
     Component.onCompleted: Client.updateNetworksModel()
-
-    onAccepted: {
-        Client.networksModel().addSelectedToModel(zone.networksModel())
-        Client.saveZonesSettings();
-    }
 }

@@ -122,6 +122,8 @@ private slots:
     void onWebhookDataAvailable(const QString &identifier, const QJsonDocument &doc);
 
     void onHomeassistantUpdateAvailable(const QString &version);
+    void onNetworkConfigurationChanged(const QNetworkConfiguration &config);
+    void updateLocation();
 
 private:
     void onReadyChanged();
@@ -138,6 +140,9 @@ private:
     DeviceTrackerGPS *m_gpsTracker{nullptr};
     HomeassistantInfo *m_homeassistantInfo{nullptr};
     QString m_homeassistantLastUpdateVersion;
+    QString m_lastNetworkIdentifier;
+    QJsonObject m_lastLocation;
+    QNetworkConfigurationManager *m_ncm{nullptr};
     DeviceTrackerWifi *m_wifiTracker{nullptr};
     Wallet *m_wallet{nullptr};
     WebhookApi *m_webhook{nullptr};

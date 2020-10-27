@@ -92,6 +92,7 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/settings/SettingsAutoUpdatePage.qml \
     qml/pages/settings/SettingsBackupPage.qml \
     qml/pages/settings/SettingsDeveloperModePage.qml \
+    qml/pages/settings/SettingsHomezonePage.qml \
     qml/pages/settings/SettingsNotificationsPage.qml \
     qml/pages/wizard/WizardConnectionPage.qml \
     qml/pages/wizard/WizardDeviceRegistrationPage.qml \

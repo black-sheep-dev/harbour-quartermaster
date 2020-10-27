@@ -5,6 +5,8 @@
 
 #include <QVariantList>
 
+#include "src/entities/zone.h"
+
 class HomeassistantInfo : public QObject
 {
     Q_OBJECT
@@ -38,6 +40,7 @@ public:
 
     explicit HomeassistantInfo(QObject *parent = nullptr);
 
+    Q_INVOKABLE Zone *homezone() const;
     Q_INVOKABLE bool isInstanceValid();
     bool isUpdateAvailable(const QString &version) const;
 
@@ -100,6 +103,8 @@ private:
     quint16 m_buildVersion{0};
     quint16 m_majorVersion{0};
     quint16 m_minorVersion{0};
+
+    Zone *m_zone{nullptr};
 
     // properties
     bool m_available{false};

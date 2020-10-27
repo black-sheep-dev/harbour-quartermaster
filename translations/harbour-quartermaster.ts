@@ -698,6 +698,57 @@
     </message>
 </context>
 <context>
+    <name>SettingsHomezonePage</name>
+    <message>
+        <source>Reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resetting networks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Wifi Network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Homezone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Latitude</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Longitude</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wifi Networks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deleting network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hidden network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No wifi networks defined</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pull down to add networks</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SettingsNotificationsPage</name>
     <message>
         <source>Notifications</source>
@@ -802,6 +853,14 @@
         <source>Manage system notifications</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Homezone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage homezone settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsZonePage</name>
@@ -847,6 +906,14 @@
     </message>
     <message>
         <source>Hidden network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No wifi networks defined</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pull down to add networks</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

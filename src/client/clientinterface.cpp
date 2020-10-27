@@ -9,8 +9,10 @@
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QList>
 #include <QSettings>
 #include <QStandardPaths>
+#include <QTimer>
 
 #include <nemonotifications-qt5/notification.h>
 
@@ -19,6 +21,7 @@ ClientInterface::ClientInterface(QObject *parent) :
     m_device(new Device(this)),
     m_entitiesProvider(new EntitiesProvider(this)),
     m_homeassistantInfo(new HomeassistantInfo(this)),
+    m_ncm(new QNetworkConfigurationManager(this)),
     m_wallet(new Wallet(this)),
     m_zones(new ZonesModel(this))
 {
@@ -40,6 +43,7 @@ ClientInterface::ClientInterface(QObject *parent) :
     connect(m_device, &Device::sensorUpdated, m_webhook, &WebhookApi::updateSensor);
     connect(m_entitiesProvider, &EntitiesProvider::homeassistantVersionAvailable, this, &ClientInterface::onHomeassistantUpdateAvailable);
     connect(m_websocket, &WebsocketApi::stateChanged, m_entitiesProvider, &EntitiesProvider::updateState);
+    connect(m_ncm, &QNetworkConfigurationManager::configurationChanged, this, &ClientInterface::onNetworkConfigurationChanged);
 
     readSettings();
 }
@@ -437,6 +441,43 @@ void ClientInterface::onHomeassistantUpdateAvailable(const QString &version)
     notify.publish();
 }
 
+void ClientInterface::onNetworkConfigurationChanged(const QNetworkConfiguration &config)
+{
+    if (config.state() != QNetworkConfiguration::Active) {
+        return;
+    }
+
+#ifdef QT_DEBUG
+    qDebug() << config.name();
+    qDebug() << config.identifier();
+#endif
+
+    if (m_lastNetworkIdentifier == config.identifier())
+        return;
+
+    for (const auto *network : homeassistantInfo()->homezone()->networksModel()->networks()) {
+        if (network->identifier() != config.identifier())
+            continue;
+
+        m_lastNetworkIdentifier = config.identifier();
+
+        QJsonArray position;
+        position.append(m_homeassistantInfo->homezone()->latitude());
+        position.append(m_homeassistantInfo->homezone()->longitude());
+
+        m_lastLocation.insert(QStringLiteral("gps"), position);
+        m_lastLocation.insert(QStringLiteral("battery"), 100);
+        m_lastLocation.insert(QStringLiteral("gps_accuracy"), 10);
+
+        QTimer::singleShot(2000, this, &ClientInterface::updateLocation);
+    }
+}
+
+void ClientInterface::updateLocation()
+{
+    m_webhook->updateLocation(m_lastLocation);
+}
+
 void ClientInterface::onReadyChanged()
 {
     m_api->getConfig();
@@ -473,6 +514,8 @@ void ClientInterface::readSettings()
     QSettings settings;
 
     settings.beginGroup(QStringLiteral("API"));
+    m_homeassistantInfo->setExternalUrl(settings.value(QStringLiteral("external_url")).toString());
+    m_homeassistantInfo->setInternalUrl(settings.value(QStringLiteral("internal_url")).toString());
     m_hostname = settings.value(QStringLiteral("hostname"), QString()).toString();
     m_port = quint16(settings.value(QStringLiteral("port"), 8123).toInt());
     m_ssl = settings.value(QStringLiteral("ssl"), false).toBool();
@@ -495,6 +538,24 @@ void ClientInterface::readSettings()
     setWebsocketNotify(settings.value(QStringLiteral("websocket_notify"), false).toBool());
     settings.endGroup();
 
+    settings.beginGroup(QStringLiteral("HOMEZONE"));
+    int size = settings.beginReadArray(QStringLiteral("networks"));
+    QList<WifiNetwork *> networks;
+
+    for (int i = 0; i < size; ++i) {
+        settings.setArrayIndex(i);
+
+        WifiNetwork *network = new WifiNetwork;
+        network->setName(settings.value(QStringLiteral("name")).toString());
+        network->setIdentifier(settings.value(QStringLiteral("identifier")).toString());
+
+        networks.append(network);
+    }
+
+    m_homeassistantInfo->homezone()->networksModel()->setNetworks(networks);
+    settings.endArray();
+    settings.endGroup();
+
     settings.beginGroup(QStringLiteral("DEVELOPER_MODE"));
     setApiLogging(settings.value(QStringLiteral("api_logging"), false).toBool());
     settings.endGroup();
@@ -507,6 +568,8 @@ void ClientInterface::writeSettings()
     QSettings settings;
 
     settings.beginGroup(QStringLiteral("API"));
+    settings.setValue(QStringLiteral("external_url"), m_homeassistantInfo->externalUrl());
+    settings.setValue(QStringLiteral("internal_url"), m_homeassistantInfo->internalUrl());
     settings.setValue(QStringLiteral("hostname"), m_hostname);
     settings.setValue(QStringLiteral("port"), m_port);
     settings.setValue(QStringLiteral("ssl"), m_ssl);
@@ -524,6 +587,18 @@ void ClientInterface::writeSettings()
     settings.setValue(QStringLiteral("tracking_modes"), m_trackingModes);
     settings.setValue(QStringLiteral("update_modes"), m_updateModes);
     settings.setValue(QStringLiteral("websocket_notify"), m_websocketNotify);
+    settings.endGroup();
+
+    settings.beginGroup(QStringLiteral("HOMEZONE"));
+    settings.beginWriteArray(QStringLiteral("networks"));
+    const QList<WifiNetwork *> networks = m_homeassistantInfo->homezone()->networksModel()->networks();
+
+    for (int i = 0; i < networks.count(); ++i) {
+        settings.setArrayIndex(i);
+        settings.setValue(QStringLiteral("name"), networks.at(i)->name());
+        settings.setValue(QStringLiteral("identifier"), networks.at(i)->identifier());
+    }
+    settings.endArray();
     settings.endGroup();
 
     settings.beginGroup(QStringLiteral("DEVELOPER_MODE"));
