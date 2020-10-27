@@ -45,7 +45,7 @@ Page {
 
             width: parent.width
 
-            spacing: Theme.paddingLarge
+            spacing: Theme.paddingMedium
 
             PageHeader {
                 title: qsTr("Zone Settings")
@@ -57,22 +57,19 @@ Page {
                 color: Theme.secondaryHighlightColor
                 font.pixelSize: Theme.fontSizeExtraLarge
             }
-            InfoItem {
-                x: Theme.horizontalPageMargin
-                width: parent.width - 2 * x
-                name: qsTr("Latitude")
+
+            DetailItem {
+                label: qsTr("Latitude")
                 value: zone.latitude
             }
-            InfoItem {
-                x: Theme.horizontalPageMargin
-                width: parent.width - 2 * x
-                name: qsTr("Longitude")
+
+            DetailItem {
+                label: qsTr("Longitude")
                 value: zone.longitude
             }
-            InfoItem {
-                x: Theme.horizontalPageMargin
-                width: parent.width - 2 * x
-                name: qsTr("Radius")
+
+            DetailItem {
+                label: qsTr("Radius")
                 value: zone.radius
             }
 
