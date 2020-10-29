@@ -545,15 +545,15 @@
     <name>SettingsCheckConfigPage</name>
     <message>
         <source>Home Assistant Config</source>
-        <translation type="unfinished"></translation>
+        <translation>Home Assistant Config</translation>
     </message>
     <message>
         <source>This page shows the status of the configuration files of your Home Assistant server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Seite zeigt den Status der Konfigurationsdateien deines Home Assistant Servers.</translation>
     </message>
     <message>
         <source>Errors</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler</translation>
     </message>
 </context>
 <context>
@@ -783,7 +783,7 @@
     </message>
     <message>
         <source>Check Config</source>
-        <translation type="unfinished"></translation>
+        <translation>Überprüfe Conifg</translation>
     </message>
 </context>
 <context>
