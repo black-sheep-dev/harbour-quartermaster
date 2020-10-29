@@ -1,6 +1,6 @@
 * Thu Oct 29 2020 Black Sheep <blacksheep@nubecula.org> 0.1.13-1
 - Access Home Assistant informations in settings
-- Show/Search Home Assistant error log
+- Browse Home Assistant error log
 
 * Tue Oct 27 2020 Black Sheep <blacksheep@nubecula.org> 0.1.12-1
 - Homezone settings and detection

@@ -60,6 +60,11 @@ void ApiInterface::request(const QNetworkRequest &request, const QJsonObject &da
     }
 }
 
+void ApiInterface::requestEmptyPost(const QNetworkRequest &request)
+{
+    m_manager->post(request, QByteArray());
+}
+
 QByteArray ApiInterface::gunzip(const QByteArray &data)
 {
     if (data.size() <= 4) {

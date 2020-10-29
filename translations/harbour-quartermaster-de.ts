@@ -542,6 +542,21 @@
     </message>
 </context>
 <context>
+    <name>SettingsCheckConfigPage</name>
+    <message>
+        <source>Home Assistant Config</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This page shows the status of the configuration files of your Home Assistant server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Errors</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SettingsConnectionPage</name>
     <message>
         <source>Connection</source>
@@ -765,6 +780,10 @@
     <message>
         <source>Error Log</source>
         <translation>Fehler Log</translation>
+    </message>
+    <message>
+        <source>Check Config</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

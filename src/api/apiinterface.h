@@ -26,6 +26,8 @@ public:
                  const QJsonObject &data = QJsonObject(),
                  const QString &identifier = QString());
 
+    void requestEmptyPost(const QNetworkRequest &request);
+
     // helper functions
     QByteArray gunzip(const QByteArray &data);
 

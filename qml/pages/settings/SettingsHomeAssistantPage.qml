@@ -11,6 +11,13 @@ Page {
     SilicaFlickable {
         PullDownMenu {
             MenuItem {
+                text: qsTr("Check Config")
+                onClicked: {
+                    Client.checkConfig();
+                    pageStack.push(Qt.resolvedUrl("SettingsCheckConfigPage.qml"));
+                }
+            }
+            MenuItem {
                 text: qsTr("Error Log")
                 onClicked: pageStack.push(Qt.resolvedUrl("../log/ErrorLogPage.qml"), { logModel: Client.errorLogModel() });
             }

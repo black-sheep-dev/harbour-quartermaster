@@ -78,6 +78,7 @@ public:
     Q_INVOKABLE ZonesModel *zonesModel();
 
     // api
+    Q_INVOKABLE void checkConfig();
     Q_INVOKABLE void getConfig();
     Q_INVOKABLE void getZones();
     Q_INVOKABLE void refreshErrorLog();

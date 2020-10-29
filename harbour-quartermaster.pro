@@ -96,6 +96,7 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/log/ErrorLogEntryPage.qml \
     qml/pages/settings/SettingsAutoUpdatePage.qml \
     qml/pages/settings/SettingsBackupPage.qml \
+    qml/pages/settings/SettingsCheckConfigPage.qml \
     qml/pages/settings/SettingsDeveloperModePage.qml \
     qml/pages/settings/SettingsHomeAssistantPage.qml \
     qml/pages/settings/SettingsHomezonePage.qml \

@@ -25,6 +25,11 @@ void HomeassistantApi::callService(const QString &domain, const QString &service
     request(getRequest(HASS_API_ENDPOINT_SERVICES + "/" + domain + "/" + service), payload);
 }
 
+void HomeassistantApi::checkConfig()
+{
+    requestEmptyPost(getRequest(HASS_API_ENDPOINT_CHECK_CONFIG));
+}
+
 void HomeassistantApi::getConfig()
 {
     request(getRequest(HASS_API_ENDPOINT_CONFIG));
@@ -104,7 +109,7 @@ void HomeassistantApi::onRequestFinished(QNetworkReply *reply)
 
 #ifdef QT_DEBUG
     qDebug() << endpoint;
-//    qDebug() << data;
+    qDebug() << data;
     qDebug() << data.size();
     qDebug() << status;
 #endif

@@ -14,6 +14,8 @@ class HomeassistantInfo : public QObject
     Q_PROPERTY(bool available READ available WRITE setAvailable NOTIFY availableChanged)
     Q_PROPERTY(QVariantList componentList READ componentList WRITE setComponentList NOTIFY componentListChanged)
     Q_PROPERTY(quint16 components READ components WRITE setComponents NOTIFY componentsChanged)
+    Q_PROPERTY(QString configError READ configError WRITE setConfigError NOTIFY configErrorChanged)
+    Q_PROPERTY(bool configValid READ configValid WRITE setConfigValid NOTIFY configValidChanged)
     Q_PROPERTY(QString error READ error WRITE setError NOTIFY errorChanged)
     Q_PROPERTY(QString externalUrl READ externalUrl WRITE setExternalUrl NOTIFY externalUrlChanged)
     Q_PROPERTY(QString internalUrl READ internalUrl WRITE setInternalUrl NOTIFY internalUrlChanged)
@@ -32,7 +34,8 @@ public:
         ComponentNone                   = 0x00,
         ComponentMobileApp              = 0x01,
         ComponentWebhook                = 0x02,
-        ComponentWebsocketApi           = 0x04
+        ComponentWebsocketApi           = 0x04,
+        ComponentConfig                 = 0x08
     };
     Q_DECLARE_FLAGS(Components, Component)
     Q_FLAG(Components)
@@ -50,6 +53,8 @@ public:
     bool available() const;
     QVariantList componentList() const;
     quint16 components() const;
+    QString configError() const;
+    bool configValid() const;
     QString error() const;
     QString externalUrl() const;
     QString internalUrl() const;
@@ -63,11 +68,15 @@ public:
     QString version() const;
     bool versionCompatibility() const;
 
+
+
 signals:
     // properties
     void availableChanged(bool available);
     void componentListChanged(const QVariantList &components);
     void componentsChanged(quint16 components);
+    void configErrorChanged(const QString &error);
+    void configValidChanged(bool valid);
     void errorChanged(const QString &error);
     void externalUrlChanged(const QString &url);
     void internalUrlChanged(const QString &url);
@@ -86,6 +95,8 @@ public slots:
     void setAvailable(bool available);
     void setComponentList(const QVariantList &components);
     void setComponents(quint16 components);
+    void setConfigError(const QString &error);
+    void setConfigValid(bool valid);
     void setError(const QString &error);
     void setExternalUrl(const QString &url);
     void setInternalUrl(const QString &url);
@@ -110,6 +121,8 @@ private:
     bool m_available{false};
     QVariantList m_componentList;
     quint16 m_components{HomeassistantInfo::ComponentNone};
+    QString m_configError;
+    bool m_configValid{true};
     QString m_error;
     QString m_externalUrl;
     QString m_internalUrl;
@@ -123,7 +136,6 @@ private:
     QString m_version;
     bool m_versionCompatibility{false};
     bool m_busy{};
-
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(HomeassistantInfo::Components)
 

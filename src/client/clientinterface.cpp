@@ -183,6 +183,13 @@ ZonesModel *ClientInterface::zonesModel()
     return m_zones;
 }
 
+void ClientInterface::checkConfig()
+{
+    m_homeassistantInfo->setLoading(true);
+
+    m_api->checkConfig();
+}
+
 void ClientInterface::getConfig()
 {
     m_homeassistantInfo->setLoading(true);
@@ -455,6 +462,14 @@ void ClientInterface::onDataAvailable(const QString &endpoint, const QJsonDocume
         // load intital data
         getZones();
         entitiesProvider()->refresh();
+    } else if (endpoint.startsWith(HASS_API_ENDPOINT_CHECK_CONFIG)) {
+        const QJsonObject obj = doc.object();
+
+        m_homeassistantInfo->setConfigValid(obj.value(QStringLiteral("result")).toString() == QLatin1String("valid"));
+        m_homeassistantInfo->setConfigError(obj.value(QStringLiteral("errors")).toString());
+
+        m_homeassistantInfo->setLoading(false);
+
     } else if (endpoint.startsWith(HASS_API_ENDPOINT_LOGBOOK)) {
         if (!m_logBookModel)
             return;

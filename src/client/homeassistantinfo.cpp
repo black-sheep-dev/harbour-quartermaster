@@ -114,6 +114,16 @@ quint16 HomeassistantInfo::components() const
     return m_components;
 }
 
+QString HomeassistantInfo::configError() const
+{
+    return m_configError;
+}
+
+bool HomeassistantInfo::configValid() const
+{
+    return m_configValid;
+}
+
 QString HomeassistantInfo::error() const
 {
     return m_error;
@@ -202,6 +212,24 @@ void HomeassistantInfo::setComponents(quint16 components)
 
     m_components = components;
     emit componentsChanged(m_components);
+}
+
+void HomeassistantInfo::setConfigError(const QString &error)
+{
+    if (m_configError == error)
+        return;
+
+    m_configError = error;
+    emit configErrorChanged(m_configError);
+}
+
+void HomeassistantInfo::setConfigValid(bool valid)
+{
+    if (m_configValid == valid)
+        return;
+
+    m_configValid = valid;
+    emit configValidChanged(m_configValid);
 }
 
 void HomeassistantInfo::setError(const QString &error)
