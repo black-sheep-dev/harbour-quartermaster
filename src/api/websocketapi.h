@@ -1,9 +1,9 @@
 #ifndef WEBSOCKETAPI_H
 #define WEBSOCKETAPI_H
 
-#define     HASS_WEBSOCKET_API_ENDPOINT         "/api/websocket"
-
 #include <QObject>
+
+static const QString HASS_WEBSOCKET_API_ENDPOINT = QStringLiteral("/api/websocket");
 
 #include <QWebSocket>
 

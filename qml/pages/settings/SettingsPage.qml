@@ -64,6 +64,12 @@ Page {
                 page: "SettingsDeviceInfoPage.qml"
             }
             ListElement {
+                title: qsTr("Home Assistant");
+                description: qsTr("Manage Home Assistant")
+                icon: "image://theme/icon-m-about"
+                page: "SettingsHomeAssistantPage.qml"
+            }
+            ListElement {
                 title: qsTr("Developer Mode");
                 description: qsTr("Manage developer options")
                 icon: "image://theme/icon-m-developer-mode"

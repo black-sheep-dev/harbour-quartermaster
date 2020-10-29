@@ -12,9 +12,12 @@
 #include <QList>
 #include <QSettings>
 #include <QStandardPaths>
+#include <QThreadPool>
 #include <QTimer>
 
 #include <nemonotifications-qt5/notification.h>
+
+#include "src/threads/errorlogparser.h"
 
 ClientInterface::ClientInterface(QObject *parent) :
     QObject(parent),
@@ -49,7 +52,10 @@ ClientInterface::ClientInterface(QObject *parent) :
 }
 
 ClientInterface::~ClientInterface()
-{
+{   
+    m_workerThread.quit();
+    m_workerThread.wait(1000);
+
     writeSettings();
 }
 
@@ -73,6 +79,24 @@ EntitiesProvider *ClientInterface::entitiesProvider()
     return m_entitiesProvider;
 }
 
+ErrorLogModel *ClientInterface::errorLogModel()
+{
+    if (!m_errorLogModel) {
+        m_errorLogModel = new ErrorLogModel;
+    }
+
+    ErrorLogParser *parser = new ErrorLogParser;
+    parser->moveToThread(&m_workerThread);
+    connect(&m_workerThread, &QThread::finished, parser, &QObject::deleteLater);
+    connect(m_api, &HomeassistantApi::errorLogAvailable, parser, &ErrorLogParser::parseData);
+    connect(parser, &ErrorLogParser::logParsed, m_errorLogModel, &ErrorLogModel::setLogs);
+    m_workerThread.start();
+
+    refreshErrorLog();
+
+    return m_errorLogModel;
+}
+
 HomeassistantInfo *ClientInterface::homeassistantInfo()
 {
     return m_homeassistantInfo;
@@ -86,6 +110,18 @@ void ClientInterface::initialize()
 bool ClientInterface::isRegistered()
 {
     return m_webhook->isRegistered();
+}
+
+LogBookModel *ClientInterface::logBookModel(const QDateTime &timestamp)
+{
+    if (!m_logBookModel)
+        m_logBookModel = new LogBookModel;
+
+    m_logBookModel->setLoading(true);
+
+    m_api->getLogBook(timestamp);
+
+    return m_logBookModel;
 }
 
 void ClientInterface::reloadConfig()
@@ -157,6 +193,16 @@ void ClientInterface::getZones()
 {
     m_zones->setLoading(true);
     m_webhook->getZones();
+}
+
+void ClientInterface::refreshErrorLog()
+{
+    if (!m_errorLogModel)
+        return;
+
+    m_errorLogModel->setLoading(true);
+
+    m_api->getErrorLog();
 }
 
 void ClientInterface::registerDevice()
@@ -390,11 +436,11 @@ void ClientInterface::onDataAvailable(const QString &endpoint, const QJsonDocume
     qDebug() << endpoint;
 #endif
 
-    if (endpoint == QLatin1String(HASS_API_ENDPOINT_CONFIG)) {
+    if (endpoint == HASS_API_ENDPOINT_CONFIG) {
         m_homeassistantInfo->setData(doc.object());
         m_homeassistantInfo->setAvailable(true);
         m_homeassistantInfo->setLoading(false);
-    } else if (endpoint == QLatin1String(HASS_API_ENDPOINT_DEVICE_REGISTRATION)) {
+    } else if (endpoint == HASS_API_ENDPOINT_DEVICE_REGISTRATION) {
         m_webhook->setRegistrationData(doc.object());
         m_device->setRegistered(m_webhook->isRegistered());
 
@@ -409,6 +455,11 @@ void ClientInterface::onDataAvailable(const QString &endpoint, const QJsonDocume
         // load intital data
         getZones();
         entitiesProvider()->refresh();
+    } else if (endpoint.startsWith(HASS_API_ENDPOINT_LOGBOOK)) {
+        if (!m_logBookModel)
+            return;
+
+        m_logBookModel->setLogEntries(doc.array());
     }
 }
 
@@ -434,7 +485,7 @@ void ClientInterface::onHomeassistantUpdateAvailable(const QString &version)
 #endif
 
     Notification notify;
-    notify.setCategory("x-nemo.software-update");
+    notify.setCategory(QStringLiteral("x-nemo.software-update"));
     notify.setBody(tr("There is an update to version %1 available.").arg(version));
     notify.setSummary(tr("Home Assistant update available!"));
     notify.setIcon(QStringLiteral("image://theme/icon-lock-application-update"));

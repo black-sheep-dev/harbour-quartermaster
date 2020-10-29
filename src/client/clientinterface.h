@@ -3,6 +3,8 @@
 
 #include <QObject>
 
+#include <QThread>
+
 #include "src/api/homeassistantapi.h"
 #include "src/api/webhookapi.h"
 #include "src/api/websocketapi.h"
@@ -13,6 +15,9 @@
 #include "src/device/device.h"
 #include "src/device/trackers/devicetrackergps.h"
 #include "src/device/trackers/devicetrackerwifi.h"
+#include "src/models/errorlogmodel.h"
+#include "src/models/logbookmodel.h"
+#include "src/threads/errorlogparser.h"
 
 class ClientInterface : public QObject
 {
@@ -30,6 +35,8 @@ class ClientInterface : public QObject
     Q_PROPERTY(bool websocketNotify READ websocketNotify WRITE setWebsocketNotify NOTIFY websocketNotifyChanged)
 
     Q_PROPERTY(QString debugOutput READ debugOutput WRITE setDebugOutput NOTIFY debugOutputChanged)
+
+    QThread m_workerThread;
 
 public:    
     enum TrackingMode {
@@ -56,9 +63,11 @@ public:
     Q_INVOKABLE void connectToHost();
     Q_INVOKABLE Device *device();
     Q_INVOKABLE EntitiesProvider *entitiesProvider();
+    Q_INVOKABLE ErrorLogModel *errorLogModel();
     Q_INVOKABLE HomeassistantInfo *homeassistantInfo();
     Q_INVOKABLE void initialize();
     Q_INVOKABLE bool isRegistered();
+    Q_INVOKABLE LogBookModel *logBookModel(const QDateTime &timestamp = QDateTime::currentDateTime());
     Q_INVOKABLE void reloadConfig();
     Q_INVOKABLE void reset();
     Q_INVOKABLE void saveSettings();
@@ -71,6 +80,7 @@ public:
     // api
     Q_INVOKABLE void getConfig();
     Q_INVOKABLE void getZones();
+    Q_INVOKABLE void refreshErrorLog();
     Q_INVOKABLE void registerDevice();
 
     // properties
@@ -100,7 +110,6 @@ signals:
     void websocketNotifyChanged(bool enabled);
 
     void debugOutputChanged(QString debugOutput);
-
 
 public slots:
     // properties
@@ -137,11 +146,13 @@ private:
     QString m_baseUrl;
     Device *m_device{nullptr};
     EntitiesProvider *m_entitiesProvider{nullptr};
+    ErrorLogModel *m_errorLogModel{nullptr};
     DeviceTrackerGPS *m_gpsTracker{nullptr};
     HomeassistantInfo *m_homeassistantInfo{nullptr};
     QString m_homeassistantLastUpdateVersion;
     QString m_lastNetworkIdentifier;
     QJsonObject m_lastLocation;
+    LogBookModel *m_logBookModel{nullptr};
     QNetworkConfigurationManager *m_ncm{nullptr};
     DeviceTrackerWifi *m_wifiTracker{nullptr};
     Wallet *m_wallet{nullptr};

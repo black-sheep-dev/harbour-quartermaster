@@ -3,10 +3,12 @@
 
 #include "apiinterface.h"
 
-#define     HASS_API_ENDPOINT_CONFIG                    "/api/config"
-#define     HASS_API_ENDPOINT_DEVICE_REGISTRATION       "/api/mobile_app/registrations"
-#define     HASS_API_ENDPOINT_SERVICES                  "/api/services"
-#define     HASS_API_ENDPOINT_STATES                    "/api/states"
+static const QString HASS_API_ENDPOINT_CONFIG               = QStringLiteral("/api/config");
+static const QString HASS_API_ENDPOINT_DEVICE_REGISTRATION  = QStringLiteral("/api/mobile_app/registrations");
+static const QString HASS_API_ENDPOINT_ERROR_LOG            = QStringLiteral("/api/error_log");
+static const QString HASS_API_ENDPOINT_LOGBOOK              = QStringLiteral("/api/logbook");
+static const QString HASS_API_ENDPOINT_SERVICES             = QStringLiteral("/api/services");
+static const QString HASS_API_ENDPOINT_STATES               = QStringLiteral("/api/states");
 
 #include "src/crypto/secrets.h"
 #include "src/device/device.h"
@@ -21,9 +23,14 @@ public:
     // api calls
     void callService(const QString &domain, const QString &service, const QString &entityId, const QJsonObject &data = QJsonObject());
     void getConfig();
+    void getErrorLog();
+    void getLogBook(const QDateTime &timestamp);
     void getState(const QString &entityId);
     void getStates();
     void registerDevice(Device *device);
+
+signals:
+    void errorLogAvailable(const QByteArray &data);
 
 private:
     QStringList m_activeRequests;

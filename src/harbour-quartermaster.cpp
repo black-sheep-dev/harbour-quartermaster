@@ -7,6 +7,7 @@
 #include "models/entitiessortfiltermodel.h"
 #include "models/sortfiltermodel.h"
 #include "tools/backuptool.h"
+#include "models/errorlogmodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -31,6 +32,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<EntitiesProvider>("org.nubecula.harbour.quartermaster", 1, 0, "EntitiesProvider");
     qmlRegisterType<EntitiesSortFilterModel>("org.nubecula.harbour.quartermaster", 1, 0, "EntitiesSortFilterModel");
     qmlRegisterType<EntityTypesModel>("org.nubecula.harbour.quartermaster", 1, 0, "EntityTypesModel");
+    qmlRegisterType<ErrorLogModel>("org.nubecula.harbour.quartermaster", 1, 0, "ErrorLogModel");
     qmlRegisterType<HomeassistantInfo>("org.nubecula.harbour.quartermaster", 1, 0, "HomeassistantInfo");
     qmlRegisterType<SortFilterModel>("org.nubecula.harbour.quartermaster", 1, 0, "SortFilterModel");
     qmlRegisterType<WifiNetworkModel>("org.nubecula.harbour.quartermaster", 1, 0, "WifiNetworkModel");

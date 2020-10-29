@@ -284,6 +284,24 @@
     </message>
 </context>
 <context>
+    <name>ErrorLogEntryPage</name>
+    <message>
+        <source>Log Entry</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ErrorLogPage</name>
+    <message>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>GroupPage</name>
     <message>
         <source>Attributes</source>
@@ -698,6 +716,57 @@
     </message>
 </context>
 <context>
+    <name>SettingsHomeAssistantPage</name>
+    <message>
+        <source>Home Assistant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Location Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>compatible</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>incompatible</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>External URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compatibility</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Components</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>inactive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SettingsHomezonePage</name>
     <message>
         <source>Reset</source>
@@ -859,6 +928,14 @@
     </message>
     <message>
         <source>Manage homezone settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Home Assistant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage Home Assistant</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

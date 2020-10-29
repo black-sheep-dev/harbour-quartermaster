@@ -138,11 +138,11 @@ void EntitiesProvider::onDataAvailable(const QString &endpoint, const QJsonDocum
     qDebug() << endpoint;
 #endif
 
-    if (endpoint == QLatin1String(HASS_API_ENDPOINT_STATES)) {
+    if (endpoint == HASS_API_ENDPOINT_STATES) {
         parseStates(doc.array());
-    } else if (endpoint.startsWith(QLatin1String(HASS_API_ENDPOINT_STATES) + "/")) {
+    } else if (endpoint.startsWith(HASS_API_ENDPOINT_STATES + "/")) {
         updateEntity(doc.object());
-    } else if (endpoint.startsWith(QLatin1String(HASS_API_ENDPOINT_SERVICES))) {
+    } else if (endpoint.startsWith(HASS_API_ENDPOINT_SERVICES)) {
         updateEntities(doc.array());
     }
 }

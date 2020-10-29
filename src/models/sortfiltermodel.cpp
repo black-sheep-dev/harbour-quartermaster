@@ -4,12 +4,19 @@ SortFilterModel::SortFilterModel(QObject *parent) :
     QSortFilterProxyModel(parent)
 {
     setSortRole(Qt::DisplayRole);
+    setFilterCaseSensitivity(Qt::CaseInsensitive);
     setFilterRole(Qt::DisplayRole);
+}
+
+void SortFilterModel::setSortOrder(Qt::SortOrder order)
+{
+    m_sortOrder = order;
+    sortModel();
 }
 
 void SortFilterModel::sortModel()
 {
-    sort(0, Qt::AscendingOrder);
+    sort(0, m_sortOrder);
 }
 
 void SortFilterModel::setSourceModel(QAbstractItemModel *sourceModel)

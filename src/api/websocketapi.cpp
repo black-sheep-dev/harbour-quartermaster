@@ -44,7 +44,7 @@ void WebsocketApi::open()
         return;
     }
 
-    m_websocket.open(m_baseUrl + QStringLiteral(HASS_WEBSOCKET_API_ENDPOINT));
+    m_websocket.open(m_baseUrl + HASS_WEBSOCKET_API_ENDPOINT);
 }
 
 void WebsocketApi::setBaseUrl(const QString &url)

@@ -44,6 +44,7 @@ Here is a list of all implemented features so far. Not all features listed below
 - Websocket connection for live updates of entity states
 - Backup & Restore of settings (Wifi, more to come)
 - Notifications from Home Assistant Server (see section "Home Assistant -> Notifications")
+- Browse error log of Home Assistant
 
 ## Planned Features
 - Two-Factor authentication to get access token (Qt OAuth2 functionality needs at least Qt 5.8 / Sailfish OS 3.4 has antique Qt 5.6 libraries)

@@ -22,17 +22,27 @@ void HomeassistantApi::callService(const QString &domain, const QString &service
     QJsonObject payload = data;
     payload.insert(API_KEY_ENTITY_ID, entityId);
 
-    request(getRequest(QStringLiteral(HASS_API_ENDPOINT_SERVICES) + "/" + domain + "/" + service), payload);
+    request(getRequest(HASS_API_ENDPOINT_SERVICES + "/" + domain + "/" + service), payload);
 }
 
 void HomeassistantApi::getConfig()
 {
-    request(getRequest(QStringLiteral(HASS_API_ENDPOINT_CONFIG)));
+    request(getRequest(HASS_API_ENDPOINT_CONFIG));
+}
+
+void HomeassistantApi::getErrorLog()
+{
+    request(getRequest(HASS_API_ENDPOINT_ERROR_LOG));
+}
+
+void HomeassistantApi::getLogBook(const QDateTime &timestamp)
+{
+    request(getRequest(HASS_API_ENDPOINT_LOGBOOK + "/" + timestamp.toString(Qt::ISODate)));
 }
 
 void HomeassistantApi::getState(const QString &entityId)
 {
-    request(getRequest(QStringLiteral(HASS_API_ENDPOINT_STATES) + "/" + entityId));
+    request(getRequest(HASS_API_ENDPOINT_STATES + "/" + entityId));
 }
 
 void HomeassistantApi::getStates()
@@ -57,7 +67,7 @@ void HomeassistantApi::registerDevice(Device *device)
     data.insert(API_KEY_OS_VERSION, device->softwareVersion());
     data.insert(API_KEY_SUPPORTS_ENCRYPTION, device->encryption());
 
-    request(getRequest(QStringLiteral(HASS_API_ENDPOINT_DEVICE_REGISTRATION)), data);
+    request(getRequest(HASS_API_ENDPOINT_DEVICE_REGISTRATION), data);
 }
 
 QNetworkRequest HomeassistantApi::getRequest(const QString &endpoint)
@@ -82,14 +92,20 @@ void HomeassistantApi::onRequestFinished(QNetworkReply *reply)
 
     // read data
     const QString endpoint = reply->url().toString().remove(baseUrl());
-    const QByteArray &data = gunzip(reply->readAll());
+    const QByteArray raw = reply->readAll();
+    QByteArray data = gunzip(raw);
+
+    if (data.isEmpty())
+        data = raw;
+
     const int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
     m_activeRequests.removeAll(endpoint);
 
 #ifdef QT_DEBUG
     qDebug() << endpoint;
-    qDebug() << data;
+//    qDebug() << data;
+    qDebug() << data.size();
     qDebug() << status;
 #endif
 
@@ -106,6 +122,13 @@ void HomeassistantApi::onRequestFinished(QNetworkReply *reply)
     // delete reply
     reply->deleteLater();
 
+    // non json data handling
+    if (endpoint == HASS_API_ENDPOINT_ERROR_LOG) {
+        emit errorLogAvailable(data);
+        return;
+    }
+
+    // json data handling
     QJsonParseError error{};
 
     const QJsonDocument doc = QJsonDocument::fromJson(data, &error);

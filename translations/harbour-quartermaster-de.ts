@@ -285,6 +285,24 @@
     </message>
 </context>
 <context>
+    <name>ErrorLogEntryPage</name>
+    <message>
+        <source>Log Entry</source>
+        <translation>Log Eintrag</translation>
+    </message>
+</context>
+<context>
+    <name>ErrorLogPage</name>
+    <message>
+        <source>Refresh</source>
+        <translation>Aktualisieren</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>Suche</translation>
+    </message>
+</context>
+<context>
     <name>GroupPage</name>
     <message>
         <source>Attributes</source>
@@ -699,6 +717,57 @@
     </message>
 </context>
 <context>
+    <name>SettingsHomeAssistantPage</name>
+    <message>
+        <source>Home Assistant</source>
+        <translation>Home Assistant</translation>
+    </message>
+    <message>
+        <source>Location Name</source>
+        <translation>Standort Name</translation>
+    </message>
+    <message>
+        <source>Version</source>
+        <translation>Version</translation>
+    </message>
+    <message>
+        <source>compatible</source>
+        <translation>kompatibel</translation>
+    </message>
+    <message>
+        <source>incompatible</source>
+        <translation>inkompatibel</translation>
+    </message>
+    <message>
+        <source>Internal URL</source>
+        <translation>Interne URL</translation>
+    </message>
+    <message>
+        <source>External URL</source>
+        <translation>Externe URL</translation>
+    </message>
+    <message>
+        <source>Compatibility</source>
+        <translation>Kompatibilität</translation>
+    </message>
+    <message>
+        <source>Components</source>
+        <translation>Komponenten</translation>
+    </message>
+    <message>
+        <source>active</source>
+        <translation>aktiv</translation>
+    </message>
+    <message>
+        <source>inactive</source>
+        <translation>inaktiv</translation>
+    </message>
+    <message>
+        <source>Error Log</source>
+        <translation>Fehler Log</translation>
+    </message>
+</context>
+<context>
     <name>SettingsHomezonePage</name>
     <message>
         <source>Reset</source>
@@ -861,6 +930,14 @@
     <message>
         <source>Manage homezone settings</source>
         <translation>Verwalte die Homezone Einstellungen</translation>
+    </message>
+    <message>
+        <source>Home Assistant</source>
+        <translation>Home Assistant</translation>
+    </message>
+    <message>
+        <source>Manage Home Assistant</source>
+        <translation>Home Assistant verwalten</translation>
     </message>
 </context>
 <context>

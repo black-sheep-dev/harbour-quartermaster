@@ -3,7 +3,6 @@
 
 #include "apiinterface.h"
 
-
 #include "src/device/device.h"
 
 class WebhookApi : public ApiInterface

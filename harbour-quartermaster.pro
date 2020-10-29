@@ -10,7 +10,7 @@
 #   - translation filenames have to be changed
 
 # VERSION
-VERSION = 0.1.11
+VERSION = 0.1.13
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # The name of your application
@@ -56,9 +56,12 @@ SOURCES += src/harbour-quartermaster.cpp \
     src/models/entitiessortfiltermodel.cpp \
     src/models/entityattributesmodel.cpp \
     src/models/entitytypesmodel.cpp \
+    src/models/errorlogmodel.cpp \
+    src/models/logbookmodel.cpp \
     src/models/sortfiltermodel.cpp \
     src/models/wifinetworkmodel.cpp \
     src/models/zonesmodel.cpp \
+    src/threads/errorlogparser.cpp \
     src/tools/backuptool.cpp
 
 DISTFILES += qml/harbour-quartermaster.qml \
@@ -69,6 +72,7 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/cover/CoverPage.qml \
     qml/dialogs/BackupDialog.qml \
     qml/dialogs/RestoreBackupDialog.qml \
+    qml/pages/ErrorLogPage.qml \
     qml/pages/OverviewPage.qml \
     qml/pages/SettingsConnectionPage.qml \
     qml/pages/SettingsDeviceInfoPage.qml \
@@ -89,10 +93,13 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/entities/types/GroupPage.qml \
     qml/pages/entities/types/LightPage.qml \
     qml/pages/entities/types/SwitchPage.qml \
+    qml/pages/log/ErrorLogEntryPage.qml \
     qml/pages/settings/SettingsAutoUpdatePage.qml \
     qml/pages/settings/SettingsBackupPage.qml \
     qml/pages/settings/SettingsDeveloperModePage.qml \
+    qml/pages/settings/SettingsHomeAssistantPage.qml \
     qml/pages/settings/SettingsHomezonePage.qml \
+    qml/pages/settings/SettingsLogBookPage.qml \
     qml/pages/settings/SettingsNotificationsPage.qml \
     qml/pages/wizard/WizardConnectionPage.qml \
     qml/pages/wizard/WizardDeviceRegistrationPage.qml \
@@ -150,8 +157,11 @@ HEADERS += \
     src/models/entitiessortfiltermodel.h \
     src/models/entityattributesmodel.h \
     src/models/entitytypesmodel.h \
+    src/models/errorlogmodel.h \
+    src/models/logbookmodel.h \
     src/models/sortfiltermodel.h \
     src/models/wifinetworkmodel.h \
     src/models/zonesmodel.h \
     src/string_constants.h \
+    src/threads/errorlogparser.h \
     src/tools/backuptool.h
