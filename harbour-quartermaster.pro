@@ -10,14 +10,14 @@
 #   - translation filenames have to be changed
 
 # VERSION
-VERSION = 0.1.15
+VERSION = 0.1.16
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # The name of your application
 TARGET = harbour-quartermaster
 DEFINES += APP_TARGET=\\\"$$TARGET\\\"
 
-QT += dbus positioning websockets
+QT += dbus positioning network websockets
 
 PKGCONFIG += \
     sailfishmdm \
