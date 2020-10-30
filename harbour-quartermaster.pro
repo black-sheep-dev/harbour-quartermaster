@@ -10,7 +10,7 @@
 #   - translation filenames have to be changed
 
 # VERSION
-VERSION = 0.1.14
+VERSION = 0.1.15
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # The name of your application
@@ -22,7 +22,8 @@ QT += dbus positioning websockets
 PKGCONFIG += \
     sailfishmdm \
     sailfishsecrets \
-    nemonotifications-qt5
+    nemonotifications-qt5 \
+    qt5embedwidget
 
 LIBS += -L../../lib -lkeepalive
 LIBS += -lz
@@ -81,6 +82,7 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/SettingsPage.qml \
     qml/pages/SettingsZonePage.qml \
     qml/pages/SettingsZonesPage.qml \
+    qml/pages/WebViewPage.qml \
     qml/pages/entities/EntitiesListViewPage.qml \
     qml/pages/entities/EntitiesOverviewPage.qml \
     qml/pages/entities/EntityAttributesPage.qml \

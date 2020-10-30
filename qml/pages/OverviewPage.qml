@@ -30,6 +30,10 @@ Page {
                 onClicked: pageStack.push(Qt.resolvedUrl("settings/SettingsPage.qml"))
             }
             MenuItem {
+                text: qsTr("Web View")
+                onClicked: pageStack.push(Qt.resolvedUrl("WebViewPage.qml"))
+            }
+            MenuItem {
                 text: qsTr("Entities")
                 onClicked: pageStack.push(Qt.resolvedUrl("entities/EntitiesOverviewPage.qml"))
             }

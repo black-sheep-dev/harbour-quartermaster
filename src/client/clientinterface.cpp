@@ -39,6 +39,7 @@ ClientInterface::ClientInterface(QObject *parent) :
     m_entitiesProvider->setApi(m_api);
 
     connect(m_wallet, &Wallet::initialized, this, &ClientInterface::setReady);
+    connect(m_webhook, &WebhookApi::requestRegistrationRefresh, this, &ClientInterface::registerDevice);
 
     connect(m_wifiTracker, &DeviceTrackerWifi::networkChanged, this, &ClientInterface::setDebugOutput);
     connect(m_api, &HomeassistantApi::dataAvailable, this, &ClientInterface::onDataAvailable);
@@ -548,9 +549,10 @@ void ClientInterface::onReadyChanged()
 {
     m_api->getConfig();
 
+
     if ( m_ready && m_webhook->isRegistered() ) {
         m_device->setRegistered(true);
-        m_webhook->updateRegistration(m_device);
+        m_api->registerDevice(m_device);
         m_webhook->getZones();
     }
 

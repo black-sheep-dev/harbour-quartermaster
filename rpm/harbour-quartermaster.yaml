@@ -1,6 +1,6 @@
 Name: harbour-quartermaster
 Summary: Quartermaster
-Version: 0.1.14
+Version: 0.1.15
 Release: 1
 # The contents of the Group field should be one of the groups listed here:
 # https://github.com/mer-tools/spectacle/blob/master/data/GROUPS
@@ -23,10 +23,12 @@ PkgConfigBR:
   - Qt5Qml
   - Qt5Quick
   - Qt5DBus
+  - Qt5Network
   - Qt5WebSockets >= 5.5.1
   - sailfishsecrets
   - nemodbus
   - nemonotifications-qt5
+  - qt5embedwidget >= 1.14.9
 
 # Build dependencies without a pkgconfig setup can be listed here
 # PkgBR:
@@ -38,6 +40,7 @@ Requires:
   - sailfishsecretsdaemon-secretsplugins-default
   - nemo-qml-plugin-dbus-qt5
   - nemo-qml-plugin-notifications-qt5
+  - qtmozembed-qt5
 
 # All installed files
 Files:

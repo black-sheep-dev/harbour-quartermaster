@@ -82,7 +82,6 @@ public:
     Q_INVOKABLE void getConfig();
     Q_INVOKABLE void getZones();
     Q_INVOKABLE void refreshErrorLog();
-    Q_INVOKABLE void registerDevice();
 
     // properties
     bool apiLogging() const;
@@ -113,6 +112,9 @@ signals:
     void debugOutputChanged(QString debugOutput);
 
 public slots:
+    // api
+    Q_INVOKABLE void registerDevice();
+
     // properties
     void setApiLogging(bool enable);
     void setBusy(bool busy);

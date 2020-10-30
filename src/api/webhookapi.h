@@ -37,6 +37,7 @@ public:
     bool encryption() const;
 
 signals:
+    void requestRegistrationRefresh();
     void secretsNeedSave(const Secrets &secrets);
 
     // properties

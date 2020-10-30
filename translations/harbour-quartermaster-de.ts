@@ -382,6 +382,10 @@
         <source>Not implemented yet</source>
         <translation>Noch nicht implementiert</translation>
     </message>
+    <message>
+        <source>Web View</source>
+        <translation>Web Ansicht</translation>
+    </message>
 </context>
 <context>
     <name>PersonsListPage</name>

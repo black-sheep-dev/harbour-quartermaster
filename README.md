@@ -46,6 +46,7 @@ Here is a list of all implemented features so far. Not all features listed below
 - Notifications from Home Assistant Server (see section "Home Assistant -> Notifications")
 - Browse error log of Home Assistant
 - Check if Home Assistant configuration is valid
+- Internal web view of Home Assistant UI using Gecko engine (seperate login required / not very performant)
 
 ## Planned Features
 - Two-Factor authentication to get access token (Qt OAuth2 functionality needs at least Qt 5.8 / Sailfish OS 3.4 has antique Qt 5.6 libraries)
@@ -57,6 +58,7 @@ Here is a list of all implemented features so far. Not all features listed below
 - Access to history log
 - More devices and entity types (need you help because I don't have all of them)
 - More device sensors if requested
+- Internal web view of Home Assistant UI without extra login
 - all other feature requests
 
 ## Translations

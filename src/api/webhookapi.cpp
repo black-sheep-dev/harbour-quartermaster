@@ -116,18 +116,29 @@ void WebhookApi::onReplyFinished(const QString &identifier, QNetworkReply *reply
     qDebug() << "WEBHOOK REPLY";
 #endif
 
+    const int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+
     if (reply->error()) {
 #ifdef QT_DEBUG
         qDebug() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         qDebug() << reply->errorString();
 #endif
+        // status 410 webtoken expired
+        if (status == 410) {
+#ifdef QT_DEBUG
+            qDebug() << QStringLiteral("RENEW WEBHOOK");
+#endif
+            emit requestRegistrationRefresh();
+            return;
+        }
+
         reply->deleteLater();
         return;
     }
 
     // read data
     const QByteArray data = reply->readAll();
-    const int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+
 
 #ifdef QT_DEBUG
     qDebug() << identifier;

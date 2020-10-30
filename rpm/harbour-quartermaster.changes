@@ -1,4 +1,8 @@
 * Fri Oct 30 2020 Black Sheep <blacksheep@nubecula.org> 0.1.14-1
+- Added new WebView component to show Home Assistant UI inside app
+- Fixed not renew device registration if webhookId expiered (e.g. at server restart)
+
+* Fri Oct 30 2020 Black Sheep <blacksheep@nubecula.org> 0.1.14-1
 - Check if Home Assistant configuration is valid
 - UI improvements
 
