@@ -45,6 +45,7 @@ Here is a list of all implemented features so far. Not all features listed below
 - Backup & Restore of settings (Wifi, more to come)
 - Notifications from Home Assistant Server (see section "Home Assistant -> Notifications")
 - Browse error log of Home Assistant
+- Check if Home Assistant configuration is valid
 
 ## Planned Features
 - Two-Factor authentication to get access token (Qt OAuth2 functionality needs at least Qt 5.8 / Sailfish OS 3.4 has antique Qt 5.6 libraries)
@@ -74,6 +75,7 @@ To get this app working with Home Assistant you need to activate the following c
 - mobile_app
 - webhook
 - websocket
+- config
 
 If you have "default_config:" in your configuration.yaml these components should already be active. If you need help please refer to [Home Assistant Documentation](https://www.home-assistant.io/docs/).
 

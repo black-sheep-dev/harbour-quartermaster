@@ -554,6 +554,10 @@
         <source>Errors</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The config component is not activated on Home Assistant server.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsConnectionPage</name>
@@ -1032,6 +1036,14 @@
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
+    </message>
+    <message>
+        <source>No Zones available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create new zones in Home Assistant web interface. If zones are defined but are not displayed here, then there is a problem with the connection or the access token. In this case it helps to reset and renew the device registration.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

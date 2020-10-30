@@ -555,6 +555,10 @@
         <source>Errors</source>
         <translation>Fehler</translation>
     </message>
+    <message>
+        <source>The config component is not activated on Home Assistant server.</source>
+        <translation>Die config Komponente ist nicht auf dem Home Assistant Server aktiviert.</translation>
+    </message>
 </context>
 <context>
     <name>SettingsConnectionPage</name>
@@ -1034,6 +1038,14 @@
             <numerusform>%n Netzwerk definiert</numerusform>
             <numerusform>%n Netzwerke definiert</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>No Zones available</source>
+        <translation>Keine Zonen verfügbar</translation>
+    </message>
+    <message>
+        <source>Create new zones in Home Assistant web interface. If zones are defined but are not displayed here, then there is a problem with the connection or the access token. In this case it helps to reset and renew the device registration.</source>
+        <translation>Erstelle neue Zonen im Home Assistant Web Oberfläche. Wenn Zonen definiert sind, aber hier nicht angezeigt werden, dann gibt es ein Problem mit der Verbindung oder dem Access Token. In diesem Fall hilft es die Geräte Registrierung zurückzusetzen und zu erneuern.</translation>
     </message>
 </context>
 <context>

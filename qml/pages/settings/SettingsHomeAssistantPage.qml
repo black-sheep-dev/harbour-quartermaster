@@ -80,6 +80,11 @@ Page {
                 label: "websocket_api"
                 value: (Client.homeassistantInfo().components & HomeassistantInfo.ComponentWebsocketApi) === HomeassistantInfo.ComponentWebsocketApi ? qsTr("active") : qsTr("inactive")
             }
+
+            DetailItem {
+                label: "config"
+                value: (Client.homeassistantInfo().components & HomeassistantInfo.ComponentConfig) === HomeassistantInfo.ComponentConfig ? qsTr("active") : qsTr("inactive")
+            }
         }
     }
 }

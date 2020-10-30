@@ -39,8 +39,21 @@ Page {
                 text: qsTr("This page shows the status of the configuration files of your Home Assistant server.")
             }
 
+            Label {
+                visible: (Client.homeassistantInfo().components & HomeassistantInfo.ComponentConfig) !== HomeassistantInfo.ComponentConfig
+
+                width: parent.width
+                wrapMode: Text.WordWrap
+
+                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeMedium
+
+                text: qsTr("The config component is not activated on Home Assistant server.")
+            }
+
             Image {
                 visible: !Client.homeassistantInfo().loading
+                         && (Client.homeassistantInfo().components & HomeassistantInfo.ComponentConfig) === HomeassistantInfo.ComponentConfig
 
                 id: checkImage
                 source: {

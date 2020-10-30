@@ -94,6 +94,10 @@ void HomeassistantInfo::setData(const QJsonObject &object)
         flags |= ComponentWebsocketApi;
     }
 
+    if (components.contains(QLatin1String("config"))) {
+        flags |= ComponentConfig;
+    }
+
     setComponents(flags);
 
     // units
