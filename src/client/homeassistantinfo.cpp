@@ -42,13 +42,17 @@ bool HomeassistantInfo::isUpdateAvailable(const QString &version) const
     if (parts.count() != 3)
         return false;
 
-    if (parts.at(0).toInt() > m_majorVersion)
+    const int major = parts.at(0).toInt();
+    const int minor = parts.at(1).toInt();
+    const int build = parts.at(2).toInt();
+
+    if (major > m_majorVersion)
         return true;
 
-    if (parts.at(1).toInt() > m_minorVersion)
+    if (minor > m_minorVersion)
         return true;
 
-    if (parts.at(2).toInt() > m_buildVersion)
+    if (build > m_buildVersion)
         return true;
 
     return false;
@@ -75,8 +79,13 @@ void HomeassistantInfo::setData(const QJsonObject &object)
 
     const QStringList parts = version.split(".");
 
-    if (parts.size() > 2)
-        setVersionCompatibility(parts.at(1).toInt() >= 90);
+    if (parts.size() > 2) {
+        if (parts.at(0).toInt() >= 2020) {
+            setVersionCompatibility(true);
+        } else {
+            setVersionCompatibility(parts.at(1).toInt() >= 90);
+        }
+    }
 
 
     // component flags

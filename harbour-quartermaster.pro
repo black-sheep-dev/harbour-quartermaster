@@ -10,7 +10,7 @@
 #   - translation filenames have to be changed
 
 # VERSION
-VERSION = 0.1.16
+VERSION = 0.1.17
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # The name of your application

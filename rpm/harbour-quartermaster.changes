@@ -1,3 +1,6 @@
+* Tue Dec 22 2020 Black Sheep <blacksheep@nubecula.org> 0.1.17-1
+- Fixed for version number layout change of Home Assistant
+
 * Fri Oct 30 2020 Black Sheep <blacksheep@nubecula.org> 0.1.16-1
 - Fixed desktop file for use of webview
 
