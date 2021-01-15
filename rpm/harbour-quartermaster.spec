@@ -9,7 +9,7 @@ Name:       harbour-quartermaster
 # << macros
 
 Summary:    Quartermaster
-Version:    0.1.17
+Version:    0.1.18
 Release:    1
 Group:      Qt/Qt
 License:    GPLv3
@@ -21,6 +21,9 @@ Requires:   sailfishsecretsdaemon-secretsplugins-default
 Requires:   nemo-qml-plugin-dbus-qt5
 Requires:   nemo-qml-plugin-notifications-qt5
 Requires:   qtmozembed-qt5
+Requires:   sailfish-components-webview-qt5
+Requires:   sailfish-components-webview-qt5-popups
+Requires:   sailfish-components-webview-qt5-pickers
 BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)

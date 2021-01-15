@@ -1,6 +1,6 @@
 Name: harbour-quartermaster
 Summary: Quartermaster
-Version: 0.1.17
+Version: 0.1.18
 Release: 1
 # The contents of the Group field should be one of the groups listed here:
 # https://github.com/mer-tools/spectacle/blob/master/data/GROUPS
@@ -41,6 +41,9 @@ Requires:
   - nemo-qml-plugin-dbus-qt5
   - nemo-qml-plugin-notifications-qt5
   - qtmozembed-qt5
+  - sailfish-components-webview-qt5
+  - sailfish-components-webview-qt5-popups
+  - sailfish-components-webview-qt5-pickers
 
 # All installed files
 Files:

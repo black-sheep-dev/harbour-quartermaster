@@ -14,5 +14,6 @@ rm $app-optimized.svg
 # convert to png
 for size in "${sizes[@]}";
 do
-convert -background none -size $size"x"$size $app.svg "$size"x"$size"/$app.png
+inkscape --export-overwrite -C -o $size"x"$size/$app.png -w $size -h $size $app.svg
+optipng $size"x"$size/$app.png
 done

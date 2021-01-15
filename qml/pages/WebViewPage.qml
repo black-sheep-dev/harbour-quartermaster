@@ -4,14 +4,18 @@ import Sailfish.WebView 1.0
 
 import org.nubecula.harbour.quartermaster 1.0
 
-Page {
+WebViewPage {
     id: page
 
     allowedOrientations: Orientation.All
 
-    WebView {
+    WebViewFlickable {
         anchors.fill: parent
-        active: true
-        url: Client.baseUrl()
+
+        WebView {
+            anchors.fill: parent
+            active: true
+            url: Client.baseUrl()
+        }
     }
 }
