@@ -22,7 +22,7 @@ bool ErrorLogModel::loading() const
     return m_loading;
 }
 
-void ErrorLogModel::setLogs(QStringList headers, QStringList messages)
+void ErrorLogModel::setLogs(const QStringList &headers, const QStringList &messages)
 {
     beginResetModel();
     m_headers = headers;

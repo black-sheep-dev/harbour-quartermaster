@@ -60,7 +60,7 @@ void DeviceTrackerWifi::loadNetworkSettings()
     }
     
     // parse data
-    for (Zone *zone : m_zones->zones()) {
+    for (auto zone : m_zones->zones()) {
         if (!data.contains(zone->guid()))
             continue;
         
@@ -71,7 +71,7 @@ void DeviceTrackerWifi::loadNetworkSettings()
         for (const QJsonValue &item : networks) {
             const QJsonObject obj = item.toObject();
             
-            auto *network = new WifiNetwork;
+            auto network = new WifiNetwork;
             network->setName(obj.value(QStringLiteral("name")).toString());
             network->setIdentifier(obj.value(QStringLiteral("identifier")).toString());
             
@@ -95,21 +95,22 @@ void DeviceTrackerWifi::saveNetworkSettings()
     // create data
     QJsonObject data;
     
-    for (Zone *zone : m_zones->zones()) {
-        QJsonArray networks;
+    for (auto zone : m_zones->zones()) {
+        QJsonArray array;
         
-        for (const WifiNetwork *network : zone->networksModel()->networks()) {
+        const QList<WifiNetwork *> networks = zone->networksModel()->networks();
+        for (const auto &network : networks) {
             QJsonObject net;
             net.insert(QStringLiteral("name"), network->name());
             net.insert(QStringLiteral("identifier"), network->identifier());
             
-            networks.append(net);
+            array.append(net);
         }
         
-        if (networks.isEmpty())
+        if (array.isEmpty())
             continue;
         
-        data.insert(zone->guid(), networks);
+        data.insert(zone->guid(), array);
     }
     
     // write data
@@ -125,14 +126,15 @@ void DeviceTrackerWifi::updateWifiNetworks()
 
     QList<WifiNetwork *> networks;
 
-    for (const QNetworkConfiguration &cfg : m_ncm->allConfigurations()) {
+    QList<QNetworkConfiguration> configs = m_ncm->allConfigurations();
+    for (const auto &cfg : configs) {
         if (cfg.bearerType() == QNetworkConfiguration::BearerWLAN) {
 
 #ifdef QT_DEBUG
             qDebug() << cfg.name();
             qDebug() << cfg.state();
 #endif
-            auto *network = new WifiNetwork;
+            auto network = new WifiNetwork;
             network->setName(cfg.name());
             network->setIdentifier(cfg.identifier());
             network->setDefined(cfg.state() & QNetworkConfiguration::Defined);
@@ -153,7 +155,8 @@ void DeviceTrackerWifi::onBackroundServiceRunning()
     qDebug() << QStringLiteral("WIFI BACKGROUND SERVICE");
 #endif
 
-    for (const QNetworkConfiguration &cfg : m_ncm->allConfigurations(QNetworkConfiguration::Undefined)) {
+    const QList<QNetworkConfiguration> configs = m_ncm->allConfigurations(QNetworkConfiguration::Undefined);
+    for (const auto &cfg : configs) {
         if (cfg.bearerType() == QNetworkConfiguration::BearerWLAN) {
 
 #ifdef QT_DEBUG
@@ -189,8 +192,9 @@ bool DeviceTrackerWifi::checkNetworkIdentifier(const QString &identifier)
     if (m_lastIdentifier == identifier)
         return false;
 
-    for (auto *zone : m_zones->zones()) {
-        for (const auto *network : zone->networksModel()->networks()) {
+    const QList<Zone *> zones = m_zones->zones();
+    for (auto zone : zones) {
+        for (const auto &network : zone->networksModel()->networks()) {
             if (network->identifier() != identifier)
                 continue;
 
@@ -217,7 +221,8 @@ bool DeviceTrackerWifi::checkNetworkIdentifier(const QString &identifier)
 
 QString DeviceTrackerWifi::getActiveNetworkIdentifier() const
 {
-    for (const QNetworkConfiguration &cfg : m_ncm->allConfigurations()) {
+    const QList<QNetworkConfiguration> configs = m_ncm->allConfigurations();
+    for (const auto &cfg : configs) {
         if ( cfg.bearerType() != QNetworkConfiguration::BearerWLAN
              || cfg.state() != QNetworkConfiguration::Active) {
 

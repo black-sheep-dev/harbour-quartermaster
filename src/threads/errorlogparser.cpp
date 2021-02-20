@@ -15,10 +15,10 @@ void ErrorLogParser::parseData(const QByteArray &data)
     QStringList headers;
     QStringList messages;
 
-    int idx = raw.indexOf(QRegExp("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}"), 0);
+    int idx = raw.indexOf(QRegExp(R"(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})"), 0);
 
     while (idx >= 0) {
-        const int next = raw.indexOf(QRegExp("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}"), idx + 19);
+        const int next = raw.indexOf(QRegExp(R"(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})"), idx + 19);
 
         const int end = raw.indexOf("]", idx);
 

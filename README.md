@@ -52,7 +52,6 @@ Here is a list of all implemented features so far. Not all features listed below
 - Two-Factor authentication to get access token (Qt OAuth2 functionality needs at least Qt 5.8 / Sailfish OS 3.4 has antique Qt 5.6 libraries)
 - Autodetect Home Assistant server in local network during setup
 - Encryption of API traffic (webhook api)
-- Customizable overview page (add special entities to the layout)
 - Cover actions
 - Automatically switch connection to server from remote to local url if connected to home network
 - Access to history log
@@ -130,4 +129,8 @@ The files are stored in "Documents/harbour-quartermaster" folder. These files yo
 
 ## Donations
 
-If you like my work, you can buy me a beer! [Buy](https://www.paypal.com/paypalme/nubecula/1)
+If you like my work, you can buy me a beer! 
+
+[PayPal](https://www.paypal.com/paypalme/nubecula/1)
+
+[Liberapay](https://liberapay.com/black-sheep-dev/donate)

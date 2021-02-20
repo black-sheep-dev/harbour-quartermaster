@@ -30,7 +30,7 @@ signals:
     void loadingChanged(bool loading);
 
 public slots:
-    void setLogs(QStringList headers, QStringList messages);
+    void setLogs(const QStringList &headers, const QStringList &messages);
 
     // properties
     void setLoading(bool loading);

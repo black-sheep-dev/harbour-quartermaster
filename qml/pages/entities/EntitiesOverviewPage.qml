@@ -103,9 +103,6 @@ Page {
                                    icon: icon,
                                    type: type })
             }
-
-
-
         }
     }
 }

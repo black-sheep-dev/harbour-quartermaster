@@ -107,7 +107,8 @@ void EntitiesProvider::updateModel(int type)
     if (!m_models.keys().contains(Entity::EntityType(type)))
         return;
 
-    for (const Entity *entity : m_models.value(Entity::EntityType(type))->entities()) {
+    const QList<Entity *> entities = m_models.value(Entity::EntityType(type))->entities();
+    for (const auto &entity : entities) {
         m_api->getState(entity->entityId());
     }
 }
@@ -197,7 +198,7 @@ Entity::EntityType EntitiesProvider::getEntityType(const QString &entityId) cons
 void EntitiesProvider::parseStates(const QJsonArray &states)
 {
     // reset models
-    for (EntitiesModel *model : m_models) {
+    for (auto &model : m_models) {
         model->reset();
     }
 
@@ -293,12 +294,13 @@ void EntitiesProvider::parseStates(const QJsonArray &states)
 
     // process group children
     if (m_models.keys().contains(Entity::Group)) {
-        for (Entity *entity : m_models.value(Entity::Group)->entities()) {
-            auto *group = qobject_cast<Group *>(entity);
+        for (auto &entity : m_models.value(Entity::Group)->entities()) {
+            auto group = qobject_cast<Group *>(entity);
 
-            for (const QString &childId : entity->attributes().value(API_KEY_ENTITY_ID).toStringList()) {
-                for (EntitiesModel *model : m_models.values()) {
-                    Entity *child = model->entityById(childId);
+            const QStringList childIds = entity->attributes().value(API_KEY_ENTITY_ID).toStringList();
+            for (const auto &childId : childIds) {
+                for (auto &model : m_models.values()) {
+                    auto child = model->entityById(childId);
 
                     if (!child)
                         continue;
@@ -374,7 +376,7 @@ void EntitiesProvider::registerModel(const Entity::EntityType &entityType)
     m_typesModel->addItem(item);
 
 
-    auto *model = new EntitiesModel(this);
+    auto model = new EntitiesModel(this);
 
     m_models.insert(entityType, model);
 }

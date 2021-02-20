@@ -203,7 +203,7 @@ void ApiInterface::onSslErrors(QNetworkReply *reply, const QList<QSslError> &err
     reply->deleteLater();
 
 #ifdef QT_DEBUG
-    for (const QSslError &error : errors) {
+    for (const auto &error : errors) {
         qDebug() << error.errorString();
     }
 #endif

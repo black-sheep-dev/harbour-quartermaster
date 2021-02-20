@@ -75,6 +75,12 @@ Page {
                 icon: "image://theme/icon-m-developer-mode"
                 page: "SettingsDeveloperModePage.qml"
             }
+            ListElement {
+                title: qsTr("About");
+                description: qsTr("Infos about Quartermaster")
+                icon: "image://theme/icon-m-developer-mode"
+                page: "../AboutPage.qml"
+            }
         }
 
         anchors.fill: parent

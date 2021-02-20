@@ -16,10 +16,10 @@ Device::Device(QObject *parent) :
     m_sensorModel(new DeviceSensorModel(this)),
     m_name(Sailfish::Mdm::SysInfo::productName())
 {
-    auto *battery = new DeviceSensorBattery;
+    auto battery = new DeviceSensorBattery;
     registerSensor(battery);
 
-    auto *batteryCharging = new DeviceSensorBatteryCharging;
+    auto batteryCharging = new DeviceSensorBatteryCharging;
     registerSensor(batteryCharging);
 
     readSettings();
@@ -137,7 +137,7 @@ void Device::setSensorAutoUpdate(bool enable)
     m_sensorAutoUpdate = enable;
     emit sensorAutoUpdateChanged(m_sensorAutoUpdate);
 
-    for (DeviceSensor *sensors : sensors()) {
+    for (auto &sensors : sensors()) {
         sensors->setEnabled(enable);
     }
 

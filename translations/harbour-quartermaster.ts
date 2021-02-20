@@ -362,15 +362,7 @@
 <context>
     <name>OverviewPage</name>
     <message>
-        <source>About</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Overview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -378,12 +370,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Not implemented yet</source>
+        <source>Web View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Web View</source>
+        <source>Refresh</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n entity available</source>
+        <comment>0</comment>
+        <translation type="unfinished">
+            <numerusform>%n entity available</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -963,6 +962,14 @@
     </message>
     <message>
         <source>Manage Home Assistant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Infos about Quartermaster</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

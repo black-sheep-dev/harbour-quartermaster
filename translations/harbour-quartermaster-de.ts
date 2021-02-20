@@ -363,28 +363,28 @@
 <context>
     <name>OverviewPage</name>
     <message>
-        <source>About</source>
-        <translation>Über</translation>
-    </message>
-    <message>
         <source>Settings</source>
         <translation>Einstellungen</translation>
-    </message>
-    <message>
-        <source>Overview</source>
-        <translation>Übersicht</translation>
     </message>
     <message>
         <source>Entities</source>
         <translation>Entitäten</translation>
     </message>
     <message>
-        <source>Not implemented yet</source>
-        <translation>Noch nicht implementiert</translation>
-    </message>
-    <message>
         <source>Web View</source>
         <translation>Web Ansicht</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Aktualisieren</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n entity available</source>
+        <comment>0</comment>
+        <translation>
+            <numerusform>%n Entität verfügbar</numerusform>
+            <numerusform>%n Entitäten verfügbar</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -965,6 +965,14 @@
     <message>
         <source>Manage Home Assistant</source>
         <translation>Home Assistant verwalten</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation>Über</translation>
+    </message>
+    <message>
+        <source>Infos about Quartermaster</source>
+        <translation>Infos über Quartiermeister</translation>
     </message>
 </context>
 <context>

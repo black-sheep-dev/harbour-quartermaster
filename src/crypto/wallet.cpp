@@ -1,7 +1,7 @@
 #include "wallet.h"
 
-#define     WALLET_COLLECTION_NAME          "quartermaster"
-#define     WALLET_COLLECTION_NAME_DEBUG    "quartermasterdebug"
+const QString WALLET_COLLECTION_NAME            = QStringLiteral("quartermaster");
+const QString WALLET_COLLECTION_NAME_DEBUG      = QStringLiteral("quartermasterdebug");
 
 #ifdef QT_DEBUG
 #include <QDebug>
@@ -18,9 +18,9 @@ Wallet::Wallet(QObject *parent) :
     m_secretsIdentifier(Sailfish::Secrets::Secret::Identifier(
                             QStringLiteral("secrets"),
                             #ifdef QT_DEBUG
-                                QStringLiteral(WALLET_COLLECTION_NAME_DEBUG),
+                                WALLET_COLLECTION_NAME_DEBUG,
                             #else
-                                QStringLiteral(WALLET_COLLECTION_NAME),
+                                WALLET_COLLECTION_NAME,
                             #endif
                             Sailfish::Secrets::SecretManager::DefaultEncryptedStoragePluginName))
 {
@@ -188,9 +188,9 @@ void Wallet::createCollection()
     createCollection.setUserInteractionMode(Sailfish::Secrets::SecretManager::SystemInteraction);
     createCollection.setCollectionName(
                                    #ifdef QT_DEBUG
-                                       QStringLiteral(WALLET_COLLECTION_NAME_DEBUG)
+                                       WALLET_COLLECTION_NAME_DEBUG
                                    #else
-                                       QStringLiteral(WALLET_COLLECTION_NAME)
+                                       WALLET_COLLECTION_NAME
                                    #endif
                                        );
     createCollection.setStoragePluginName(Sailfish::Secrets::SecretManager::DefaultEncryptedStoragePluginName);
@@ -211,9 +211,9 @@ void Wallet::deleteCollection()
     createCollection.setUserInteractionMode(Sailfish::Secrets::SecretManager::SystemInteraction);
     createCollection.setCollectionName(
                     #ifdef QT_DEBUG
-                        QStringLiteral(WALLET_COLLECTION_NAME_DEBUG)
+                        WALLET_COLLECTION_NAME_DEBUG
                     #else
-                        QStringLiteral(WALLET_COLLECTION_NAME)
+                        WALLET_COLLECTION_NAME
                     #endif
                 );
     createCollection.setStoragePluginName(Sailfish::Secrets::SecretManager::DefaultEncryptedStoragePluginName);
@@ -228,7 +228,7 @@ void Wallet::deleteCollection()
 
 void Wallet::getSecrets()
 {
-    auto *fetchCode = new Sailfish::Secrets::StoredSecretRequest;
+    auto fetchCode = new Sailfish::Secrets::StoredSecretRequest;
 
     fetchCode->setManager(&m_secretManager);
     fetchCode->setUserInteractionMode(Sailfish::Secrets::SecretManager::SystemInteraction);

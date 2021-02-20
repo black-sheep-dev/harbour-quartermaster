@@ -115,7 +115,7 @@ void WebsocketApi::onMessageReceived(const QString &message)
 
 void WebsocketApi::onError(QAbstractSocket::SocketError error)
 {
-
+    Q_UNUSED(error)
 }
 
 void WebsocketApi::authenticate()

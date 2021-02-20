@@ -86,7 +86,7 @@ ErrorLogModel *ClientInterface::errorLogModel()
         m_errorLogModel = new ErrorLogModel;
     }
 
-    ErrorLogParser *parser = new ErrorLogParser;
+    auto parser = new ErrorLogParser;
     parser->moveToThread(&m_workerThread);
     connect(&m_workerThread, &QThread::finished, parser, &QObject::deleteLater);
     connect(m_api, &HomeassistantApi::errorLogAvailable, parser, &ErrorLogParser::parseData);
@@ -452,7 +452,7 @@ void ClientInterface::onDataAvailable(const QString &endpoint, const QJsonDocume
         m_webhook->setRegistrationData(doc.object());
         m_device->setRegistered(m_webhook->isRegistered());
 
-        for (const DeviceSensor *sensor : m_device->sensors()) {
+        for (auto &sensor : m_device->sensors()) {
             m_webhook->registerSensor(sensor);
         }
         setBusy(false);
@@ -522,7 +522,8 @@ void ClientInterface::onNetworkConfigurationChanged(const QNetworkConfiguration 
     if (m_lastNetworkIdentifier == config.identifier())
         return;
 
-    for (const auto *network : homeassistantInfo()->homezone()->networksModel()->networks()) {
+    const QList<WifiNetwork *> networks = homeassistantInfo()->homezone()->networksModel()->networks();
+    for (const auto &network : networks) {
         if (network->identifier() != config.identifier())
             continue;
 
@@ -613,7 +614,7 @@ void ClientInterface::readSettings()
     for (int i = 0; i < size; ++i) {
         settings.setArrayIndex(i);
 
-        WifiNetwork *network = new WifiNetwork;
+        auto network = new WifiNetwork;
         network->setName(settings.value(QStringLiteral("name")).toString());
         network->setIdentifier(settings.value(QStringLiteral("identifier")).toString());
 

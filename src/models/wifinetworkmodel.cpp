@@ -15,7 +15,7 @@ void WifiNetworkModel::addSelectedToModel(WifiNetworkModel *model)
     if (!model)
         return;
 
-    for (WifiNetwork *network : m_networks) {
+    for (auto &network : m_networks) {
         if (network->selected())
             model->addNetwork(network->name(), network->identifier());
         else
@@ -26,7 +26,7 @@ void WifiNetworkModel::addSelectedToModel(WifiNetworkModel *model)
 void WifiNetworkModel::resetSelection()
 {
     beginResetModel();
-    for (WifiNetwork *network : m_networks) {
+    for (auto &network : m_networks) {
         network->setSelected(false);
     }
     endResetModel();
@@ -37,9 +37,9 @@ void WifiNetworkModel::setSelected(WifiNetworkModel *model)
     if (!model)
         return;
 
-
-    for (const WifiNetwork *selected : model->networks()) {
-        for (WifiNetwork *network : m_networks) {
+    const QList<WifiNetwork *> networks = model->networks();
+    for (const auto &selected : networks) {
+        for (auto &network : m_networks) {
             if (network->identifier() != selected->identifier())
                 continue;
 
@@ -70,13 +70,12 @@ void WifiNetworkModel::addNetwork(WifiNetwork *network)
 
 void WifiNetworkModel::addNetwork(const QString &name, const QString &identifier)
 {
-    for (const WifiNetwork *network : m_networks) {
+    for (auto &network : m_networks) {
         if (network->identifier() == identifier)
             return;
     }
 
-    auto *network = new WifiNetwork;
-    network->setParent(this);
+    auto network = new WifiNetwork(this);
     network->setName(name);
     network->setIdentifier(identifier);
 
@@ -99,7 +98,8 @@ void WifiNetworkModel::removeNetwork(WifiNetwork *network)
 
 void WifiNetworkModel::removeNetwork(const QString &identifier)
 {
-    for (WifiNetwork *network : m_networks) {
+    for (auto it = m_networks.begin(); it != m_networks.end(); ++it) {
+        auto network = qobject_cast<WifiNetwork *>(*it);
         if (network->identifier() != identifier)
             continue;
 

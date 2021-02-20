@@ -40,11 +40,10 @@ void ZonesModel::setZones(const QList<Zone *> &zones)
     qDeleteAll(m_zones.begin(), m_zones.end());
     m_zones = zones;
 
-    for (Zone *zone : m_zones) {
+    for (auto &zone : m_zones) {
         zone->setParent(this);
         connect(zone, &Zone::networksChanged, this, &ZonesModel::onNetworksChanged);
     }
-
     endResetModel();
 
     setLoading(false);
@@ -56,7 +55,7 @@ void ZonesModel::setZones(const QJsonArray &array)
     QList<Zone *> zones;
 
     for (const QJsonValue &value : array) {
-        Zone *zone = new Zone;
+        auto zone = new Zone;
         zone->setJson(value.toObject());
 
         zones.append(zone);

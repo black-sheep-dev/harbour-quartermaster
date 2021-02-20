@@ -13,7 +13,8 @@ int EntitiesModel::entitiesCount() const
 
 Entity *EntitiesModel::entityById(const QString &entityId)
 {
-    for (Entity *entity : m_entities) {
+    for (auto & m_entitie : m_entities) {
+        auto entity = qobject_cast<Entity *>(m_entitie);
         if (entity->entityId() == entityId)
             return entity;
     }
@@ -79,7 +80,8 @@ void EntitiesModel::setEntities(const QList<Entity *> &entities)
 
     m_entities = entities;
 
-    for (Entity *entity : m_entities) {
+
+    for (auto &entity : m_entities) {
         if (m_parentMode)
             entity->setParent(this);
 
