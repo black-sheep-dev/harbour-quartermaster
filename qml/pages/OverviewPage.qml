@@ -94,15 +94,15 @@ Page {
 
                 switch (type) {
                 case Entity.Person:
-                    page = "PersonsListPage.qml"
+                    page = "entities/PersonsListPage.qml"
                     break;
 
                 case Entity.Sensor:
-                    page = "SensorsListPage.qml"
+                    page = "entities/SensorsListPage.qml"
                     break;
 
                 default:
-                    page = "EntitiesListViewPage.qml"
+                    page = "entities/EntitiesListViewPage.qml"
                     break;
                 }
 

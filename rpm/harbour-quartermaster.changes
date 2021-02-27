@@ -1,4 +1,8 @@
-* Sat Jan 20 2021 Black Sheep <blacksheep@nubecula.org> 0.1.20-1
+* Sat Feb 27 2021 Black Sheep <blacksheep@nubecula.org> 0.1.21-1
+- Fixed entity list pages not available
+- Bugfixes
+
+* Sat Feb 20 2021 Black Sheep <blacksheep@nubecula.org> 0.1.20-1
 - Change start page to entities list page
 - Code cleanup
 

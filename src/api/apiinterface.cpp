@@ -20,8 +20,8 @@ ApiInterface::ApiInterface(Wallet *wallet, QObject *parent) :
     m_wallet(wallet),
     m_baseUrl(QString())
 {
-    connect(m_manager, &QNetworkAccessManager::finished, this, &ApiInterface::onRequestFinished);
-    connect(m_manager, &QNetworkAccessManager::sslErrors, this ,&ApiInterface::onSslErrors);
+    connect(m_manager, &QNetworkAccessManager::finished, this, &ApiInterface::onRequestFinished, Qt::QueuedConnection);
+    connect(m_manager, &QNetworkAccessManager::sslErrors, this ,&ApiInterface::onSslErrors, Qt::QueuedConnection);
 }
 
 Wallet *ApiInterface::wallet()
