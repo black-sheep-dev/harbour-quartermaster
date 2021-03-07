@@ -19,6 +19,7 @@ Page {
 
     SilicaListView {
         PullDownMenu {
+            busy: Client.entitiesProvider().loading
             MenuItem {
                 text: qsTr("Settings")
                 onClicked: pageStack.push(Qt.resolvedUrl("settings/SettingsPage.qml"))
@@ -31,11 +32,17 @@ Page {
                 text: qsTr("Refresh")
                 onClicked: Client.entitiesProvider().refresh()
             }
+
+            opacity: 1.0
         }
 
         id: listView
 
-        visible: !busyIndicator.running
+        opacity: busyIndicator.running ? 0.1 : 1.0
+
+        Behavior on opacity {
+            FadeAnimation {}
+        }
 
         anchors.fill: parent
         header: PageHeader {

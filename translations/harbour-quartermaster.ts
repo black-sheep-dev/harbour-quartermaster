@@ -1279,6 +1279,14 @@ This can either be the hostname / IP in your local network or a remote url if yo
         <source>This device is not connected to a Home Assistant server yet.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you facing problems with the setup process you can try to reset the data from a previous install.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>WizardLastPage</name>

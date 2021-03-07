@@ -81,6 +81,29 @@ Page {
 
                 text: qsTr("This setup wizard will lead you through the connection process.")
             }
+
+            Separator {
+                width: parent.width
+                color: Theme.highlightBackgroundColor
+            }
+
+            Label {
+                width: parent.width
+
+                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeMedium
+
+                wrapMode: Text.WordWrap
+
+                text: qsTr("If you facing problems with the setup process you can try to reset the data from a previous install.")
+            }
+
+            ButtonLayout {
+                Button {
+                    text: qsTr("Reset")
+                    onClicked: Client.reset()
+                }
+            }
         }
     }
 

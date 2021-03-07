@@ -1154,12 +1154,12 @@
     </message>
     <message>
         <source>It is highly recommend to use a ssl connection if your Home Assistant server support this!</source>
-        <translation>Es wird dringend empfohlen eine SSL Verbindung zu benutzten, wenn der Home Assistant server dies unterstützt!</translation>
+        <translation>Es wird dringend empfohlen eine SSL Verbindung zu benutzten, wenn der Home Assistant Server dies unterstützt!</translation>
     </message>
     <message>
         <source>You need to provide the connection details to your Home Assistant server.
 This can either be the hostname / IP in your local network or a remote url if your Home Assistant is reachable from the internet.</source>
-        <translation>Du musst die Verbindungsdaten zu deiner Home Assistant Server eingeben. Das kann entweder der Hostname / IP im loken Netzwerk sein, oder ein Remote-URL wenn Home Assistant aus dem Internet zu erreichen ist.</translation>
+        <translation>Du musst die Verbindungsdaten zu deinem Home Assistant Server eingeben. Das kann entweder der Hostname / IP im loken Netzwerk sein, oder ein Remote-URL wenn Home Assistant aus dem Internet zu erreichen ist.</translation>
     </message>
 </context>
 <context>
@@ -1276,11 +1276,19 @@ This can either be the hostname / IP in your local network or a remote url if yo
     </message>
     <message>
         <source>Continue</source>
-        <translation></translation>
+        <translation>Weiter</translation>
     </message>
     <message>
         <source>This device is not connected to a Home Assistant server yet.</source>
         <translation>Dieses Gerät ist noch nicht mit einem Home Assistant Server verbunden.</translation>
+    </message>
+    <message>
+        <source>Reset</source>
+        <translation>Zurücksetzen</translation>
+    </message>
+    <message>
+        <source>If you facing problems with the setup process you can try to reset the data from a previous install.</source>
+        <translation>Falls es zu Probleme beim Einrichtungsassistenten kommt, kann man bestehende Daten einer vorherigen Installation zurücksetzen.</translation>
     </message>
 </context>
 <context>

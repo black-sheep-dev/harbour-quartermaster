@@ -68,6 +68,14 @@ Available translations:
   
 If you missing your native language you are welcome to support this project with your translation.
 
+## Reset Application
+It can happen in some cases that Quartermaster looses the access to the stored secrets on the device. These are stored with "Sailfish Secrets".
+
+If you facing problems in setup wizard you can reset the application with the button on the intro page.
+
+When access to the main page is still possible you can reset the registration of the device in device info page in application settings.
+
+
 ## Home Assistant Configuration
 #### Components
 To get this app working with Home Assistant you need to activate the following components:
