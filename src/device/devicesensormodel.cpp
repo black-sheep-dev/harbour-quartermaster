@@ -47,7 +47,7 @@ QVariant DeviceSensorModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    const DeviceSensor *sensor = m_sensors.at(index.row());
+    auto sensor = m_sensors.at(index.row());
 
     switch (role) {
     case Qt::DisplayRole:
@@ -81,7 +81,7 @@ bool DeviceSensorModel::setData(const QModelIndex &index, const QVariant &value,
     if (!index.isValid())
         return false;
 
-    DeviceSensor *sensor = m_sensors.at(index.row());
+    auto sensor = m_sensors.at(index.row());
 
     if (role == EnabledRole) {
         sensor->setEnabled(value.toBool());

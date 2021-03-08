@@ -29,33 +29,42 @@ Wallet::Wallet(QObject *parent) :
 
 void Wallet::initialize()
 {
+    getCredentials();
+}
 
-    getSecrets();
+bool Wallet::isValid() const
+{
+    return m_credentials.isValid();
+}
+
+Sailfish::Secrets::Result::ErrorCode Wallet::lastError() const
+{
+    return m_lastError;
 }
 
 QString Wallet::cloudhookUrl() const
 {
-    return m_secrets.cloudhookUrl;
+    return m_credentials.cloudhookUrl;
+}
+
+Credentials Wallet::credentials() const
+{
+    return m_credentials;
 }
 
 QString Wallet::remoteUiUrl() const
 {
-    return m_secrets.remoteUiUrl;
+    return m_credentials.remoteUiUrl;
 }
 
 QString Wallet::secret() const
 {
-    return m_secrets.secret;
+    return m_credentials.secret;
 }
 
 QString Wallet::token() const
 {
-    return m_secrets.token;
-}
-
-QString Wallet::webhookId() const
-{
-    return m_secrets.webhookId;
+    return m_credentials.token;
 }
 
 void Wallet::reset()
@@ -63,10 +72,61 @@ void Wallet::reset()
     deleteCollection();
 }
 
-void Wallet::storeSecrets()
+void Wallet::setCloudhookUrl(const QString &url)
+{
+    if (m_credentials.cloudhookUrl == url)
+        return;
+
+    m_credentials.cloudhookUrl = url;
+    emit cloudhookUrlChanged(m_credentials.cloudhookUrl);
+    emit credentialsChanged(m_credentials);
+}
+
+void Wallet::setCredentials(const Credentials &credentials)
+{
+    if (m_credentials == credentials)
+        return;
+
+    m_credentials = credentials;
+    emit credentialsChanged(m_credentials);
+
+    storeCredentials();
+}
+
+void Wallet::setRemoteUiUrl(const QString &url)
+{
+    if (m_credentials.remoteUiUrl == url)
+        return;
+
+    m_credentials.remoteUiUrl = url;
+    emit remoteUiUrlChanged(m_credentials.remoteUiUrl);
+    emit credentialsChanged(m_credentials);
+}
+
+void Wallet::setSecret(const QString &secret)
+{
+    if (m_credentials.secret == secret)
+        return;
+
+    m_credentials.secret = secret;
+    emit secretChanged(m_credentials.secret);
+    emit credentialsChanged(m_credentials);
+}
+
+void Wallet::setToken(const QString &token)
+{
+    if (m_credentials.token == token)
+        return;
+
+    m_credentials.token = token;
+    emit credentialsChanged(m_credentials);
+    emit tokenChanged(m_credentials.token);
+}
+
+void Wallet::storeCredentials()
 {
 #ifdef QT_DEBUG
-    qDebug() << QStringLiteral("SECRETS STORE");
+    qDebug() << QStringLiteral("CREDENTIALS STORE");
 #endif
 
     // reset and create
@@ -77,7 +137,7 @@ void Wallet::storeSecrets()
     QByteArray data;
 
     QDataStream stream(&data, QIODevice::WriteOnly);
-    stream << m_secrets;
+    stream << m_credentials;
 
     // store data in wallet
     Sailfish::Secrets::Secret secret(m_secretsIdentifier);
@@ -89,93 +149,16 @@ void Wallet::storeSecrets()
     storeCode.setUserInteractionMode(Sailfish::Secrets::SecretManager::SystemInteraction);
     storeCode.setSecret(secret);
     storeCode.startRequest();
-
-#ifdef QT_DEBUG
     storeCode.waitForFinished();
 
+    m_lastError = storeCode.result().errorCode();
+
+    emit validityChanged(isValid());
+
+#ifdef QT_DEBUG
     qDebug() << storeCode.result().code();
     qDebug() << storeCode.result().errorMessage();
 #endif
-}
-
-
-void Wallet::setCloudhookUrl(const QString &url)
-{
-    if (m_secrets.cloudhookUrl == url)
-        return;
-
-    m_secrets.cloudhookUrl = url;
-    emit cloudhookUrlChanged(m_secrets.cloudhookUrl);
-}
-
-void Wallet::setRemoteUiUrl(const QString &url)
-{
-    if (m_secrets.remoteUiUrl == url)
-        return;
-
-    m_secrets.remoteUiUrl = url;
-    emit remoteUiUrlChanged(m_secrets.remoteUiUrl);
-}
-
-void Wallet::setSecret(const QString &secret)
-{
-    if (m_secrets.secret == secret)
-        return;
-
-    m_secrets.secret = secret;
-    emit secretChanged(m_secrets.secret);
-}
-
-void Wallet::setToken(const QString &token)
-{
-    if (m_secrets.token == token)
-        return;
-
-    m_secrets.token = token;
-    emit tokenChanged(m_secrets.token);
-}
-
-void Wallet::setWebhookId(const QString &id)
-{
-    if (m_secrets.webhookId == id)
-        return;
-
-    m_secrets.webhookId = id;
-    emit webhookIdChanged(m_secrets.webhookId);
-}
-
-void Wallet::onSecretsLoaded()
-{
-    auto *fetchCode = qobject_cast<Sailfish::Secrets::StoredSecretRequest *>(sender());
-
-    if (!fetchCode)
-        return;
-
-#ifdef QT_DEBUG
-    qDebug() << QStringLiteral("SECRETS LOADED");
-    qDebug() << fetchCode->result().code();
-    qDebug() << fetchCode->result().errorCode();
-    qDebug() << fetchCode->result().errorMessage();
-#endif
-
-    if (fetchCode->result().code() != Sailfish::Secrets::Result::Succeeded) {
-        emit initialized(true);
-        return;
-    }
-
-    QByteArray data = fetchCode->secret().data();
-
-    QDataStream stream(&data, QIODevice::ReadOnly);
-    stream >> m_secrets;
-
-#ifdef QT_DEBUG
-    qDebug() << QStringLiteral("WEBHOOK ID");
-    qDebug() << m_secrets.webhookId;
-#endif
-
-    fetchCode->deleteLater();
-
-    emit initialized(true);
 }
 
 void Wallet::createCollection()
@@ -197,6 +180,8 @@ void Wallet::createCollection()
     createCollection.setEncryptionPluginName(Sailfish::Secrets::SecretManager::DefaultEncryptedStoragePluginName);
     createCollection.startRequest();
     createCollection.waitForFinished();
+
+    m_lastError = createCollection.result().errorCode();
 
 #ifdef QT_DEBUG
     qDebug() << createCollection.result().code();
@@ -220,13 +205,21 @@ void Wallet::deleteCollection()
     createCollection.startRequest();
     createCollection.waitForFinished();
 
+    m_lastError = createCollection.result().errorCode();
+
+    if (!m_lastError) {
+        m_credentials = Credentials();
+    }
+
+    emit validityChanged(isValid());
+
 #ifdef QT_DEBUG
     qDebug() << createCollection.result().code();
     qDebug() << createCollection.result().errorMessage();
 #endif
 }
 
-void Wallet::getSecrets()
+void Wallet::getCredentials()
 {
     auto fetchCode = new Sailfish::Secrets::StoredSecretRequest;
 
@@ -234,7 +227,34 @@ void Wallet::getSecrets()
     fetchCode->setUserInteractionMode(Sailfish::Secrets::SecretManager::SystemInteraction);
     fetchCode->setIdentifier(m_secretsIdentifier);
 
-    connect(fetchCode, &Sailfish::Secrets::StoredSecretRequest::secretChanged, this, &Wallet::onSecretsLoaded);
-
     fetchCode->startRequest();
+    fetchCode->waitForFinished();
+
+    m_lastError = fetchCode->result().errorCode();
+
+#ifdef QT_DEBUG
+    qDebug() << QStringLiteral("SECRETS LOADED");
+    qDebug() << fetchCode->result().code();
+    qDebug() << fetchCode->result().errorCode();
+    qDebug() << fetchCode->result().errorMessage();
+#endif
+
+    if (fetchCode->result().code() != Sailfish::Secrets::Result::Succeeded) {
+        return;
+    }
+
+    QByteArray data = fetchCode->secret().data();
+
+    QDataStream stream(&data, QIODevice::ReadOnly);
+    stream >> m_credentials;
+
+#ifdef QT_DEBUG
+    qDebug() << QStringLiteral("WEBHOOK ID");
+    qDebug() << m_credentials.webhookId;
+#endif
+
+    fetchCode->deleteLater();
+
+    emit credentialsChanged(m_credentials);
+    emit validityChanged(isValid());
 }

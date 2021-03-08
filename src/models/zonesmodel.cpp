@@ -37,10 +37,12 @@ void ZonesModel::addZone(Zone *zone)
 void ZonesModel::setZones(const QList<Zone *> &zones)
 {
     beginResetModel();
-    qDeleteAll(m_zones.begin(), m_zones.end());
+    if (!m_zones.isEmpty())
+        qDeleteAll(m_zones.begin(), m_zones.end());
+
     m_zones = zones;
 
-    for (auto &zone : m_zones) {
+    for (auto zone : m_zones) {
         zone->setParent(this);
         connect(zone, &Zone::networksChanged, this, &ZonesModel::onNetworksChanged);
     }
@@ -54,7 +56,7 @@ void ZonesModel::setZones(const QJsonArray &array)
 {
     QList<Zone *> zones;
 
-    for (const QJsonValue &value : array) {
+    for (const auto &value : array) {
         auto zone = new Zone;
         zone->setJson(value.toObject());
 
@@ -80,7 +82,7 @@ void ZonesModel::setLoading(bool loading)
 
 void ZonesModel::onNetworksChanged()
 {
-    auto *zone = qobject_cast<Zone *>(sender());
+    auto zone = qobject_cast<Zone *>(sender());
 
     if (!zone)
         return;
@@ -105,7 +107,7 @@ QVariant ZonesModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    Zone *zone = m_zones.at(index.row());
+    const auto zone = m_zones.at(index.row());
 
     switch (role) {
     case Qt::DisplayRole:

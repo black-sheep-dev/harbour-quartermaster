@@ -14,7 +14,6 @@ class Device : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(bool encryption READ encryption WRITE setEncryption NOTIFY encryptionChanged)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(bool registered READ registered WRITE setRegistered NOTIFY registeredChanged)
     Q_PROPERTY(bool sensorAutoUpdate READ sensorAutoUpdate WRITE setSensorAutoUpdate NOTIFY sensorAutoUpdateChanged)
@@ -35,7 +34,6 @@ public:
     QList<DeviceSensor *> sensors() const;
 
     // properties
-    bool encryption() const;
     QString name() const;
     bool registered() const;
     bool sensorAutoUpdate() const;
@@ -46,7 +44,6 @@ signals:
     void updateZonesRequested();
 
     // properties
-    void encryptionChanged(bool enabled);
     void nameChanged(const QString &name);
     void registeredChanged(bool registered);
     void sensorAutoUpdateChanged(bool enabled);
@@ -57,7 +54,6 @@ public slots:
     Q_INVOKABLE void updateZones();
 
     // properties
-    void setEncryption(bool enable);
     void setName(const QString &name);
     void setRegistered(bool registered);
     void setSensorAutoUpdate(bool enable);
@@ -69,10 +65,9 @@ private:
     void readSettings();
     void writeSettings();
 
-    DeviceSensorModel *m_sensorModel{nullptr};
+    DeviceSensorModel *m_sensorModel{new DeviceSensorModel(this)};
 
     // properties
-    bool m_encryption{false};
     QString m_name;
     bool m_registered{false};
     bool m_sensorAutoUpdate{false};

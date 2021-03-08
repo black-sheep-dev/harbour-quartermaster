@@ -1,115 +1,114 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
-Page {
-    id: page
+Dialog {
+    id: dialog
 
     allowedOrientations: Orientation.Portrait
 
-    SilicaFlickable {
-        anchors.fill: parent
-        contentHeight: column.height
+    acceptDestination: Qt.resolvedUrl(Qt.resolvedUrl("WizardConnectionPage.qml"))
 
-        Column {
-            id: column
-            x: Theme.horizontalPageMargin
-            width: parent.width - 2 * x
-            spacing: Theme.paddingLarge
+    onRejected: Qt.quit()
 
-            PageHeader {
-                Row {
-                    x: Theme.paddingMedium
-                    width: parent.width - 2*x
-                    anchors.verticalCenter: parent.verticalCenter
-
-                    Label {
-                        width: parent.width / 2
-                        text: ""
-
-                        color: Theme.secondaryHighlightColor
-                        font.pixelSize: Theme.fontSizeExtraLarge
-                    }
-
-                    Label {
-                        width: parent.width / 2
-                        text: qsTr("Continue")
-
-                        horizontalAlignment: Text.AlignRight
-
-                        color: Theme.secondaryHighlightColor
-                        font.pixelSize: Theme.fontSizeExtraLarge
-                    }
-                }
-            }
-
-            Label {
-                width: parent.width
-
-                text: qsTr("Welcome to Quartermaster")
-
-                color: Theme.secondaryHighlightColor
-                font.pixelSize: Theme.fontSizeLarge
-            }
-
-            Image {
-                id: logo
-                source: "/usr/share/icons/hicolor/512x512/apps/harbour-quartermaster.png"
-                smooth: true
-                height: parent.width / 2
-                width: parent.width / 2
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
-
-            Label {
-                width: parent.width
-
-                color: Theme.highlightColor
-                font.pixelSize: Theme.fontSizeMedium
-
-                wrapMode: Text.WordWrap
-
-                text: qsTr("This device is not connected to a Home Assistant server yet.")
-            }
-
-            Label {
-                width: parent.width
-
-                color: Theme.highlightColor
-                font.pixelSize: Theme.fontSizeMedium
-
-                wrapMode: Text.WordWrap
-
-                text: qsTr("This setup wizard will lead you through the connection process.")
-            }
-
-            Separator {
-                width: parent.width
-                color: Theme.highlightBackgroundColor
-            }
-
-            Label {
-                width: parent.width
-
-                color: Theme.highlightColor
-                font.pixelSize: Theme.fontSizeMedium
-
-                wrapMode: Text.WordWrap
-
-                text: qsTr("If you facing problems with the setup process you can try to reset the data from a previous install.")
-            }
-
-            ButtonLayout {
-                Button {
-                    text: qsTr("Reset")
-                    onClicked: Client.reset()
-                }
-            }
-        }
+    DialogHeader {
+        id: header
+        acceptText: qsTr("Continue")
+        cancelText: ""
     }
 
-    onStatusChanged: {
-        if (status == PageStatus.Active) {
-            pageStack.pushAttached(Qt.resolvedUrl("WizardConnectionPage.qml"))
+    Column {
+        anchors.top: header.bottom
+        x: Theme.horizontalPageMargin
+        width: parent.width - 2*x
+        spacing: Theme.paddingMedium
+
+        Image {
+            id: logo
+            source: "/usr/share/icons/hicolor/512x512/apps/harbour-quartermaster.png"
+            smooth: true
+            height: parent.width / 2
+            width: parent.width / 2
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+        Item {
+            width: 1
+            height: Theme.paddingMedium
+        }
+
+        Label {
+            width: parent.width
+
+            text: qsTr("Welcome to Quartermaster")
+
+            color: Theme.secondaryHighlightColor
+            font.bold: true
+            font.pixelSize: Theme.fontSizeLarge
+        }
+
+        Item {
+            width: 1
+            height: Theme.paddingMedium
+        }
+
+        Label {
+            width: parent.width
+
+            color: Theme.highlightColor
+            font.pixelSize: Theme.fontSizeSmall
+
+            wrapMode: Text.WordWrap
+
+            text: qsTr("This device is not connected to a Home Assistant server yet.")
+        }
+
+        Label {
+            width: parent.width
+
+            color: Theme.highlightColor
+            font.pixelSize: Theme.fontSizeSmall
+
+            wrapMode: Text.WordWrap
+
+            text: qsTr("This setup wizard will lead you through the connection process.")
+        }
+
+        Item {
+            width: 1
+            height: Theme.paddingMedium
+        }
+
+        Separator {
+            width: parent.width
+            color: Theme.highlightBackgroundColor
+        }
+
+        Item {
+            width: 1
+            height: Theme.paddingMedium
+        }
+
+        Label {
+            width: parent.width
+
+            color: Theme.highlightColor
+            font.pixelSize: Theme.fontSizeSmall
+
+            wrapMode: Text.WordWrap
+
+            text: qsTr("If you facing problems with the setup process you can try to reset the data from a previous install.")
+        }
+
+        Item {
+            width: 1
+            height: Theme.paddingMedium
+        }
+
+        ButtonLayout {
+            Button {
+                text: qsTr("Reset")
+                onClicked: App.wallet().reset()
+            }
         }
     }
 }

@@ -13,7 +13,6 @@
 
 Device::Device(QObject *parent) :
     QObject(parent),
-    m_sensorModel(new DeviceSensorModel(this)),
     m_name(Sailfish::Mdm::SysInfo::productName())
 {
     auto battery = new DeviceSensorBattery;
@@ -70,11 +69,6 @@ QList<DeviceSensor *> Device::sensors() const
     return m_sensorModel->sensors();
 }
 
-bool Device::encryption() const
-{
-    return m_encryption;
-}
-
 QString Device::name() const
 {
     return m_name;
@@ -100,15 +94,6 @@ void Device::update()
 void Device::updateZones()
 {
     emit updateZonesRequested();
-}
-
-void Device::setEncryption(bool enable)
-{
-    if (m_encryption == enable)
-        return;
-
-    m_encryption = enable;
-    emit encryptionChanged(m_encryption);
 }
 
 void Device::setName(const QString &name)
@@ -137,8 +122,8 @@ void Device::setSensorAutoUpdate(bool enable)
     m_sensorAutoUpdate = enable;
     emit sensorAutoUpdateChanged(m_sensorAutoUpdate);
 
-    for (auto &sensors : sensors()) {
-        sensors->setEnabled(enable);
+    for (auto sensor : sensors()) {
+        sensor->setEnabled(enable);
     }
 
     writeSettings();

@@ -13,8 +13,8 @@ int EntitiesModel::entitiesCount() const
 
 Entity *EntitiesModel::entityById(const QString &entityId)
 {
-    for (auto & m_entitie : m_entities) {
-        auto entity = qobject_cast<Entity *>(m_entitie);
+    for (auto e : m_entities) {
+        auto entity = qobject_cast<Entity *>(e);
         if (entity->entityId() == entityId)
             return entity;
     }
@@ -55,7 +55,7 @@ void EntitiesModel::setParentMode(bool enable)
 
 void EntitiesModel::addEntity(Entity *entity)
 {
-    if (!entity)
+    if (entity == nullptr)
         return;
 
     beginInsertRows(QModelIndex(), m_entities.count(), m_entities.count());
@@ -112,8 +112,10 @@ void EntitiesModel::updateEntity(Entity *entity)
 void EntitiesModel::reset()
 {
     beginResetModel();
-    qDeleteAll(m_entities.begin(), m_entities.end());
-    m_entities.clear();
+    if (!m_entities.isEmpty()) {
+        qDeleteAll(m_entities.begin(), m_entities.end());
+        m_entities.clear();
+    }
     endResetModel();
 }
 
@@ -134,7 +136,7 @@ QVariant EntitiesModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    Entity *entity = m_entities.at(index.row());
+    const auto entity = m_entities.at(index.row());
 
     switch (role) {
     case Qt::DisplayRole:

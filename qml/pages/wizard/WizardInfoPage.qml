@@ -5,233 +5,212 @@ import org.nubecula.harbour.quartermaster 1.0
 
 import "../../components"
 
-Page {
-    id: page
+Dialog {
+    property bool busy: true
+    property bool connected: false
+    property string error
+
+    id: dialog
 
     allowedOrientations: Orientation.Portrait
+    acceptDestination: Qt.resolvedUrl("WizardDeviceRegistrationPage.qml")
+
+    canAccept: false
 
     PageBusyIndicator {
         size: BusyIndicatorSize.Large
-        running: Client.homeassistantInfo().loading
+        running: busy
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
-    SilicaFlickable {
-        anchors.fill: parent
-        contentHeight: column.height
+    DialogHeader {
+        id: header
+        acceptText: qsTr("Continue")
+        cancelText: qsTr("Back")
+    }
 
-        Column {
-            id: column
-            x: Theme.horizontalPageMargin
-            width: parent.width - 2 * x
+    Column {
+        anchors.top: header.bottom
+        x: Theme.horizontalPageMargin
+        width: parent.width - 2*x
+        spacing: Theme.paddingSmall
 
+        opacity: busy ? 0.2 : 1
 
-            opacity: 0
+        Behavior on opacity {
+            FadeAnimation {}
+        }
 
-            PageHeader {
-                Row {
-                    width: parent.width
-                    anchors.verticalCenter: parent.verticalCenter
+        Label {
+            visible: !busy
+            width: parent.width
 
-                    Label {
-                        width: parent.width / 2
-                        text: qsTr("Back")
+            text: qsTr("Home Assistant")
 
-                        color: Theme.secondaryHighlightColor
-                        font.pixelSize: Theme.fontSizeExtraLarge
-                    }
+            color: Theme.secondaryHighlightColor
+            font.pixelSize: Theme.fontSizeLarge
+        }
 
-                    Label {
-                        id: labelProceed
-                        visible: false
-                        width: parent.width / 2
-                        text: qsTr("Continue")
+        // error
+        SectionHeader {
+            visible: !connected && !busy
+            text: qsTr("Connection Error")
+        }
 
-                        horizontalAlignment: Text.AlignRight
+        Label {
+            visible: !connected && !busy
+            width: parent.width
+            text: qsTr("Error connecting to Home Assistant API:")
+            font.pixelSize: Theme.fontSizeMedium
+        }
 
-                        color: Theme.secondaryHighlightColor
-                        font.pixelSize: Theme.fontSizeExtraLarge
-                    }
-                }
-            }
+        Item {
+            visible: !connected && !busy
+            height: Theme.paddingMedium
+            width: 1
+        }
 
-            Label {
-                width: parent.width
+        Label {
+            visible: !connected && !busy
+            width: parent.width
+            text: error;
+            font.pixelSize: Theme.fontSizeMedium
+        }
 
-                text: qsTr("Home Assistant")
+        // success
+        SectionHeader {
+            visible: connected && !busy
+            text: qsTr("Informations")
+        }
 
-                color: Theme.secondaryHighlightColor
-                font.pixelSize: Theme.fontSizeLarge
-            }
+        Label {
+            visible: connected && !busy
+            width: parent.width
 
-            // error
-            SectionHeader {
-                visible: !Client.homeassistantInfo().available
-                text: qsTr("Connection Error")
-            }
+            text: qsTr("Location name")
 
-            Label {
-                visible: !Client.homeassistantInfo().available
-                width: parent.width
-                text: qsTr("Error connecting to Home Assistant API:")
-                font.pixelSize: Theme.fontSizeMedium
-            }
+            color: Theme.secondaryHighlightColor
+            font.pixelSize: Theme.fontSizeMedium
+        }
 
-            Item {
-                visible: !Client.homeassistantInfo().available
-                height: Theme.paddingMedium
-                width: 1
-            }
+        Label {
+            visible: connected && !busy
+            width: parent.width
+            text: App.api().serverConfig().locationName
 
-            Label {
-                visible: !Client.homeassistantInfo().available
-                width: parent.width
-                text: Client.homeassistantInfo().error;
-                font.pixelSize: Theme.fontSizeMedium
-            }
+            color: Theme.secondaryColor
+        }
 
-            // success
-            SectionHeader {
-                visible: Client.homeassistantInfo().available
-                text: qsTr("Informations")
-            }
+        Item {
+            visible: connected && !busy
+            height: Theme.paddingMedium
+            width: 1
+        }
 
-            Label {
-                visible: Client.homeassistantInfo().available
-                width: parent.width
+        Label {
+            visible: connected && !busy
+            width: parent.width
 
-                text: qsTr("Location name")
+            text: qsTr("Version")
 
-                color: Theme.secondaryHighlightColor
-                font.pixelSize: Theme.fontSizeMedium
-            }
+            color: Theme.secondaryHighlightColor
+            font.pixelSize: Theme.fontSizeMedium
+        }
 
-            Label {
-                visible: Client.homeassistantInfo().available
-                width: parent.width
-                text: Client.homeassistantInfo().locationName
+        Label {
+            visible: connected && !busy
+            width: parent.width
+            text: App.api().serverConfig().version
 
-                color: Theme.secondaryColor
-            }
+            color: Theme.secondaryColor
+        }
 
-            Item {
-                visible: Client.homeassistantInfo().available
-                height: Theme.paddingMedium
-                width: 1
-            }
+        Item {
+            visible: connected && !busy
+            height: Theme.paddingMedium
+            width: 1
+        }
 
-            Label {
-                visible: Client.homeassistantInfo().available
-                width: parent.width
+        Label {
+            visible: connected && !busy
+            width: parent.width
 
-                text: qsTr("Version")
+            text: qsTr("Internal URL")
 
-                color: Theme.secondaryHighlightColor
-                font.pixelSize: Theme.fontSizeMedium
-            }
+            color: Theme.secondaryHighlightColor
+            font.pixelSize: Theme.fontSizeMedium
+        }
 
-            Label {
-                visible: Client.homeassistantInfo().available
-                width: parent.width
-                text: Client.homeassistantInfo().version
+        Label {
+            visible: connected && !busy
+            width: parent.width
+            text: App.api().serverConfig().internalUrl
 
-                color: Theme.secondaryColor
-            }
+            color: Theme.secondaryColor
+        }
 
-            Item {
-                visible: Client.homeassistantInfo().available
-                height: Theme.paddingMedium
-                width: 1
-            }
+        Item {
+            visible: connected && !busy
+            height: Theme.paddingMedium
+            width: 1
+        }
 
-            Label {
-                visible: Client.homeassistantInfo().available
-                width: parent.width
+        Label {
+            visible: connected && !busy
+            width: parent.width
 
-                text: qsTr("External URL")
+            text: qsTr("External URL")
 
-                color: Theme.secondaryHighlightColor
-                font.pixelSize: Theme.fontSizeMedium
-            }
+            color: Theme.secondaryHighlightColor
+            font.pixelSize: Theme.fontSizeMedium
+        }
 
-            Label {
-                visible: Client.homeassistantInfo().available
-                width: parent.width
-                text: Client.homeassistantInfo().externalUrl
+        Label {
+            visible: connected && !busy
+            width: parent.width
+            text: App.api().serverConfig().externalUrl
 
-                color: Theme.secondaryColor
-            }
+            color: Theme.secondaryColor
+        }
 
-            Item {
-                visible: Client.homeassistantInfo().available
-                height: Theme.paddingMedium
-                width: 1
-            }
+        SectionHeader {
+            visible: connected && !busy
+            text: qsTr("Configuration checks")
+        }
 
-            Label {
-                visible: Client.homeassistantInfo().available
-                width: parent.width
+        TestResultItem {
+            visible: connected && !busy
+            title: qsTr("Version compatibility")
+            description: qsTr("Version of Home Assistant is incompatible with this app!")
+            result: App.api().serverConfig().versionCompatibility
+        }
 
-                text: qsTr("Internal URL")
+        TestResultItem {
+            visible: connected && !busy
+            title: qsTr("Mobile app component")
+            description: qsTr("Mobile app component is not activated! Please check your Home Assistant configuration.yaml!")
+            result: App.api().serverConfig().components & ServerConfig.ComponentMobileApp
+        }
 
-                color: Theme.secondaryHighlightColor
-                font.pixelSize: Theme.fontSizeMedium
-            }
-
-            Label {
-                visible: Client.homeassistantInfo().available
-                width: parent.width
-                text: Client.homeassistantInfo().internalUrl
-
-                color: Theme.secondaryColor
-            }
-
-            SectionHeader {
-                visible: Client.homeassistantInfo().available
-                text: qsTr("Configuration checks")
-            }
-
-            TestResultItem {
-                visible: Client.homeassistantInfo().available
-                title: qsTr("Version compatibility")
-                description: qsTr("Version of Home Assistant is incompatible with this app!")
-                result: Client.homeassistantInfo().versionCompatibility
-            }
-
-            TestResultItem {
-                visible: Client.homeassistantInfo().available
-                title: qsTr("Mobile app component")
-                description: qsTr("Mobile app component is not activated! Please check your Home Assistant configuration.yaml!")
-                result: Client.homeassistantInfo().components & HomeassistantInfo.ComponentMobileApp
-            }
-
-            TestResultItem {
-                visible: Client.homeassistantInfo().available
-                title: qsTr("Webhook component")
-                description: qsTr("Webhook component is not activated! Please check your Home Assistant configuration.yaml!")
-                result: Client.homeassistantInfo().components & HomeassistantInfo.ComponentWebhook
-            }
+        TestResultItem {
+            visible: connected && !busy
+            title: qsTr("Webhook component")
+            description: qsTr("Webhook component is not activated! Please check your Home Assistant configuration.yaml!")
+            result: App.api().serverConfig().components & ServerConfig.ComponentWebhook
         }
     }
 
     Connections {
-        target: Client.homeassistantInfo()
-        onLoadingChanged: {
-            if (Client.homeassistantInfo().isInstanceValid()) {
-                labelProceed.visible = true
-                canNavigateForward = true
-            }
-
-            if (!Client.homeassistantInfo().loading) column.opacity = 1
+        target: App.api()
+        onRequestFinished: {
+            dialog.busy = false
+            dialog.connected = true
+            canAccept = App.api().serverConfig().isCompatible()
+        }
+        onApiError: {
+            dialog.error = msg
+            dialog.busy = false
         }
     }
-
-    onStatusChanged: {
-        if (status == PageStatus.Active) {
-            pageStack.pushAttached(Qt.resolvedUrl("WizardDeviceRegistrationPage.qml"))
-        }
-    }
-
-    Component.onCompleted: canNavigateForward = false
 }

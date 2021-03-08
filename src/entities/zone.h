@@ -22,7 +22,7 @@ public:
     // networks
     Q_INVOKABLE WifiNetworkModel *networksModel();
 
-    void setJson(const QJsonObject &object);
+    void setData(const QJsonObject &object);
 
     // properties
     QString guid() const;

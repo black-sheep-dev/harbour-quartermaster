@@ -16,7 +16,7 @@ Entity *EntitiesSortFilterModel::entityAt(int i)
     if (!idx.isValid())
         return nullptr;
 
-    auto *model = qobject_cast<EntitiesModel *>(sourceModel());
+    auto model = qobject_cast<EntitiesModel *>(sourceModel());
 
     return model->entityAt(mapToSource(idx));
 }

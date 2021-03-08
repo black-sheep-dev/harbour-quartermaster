@@ -15,7 +15,7 @@ void WifiNetworkModel::addSelectedToModel(WifiNetworkModel *model)
     if (!model)
         return;
 
-    for (auto &network : m_networks) {
+    for (auto network : m_networks) {
         if (network->selected())
             model->addNetwork(network->name(), network->identifier());
         else
@@ -26,7 +26,7 @@ void WifiNetworkModel::addSelectedToModel(WifiNetworkModel *model)
 void WifiNetworkModel::resetSelection()
 {
     beginResetModel();
-    for (auto &network : m_networks) {
+    for (auto network : m_networks) {
         network->setSelected(false);
     }
     endResetModel();
@@ -38,7 +38,7 @@ void WifiNetworkModel::setSelected(WifiNetworkModel *model)
         return;
 
     const QList<WifiNetwork *> networks = model->networks();
-    for (const auto &selected : networks) {
+    for (const auto selected : networks) {
         for (auto &network : m_networks) {
             if (network->identifier() != selected->identifier())
                 continue;
@@ -70,7 +70,7 @@ void WifiNetworkModel::addNetwork(WifiNetwork *network)
 
 void WifiNetworkModel::addNetwork(const QString &name, const QString &identifier)
 {
-    for (auto &network : m_networks) {
+    for (auto network : m_networks) {
         if (network->identifier() == identifier)
             return;
     }
@@ -121,9 +121,10 @@ void WifiNetworkModel::reset()
 void WifiNetworkModel::setNetworks(const QList<WifiNetwork *> &networks)
 {
     beginResetModel();
-    qDeleteAll(m_networks.begin(), m_networks.end());
+    if (!m_networks.isEmpty())
+        qDeleteAll(m_networks.begin(), m_networks.end());
 
-    for (WifiNetwork *network : networks) {
+    for (auto network : networks) {
         network->setParent(this);
     }
 
@@ -166,7 +167,7 @@ QVariant WifiNetworkModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    const WifiNetwork *network = m_networks.at(index.row());
+    const auto network = m_networks.at(index.row());
 
     switch (role) {
     case Qt::DisplayRole:

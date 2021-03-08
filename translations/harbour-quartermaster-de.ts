@@ -16,16 +16,32 @@
         <translation>Spenden</translation>
     </message>
     <message>
-        <source>If you like my work you can buy me a beer.</source>
-        <translation>Wenn dir meine Arbeit gefällt, kannst du mir ein Bier ausgeben.</translation>
-    </message>
-    <message>
         <source>Quartermaster</source>
         <translation>Quartiermeister</translation>
     </message>
     <message>
         <source>Quartermaster is a native Sailfish OS Home Assistant client.</source>
         <translation>Quartiermeister ist ein nativer Sailfish OS Home Assistant Client.</translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your language is not available? You are welcome to support this project by translating it on my self hosted Weblate server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you like my work why not buy me a beer?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Donate with PayPal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Donate with Liberpay</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1111,6 +1127,57 @@
     </message>
 </context>
 <context>
+    <name>WizardConnectionAdvancedPage</name>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished">Zurück</translation>
+    </message>
+    <message>
+        <source>Continue</source>
+        <translation type="unfinished">Weiter</translation>
+    </message>
+    <message>
+        <source>Connection Infos</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to connect to server. Go back and check your data!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hostname</source>
+        <translation type="unfinished">Hostname</translation>
+    </message>
+    <message>
+        <source>Enter hostname</source>
+        <translation type="unfinished">Hostname eingeben</translation>
+    </message>
+    <message>
+        <source>Valid hostname or IP required!</source>
+        <translation type="unfinished">Gültiger Hostname oder IP benötigt!</translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation type="unfinished">Port</translation>
+    </message>
+    <message>
+        <source>Valid port required!</source>
+        <translation type="unfinished">Gültiger Port benötigt!</translation>
+    </message>
+    <message>
+        <source>External Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server connection infos recieved. Please check port for external address!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>WizardConnectionPage</name>
     <message>
         <source>Connection Settings</source>
@@ -1121,28 +1188,12 @@
         <translation>Hostname</translation>
     </message>
     <message>
-        <source>Enter hostname</source>
-        <translation>Hostname eingeben</translation>
-    </message>
-    <message>
-        <source>Use SSL</source>
-        <translation>Benutze SSL</translation>
-    </message>
-    <message>
         <source>Port</source>
         <translation>Port</translation>
     </message>
     <message>
-        <source>Enter connection details</source>
-        <translation>Verbindungs Details eingeben</translation>
-    </message>
-    <message>
         <source>Back</source>
         <translation>Zurück</translation>
-    </message>
-    <message>
-        <source>Continue</source>
-        <translation>Weiter</translation>
     </message>
     <message>
         <source>Valid hostname or IP required!</source>
@@ -1153,13 +1204,17 @@
         <translation>Gültiger Port benötigt!</translation>
     </message>
     <message>
-        <source>It is highly recommend to use a ssl connection if your Home Assistant server support this!</source>
-        <translation>Es wird dringend empfohlen eine SSL Verbindung zu benutzten, wenn der Home Assistant Server dies unterstützt!</translation>
-    </message>
-    <message>
         <source>You need to provide the connection details to your Home Assistant server.
 This can either be the hostname / IP in your local network or a remote url if your Home Assistant is reachable from the internet.</source>
         <translation>Du musst die Verbindungsdaten zu deinem Home Assistant Server eingeben. Das kann entweder der Hostname / IP im loken Netzwerk sein, oder ein Remote-URL wenn Home Assistant aus dem Internet zu erreichen ist.</translation>
+    </message>
+    <message>
+        <source>Enter hostname (e.g. http://server)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1175,10 +1230,6 @@ This can either be the hostname / IP in your local network or a remote url if yo
     <message>
         <source>Device registration</source>
         <translation>Geräte Registrierung</translation>
-    </message>
-    <message>
-        <source>Change device name</source>
-        <translation>Geräte Namen ändern</translation>
     </message>
     <message>
         <source>Device name</source>
@@ -1300,6 +1351,10 @@ This can either be the hostname / IP in your local network or a remote url if yo
     <message>
         <source>Registration failed</source>
         <translation>Registrierung fehlgeschlagen</translation>
+    </message>
+    <message>
+        <source>Complete</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

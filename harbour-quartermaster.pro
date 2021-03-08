@@ -10,7 +10,7 @@
 #   - translation filenames have to be changed
 
 # VERSION
-VERSION = 0.1.22
+VERSION = 0.1.21
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # The name of your application
@@ -31,39 +31,36 @@ LIBS += -lz
 CONFIG += sailfishapp
 
 SOURCES += src/harbour-quartermaster.cpp \
-    src/api/apiinterface.cpp \
-    src/api/homeassistantapi.cpp \
-    src/api/webhookapi.cpp \
-    src/api/websocketapi.cpp \
-    src/client/clientinterface.cpp \
-    src/client/entitiesprovider.cpp \
-    src/client/homeassistantinfo.cpp \
+    src/api/apiconnector.cpp \
+    src/api/serverconfig.cpp \
+    src/app.cpp \
+    src/constants.cpp \
     src/crypto/wallet.cpp \
     src/device/device.cpp \
     src/device/devicesensor.cpp \
     src/device/devicesensormodel.cpp \
-    src/device/devicetracker.cpp \
+#    src/device/devicetracker.cpp \
     src/device/sensors/devicesensorbattery.cpp \
     src/device/sensors/devicesensorbatterycharging.cpp \
-    src/device/trackers/devicetrackergps.cpp \
-    src/device/trackers/devicetrackerwifi.cpp \
-    src/entities/climate.cpp \
-    src/entities/entity.cpp \
-    src/entities/group.cpp \
-    src/entities/light.cpp \
-    src/entities/wifinetwork.cpp \
-    src/entities/zone.cpp \
-    src/models/entitiesmodel.cpp \
-    src/models/entitiessortfiltermodel.cpp \
-    src/models/entityattributesmodel.cpp \
-    src/models/entitytypesmodel.cpp \
-    src/models/errorlogmodel.cpp \
-    src/models/logbookmodel.cpp \
-    src/models/sortfiltermodel.cpp \
-    src/models/wifinetworkmodel.cpp \
-    src/models/zonesmodel.cpp \
-    src/threads/errorlogparser.cpp \
-    src/tools/backuptool.cpp
+#    src/device/trackers/devicetrackergps.cpp \
+#    src/device/trackers/devicetrackerwifi.cpp \
+#    src/entities/climate.cpp \
+#    src/entities/entity.cpp \
+#    src/entities/group.cpp \
+#    src/entities/light.cpp \
+#    src/entities/wifinetwork.cpp \
+#    src/entities/zone.cpp \
+#    src/models/entitiesmodel.cpp \
+#    src/models/entitiessortfiltermodel.cpp \
+#    src/models/entityattributesmodel.cpp \
+#    src/models/entitytypesmodel.cpp \
+#    src/models/errorlogmodel.cpp \
+#    src/models/logbookmodel.cpp \
+#    src/models/sortfiltermodel.cpp \
+#    src/models/wifinetworkmodel.cpp \
+#    src/models/zonesmodel.cpp \
+#    src/threads/errorlogparser.cpp \
+#    src/tools/backuptool.cpp
 
 DISTFILES += qml/harbour-quartermaster.qml \
     qml/SelectWifiNetworkDialog.qml \
@@ -104,6 +101,7 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/settings/SettingsHomezonePage.qml \
     qml/pages/settings/SettingsLogBookPage.qml \
     qml/pages/settings/SettingsNotificationsPage.qml \
+    qml/pages/wizard/WizardConnectionAdvancedPage.qml \
     qml/pages/wizard/WizardConnectionPage.qml \
     qml/pages/wizard/WizardDeviceRegistrationPage.qml \
     qml/pages/wizard/WizardInfoPage.qml \
@@ -133,38 +131,39 @@ RESOURCES += \
     ressources.qrc
 
 HEADERS += \
-    src/api/apiinterface.h \
-    src/api/homeassistantapi.h \
-    src/api/webhookapi.h \
-    src/api/websocketapi.h \
-    src/client/clientinterface.h \
-    src/client/entitiesprovider.h \
-    src/client/homeassistantinfo.h \
-    src/crypto/secrets.h \
+    src/api/apiconnector.h \
+    src/api/credentials.h \
+#    src/api/websocketapi.h \
+    src/api/serverconfig.h \
+    src/app.h \
+#    src/client/clientinterface.h \
+#    src/client/entitiesprovider.h \
+    src/constants.h \
+    src/constants.h \
     src/crypto/wallet.h \
     src/device/device.h \
     src/device/devicesensor.h \
     src/device/devicesensormodel.h \
-    src/device/devicetracker.h \
+#    src/device/devicetracker.h \
     src/device/sensors/devicesensorbattery.h \
     src/device/sensors/devicesensorbatterycharging.h \
-    src/device/trackers/devicetrackergps.h \
-    src/device/trackers/devicetrackerwifi.h \
-    src/entities/climate.h \
-    src/entities/entity.h \
-    src/entities/group.h \
-    src/entities/light.h \
-    src/entities/wifinetwork.h \
-    src/entities/zone.h \
-    src/models/entitiesmodel.h \
-    src/models/entitiessortfiltermodel.h \
-    src/models/entityattributesmodel.h \
-    src/models/entitytypesmodel.h \
-    src/models/errorlogmodel.h \
-    src/models/logbookmodel.h \
-    src/models/sortfiltermodel.h \
-    src/models/wifinetworkmodel.h \
-    src/models/zonesmodel.h \
-    src/string_constants.h \
-    src/threads/errorlogparser.h \
-    src/tools/backuptool.h
+#    src/device/trackers/devicetrackergps.h \
+#    src/device/trackers/devicetrackerwifi.h \
+#    src/entities/climate.h \
+#    src/entities/entity.h \
+#    src/entities/group.h \
+#    src/entities/light.h \
+#    src/entities/wifinetwork.h \
+#    src/entities/zone.h \
+#    src/models/entitiesmodel.h \
+#    src/models/entitiessortfiltermodel.h \
+#    src/models/entityattributesmodel.h \
+#    src/models/entitytypesmodel.h \
+#    src/models/errorlogmodel.h \
+#    src/models/logbookmodel.h \
+#    src/models/sortfiltermodel.h \
+#    src/models/wifinetworkmodel.h \
+#    src/models/zonesmodel.h \
+#    src/threads/errorlogparser.h \
+#    src/tools/backuptool.h
+    src/enums.h

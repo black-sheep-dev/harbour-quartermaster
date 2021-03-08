@@ -1,26 +1,31 @@
-#ifndef HOMEASSISTANTINFO_H
-#define HOMEASSISTANTINFO_H
+#ifndef SERVERCONFIG_H
+#define SERVERCONFIG_H
 
 #include <QObject>
 
 #include <QVariantList>
+#include <QVersionNumber>
 
 #include "src/entities/zone.h"
 
-class HomeassistantInfo : public QObject
+class ServerConfig : public QObject
 {
     Q_OBJECT
 
     Q_PROPERTY(bool available READ available WRITE setAvailable NOTIFY availableChanged)
-    Q_PROPERTY(QVariantList componentList READ componentList WRITE setComponentList NOTIFY componentListChanged)
-    Q_PROPERTY(quint16 components READ components WRITE setComponents NOTIFY componentsChanged)
+    Q_PROPERTY(QVariantList componentList READ componentList WRITE setComponentList NOTIFY componentListChanged)  
     Q_PROPERTY(QString configError READ configError WRITE setConfigError NOTIFY configErrorChanged)
     Q_PROPERTY(bool configValid READ configValid WRITE setConfigValid NOTIFY configValidChanged)
     Q_PROPERTY(QString error READ error WRITE setError NOTIFY errorChanged)
-    Q_PROPERTY(QString externalUrl READ externalUrl WRITE setExternalUrl NOTIFY externalUrlChanged)
-    Q_PROPERTY(QString internalUrl READ internalUrl WRITE setInternalUrl NOTIFY internalUrlChanged)
     Q_PROPERTY(bool loading READ loading WRITE setLoading NOTIFY loadingChanged)
-    Q_PROPERTY(QString locationName READ locationName WRITE setLocationName NOTIFY locationNameChanged)
+//    Q_PROPERTY(QString locationName READ locationName WRITE setLocationName NOTIFY locationNameChanged)
+
+
+    Q_PROPERTY(quint16 components READ components WRITE setComponents NOTIFY componentsChanged)
+    Q_PROPERTY(quint16 externalPort READ externalPort WRITE setExternalPort NOTIFY externalPortChanged)
+    Q_PROPERTY(QString externalUrl READ externalUrl WRITE setExternalUrl NOTIFY externalUrlChanged)
+    Q_PROPERTY(quint16 internalPort READ internalPort WRITE setInternalPort NOTIFY internalPortChanged)
+    Q_PROPERTY(QString internalUrl READ internalUrl WRITE setInternalUrl NOTIFY internalUrlChanged)
     Q_PROPERTY(QString unitLength READ unitLength WRITE setUnitLength NOTIFY unitLengthChanged)
     Q_PROPERTY(QString unitMass READ unitMass WRITE setUnitMass NOTIFY unitMassChanged)
     Q_PROPERTY(QString unitPressure READ unitPressure WRITE setUnitPressure NOTIFY unitPressureChanged)
@@ -41,10 +46,10 @@ public:
     Q_FLAG(Components)
     Q_ENUM(Component)
 
-    explicit HomeassistantInfo(QObject *parent = nullptr);
+    explicit ServerConfig(QObject *parent = nullptr);
 
-    Q_INVOKABLE Zone *homezone() const;
-    Q_INVOKABLE bool isInstanceValid();
+    //Q_INVOKABLE Zone *homezone() const;
+    Q_INVOKABLE bool isCompatible();
     bool isUpdateAvailable(const QString &version) const;
 
     void setData(const QJsonObject &object);
@@ -56,10 +61,12 @@ public:
     QString configError() const;
     bool configValid() const;
     QString error() const;
+    quint16 externalPort() const;
     QString externalUrl() const;
+    quint16 internalPort() const;
     QString internalUrl() const;
     bool loading() const;
-    QString locationName() const;
+//    QString locationName() const;
     QString unitLength() const;
     QString unitMass() const;
     QString unitPressure() const;
@@ -67,8 +74,6 @@ public:
     QString unitVolume() const;
     QString version() const;
     bool versionCompatibility() const;
-
-
 
 signals:
     // properties
@@ -78,10 +83,12 @@ signals:
     void configErrorChanged(const QString &error);
     void configValidChanged(bool valid);
     void errorChanged(const QString &error);
+    void externalPortChanged(quint16 port);
     void externalUrlChanged(const QString &url);
+    void internalPortChanged(quint16 port);
     void internalUrlChanged(const QString &url);
     void loadingChanged(bool loading);
-    void locationNameChanged(const QString &name);
+//    void locationNameChanged(const QString &name);
     void unitLengthChanged(const QString &unitLength);
     void unitMassChanged(const QString &unitMass);
     void unitPressureChanged(const QString &unitPressure);
@@ -98,10 +105,12 @@ public slots:
     void setConfigError(const QString &error);
     void setConfigValid(bool valid);
     void setError(const QString &error);
+    void setExternalPort(quint16 port);
     void setExternalUrl(const QString &url);
+    void setInternalPort(quint16 port);
     void setInternalUrl(const QString &url);
     void setLoading(bool loading);
-    void setLocationName(const QString &name);
+//    void setLocationName(const QString &name);
     void setUnitLength(const QString &unit);
     void setUnitMass(const QString &unit);
     void setUnitPressure(const QString &unit);
@@ -111,20 +120,18 @@ public slots:
     void setVersionCompatibility(bool compatibility);
 
 private:
-    quint16 m_buildVersion{0};
-    quint16 m_majorVersion{0};
-    quint16 m_minorVersion{0};
-
-    Zone *m_zone{nullptr};
+//    Zone *m_zone{new Zone(this};
 
     // properties
     bool m_available{false};
     QVariantList m_componentList;
-    quint16 m_components{HomeassistantInfo::ComponentNone};
+    quint16 m_components{ServerConfig::ComponentNone};
     QString m_configError;
     bool m_configValid{true};
     QString m_error;
+    quint16 m_externalPort{8123};
     QString m_externalUrl;
+    quint16 m_internalPort{8123};
     QString m_internalUrl;
     bool m_loading{false};
     QString m_locationName;
@@ -133,10 +140,11 @@ private:
     QString m_unitPressure;
     QString m_unitTemperature;
     QString m_unitVolume;
-    QString m_version;
+    QVersionNumber m_version;
     bool m_versionCompatibility{false};
     bool m_busy{};
-};
-Q_DECLARE_OPERATORS_FOR_FLAGS(HomeassistantInfo::Components)
 
-#endif // HOMEASSISTANTINFO_H
+};
+Q_DECLARE_OPERATORS_FOR_FLAGS(ServerConfig::Components)
+
+#endif // SERVERCONFIG_H

@@ -27,7 +27,7 @@ int EntityAttributesModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
 
-    if (!m_entity)
+    if (m_entity == nullptr)
         return 0;
 
     return m_entity->attributes().count();
@@ -38,7 +38,7 @@ QVariant EntityAttributesModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    if (!m_entity)
+    if (m_entity == nullptr)
         return QVariant();
 
     switch (role) {

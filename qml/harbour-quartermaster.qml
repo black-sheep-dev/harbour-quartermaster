@@ -10,5 +10,5 @@ ApplicationWindow
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
     allowedOrientations: defaultAllowedOrientations
 
-    Component.onCompleted: Client.initialize()
+    Component.onCompleted: App.initialize()
 }

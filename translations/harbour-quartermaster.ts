@@ -16,15 +16,31 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If you like my work you can buy me a beer.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Quartermaster</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Quartermaster is a native Sailfish OS Home Assistant client.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your language is not available? You are welcome to support this project by translating it on my self hosted Weblate server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you like my work why not buy me a beer?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Donate with PayPal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Donate with Liberpay</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1108,9 +1124,25 @@
     </message>
 </context>
 <context>
-    <name>WizardConnectionPage</name>
+    <name>WizardConnectionAdvancedPage</name>
     <message>
-        <source>Connection Settings</source>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Continue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connection Infos</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to connect to server. Go back and check your data!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal Connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1122,7 +1154,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use SSL</source>
+        <source>Valid hostname or IP required!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1130,15 +1162,34 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enter connection details</source>
+        <source>Valid port required!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>External Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server connection infos recieved. Please check port for external address!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>WizardConnectionPage</name>
+    <message>
+        <source>Connection Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hostname</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Continue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1150,12 +1201,16 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>It is highly recommend to use a ssl connection if your Home Assistant server support this!</source>
+        <source>You need to provide the connection details to your Home Assistant server.
+This can either be the hostname / IP in your local network or a remote url if your Home Assistant is reachable from the internet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You need to provide the connection details to your Home Assistant server.
-This can either be the hostname / IP in your local network or a remote url if your Home Assistant is reachable from the internet.</source>
+        <source>Enter hostname (e.g. http://server)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connect</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1171,10 +1226,6 @@ This can either be the hostname / IP in your local network or a remote url if yo
     </message>
     <message>
         <source>Device registration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Change device name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1296,6 +1347,10 @@ This can either be the hostname / IP in your local network or a remote url if yo
     </message>
     <message>
         <source>Registration failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Complete</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

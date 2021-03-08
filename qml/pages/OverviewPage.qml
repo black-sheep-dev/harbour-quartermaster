@@ -4,7 +4,7 @@ import Sailfish.Silica 1.0
 import org.nubecula.harbour.quartermaster 1.0
 
 Page {
-    property Entity entity
+    //property Entity entity
 
     id: page
 
@@ -13,13 +13,12 @@ Page {
     PageBusyIndicator {
         id: busyIndicator
         size: BusyIndicatorSize.Large
-        running: Client.entitiesProvider().loading
+        //running: Client.entitiesProvider().loading
         anchors.centerIn: page
     }
 
     SilicaListView {
         PullDownMenu {
-            busy: Client.entitiesProvider().loading
             MenuItem {
                 text: qsTr("Settings")
                 onClicked: pageStack.push(Qt.resolvedUrl("settings/SettingsPage.qml"))
@@ -30,29 +29,23 @@ Page {
             }
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: Client.entitiesProvider().refresh()
+                //onClicked: Client.entitiesProvider().refresh()
             }
-
-            opacity: 1.0
         }
 
         id: listView
 
-        opacity: busyIndicator.running ? 0.1 : 1.0
-
-        Behavior on opacity {
-            FadeAnimation {}
-        }
+        visible: !busyIndicator.running
 
         anchors.fill: parent
         header: PageHeader {
             title: qsTr("Entities")
         }
 
-        model: SortFilterModel {
-            id: sortModel
-            sourceModel: Client.entitiesProvider().typesModel()
-        }
+//        model: SortFilterModel {
+//            id: sortModel
+//            sourceModel: Client.entitiesProvider().typesModel()
+//        }
 
         delegate: ListItem {
             id: delegate
@@ -95,41 +88,47 @@ Page {
                 }
             }
 
-            onClicked: {
+//            onClicked: {
 
-                var page;
+//                var page;
 
-                switch (type) {
-                case Entity.Person:
-                    page = "entities/PersonsListPage.qml"
-                    break;
+//                switch (type) {
+//                case Entity.Person:
+//                    page = "entities/PersonsListPage.qml"
+//                    break;
 
-                case Entity.Sensor:
-                    page = "entities/SensorsListPage.qml"
-                    break;
+//                case Entity.Sensor:
+//                    page = "entities/SensorsListPage.qml"
+//                    break;
 
-                default:
-                    page = "entities/EntitiesListViewPage.qml"
-                    break;
-                }
+//                default:
+//                    page = "entities/EntitiesListViewPage.qml"
+//                    break;
+//                }
 
-                pageStack.push(Qt.resolvedUrl(page), {
-                                   title: title,
-                                   icon: icon,
-                                   type: type })
-            }
+//                pageStack.push(Qt.resolvedUrl(page), {
+//                                   title: title,
+//                                   icon: icon,
+//                                   type: type })
+//            }
         }
     }
 
-    Connections {
-        target: Client
-        onReadyChanged: {
-            if (!Client.ready) return
-
-            if (!Client.isRegistered()) {
-                pageStack.clear()
-                pageStack.push(Qt.resolvedUrl("wizard/WizardIntroPage.qml"))
-            }
-        }
+    function startSetupWizard() {
+        pageStack.clear()
+        pageStack.push(Qt.resolvedUrl("wizard/WizardIntroPage.qml"))
     }
+
+    onStatusChanged: {
+        if (status !== PageStatus.Active) return
+
+        if (App.needSetup) startSetupWizard()
+    }
+
+    //Component.onCompleted: if (App.needSetup) startSetupWizard()
+
+//    Connections {
+//        target: App
+//        onNeedSetupChanged: if (needSetup) startSetupWizard()
+//    }
 }

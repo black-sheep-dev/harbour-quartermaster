@@ -3,97 +3,64 @@ import Sailfish.Silica 1.0
 
 import org.nubecula.harbour.quartermaster 1.0
 
-Page {
-    id: page
+Dialog {
+    id: dialog
     allowedOrientations: Orientation.Portrait
+    acceptDestination: Qt.resolvedUrl("WizardLastPage.qml")
 
-    SilicaFlickable {
-        anchors.fill: parent
-        contentHeight: column.height
+    DialogHeader {
+        id: header
+        acceptText: qsTr("Register")
+        cancelText: qsTr("Back")
+    }
 
-        Column {
-            id: column
+    Column {
+        anchors.top: header.bottom
+        x: Theme.horizontalPageMargin
+        width: parent.width - 2*x
+        spacing: Theme.paddingMedium
+
+        Label {
             width: parent.width
-            spacing: Theme.paddingMedium
 
-            PageHeader {
-                Row {
-                    x: Theme.horizontalPageMargin
-                    width: page.width - 2 * x
-                    anchors.verticalCenter: parent.verticalCenter
+            text: qsTr("Device registration")
 
-                    Label {
-                        width: parent.width / 2
-                        text: qsTr("Back")
+            color: Theme.highlightColor
+            font.pixelSize: Theme.fontSizeLarge
+        }
 
-                        color: Theme.secondaryHighlightColor
-                        font.pixelSize: Theme.fontSizeExtraLarge
-                    }
+        Label {
+            width: parent.width
+            wrapMode: Text.WordWrap
 
-                    Label {
-                        width: parent.width / 2
-                        text: qsTr("Register")
+            text: qsTr("This is the final step. You can change the device name which shows up in Home Assistant if you want before starting the registration.")
+            color: Theme.highlightColor
+            font.pixelSize: Theme.fontSizeSmall
+        }
 
-                        horizontalAlignment: Text.AlignRight
+        Item {
+            width: 1
+            height: Theme.paddingLarge
+        }
 
-                        color: Theme.secondaryHighlightColor
-                        font.pixelSize: Theme.fontSizeExtraLarge
-                    }
-                }
-            }
+        TextField {
+            id: deviceNameField
+            width: parent.width
 
-            Label {
-                x: Theme.horizontalPageMargin
-                width: page.width - 2 * x
+            label: qsTr("Device name")
+            placeholderText: qsTr("Enter device name")
 
-                text: qsTr("Device registration")
+            text: App.device().name
 
-                color: Theme.highlightColor
-                font.pixelSize: Theme.fontSizeLarge
-            }
-
-            Label {
-                x: Theme.horizontalPageMargin
-                width: page.width - 2 * x
-                wrapMode: Text.WordWrap
-
-                text: qsTr("This is the final step. You can change the device name which shows up in Home Assistant if you want before starting the registration.")
-                color: Theme.highlightColor
-            }
-
-            Label {
-                x: Theme.horizontalPageMargin
-                width: page.width - 2 * x
-                text: qsTr("Change device name")
-
-                color: Theme.highlightColor
-                font.pixelSize: Theme.fontSizeLarge
-            }
-
-            TextField {
-                id: deviceNameField
-                width: parent.width
-
-                label: qsTr("Device name")
-                placeholderText: qsTr("Enter device name")
-
-                text: Client.device().name
-
-                onTextChanged: checkInput()
-            }
+            onTextChanged: checkInput()
         }
     }
 
-    function checkInput() {
-        canNavigateForward = deviceNameField.length > 0
-    }
+    function checkInput() { canAccept = deviceNameField.length > 0 }
 
-    onStatusChanged: {
-        if (status == PageStatus.Active) {
-            pageStack.pushAttached(Qt.resolvedUrl("WizardLastPage.qml"))
-        } else if (status == PageStatus.Deactivating) {
-            Client.device().name = deviceNameField.text
-        }
+    onAccepted: {
+        App.device().name = deviceNameField.text
+        App.registerDevice()
     }
 
     Component.onCompleted: checkInput()

@@ -5,77 +5,45 @@ import org.nubecula.harbour.quartermaster 1.0
 
 import "../../components"
 
-Page {
-    id: page
+Dialog {
+    property bool busy: true
 
+    id: dialog
     allowedOrientations: Orientation.Portrait
 
     PageBusyIndicator {
         size: BusyIndicatorSize.Large
-        running: Client.busy
+        running: busy
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
-    SilicaFlickable {
-        anchors.fill: parent
-        contentHeight: column.height
+    DialogHeader {
+        id: header
+        acceptText: qsTr("Complete")
+        cancelText: qsTr("Back")
+    }
 
-        Column {
-            id: column
-            x: Theme.horizontalPageMargin
-            width: parent.width - 2 * x
+    Column {
+        anchors.top: header.bottom
+        x: Theme.horizontalPageMargin
+        width: parent.width - 2*x
 
-            opacity: 0
+        opacity: 0
 
-            PageHeader {
-                Row {
-                    x: Theme.paddingMedium
-                    width: parent.width - 2*x
-                    anchors.verticalCenter: parent.verticalCenter
+        Label {
+            width: parent.width
 
-                    Label {
-                        width: parent.width / 2
-                        text: qsTr("Back")
+            text: qsTr("Registration failed")
 
-                        color: Theme.secondaryHighlightColor
-                        font.pixelSize: Theme.fontSizeExtraLarge
-                    }
-
-                    Label {
-                        id: labelProceed
-                        visible: false
-                        width: parent.width / 2
-                        text: ""
-
-                        horizontalAlignment: Text.AlignRight
-
-                        color: Theme.secondaryHighlightColor
-                        font.pixelSize: Theme.fontSizeExtraLarge
-                    }
-                }
-            }
-
-            Label {
-                width: parent.width
-
-                text: qsTr("Registration failed")
-
-                color: Theme.secondaryHighlightColor
-                font.pixelSize: Theme.fontSizeLarge
-            }
+            color: Theme.secondaryHighlightColor
+            font.pixelSize: Theme.fontSizeLarge
         }
     }
 
-    onStatusChanged: if (status == PageStatus.Active) Client.registerDevice()
-
-    Connections {
-        target: Client.device()
-        onRegisteredChanged: {
-            if (Client.device().registered) {
-                pageStack.clear()
-                pageStack.push(Qt.resolvedUrl("../OverviewPage.qml"))
-            }
-        }
+    onAccepted: {
+        App.wallet().storeCredentials()
+        pageStack.clear()
+        pageStack.push(Qt.resolvedUrl("../OverviewPage.qml"))
     }
 }
