@@ -6,8 +6,6 @@
 #include <QJsonArray>
 #include <QJsonObject>
 
-#include <mdm-batteryinfo.h>
-
 #include "devicesensormodel.h"
 
 class Device : public QObject
@@ -15,7 +13,6 @@ class Device : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
-    Q_PROPERTY(bool registered READ registered WRITE setRegistered NOTIFY registeredChanged)
     Q_PROPERTY(bool sensorAutoUpdate READ sensorAutoUpdate WRITE setSensorAutoUpdate NOTIFY sensorAutoUpdateChanged)
 
 public:
@@ -35,7 +32,6 @@ public:
 
     // properties
     QString name() const;
-    bool registered() const;
     bool sensorAutoUpdate() const;
 
 signals:
@@ -45,7 +41,6 @@ signals:
 
     // properties
     void nameChanged(const QString &name);
-    void registeredChanged(bool registered);
     void sensorAutoUpdateChanged(bool enabled);
 
 
@@ -55,21 +50,15 @@ public slots:
 
     // properties
     void setName(const QString &name);
-    void setRegistered(bool registered);
     void setSensorAutoUpdate(bool enable);
 
 private:
     void registerSensor(DeviceSensor *sensor);
 
-    // settings
-    void readSettings();
-    void writeSettings();
-
     DeviceSensorModel *m_sensorModel{new DeviceSensorModel(this)};
 
     // properties
     QString m_name;
-    bool m_registered{false};
     bool m_sensorAutoUpdate{false};
 };
 

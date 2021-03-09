@@ -107,7 +107,7 @@ Dialog {
         ButtonLayout {
             Button {
                 text: qsTr("Reset")
-                onClicked: App.wallet().reset()
+                onClicked: App.reset()
             }
         }
     }

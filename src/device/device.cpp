@@ -4,8 +4,6 @@
 #include <QDebug>
 #endif
 
-#include <QSettings>
-
 #include <mdm-sysinfo.h>
 
 #include "sensors/devicesensorbattery.h"
@@ -20,13 +18,11 @@ Device::Device(QObject *parent) :
 
     auto batteryCharging = new DeviceSensorBatteryCharging;
     registerSensor(batteryCharging);
-
-    readSettings();
 }
 
 Device::~Device()
 {
-    writeSettings();
+
 }
 
 QString Device::id() const
@@ -74,11 +70,6 @@ QString Device::name() const
     return m_name;
 }
 
-bool Device::registered() const
-{
-    return m_registered;
-}
-
 bool Device::sensorAutoUpdate() const
 {
     return m_sensorAutoUpdate;
@@ -105,15 +96,6 @@ void Device::setName(const QString &name)
     emit nameChanged(m_name);
 }
 
-void Device::setRegistered(bool registered)
-{
-    if (m_registered == registered)
-        return;
-
-    m_registered = registered;
-    emit registeredChanged(m_registered);
-}
-
 void Device::setSensorAutoUpdate(bool enable)
 {
     if (m_sensorAutoUpdate == enable)
@@ -125,8 +107,6 @@ void Device::setSensorAutoUpdate(bool enable)
     for (auto sensor : sensors()) {
         sensor->setEnabled(enable);
     }
-
-    writeSettings();
 }
 
 void Device::registerSensor(DeviceSensor *sensor)
@@ -134,22 +114,4 @@ void Device::registerSensor(DeviceSensor *sensor)
     connect(sensor, &DeviceSensor::sensorUpdated, this, &Device::sensorUpdated);
 
     m_sensorModel->addSensor(sensor);
-}
-
-void Device::readSettings()
-{
-    QSettings settings;
-
-    settings.beginGroup(QStringLiteral("SENSORS"));
-    setSensorAutoUpdate(settings.value(QStringLiteral("autoupdate"), false).toBool());
-    settings.endGroup();
-}
-
-void Device::writeSettings()
-{
-    QSettings settings;
-
-    settings.beginGroup(QStringLiteral("SENSORS"));
-    settings.setValue(QStringLiteral("autoupdate"), m_sensorAutoUpdate);
-    settings.endGroup();
 }

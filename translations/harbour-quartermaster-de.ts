@@ -25,7 +25,7 @@
     </message>
     <message>
         <source>Translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Übersetzungen</translation>
     </message>
     <message>
         <source>Your language is not available? You are welcome to support this project by translating it on my self hosted Weblate server.</source>
@@ -37,11 +37,11 @@
     </message>
     <message>
         <source>Donate with PayPal</source>
-        <translation type="unfinished"></translation>
+        <translation>Spenden via PayPal</translation>
     </message>
     <message>
         <source>Donate with Liberpay</source>
-        <translation type="unfinished"></translation>
+        <translation>Spenden via Liberpay</translation>
     </message>
 </context>
 <context>
@@ -807,7 +807,7 @@
     </message>
     <message>
         <source>Check Config</source>
-        <translation>Überprüfe Conifg</translation>
+        <translation type="unfinished">Überprüfe Config</translation>
     </message>
 </context>
 <context>
@@ -1173,7 +1173,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Server connection infos recieved. Please check port for external address!</source>
+        <source>Server connection infos received. Please check port for external address!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1354,6 +1354,22 @@ This can either be the hostname / IP in your local network or a remote url if yo
     </message>
     <message>
         <source>Complete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Registration completed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can now proceed to the main screen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some of the setting from this wizard can be changed in the applications settings page.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Welcome to your smart home!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

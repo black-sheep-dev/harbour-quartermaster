@@ -29,6 +29,7 @@ ApiConnector::ApiConnector(QObject *parent) :
     m_apiEndpoints[RequestPostApiEvents]                = QStringLiteral("/api/events/");
     m_apiEndpoints[RequestPostApiServices]              = QStringLiteral("/api/services/");
     m_apiEndpoints[RequestPostApiConfigCheckConfig]     = QStringLiteral("/api/config/core/check_config");
+    m_apiEndpoints[RequestPostApiRegisterDevice]        = QStringLiteral("/api/mobile_app/registrations");
 
 
     m_webhookTypes[RequestWebhookCallService]           = QStringLiteral("call_service");
@@ -45,6 +46,7 @@ ApiConnector::ApiConnector(QObject *parent) :
 
 
     connect(m_manager, &QNetworkAccessManager::sslErrors, this, &ApiConnector::onSslErrors);
+    connect(this, &ApiConnector::credentialsChanged, [this]() { refreshWebhookUrl(); });
 }
 
 void ApiConnector::connectToHost()
@@ -161,6 +163,11 @@ void ApiConnector::getStates()
     sendRequest(RequestGetApiStates);
 }
 
+void ApiConnector::registerDevice(const QJsonObject &object)
+{
+    sendRequest(RequestPostApiRegisterDevice, QString(), object);
+}
+
 void ApiConnector::setEntityState(const QString &entityId, const QJsonObject &payload)
 {
     sendRequest(RequestPostApiStates, entityId, payload);
@@ -199,7 +206,7 @@ void ApiConnector::sendRequest(quint8 type, const QString &query, const QJsonObj
     qDebug() << "PAYLOAD: " << payload;
 #endif
 
-    if ( (!m_credentials.isValid() || !token) && type != RequestGetApiDiscoveryInfo)
+    if ( (m_credentials.token.isEmpty() || !token) && type != RequestGetApiDiscoveryInfo )
         return;
 
     // check if request is already enqueued
@@ -243,13 +250,6 @@ void ApiConnector::sendRequest(quint8 type, const QString &query, const QJsonObj
     QNetworkReply *reply{nullptr};
 
     switch (type) {
-    case RequestPostApiStates:
-    case RequestPostApiEvents:
-    case RequestPostApiServices:
-    case RequestPostApiConfigCheckConfig:
-        reply = m_manager->post(request, QJsonDocument(payload).toJson(QJsonDocument::Compact));
-        break;
-
     case RequestGetApi:
     case RequestGetApiConfig:
     case RequestGetApiDiscoveryInfo:
@@ -264,11 +264,19 @@ void ApiConnector::sendRequest(quint8 type, const QString &query, const QJsonObj
         reply = m_manager->get(request);
         break;
 
+    case RequestPostApiStates:
+    case RequestPostApiEvents:
+    case RequestPostApiServices:
+    case RequestPostApiConfigCheckConfig:
+    case RequestPostApiRegisterDevice:
+        reply = m_manager->post(request, QJsonDocument(payload).toJson(QJsonDocument::Compact));
+        break;
+
     default:
         locker.relock();
         m_activeRequests.removeAll(type);
         locker.unlock();
-        emit apiError(ErrorBadRequest, m_apiEndpoints.value(type) + query);
+        emit apiError(type, ErrorBadRequest, m_apiEndpoints.value(type) + query);
         return;
     }
 
@@ -283,7 +291,7 @@ void ApiConnector::sendWebhookRequest(quint8 type, const QJsonObject &payload)
     qDebug() << "PAYLOAD: " << payload;
 #endif
 
-    if (!m_credentials.isValid())
+    if (m_credentials.webhookId.isEmpty())
         return;
 
     // check if request is already enqueued
@@ -352,7 +360,7 @@ void ApiConnector::setCredentials(const Credentials &credentials)
     m_credentials = credentials;
     emit credentialsChanged(m_credentials);
 
-    refreshWebhookUrl();
+    setEncryption(!m_credentials.secret.isEmpty());
 }
 
 void ApiConnector::setEncryption(bool encryption)
@@ -410,26 +418,27 @@ void ApiConnector::onFinished()
         break;
 
     case 400:
-        emit apiError(ErrorDataInvalid, typeString);
+        emit apiError(type, ErrorDataInvalid, typeString);
         return;
 
     case 401:
-        emit apiError(ErrorUnauthorized, typeString);
+        emit apiError(type, ErrorUnauthorized, typeString);
         return;
 
     case 404:
-        emit apiError(ErrorNotFound, typeString);
+        emit apiError(type, ErrorNotFound, typeString);
         return;
 
     case 405:
-        emit apiError(ErrorMethodNotAllowed, typeString);
+        emit apiError(type, ErrorMethodNotAllowed, typeString);
         return;
 
     default:
         updateConnectionFailures(url);
-        emit apiError(ErrorUnkown, errorString);
+        emit apiError(type, ErrorUnkown, errorString);
         return;
     }
+
 
     // begin parsing data
     QByteArray data = gunzip(raw);
@@ -446,7 +455,7 @@ void ApiConnector::onFinished()
         qDebug() << "JSON PARSE ERROR";
         qDebug() << error.errorString();
 #endif
-        emit apiError(ErrorJsonInvalid, typeString);
+        emit apiError(type, ErrorJsonInvalid, typeString);
         return;
     }
 
@@ -464,6 +473,13 @@ void ApiConnector::onFinished()
         m_serverConfig->setData(doc.object());
         emit hostDiscovered(true);
         break;
+
+    case RequestPostApiRegisterDevice:
+        parseDeviceRegistration(doc.object());
+        break;
+
+    case RequestPostApiConfigCheckConfig:
+        parseConfigCheck(doc.object());
 
     default:
         // emit data
@@ -514,20 +530,21 @@ void ApiConnector::onWebhookFinished()
         break;
 
     case 400:
-        emit apiError(ErrorDataInvalid, typeString);
+        emit apiError(type, ErrorDataInvalid, typeString);
         return;
 
     case 404:
-        emit apiError(ErrorMobileAppNotLoaded, typeString);
+        emit apiError(type, ErrorMobileAppNotLoaded, typeString);
         return;
 
     case 410:
-        emit apiError(ErrorIntegrationDeleted, typeString);
+        emit apiError(type, ErrorIntegrationDeleted, typeString);
+        emit requestRegistrationRefresh();
         return;
 
     default:
         updateConnectionFailures(url);
-        emit apiError(ErrorUnkown, errorString);
+        emit apiError(type, ErrorUnkown, errorString);
         return;
     }
 
@@ -546,7 +563,7 @@ void ApiConnector::onWebhookFinished()
         qDebug() << "JSON PARSE ERROR";
         qDebug() << error.errorString();
 #endif
-        emit apiError(ErrorJsonInvalid, typeString);
+        emit apiError(type, ErrorJsonInvalid, typeString);
         return;
     }
 
@@ -625,6 +642,27 @@ void ApiConnector::logData(const QString &identifier, const QByteArray &data)
     out << QString(data);
 
     file.close();
+}
+
+void ApiConnector::parseDeviceRegistration(const QJsonObject &data)
+{
+#ifdef QT_DEBUG
+    qDebug() << data;
+#endif
+
+    m_credentials.cloudhookUrl = data.value(ApiKey::KEY_CLOUDHOOK_URL).toString();
+    m_credentials.remoteUiUrl = data.value(ApiKey::KEY_REMOTE_UI_URL).toString();
+    m_credentials.secret = data.value(ApiKey::KEY_SECRET).toString();
+    m_credentials.webhookId = data.value(ApiKey::KEY_WEBHOOK_ID).toString();
+
+    emit credentialsChanged(m_credentials);
+    emit deviceRegistered(!m_credentials.webhookId.isEmpty());
+}
+
+void ApiConnector::parseConfigCheck(const QJsonObject &data)
+{
+    m_serverConfig->setConfigValid(data.value(ApiKey::KEY_RESULT).toString() == ApiKey::KEY_VALID);
+    m_serverConfig->setConfigError(data.value(ApiKey::KEY_ERRORS).toString());
 }
 
 void ApiConnector::refreshWebhookUrl()

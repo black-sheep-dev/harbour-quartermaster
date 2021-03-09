@@ -49,9 +49,10 @@ public:
         RequestGetApiErrorLog,
         RequestGetApiCameraProxy,
         RequestPostApiStates,
-        RequestPostApiEvents,
+        RequestPostApiEvents,  
         RequestPostApiServices,
-        RequestPostApiConfigCheckConfig
+        RequestPostApiConfigCheckConfig,
+        RequestPostApiRegisterDevice
     };
     Q_ENUM(ApiRequest)
 
@@ -116,6 +117,7 @@ public:
                                 const QDateTime &endTime = QDateTime());
     Q_INVOKABLE void getServices();
     Q_INVOKABLE void getStates();
+    Q_INVOKABLE void registerDevice(const QJsonObject &object);
     Q_INVOKABLE void setEntityState(const QString &entityId, const QJsonObject &payload);
 
     // properties
@@ -126,13 +128,14 @@ public:
     bool logging() const;
 
 signals:
-    void apiError(quint8 code, const QString &msg = QString());
+    void apiError(quint8 requestType, quint8 code, const QString &msg = QString());
     void apiRequestFinished(quint8 type, const QJsonDocument &payload = QJsonDocument());
     void connectionFailure(ApiConnector::ConnectionFailures failures);
+    void deviceRegistered(bool registered);
     void hostDiscovered(bool discovered);
     void requestFinished(quint8 type);
+    void requestRegistrationRefresh();
     void webhookRequestFinished(quint8 type, const QJsonDocument &payload = QJsonDocument());
-
 
     // properties
     void atHomeChanged(bool atHome);
@@ -166,6 +169,8 @@ private:
     // helper functions
     QByteArray gunzip(const QByteArray &data);
     void logData(const QString &identifier, const QByteArray &data);
+    void parseDeviceRegistration(const QJsonObject &data);
+    void parseConfigCheck(const QJsonObject &data);
     void refreshWebhookUrl();
     void updateConnectionFailures(const QString &url);
 

@@ -91,7 +91,7 @@ Page {
         delegate: ListItem {
             id: delegate
             width: parent.width
-            contentHeight: Theme.itemSizeLarge
+            contentHeight: Theme.itemSizeMedium
 
             Row {
                 x: Theme.horizontalPageMargin
@@ -118,13 +118,13 @@ Page {
                         id: text
                         width: parent.width
                         text: title
-                        color: pressed?Theme.secondaryHighlightColor:Theme.highlightColor
-                        font.pixelSize: Theme.fontSizeLarge
+                        color: pressed ? Theme.secondaryHighlightColor:Theme.highlightColor
+                        font.pixelSize: Theme.fontSizeMedium
                     }
                     Label {
                         text: description
                         color: Theme.secondaryColor
-                        font.pixelSize: Theme.fontSizeMedium
+                        font.pixelSize: Theme.fontSizeSmall
                     }
                 }
             }

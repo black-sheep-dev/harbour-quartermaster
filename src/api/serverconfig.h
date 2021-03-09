@@ -14,13 +14,13 @@ class ServerConfig : public QObject
 
     Q_PROPERTY(bool available READ available WRITE setAvailable NOTIFY availableChanged)
     Q_PROPERTY(QVariantList componentList READ componentList WRITE setComponentList NOTIFY componentListChanged)  
-    Q_PROPERTY(QString configError READ configError WRITE setConfigError NOTIFY configErrorChanged)
-    Q_PROPERTY(bool configValid READ configValid WRITE setConfigValid NOTIFY configValidChanged)
+
     Q_PROPERTY(QString error READ error WRITE setError NOTIFY errorChanged)
     Q_PROPERTY(bool loading READ loading WRITE setLoading NOTIFY loadingChanged)
 //    Q_PROPERTY(QString locationName READ locationName WRITE setLocationName NOTIFY locationNameChanged)
 
-
+    Q_PROPERTY(QString configError READ configError WRITE setConfigError NOTIFY configErrorChanged)
+    Q_PROPERTY(bool configValid READ configValid WRITE setConfigValid NOTIFY configValidChanged)
     Q_PROPERTY(quint16 components READ components WRITE setComponents NOTIFY componentsChanged)
     Q_PROPERTY(quint16 externalPort READ externalPort WRITE setExternalPort NOTIFY externalPortChanged)
     Q_PROPERTY(QString externalUrl READ externalUrl WRITE setExternalUrl NOTIFY externalUrlChanged)

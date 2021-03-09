@@ -53,7 +53,7 @@ Dialog {
             label: qsTr("Hostname")
             placeholderText: qsTr("Enter hostname (e.g. http://server)")
 
-            text: App.api().internalUrl
+            text: App.api().serverConfig().internalUrl
 
             inputMethodHints: Qt.ImhUrlCharactersOnly
             validator: RegExpValidator {
@@ -82,7 +82,7 @@ Dialog {
 
             label: qsTr("Port")
 
-            text: App.api().internalPort
+            text: App.api().serverConfig().internalPort
 
             inputMethodHints: Qt.ImhDigitsOnly
             validator: IntValidator { bottom: 1; top: 65535;}

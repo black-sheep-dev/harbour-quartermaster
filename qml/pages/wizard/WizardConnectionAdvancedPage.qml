@@ -17,179 +17,187 @@ Dialog {
         running: busy
     }
 
-    DialogHeader {
-        id: header
-        acceptText: qsTr("Continue")
-        cancelText: qsTr("Back")
-    }
+    SilicaFlickable {
+        anchors.fill: parent
+        contentHeight: column.height + header.height
 
-    Column {
-        anchors.top: header.bottom
-        x: Theme.horizontalPageMargin
-        width: parent.width - 2*x
-
-        spacing: Theme.paddingSmall
-
-        opacity: busy ? 0.2 : 1
-
-        Behavior on opacity {
-            FadeAnimation {}
-        }
-        Label {
-            visible: !busy
-
-            width: parent.width
-
-            text: qsTr("Connection Infos")
-
-            color: Theme.highlightColor
-            font.pixelSize: Theme.fontSizeLarge
+        DialogHeader {
+            id: header
+            acceptText: qsTr("Continue")
+            cancelText: qsTr("Back")
         }
 
-        Label {
-            visible: !busy
+        Column {
+            id: column
+            anchors.top: header.bottom
+            x: Theme.horizontalPageMargin
+            width: parent.width - 2*x
 
-            width: parent.width
-            wrapMode: Text.WordWrap
+            spacing: Theme.paddingSmall
 
-            text: discovered ? qsTr("Server connection infos recieved. Please check port for external address!") :
-                      qsTr("Failed to connect to server. Go back and check your data!")
+            opacity: busy ? 0.2 : 1
 
-            font.pixelSize: Theme.fontSizeSmall
-            color: Theme.highlightColor
-        }
+            Behavior on opacity {
+                FadeAnimation {}
+            }
+            Label {
+                visible: !busy
 
-        SectionHeader {
-            visible: discovered
-            text: qsTr("Internal Connection")
-        }
+                width: parent.width
 
-        TextField {
-            visible: discovered
+                text: qsTr("Connection Infos")
 
-            id: internalHostnameField
-            width: parent.width
-
-            label: qsTr("Hostname")
-            placeholderText: qsTr("Enter hostname")
-
-            text: App.api().serverConfig().internalUrl
-
-            inputMethodHints: Qt.ImhUrlCharactersOnly
-            validator: RegExpValidator {
-                regExp: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.?[a-z]{2,8}(:[0-9]{1,5})?(\/.*)?$|^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$|[a-zA-Z0-9-_]{1,}/gm
+                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeLarge
             }
 
-            EnterKey.iconSource: "image://theme/icon-m-enter-next"
-            EnterKey.onClicked: internalPortField.focus = true
+            Label {
+                visible: !busy
 
-            autoScrollEnabled: true
+                width: parent.width
+                wrapMode: Text.WordWrap
 
-            onTextChanged: checkInput()
-        }
+                text: discovered ? qsTr("Server connection infos received. Please check port for external address!") :
+                          qsTr("Failed to connect to server. Go back and check your data!")
 
-        Label {
-            width: parent.width
-            visible: discovered && !internalHostnameField.acceptableInput
-            text: qsTr("Valid hostname or IP required!")
-            color: Theme.errorColor
-            font.pixelSize: Theme.fontSizeExtraSmall
-        }
-
-        TextField {
-            visible: discovered
-
-            id: internalPortField
-            width: parent.width / 2
-
-            label: qsTr("Port")
-
-            text: App.api().serverConfig().internalPort
-
-            inputMethodHints: Qt.ImhDigitsOnly
-            validator: IntValidator { bottom: 1; top: 65535;}
-
-            EnterKey.iconSource: "image://theme/icon-m-enter-next"
-            EnterKey.onClicked: externalHostnameField.focus = true
-
-            autoScrollEnabled: true
-
-            onTextChanged: checkInput()
-        }
-
-        Label {
-            width: parent.width
-            visible: discovered && !internalPortField.acceptableInput
-            text: qsTr("Valid port required!") +  " (1-65535)"
-            color: Theme.errorColor
-            font.pixelSize: Theme.fontSizeExtraSmall
-        }
-
-        SectionHeader {
-            visible: discovered
-            text: qsTr("External Connection")
-        }
-
-        TextField {
-            visible: discovered
-
-            id: externalHostnameField
-            width: parent.width
-
-            label: qsTr("Hostname")
-            placeholderText: qsTr("Enter hostname")
-
-            text: App.api().serverConfig().externalUrl
-
-            inputMethodHints: Qt.ImhUrlCharactersOnly
-            validator: RegExpValidator {
-                regExp: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.?[a-z]{2,8}(:[0-9]{1,5})?(\/.*)?$|^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$|[a-zA-Z0-9-_]{1,}/gm
+                font.pixelSize: Theme.fontSizeSmall
+                color: Theme.highlightColor
             }
 
-            EnterKey.iconSource: "image://theme/icon-m-enter-next"
-            EnterKey.onClicked: externalPortField.focus = true
+            SectionHeader {
+                visible: discovered
+                text: qsTr("Internal Connection")
+            }
 
-            autoScrollEnabled: true
+            TextField {
+                visible: discovered
 
-            onTextChanged: checkInput()
+                id: internalHostnameField
+                width: parent.width
+
+                label: qsTr("Hostname")
+                placeholderText: qsTr("Enter hostname")
+
+                text: App.api().serverConfig().internalUrl
+
+                inputMethodHints: Qt.ImhUrlCharactersOnly
+                validator: RegExpValidator {
+                    regExp: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.?[a-z]{2,8}(:[0-9]{1,5})?(\/.*)?$|^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$|[a-zA-Z0-9-_]{1,}/gm
+                }
+
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: internalPortField.focus = true
+
+                autoScrollEnabled: true
+
+                onTextChanged: checkInput()
+            }
+
+            Label {
+                width: parent.width
+                visible: discovered && !internalHostnameField.acceptableInput
+                text: qsTr("Valid hostname or IP required!")
+                color: Theme.errorColor
+                font.pixelSize: Theme.fontSizeExtraSmall
+            }
+
+            TextField {
+                visible: discovered
+
+                id: internalPortField
+                width: parent.width / 2
+
+                label: qsTr("Port")
+
+                text: App.api().serverConfig().internalPort
+
+                inputMethodHints: Qt.ImhDigitsOnly
+                validator: IntValidator { bottom: 1; top: 65535;}
+
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: externalHostnameField.focus = true
+
+                autoScrollEnabled: true
+
+                onTextChanged: checkInput()
+            }
+
+            Label {
+                width: parent.width
+                visible: discovered && !internalPortField.acceptableInput
+                text: qsTr("Valid port required!") +  " (1-65535)"
+                color: Theme.errorColor
+                font.pixelSize: Theme.fontSizeExtraSmall
+            }
+
+            SectionHeader {
+                visible: discovered
+                text: qsTr("External Connection")
+            }
+
+            TextField {
+                visible: discovered
+
+                id: externalHostnameField
+                width: parent.width
+
+                label: qsTr("Hostname")
+                placeholderText: qsTr("Enter hostname")
+
+                text: App.api().serverConfig().externalUrl
+
+                inputMethodHints: Qt.ImhUrlCharactersOnly
+                validator: RegExpValidator {
+                    regExp: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.?[a-z]{2,8}(:[0-9]{1,5})?(\/.*)?$|^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$|[a-zA-Z0-9-_]{1,}/gm
+                }
+
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: externalPortField.focus = true
+
+                autoScrollEnabled: true
+
+                onTextChanged: checkInput()
+            }
+
+            Label {
+                width: parent.width
+                visible: discovered && !externalHostnameField.acceptableInput
+                text: qsTr("Valid hostname or IP required!")
+                color: Theme.errorColor
+                font.pixelSize: Theme.fontSizeExtraSmall
+            }
+
+            TextField {
+                visible: discovered
+
+                id: externalPortField
+                width: parent.width / 2
+
+                label: qsTr("Port")
+
+                text: App.api().serverConfig().externalPort
+
+                inputMethodHints: Qt.ImhDigitsOnly
+                validator: IntValidator { bottom: 1; top: 65535;}
+
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: focus = false
+
+                autoScrollEnabled: true
+
+                onTextChanged: checkInput()
+            }
+
+            Label {
+                width: parent.width
+                visible: discovered && !externalPortField.acceptableInput
+                text: qsTr("Valid port required!") +  " (1-65535)"
+                color: Theme.errorColor
+                font.pixelSize: Theme.fontSizeExtraSmall
+            }
         }
 
-        Label {
-            width: parent.width
-            visible: discovered && !externalHostnameField.acceptableInput
-            text: qsTr("Valid hostname or IP required!")
-            color: Theme.errorColor
-            font.pixelSize: Theme.fontSizeExtraSmall
-        }
-
-        TextField {
-            visible: discovered
-
-            id: externalPortField
-            width: parent.width / 2
-
-            label: qsTr("Port")
-
-            text: App.api().serverConfig().externalPort
-
-            inputMethodHints: Qt.ImhDigitsOnly
-            validator: IntValidator { bottom: 1; top: 65535;}
-
-            EnterKey.iconSource: "image://theme/icon-m-enter-next"
-            EnterKey.onClicked: focus = false
-
-            autoScrollEnabled: true
-
-            onTextChanged: checkInput()
-        }
-
-        Label {
-            width: parent.width
-            visible: discovered && !externalPortField.acceptableInput
-            text: qsTr("Valid port required!") +  " (1-65535)"
-            color: Theme.errorColor
-            font.pixelSize: Theme.fontSizeExtraSmall
-        }
+        VerticalScrollDecorator {}
     }
 
     function checkInput() {
@@ -197,10 +205,11 @@ Dialog {
     }
 
     onAccepted: {
+        App.api().serverConfig().externalUrl = externalHostnameField.text
+        App.api().serverConfig().externalPort = externalPortField.text
         App.api().serverConfig().internalUrl = internalHostnameField.text
-        App.api().serverConfig().internalPort = internalPortField.text
-        App.api().serverConfig().externalUrl = internalHostnameField.text
-        App.api().serverConfig().externalPort = internalPortField.text
+        App.api().serverConfig().internalPort = internalPortField.text      
+        App.saveSettings()
     }
 
     Connections {

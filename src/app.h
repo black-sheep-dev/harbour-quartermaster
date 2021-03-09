@@ -15,7 +15,7 @@ class App : public QObject
 
 public:
     explicit App(QObject *parent = nullptr);
-    ~App() override;
+    ~App();
 
     // objects
     Q_INVOKABLE ApiConnector *api();
@@ -25,7 +25,9 @@ public:
     // functions
     Q_INVOKABLE void initialize();
     Q_INVOKABLE void registerDevice();
+    Q_INVOKABLE void reset();
     Q_INVOKABLE void saveSettings();
+    Q_INVOKABLE void updateRegistration();
 
     // properties
     bool needSetup() const;
@@ -38,7 +40,14 @@ public slots:
     // properties
     void setNeedSetup(bool needSetup);
 
+private slots:
+    void onApiError(quint8 code, const QString &msg);
+    void onRequestFinished(quint8 type, const QJsonDocument &payload);
+    void onWebhookRequestFinished(quint8 type, const QJsonDocument &payload);
+
 private:
+    void initializeApiData();
+
     void readSetting();
     void writeSettings();
 
