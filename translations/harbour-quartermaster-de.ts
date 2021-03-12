@@ -116,16 +116,8 @@
         <translation>Zieltemperatur</translation>
     </message>
     <message>
-        <source>Current room temperature:</source>
-        <translation>Aktuelle Raumtemperatur:</translation>
-    </message>
-    <message>
         <source>Preset mode</source>
         <translation>Voreingestellter Modus</translation>
-    </message>
-    <message>
-        <source>Current state:</source>
-        <translation>Aktueller Status:</translation>
     </message>
     <message>
         <source>none</source>
@@ -134,6 +126,22 @@
     <message>
         <source>Refresh</source>
         <translation>Aktualisieren</translation>
+    </message>
+    <message>
+        <source>Device Info</source>
+        <translation type="unfinished">Geräte Info</translation>
+    </message>
+    <message>
+        <source>Current state</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current room temperature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Device Settings</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -279,6 +287,81 @@
     </message>
 </context>
 <context>
+    <name>EntitiesService</name>
+    <message>
+        <source>Alarms</source>
+        <translation type="unfinished">Alarme</translation>
+    </message>
+    <message>
+        <source>List of all alarms</source>
+        <translation type="unfinished">Liste aller Alarme</translation>
+    </message>
+    <message>
+        <source>Automations</source>
+        <translation type="unfinished">Automatisierungen</translation>
+    </message>
+    <message>
+        <source>List of all automations</source>
+        <translation type="unfinished">Liste aller Automatisierungen</translation>
+    </message>
+    <message>
+        <source>Cameras</source>
+        <translation type="unfinished">Kameras</translation>
+    </message>
+    <message>
+        <source>List of all cameras</source>
+        <translation type="unfinished">Liste aller Kameras</translation>
+    </message>
+    <message>
+        <source>Climates</source>
+        <translation type="unfinished">Klimageräte</translation>
+    </message>
+    <message>
+        <source>List of all climates</source>
+        <translation type="unfinished">Liste aller Klimageräte</translation>
+    </message>
+    <message>
+        <source>Groups</source>
+        <translation type="unfinished">Gruppen</translation>
+    </message>
+    <message>
+        <source>List of all groups</source>
+        <translation type="unfinished">Liste aller Gruppen</translation>
+    </message>
+    <message>
+        <source>Lights</source>
+        <translation type="unfinished">Lampen</translation>
+    </message>
+    <message>
+        <source>List of all lights</source>
+        <translation type="unfinished">Liste aller Lampen</translation>
+    </message>
+    <message>
+        <source>Persons</source>
+        <translation type="unfinished">Personen</translation>
+    </message>
+    <message>
+        <source>List of all persons</source>
+        <translation type="unfinished">Liste aller Personen</translation>
+    </message>
+    <message>
+        <source>Sensors</source>
+        <translation type="unfinished">Sensoren</translation>
+    </message>
+    <message>
+        <source>List of all sensors</source>
+        <translation type="unfinished">Liste aller Sensoren</translation>
+    </message>
+    <message>
+        <source>Switches</source>
+        <translation type="unfinished">Schalter</translation>
+    </message>
+    <message>
+        <source>List of all switches</source>
+        <translation type="unfinished">Liste aller Schalter</translation>
+    </message>
+</context>
+<context>
     <name>EntityAttributesPage</name>
     <message>
         <source>Attributes</source>
@@ -401,6 +484,14 @@
             <numerusform>%n Entität verfügbar</numerusform>
             <numerusform>%n Entitäten verfügbar</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>No entities available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check your network connection</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -811,57 +902,6 @@
     </message>
 </context>
 <context>
-    <name>SettingsHomezonePage</name>
-    <message>
-        <source>Reset</source>
-        <translation>Zurücksetzen</translation>
-    </message>
-    <message>
-        <source>Resetting networks</source>
-        <translation>Setze Netzwerke zurück</translation>
-    </message>
-    <message>
-        <source>Add Wifi Network</source>
-        <translation>WLAN Netzwerk hinzufügen</translation>
-    </message>
-    <message>
-        <source>Homezone</source>
-        <translation>Homezone</translation>
-    </message>
-    <message>
-        <source>Latitude</source>
-        <translation>Breitengrad</translation>
-    </message>
-    <message>
-        <source>Longitude</source>
-        <translation>Längengrad</translation>
-    </message>
-    <message>
-        <source>Wifi Networks</source>
-        <translation>WLAN Netzwerke</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation>Löschen</translation>
-    </message>
-    <message>
-        <source>Deleting network</source>
-        <translation>Lösche Netzwerke</translation>
-    </message>
-    <message>
-        <source>Hidden network</source>
-        <translation>Versteckes Netzwerk</translation>
-    </message>
-    <message>
-        <source>No wifi networks defined</source>
-        <translation>Keine WLAN Netzwerke definiert</translation>
-    </message>
-    <message>
-        <source>Pull down to add networks</source>
-        <translation>Nach unten ziehen um Netzwerke hinzuzufügen</translation>
-    </message>
-</context>
-<context>
     <name>SettingsNotificationsPage</name>
     <message>
         <source>Notifications</source>
@@ -931,10 +971,6 @@
         <translation>Tracking Optionen verwalten</translation>
     </message>
     <message>
-        <source>Manage zones</source>
-        <translation>Zonen verwalten</translation>
-    </message>
-    <message>
         <source>Manage device informations</source>
         <translation>Geräte Informationen verwalten</translation>
     </message>
@@ -967,14 +1003,6 @@
         <translation>System Benachrichtigungen verwalten</translation>
     </message>
     <message>
-        <source>Homezone</source>
-        <translation>Homezone</translation>
-    </message>
-    <message>
-        <source>Manage homezone settings</source>
-        <translation>Verwalte die Homezone Einstellungen</translation>
-    </message>
-    <message>
         <source>Home Assistant</source>
         <translation>Home Assistant</translation>
     </message>
@@ -989,6 +1017,10 @@
     <message>
         <source>Infos about Quartermaster</source>
         <translation>Infos über Quartiermeister</translation>
+    </message>
+    <message>
+        <source>Manage zones and related networks</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1075,6 +1107,10 @@
         <source>Create new zones in Home Assistant web interface. If zones are defined but are not displayed here, then there is a problem with the connection or the access token. In this case it helps to reset and renew the device registration.</source>
         <translation>Erstelle neue Zonen im Home Assistant Web Oberfläche. Wenn Zonen definiert sind, aber hier nicht angezeigt werden, dann gibt es ein Problem mit der Verbindung oder dem Access Token. In diesem Fall hilft es die Geräte Registrierung zurückzusetzen und zu erneuern.</translation>
     </message>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished">Suche</translation>
+    </message>
 </context>
 <context>
     <name>SwitchPage</name>
@@ -1087,32 +1123,32 @@
         <translation>Schalter an/aus</translation>
     </message>
     <message>
-        <source>Info</source>
-        <translation>Info</translation>
-    </message>
-    <message>
-        <source>Current power usage:</source>
-        <translation>Aktuelle Leistung:</translation>
-    </message>
-    <message>
-        <source>Today energy usage:</source>
-        <translation>Heutiger Verbrauch:</translation>
-    </message>
-    <message>
-        <source>Total energy usage:</source>
-        <translation>Gesamt Verbrauch:</translation>
-    </message>
-    <message>
-        <source>Voltage:</source>
-        <translation>Spannung:</translation>
-    </message>
-    <message>
-        <source>Current:</source>
-        <translation>Strom:</translation>
-    </message>
-    <message>
         <source>Refresh</source>
         <translation>Aktualisieren</translation>
+    </message>
+    <message>
+        <source>Device Info</source>
+        <translation type="unfinished">Geräte Info</translation>
+    </message>
+    <message>
+        <source>Current power usage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Today energy usage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voltage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total energy usage</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1340,6 +1376,10 @@ This can either be the hostname / IP in your local network or a remote url if yo
     <message>
         <source>If you facing problems with the setup process you can try to reset the data from a previous install.</source>
         <translation>Falls es zu Probleme beim Einrichtungsassistenten kommt, kann man bestehende Daten einer vorherigen Installation zurücksetzen.</translation>
+    </message>
+    <message>
+        <source>Resetting application</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

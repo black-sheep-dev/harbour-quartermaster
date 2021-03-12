@@ -99,11 +99,11 @@ Dialog {
 
     Connections {
         target: App.api()
-        onDeviceRegistered: {
+        onRequestFinished: {
             busy = false
-            canAccept = registered
+            canAccept = success
         }
-        onApiError: {
+        onError: {
             busy = false
             errorMsg = msg
         }

@@ -47,20 +47,14 @@ bool EntitiesModel::isEmpty() const
 {
     return m_entities.isEmpty();
 }
-
-void EntitiesModel::setParentMode(bool enable)
-{
-    m_parentMode = enable;
-}
-
 void EntitiesModel::addEntity(Entity *entity)
 {
     if (entity == nullptr)
         return;
 
     beginInsertRows(QModelIndex(), m_entities.count(), m_entities.count());
-    if (m_parentMode)
-        entity->setParent(this);
+
+    entity->setParent(this);
 
     m_entities.append(entity);
     connect(entity, &Entity::changed, this, &EntitiesModel::onEntityChanged);
@@ -72,19 +66,13 @@ void EntitiesModel::addEntity(Entity *entity)
 void EntitiesModel::setEntities(const QList<Entity *> &entities)
 {
     beginResetModel();
-
-    if (m_parentMode) {
-        qDeleteAll(m_entities.begin(), m_entities.end());
-        m_entities.clear();
-    }
-
+    qDeleteAll(m_entities.begin(), m_entities.end());
+    m_entities.clear();
     m_entities = entities;
 
 
-    for (auto &entity : m_entities) {
-        if (m_parentMode)
-            entity->setParent(this);
-
+    for (auto entity : m_entities) {
+        entity->setParent(this);
         connect(entity, &Entity::changed, this, &EntitiesModel::onEntityChanged);
     }
     endResetModel();
@@ -139,9 +127,6 @@ QVariant EntitiesModel::data(const QModelIndex &index, int role) const
     const auto entity = m_entities.at(index.row());
 
     switch (role) {
-    case Qt::DisplayRole:
-        return entity->name();
-
     case NameRole:
         return entity->name();
 
@@ -174,10 +159,10 @@ QHash<int, QByteArray> EntitiesModel::roleNames() const
 
     roles[AttributesRole]           = "attributes";
     roles[ContextRole]              = "context";
-    roles[EntityIdRole]             = "entity_id";
-    roles[SupportedFeaturesRole]    = "supported_features";
+    roles[EntityIdRole]             = "entityId";
+    roles[SupportedFeaturesRole]    = "supportedFeatures";
     roles[NameRole]                 = "name";
-    roles[StateRole]                = "entity_state";
+    roles[StateRole]                = "entityState";
     roles[TypeRole]                 = "type";
 
     return roles;

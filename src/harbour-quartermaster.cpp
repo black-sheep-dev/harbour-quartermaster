@@ -12,7 +12,6 @@
 
 int main(int argc, char *argv[])
 {
-    //QCoreApplication::setApplicationName(tr("Quartermaster"));
     QCoreApplication::setApplicationVersion(APP_VERSION);
     QCoreApplication::setOrganizationName(QStringLiteral("nubecula.org"));
     QCoreApplication::setOrganizationDomain(QStringLiteral("nubecula.org"));
@@ -25,30 +24,32 @@ int main(int argc, char *argv[])
     auto uri = "org.nubecula.harbour.quartermaster";
 #endif
 
-//    qmlRegisterType<Climate>(uri, 1, 0, "Climate");
-//    qmlRegisterType<Group>(uri, 1, 0, "Group");
-//    qmlRegisterType<Light>(uri, 1, 0, "Light");
 
-//    qmlRegisterType<BackupTool>(uri, 1, 0, "BackupTool");
-//    qmlRegisterType<Entity>(uri, 1, 0, "Entity");
-//    qmlRegisterType<EntityAttributesModel>(uri, 1, 0, "EntityAttributesModel");
-//    qmlRegisterType<EntitiesModel>(uri, 1, 0, "EntitiesModel");
-//    qmlRegisterType<EntitiesProvider>(uri, 1, 0, "EntitiesProvider");
-//    qmlRegisterType<EntitiesSortFilterModel>(uri, 1, 0, "EntitiesSortFilterModel");
-//    qmlRegisterType<EntityTypesModel>(uri, 1, 0, "EntityTypesModel");
+//    qmlRegisterType<Group>(uri, 1, 0, "Group");
+//
+//    qmlRegisterType<EntityAttributesModel>(uri, 1, 0, "EntityAttributesModel");  
+//
 //    qmlRegisterType<ErrorLogModel>(uri, 1, 0, "ErrorLogModel");
-//    qmlRegisterType<HomeassistantInfo>(uri, 1, 0, "HomeassistantInfo");
-//    qmlRegisterType<SortFilterModel>(uri, 1, 0, "SortFilterModel");
 //    qmlRegisterType<WifiNetworkModel>(uri, 1, 0, "WifiNetworkModel");
-//    qmlRegisterType<Zone>(uri, 1, 0, "Zone");
-//    qmlRegisterType<ZonesModel>(uri, 1, 0, "ZonesModel");
 
     qmlRegisterType<ApiConnector>(uri, 1, 0, "ApiConnector");
+    qmlRegisterType<BackupTool>(uri, 1, 0, "BackupTool");
+    qmlRegisterType<Climate>(uri, 1, 0, "Climate");
     qmlRegisterType<Device>(uri, 1, 0, "Device");
     qmlRegisterType<DeviceSensor>(uri, 1, 0, "DeviceSensor");
     qmlRegisterType<DeviceSensorModel>(uri, 1, 0, "DeviceSensorModel");
+    qmlRegisterType<Entity>(uri, 1, 0, "Entity");
+    qmlRegisterType<EntitiesModel>(uri, 1, 0, "EntitiesModel");
+    qmlRegisterType<EntitiesService>(uri, 1, 0, "EntitiesService");
+    qmlRegisterType<EntitiesSortFilterModel>(uri, 1, 0, "EntitiesSortFilterModel");
+    qmlRegisterType<EntityTypesModel>(uri, 1, 0, "EntityTypesModel");
+    qmlRegisterType<Light>(uri, 1, 0, "Light");
+    qmlRegisterType<LocationTracker>(uri, 1, 0, "LocationTracker");
     qmlRegisterType<ServerConfig>(uri, 1, 0, "ServerConfig");
+    qmlRegisterType<SortFilterModel>(uri, 1, 0, "SortFilterModel");
     qmlRegisterType<Wallet>(uri, 1, 0, "Wallet");
+    qmlRegisterType<Zone>(uri, 1, 0, "Zone");
+    qmlRegisterType<ZonesModel>(uri, 1, 0, "ZonesModel");
 
     qmlRegisterSingletonType<App>(uri,
                                   1,

@@ -60,9 +60,17 @@ ServerConfig *ApiConnector::serverConfig()
     return m_serverConfig;
 }
 
+void ApiConnector::callService(const QString &domain, const QString &service, const QString &entityId)
+{
+    QJsonObject payload;
+    payload.insert(ApiKey::KEY_ENTITY_ID, entityId);
+
+    callService(domain, service, payload);
+}
+
 void ApiConnector::callService(const QString &domain, const QString &service, const QJsonObject &payload)
 {
-    sendRequest(RequestGetApiServices,
+    sendRequest(RequestPostApiServices,
                 domain + "/" + service,
                 payload);
 }
@@ -209,13 +217,12 @@ void ApiConnector::sendRequest(quint8 type, const QString &query, const QJsonObj
     if ( (m_credentials.token.isEmpty() || !token) && type != RequestGetApiDiscoveryInfo )
         return;
 
-    // check if request is already enqueued
+    // check if request is already running
     QMutexLocker locker(m_mutex);
-    if (m_activeRequests.contains(type))
+    if (m_runningRequest.contains(type))
         return;
 
-    m_activeRequests.append(type);
-    locker.unlock();
+    m_runningRequest.append(type);
 
     // build QNetworkRequest
     QNetworkRequest request;
@@ -273,10 +280,8 @@ void ApiConnector::sendRequest(quint8 type, const QString &query, const QJsonObj
         break;
 
     default:
-        locker.relock();
-        m_activeRequests.removeAll(type);
-        locker.unlock();
-        emit apiError(type, ErrorBadRequest, m_apiEndpoints.value(type) + query);
+        m_runningRequest.removeAll(type);
+        emit error(type, ErrorBadRequest, m_apiEndpoints.value(type) + query);
         return;
     }
 
@@ -294,13 +299,12 @@ void ApiConnector::sendWebhookRequest(quint8 type, const QJsonObject &payload)
     if (m_credentials.webhookId.isEmpty())
         return;
 
-    // check if request is already enqueued
+    // check if request is already running
     QMutexLocker locker(m_mutex);
-    if (m_activeRequests.contains(type))
+    if (m_runningRequest.contains(type))
         return;
 
-    m_activeRequests.append(type);
-    locker.unlock();
+    m_runningRequest.append(type);
 
     // prepare message
     QJsonObject message;
@@ -402,9 +406,8 @@ void ApiConnector::onFinished()
     const QByteArray raw = reply->readAll();
 
     QMutexLocker locker(m_mutex);
-    m_activeRequests.removeAll(type);
-    locker.relock();
-
+    m_runningRequest.removeAll(type);
+    locker.unlock();
 
 #ifdef QT_DEBUG
     qDebug() << "REQUEST FINSHED: " << type;
@@ -418,24 +421,25 @@ void ApiConnector::onFinished()
         break;
 
     case 400:
-        emit apiError(type, ErrorDataInvalid, typeString);
+        emit error(type, ErrorDataInvalid, typeString);
         return;
 
     case 401:
-        emit apiError(type, ErrorUnauthorized, typeString);
+        emit error(type, ErrorUnauthorized, typeString);
         return;
 
     case 404:
-        emit apiError(type, ErrorNotFound, typeString);
+        emit error(type, ErrorNotFound, typeString);
         return;
 
     case 405:
-        emit apiError(type, ErrorMethodNotAllowed, typeString);
+        emit error(type, ErrorMethodNotAllowed, typeString);
         return;
 
     default:
         updateConnectionFailures(url);
-        emit apiError(type, ErrorUnkown, errorString);
+        emit requestFinished(type, false);
+        emit error(type, ErrorUnkown, errorString);
         return;
     }
 
@@ -446,18 +450,23 @@ void ApiConnector::onFinished()
     if (data.isEmpty())
         data = raw;
 
-    QJsonParseError error{};
+    QJsonParseError err{};
 
-    const QJsonDocument doc = QJsonDocument::fromJson(data, &error);
+    const QJsonDocument doc = QJsonDocument::fromJson(data, &err);
 
-    if (error.error) {
+    if (err.error) {
 #ifdef QT_DEBUG
         qDebug() << "JSON PARSE ERROR";
-        qDebug() << error.errorString();
+        qDebug() << err.errorString();
 #endif
-        emit apiError(type, ErrorJsonInvalid, typeString);
+        emit requestFinished(type, false);
+        emit error(type, ErrorJsonInvalid, typeString);
         return;
     }
+
+//#ifdef QT_DEBUG
+//      qDebug() << doc;
+//#endif
 
     // logging
     if (logging())
@@ -471,7 +480,6 @@ void ApiConnector::onFinished()
 
     case RequestGetApiDiscoveryInfo:
         m_serverConfig->setData(doc.object());
-        emit hostDiscovered(true);
         break;
 
     case RequestPostApiRegisterDevice:
@@ -480,14 +488,16 @@ void ApiConnector::onFinished()
 
     case RequestPostApiConfigCheckConfig:
         parseConfigCheck(doc.object());
+        break;
 
     default:
         // emit data
-        emit apiRequestFinished(type, doc);
+        qDebug() << "EMIT DATA";
+        emit requestDataFinished(type, doc);
         break;
     }
 
-    emit requestFinished(type);
+    emit requestFinished(type, true);
 }
 
 void ApiConnector::onSslErrors(QNetworkReply *reply, const QList<QSslError> &errors)
@@ -505,7 +515,7 @@ void ApiConnector::onWebhookFinished()
 
     // check reply
     const int statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-    const quint8 type = reply->property(ApiKey::KEY_TYPE.toLatin1()).toUInt();
+    const quint64 type = reply->property(ApiKey::KEY_TYPE.toLatin1()).toULongLong();
     const QString typeString = m_webhookTypes.value(type);
     const QString url = reply->url().toString();
     const QByteArray raw = reply->readAll();
@@ -514,9 +524,8 @@ void ApiConnector::onWebhookFinished()
     reply->deleteLater();
 
     QMutexLocker locker(m_mutex);
-    m_activeRequests.removeAll(type);
-    locker.relock();
-
+    m_runningRequest.removeAll(type);
+    locker.unlock();
 
 #ifdef QT_DEBUG
     qDebug() << "WEBHOOK REQUEST FINSHED: " << type;
@@ -530,21 +539,22 @@ void ApiConnector::onWebhookFinished()
         break;
 
     case 400:
-        emit apiError(type, ErrorDataInvalid, typeString);
+        emit error(type, ErrorDataInvalid, typeString);
         return;
 
     case 404:
-        emit apiError(type, ErrorMobileAppNotLoaded, typeString);
+        emit error(type, ErrorMobileAppNotLoaded, typeString);
         return;
 
     case 410:
-        emit apiError(type, ErrorIntegrationDeleted, typeString);
+        emit error(type, ErrorIntegrationDeleted, typeString);
         emit requestRegistrationRefresh();
         return;
 
     default:
         updateConnectionFailures(url);
-        emit apiError(type, ErrorUnkown, errorString);
+        emit requestFinished(type, false);
+        emit error(type, ErrorUnkown, errorString);
         return;
     }
 
@@ -554,16 +564,17 @@ void ApiConnector::onWebhookFinished()
     if (data.isEmpty())
         data = raw;
 
-    QJsonParseError error{};
+    QJsonParseError err{};
 
-    const QJsonDocument doc = QJsonDocument::fromJson(data, &error);
+    const QJsonDocument doc = QJsonDocument::fromJson(data, &err);
 
-    if (error.error) {
+    if (err.error) {
 #ifdef QT_DEBUG
         qDebug() << "JSON PARSE ERROR";
-        qDebug() << error.errorString();
+        qDebug() << err.errorString();
 #endif
-        emit apiError(type, ErrorJsonInvalid, typeString);
+        emit requestFinished(type, false);
+        emit error(type, ErrorJsonInvalid, typeString);
         return;
     }
 
@@ -572,8 +583,8 @@ void ApiConnector::onWebhookFinished()
         logData(QStringLiteral("webhook_reply_") + typeString, doc.toJson(QJsonDocument::Indented));
 
     // emit data
-    emit apiRequestFinished(type, doc);
-    emit requestFinished(type);
+    emit requestFinished(type, true);
+    emit requestDataFinished(type, doc);
 }
 
 QByteArray ApiConnector::gunzip(const QByteArray &data)
@@ -656,7 +667,6 @@ void ApiConnector::parseDeviceRegistration(const QJsonObject &data)
     m_credentials.webhookId = data.value(ApiKey::KEY_WEBHOOK_ID).toString();
 
     emit credentialsChanged(m_credentials);
-    emit deviceRegistered(!m_credentials.webhookId.isEmpty());
 }
 
 void ApiConnector::parseConfigCheck(const QJsonObject &data)

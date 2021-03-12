@@ -39,7 +39,7 @@ void WifiNetworkModel::setSelected(WifiNetworkModel *model)
 
     const QList<WifiNetwork *> networks = model->networks();
     for (const auto selected : networks) {
-        for (auto &network : m_networks) {
+        for (auto network : m_networks) {
             if (network->identifier() != selected->identifier())
                 continue;
 
@@ -70,7 +70,7 @@ void WifiNetworkModel::addNetwork(WifiNetwork *network)
 
 void WifiNetworkModel::addNetwork(const QString &name, const QString &identifier)
 {
-    for (auto network : m_networks) {
+    for (const auto network : m_networks) {
         if (network->identifier() == identifier)
             return;
     }

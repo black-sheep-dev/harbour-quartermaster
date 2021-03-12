@@ -59,25 +59,16 @@ Page {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * x
                 height: parent.height
+                spacing: Theme.paddingMedium
 
                 anchors.verticalCenter: parent.verticalCenter
 
                 Image {
-                    id: zoneIcon
-
                     height: parent.height - 2 * Theme.paddingSmall
                     width: parent.height - 2 * Theme.paddingSmall
                     anchors.verticalCenter: parent.verticalCenter
 
                     source: "image://theme/icon-m-backup"
-                }
-
-                Item {
-                    id: spacer
-
-                    width:Theme.paddingMedium
-                    height:1
-
                 }
 
                 Label{
@@ -95,7 +86,7 @@ Page {
 
                 dialog.accepted.connect(function() {
                     if (backupTool.restoreBackup(backupTool.availableBackups[index]))
-                        Client.reloadConfig();
+                        App.locationTracker.reloadConfig();
                 })
             }
         }

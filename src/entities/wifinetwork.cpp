@@ -1,9 +1,7 @@
 #include "wifinetwork.h"
 
 WifiNetwork::WifiNetwork(QObject *parent) :
-    QObject(parent),
-    m_identifier(QString()),
-    m_name(QString())
+    QObject(parent)
 {
 
 }

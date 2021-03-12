@@ -16,6 +16,8 @@ Dialog {
         cancelText: ""
     }
 
+    RemorsePopup { id: resetPopup }
+
     Column {
         anchors.top: header.bottom
         x: Theme.horizontalPageMargin
@@ -107,7 +109,9 @@ Dialog {
         ButtonLayout {
             Button {
                 text: qsTr("Reset")
-                onClicked: App.reset()
+                onClicked: resetPopup.execute(qsTr("Resetting application"), function() {
+                    App.reset()
+                })
             }
         }
     }

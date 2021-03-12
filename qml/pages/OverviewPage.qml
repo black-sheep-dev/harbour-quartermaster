@@ -4,7 +4,7 @@ import Sailfish.Silica 1.0
 import org.nubecula.harbour.quartermaster 1.0
 
 Page {
-    //property Entity entity
+    property bool busy
 
     id: page
 
@@ -13,7 +13,7 @@ Page {
     PageBusyIndicator {
         id: busyIndicator
         size: BusyIndicatorSize.Large
-        //running: Client.entitiesProvider().loading
+        running: busy
         anchors.centerIn: page
     }
 
@@ -29,44 +29,46 @@ Page {
             }
             MenuItem {
                 text: qsTr("Refresh")
-                //onClicked: Client.entitiesProvider().refresh()
+                onClicked: {
+                    busy = true
+                    App.api().getStates()
+                }
             }
         }
 
         id: listView
 
-        visible: !busyIndicator.running
+        opacity: busy ? 0.2 : 1.0
+        Behavior on opacity { FadeAnimator {} }
 
         anchors.fill: parent
         header: PageHeader {
             title: qsTr("Entities")
         }
 
-//        model: SortFilterModel {
-//            id: sortModel
-//            sourceModel: Client.entitiesProvider().typesModel()
-//        }
+        model: SortFilterModel {
+            id: sortModel
+            sourceModel: App.entitiesService().entityTypesModel()
+            sortRole: EntityTypesModel.TitleRole
+            dynamicSortFilter: true
+        }
 
         delegate: ListItem {
             id: delegate
             width: parent.width
-            contentHeight: Theme.itemSizeLarge
+            contentHeight: Theme.itemSizeMedium
 
             Row {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * x
                 height: parent.height
                 anchors.verticalCenter: parent.verticalCenter
+                spacing: Theme.paddingMedium
 
                 Image {
                     id: itemIcon
                     source: icon
                     anchors.verticalCenter: parent.verticalCenter
-                }
-
-                Item {
-                    width: Theme.paddingMedium
-                    height: 1
                 }
 
                 Column {
@@ -78,39 +80,45 @@ Page {
                         width: parent.width
                         text: title
                         color: pressed?Theme.secondaryHighlightColor:Theme.highlightColor
-                        font.pixelSize: Theme.fontSizeLarge
+                        font.pixelSize: Theme.fontSizeMedium
                     }
                     Label {
-                        text: qsTr("%n entity available", "0", Client.entitiesProvider().model(type).entitiesCount())
+                        text: qsTr("%n entity available", "0", model.count)
                         color: Theme.secondaryColor
-                        font.pixelSize: Theme.fontSizeMedium
+                        font.pixelSize: Theme.fontSizeSmall
                     }
                 }
             }
 
-//            onClicked: {
+            onClicked: {
 
-//                var page;
+                var page;
 
-//                switch (type) {
-//                case Entity.Person:
-//                    page = "entities/PersonsListPage.qml"
-//                    break;
+                switch (type) {
+                case Entity.Person:
+                    page = "entities/PersonsListPage.qml"
+                    break;
 
-//                case Entity.Sensor:
-//                    page = "entities/SensorsListPage.qml"
-//                    break;
+                case Entity.Sensor:
+                    page = "entities/SensorsListPage.qml"
+                    break;
 
-//                default:
-//                    page = "entities/EntitiesListViewPage.qml"
-//                    break;
-//                }
+                default:
+                    page = "entities/EntitiesListViewPage.qml"
+                    break;
+                }
 
-//                pageStack.push(Qt.resolvedUrl(page), {
-//                                   title: title,
-//                                   icon: icon,
-//                                   type: type })
-//            }
+                pageStack.push(Qt.resolvedUrl(page), {
+                                   title: title,
+                                   icon: icon,
+                                   type: type })
+            }
+        }
+
+        ViewPlaceholder {
+            enabled: !busy && listView.count === 0
+            text: qsTr("No entities available")
+            hintText: qsTr("Check your network connection")
         }
     }
 
@@ -125,10 +133,11 @@ Page {
         if (App.needSetup) startSetupWizard()
     }
 
-    //Component.onCompleted: if (App.needSetup) startSetupWizard()
+    Connections {
+        target: App.api()
+        onRequestFinished: if (requestType === ApiConnector.RequestGetApiStates) busy = false
+    }
 
-//    Connections {
-//        target: App
-//        onNeedSetupChanged: if (needSetup) startSetupWizard()
-//    }
+    Component.onCompleted: sortModel.sortModel()
+
 }

@@ -10,10 +10,15 @@ App::App(QObject *parent) :
 {
     connect(m_api, &ApiConnector::credentialsChanged, m_wallet, &Wallet::setCredentials);
     connect(m_api, &ApiConnector::requestRegistrationRefresh, this, &App::registerDevice);
+    connect(m_api, &ApiConnector::requestDataFinished, this, &App::onRequestDataFinished);
+    connect(m_api, &ApiConnector::requestDataFinished, m_entitiesService, &EntitiesService::onRequestDataFinished);
+
     connect(m_wallet, &Wallet::credentialsChanged, m_api, &ApiConnector::setCredentials);
     connect(m_wallet, &Wallet::validityChanged, this, [this](bool valid) {
         this->setNeedSetup(!valid);
     });
+    connect(m_api->serverConfig(), &ServerConfig::latitudeChanged, m_locationTracker, &LocationTracker::setHomezoneLatitude);
+    connect(m_api->serverConfig(), &ServerConfig::longitudeChanged, m_locationTracker, &LocationTracker::setHomezoneLongitude);
 
     readSetting();
 
@@ -34,6 +39,16 @@ ApiConnector *App::api()
 Device *App::device()
 {
     return m_device;
+}
+
+EntitiesService *App::entitiesService()
+{
+    return m_entitiesService;
+}
+
+LocationTracker *App::locationTracker()
+{
+    return m_locationTracker;
 }
 
 Wallet *App::wallet()
@@ -106,25 +121,34 @@ void App::setNeedSetup(bool needSetup)
     emit needSetupChanged(m_needSetup);
 }
 
-void App::onApiError(quint8 code, const QString &msg)
+void App::onError(quint8 code, const QString &msg)
 {
-
+#ifdef QT_DEBUG
+    qDebug() << code;
+    qDebug() << msg;
+#else
+    Q_UNUSED(code)
+    Q_UNUSED(msg)
+#endif
 }
 
-void App::onRequestFinished(quint8 type, const QJsonDocument &payload)
+void App::onRequestDataFinished(quint8 requestType, const QJsonDocument &payload)
 {
+    switch (requestType) {
+    case ApiConnector::RequestWebhookGetZones:
+        m_locationTracker->setZones(payload.array());
+        break;
 
-}
-
-void App::onWebhookRequestFinished(quint8 type, const QJsonDocument &payload)
-{
-
+    default:
+        break;
+    }
 }
 
 void App::initializeApiData()
 {
     m_api->getConfig();
-    //m_api->getStates();
+    m_api->getStates();
+    m_api->sendWebhookRequest(ApiConnector::RequestWebhookGetZones);
     updateRegistration();
 }
 

@@ -6,6 +6,8 @@
 #include "api/apiconnector.h"
 #include "crypto/wallet.h"
 #include "device/device.h"
+#include "service/entitiesservice.h"
+#include "service/locationtracker.h"
 
 class App : public QObject
 {
@@ -20,6 +22,8 @@ public:
     // objects
     Q_INVOKABLE ApiConnector *api();
     Q_INVOKABLE Device *device();
+    Q_INVOKABLE EntitiesService *entitiesService();
+    Q_INVOKABLE LocationTracker *locationTracker();
     Q_INVOKABLE Wallet *wallet();
 
     // functions
@@ -41,9 +45,8 @@ public slots:
     void setNeedSetup(bool needSetup);
 
 private slots:
-    void onApiError(quint8 code, const QString &msg);
-    void onRequestFinished(quint8 type, const QJsonDocument &payload);
-    void onWebhookRequestFinished(quint8 type, const QJsonDocument &payload);
+    void onError(quint8 code, const QString &msg);
+    void onRequestDataFinished(quint8 requestType, const QJsonDocument &payload);
 
 private:
     void initializeApiData();
@@ -53,6 +56,8 @@ private:
 
     ApiConnector *m_api{new ApiConnector(this)};
     Device *m_device{new Device(this)};
+    EntitiesService *m_entitiesService{new EntitiesService(this)};
+    LocationTracker *m_locationTracker{new LocationTracker(this)};
     Wallet *m_wallet{new Wallet(this)};
 
     // properties

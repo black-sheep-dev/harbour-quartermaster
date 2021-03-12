@@ -22,40 +22,6 @@ class ApiConnector : public QObject
     Q_PROPERTY(bool logging READ logging WRITE setLogging NOTIFY loggingChanged)
 
 public:
-    enum ApiError {
-        ErrorNone,
-        ErrorBadRequest,
-        ErrorDataInvalid,
-        ErrorJsonInvalid,
-        ErrorIntegrationDeleted,
-        ErrorNotFound,
-        ErrorMethodNotAllowed,
-        ErrorMobileAppNotLoaded,
-        ErrorUnauthorized,
-        ErrorUnkown
-    };
-    Q_ENUM(ApiError)
-
-    enum ApiRequest {
-        RequestGetApi,
-        RequestGetApiConfig,
-        RequestGetApiDiscoveryInfo,
-        RequestGetApiEvents,
-        RequestGetApiServices,
-        RequestGetApiHistoryPeriod,
-        RequestGetApiLogBook,
-        RequestGetApiStates,
-        RequestGetApiStatesEntity,
-        RequestGetApiErrorLog,
-        RequestGetApiCameraProxy,
-        RequestPostApiStates,
-        RequestPostApiEvents,  
-        RequestPostApiServices,
-        RequestPostApiConfigCheckConfig,
-        RequestPostApiRegisterDevice
-    };
-    Q_ENUM(ApiRequest)
-
     enum ConnectionFailure {
         ConnectionFailureNone           = 0x00,
         ConnectionFailureInternal       = 0x01,
@@ -74,8 +40,39 @@ public:
     Q_ENUM(ConnectionMode)
     Q_DECLARE_FLAGS(ConnectionModes, ConnectionMode)
 
-    enum WebhookRequest {
-        RequestWebhookCallService               = 100,  // start with 100 for active request list function
+    enum Error {
+        ErrorNone,
+        ErrorBadRequest,
+        ErrorDataInvalid,
+        ErrorJsonInvalid,
+        ErrorIntegrationDeleted,
+        ErrorNotFound,
+        ErrorMethodNotAllowed,
+        ErrorMobileAppNotLoaded,
+        ErrorUnauthorized,
+        ErrorUnkown
+    };
+    Q_ENUM(Error)
+
+    enum Request {
+        RequestGetApi,
+        RequestGetApiConfig,
+        RequestGetApiDiscoveryInfo,
+        RequestGetApiEvents,
+        RequestGetApiServices,
+        RequestGetApiHistoryPeriod,
+        RequestGetApiLogBook,
+        RequestGetApiStates,
+        RequestGetApiStatesEntity,
+        RequestGetApiErrorLog,
+        RequestGetApiCameraProxy,
+        RequestPostApiStates,
+        RequestPostApiEvents,
+        RequestPostApiServices,
+        RequestPostApiConfigCheckConfig,
+        RequestPostApiRegisterDevice,
+
+        RequestWebhookCallService                   = 100,
         RequestWebhookEnableEncryption,
         RequestWebhookFireEvent,
         RequestWebhookGetConfig,
@@ -87,7 +84,8 @@ public:
         RequestWebhookUpdateRegistration,
         RequestWebhookUpdateSensorStates
     };
-    Q_ENUM(WebhookRequest)
+    Q_ENUM(Request)
+    Q_DECLARE_FLAGS(Requests, Request)
 
     explicit ApiConnector(QObject *parent = nullptr);
 
@@ -95,6 +93,9 @@ public:
     Q_INVOKABLE ServerConfig *serverConfig();
 
     // api calls
+    Q_INVOKABLE void callService(const QString &domain,
+                                 const QString &service,
+                                 const QString &entityId);
     Q_INVOKABLE void callService(const QString &domain,
                                  const QString &service,
                                  const QJsonObject &payload = QJsonObject());
@@ -128,14 +129,11 @@ public:
     bool logging() const;
 
 signals:
-    void apiError(quint8 requestType, quint8 code, const QString &msg = QString());
-    void apiRequestFinished(quint8 type, const QJsonDocument &payload = QJsonDocument());
+    void error(quint8 requestType, quint8 code, const QString &msg = QString());
     void connectionFailure(ApiConnector::ConnectionFailures failures);
-    void deviceRegistered(bool registered);
-    void hostDiscovered(bool discovered);
-    void requestFinished(quint8 type);
+    void requestFinished(quint8 requestType, bool success);
+    void requestDataFinished(quint64 requestType, const QJsonDocument &payload = QJsonDocument());
     void requestRegistrationRefresh();
-    void webhookRequestFinished(quint8 type, const QJsonDocument &payload = QJsonDocument());
 
     // properties
     void atHomeChanged(bool atHome);
@@ -175,11 +173,11 @@ private:
     void updateConnectionFailures(const QString &url);
 
     // members
-    QList<quint8> m_activeRequests;
     QHash<quint8, QString> m_apiEndpoints;
     ConnectionFailures m_connectionFailures;
     QNetworkAccessManager *m_manager{new QNetworkAccessManager(this)};
-    QMutex *m_mutex{new QMutex};
+    QMutex *m_mutex{new QMutex()};
+    QList<quint8> m_runningRequest;
     ServerConfig *m_serverConfig{new ServerConfig(this)};
     QHash<quint8, QString> m_webhookTypes;
     QString m_webhookUrl;
@@ -189,8 +187,7 @@ private:
     quint8 m_connectionModes{ConnectionMode::ExternalConnection | ConnectionMode::InternalConnection};
     Credentials m_credentials;
     bool m_encryption{false};
-    bool m_logging{false};
-
+    bool m_logging{false};  
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(ApiConnector::ConnectionFailures)
 Q_DECLARE_OPERATORS_FOR_FLAGS(ApiConnector::ConnectionModes)

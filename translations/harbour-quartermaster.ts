@@ -116,15 +116,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Current room temperature:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Preset mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current state:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -133,6 +125,22 @@
     </message>
     <message>
         <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Device Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current state</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current room temperature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Device Settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -278,6 +286,81 @@
     </message>
 </context>
 <context>
+    <name>EntitiesService</name>
+    <message>
+        <source>Alarms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of all alarms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of all automations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cameras</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of all cameras</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Climates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of all climates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of all groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lights</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of all lights</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Persons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of all persons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sensors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of all sensors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Switches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List of all switches</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>EntityAttributesPage</name>
     <message>
         <source>Attributes</source>
@@ -399,6 +482,14 @@
         <translation type="unfinished">
             <numerusform>%n entity available</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>No entities available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check your network connection</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -809,57 +900,6 @@
     </message>
 </context>
 <context>
-    <name>SettingsHomezonePage</name>
-    <message>
-        <source>Reset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Resetting networks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add Wifi Network</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Homezone</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Latitude</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Longitude</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Wifi Networks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Deleting network</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hidden network</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No wifi networks defined</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Pull down to add networks</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>SettingsNotificationsPage</name>
     <message>
         <source>Notifications</source>
@@ -929,10 +969,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Manage zones</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Manage device informations</source>
         <translation type="unfinished"></translation>
     </message>
@@ -965,14 +1001,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Homezone</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Manage homezone settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Home Assistant</source>
         <translation type="unfinished"></translation>
     </message>
@@ -986,6 +1014,10 @@
     </message>
     <message>
         <source>Infos about Quartermaster</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage zones and related networks</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1072,6 +1104,10 @@
         <source>Create new zones in Home Assistant web interface. If zones are defined but are not displayed here, then there is a problem with the connection or the access token. In this case it helps to reset and renew the device registration.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SwitchPage</name>
@@ -1084,31 +1120,31 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Info</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current power usage:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Today energy usage:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Total energy usage:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Voltage:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Device Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current power usage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Today energy usage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voltage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total energy usage</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1336,6 +1372,10 @@ This can either be the hostname / IP in your local network or a remote url if yo
     </message>
     <message>
         <source>If you facing problems with the setup process you can try to reset the data from a previous install.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resetting application</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

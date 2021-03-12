@@ -47,7 +47,6 @@ private slots:
 
 private:
     QList<Entity *> m_entities;
-    bool m_parentMode{true};
 
     // QAbstractItemModel interface
 public:

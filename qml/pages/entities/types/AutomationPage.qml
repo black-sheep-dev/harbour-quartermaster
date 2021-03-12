@@ -45,6 +45,10 @@ Page {
                 color: Theme.highlightColor
             }
 
+            SectionHeader {
+                text: qsTr("Features")
+            }
+
             TextSwitch {
                 x: Theme.horizontalPageMargin
                 text: qsTr("Automation on/off")

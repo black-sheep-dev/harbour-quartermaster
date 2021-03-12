@@ -3,12 +3,12 @@
 
 #include <QAbstractListModel>
 
-
 struct EntityTypeItem {
+    quint16 count{0};
     QString description;
     QString title;
     QString icon;
-    int type{0};
+    int type{0};  
 };
 
 class EntityTypesModel : public QAbstractListModel
@@ -17,7 +17,8 @@ class EntityTypesModel : public QAbstractListModel
 
 public:
     enum EntityTypeRoles {
-        TitleRole           = Qt::UserRole + 1,
+        CountRole           = Qt::UserRole + 1,
+        TitleRole,
         DescriptionRole,
         IconRole,
         TypeRole

@@ -213,10 +213,10 @@ Dialog {
         target: App.api()
         onRequestFinished: {
             dialog.busy = false
-            dialog.connected = true
+            dialog.connected = success
             canAccept = App.api().serverConfig().isCompatible()
         }
-        onApiError: {
+        onError: {
             dialog.error = msg
             dialog.busy = false
         }

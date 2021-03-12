@@ -1,8 +1,5 @@
 #include "zonesmodel.h"
 
-#include <QJsonArray>
-#include <QJsonObject>
-
 ZonesModel::ZonesModel(QObject *parent) :
     QAbstractListModel(parent)
 {
@@ -30,7 +27,6 @@ void ZonesModel::addZone(Zone *zone)
     beginInsertRows(QModelIndex(), m_zones.count(), m_zones.count());
     zone->setParent(this);
     m_zones.append(zone);
-    connect(zone, &Zone::networksChanged, this, &ZonesModel::onNetworksChanged);
     endInsertRows();
 }
 
@@ -44,55 +40,8 @@ void ZonesModel::setZones(const QList<Zone *> &zones)
 
     for (auto zone : m_zones) {
         zone->setParent(this);
-        connect(zone, &Zone::networksChanged, this, &ZonesModel::onNetworksChanged);
     }
     endResetModel();
-
-    setLoading(false);
-    emit refreshed();
-}
-
-void ZonesModel::setZones(const QJsonArray &array)
-{
-    QList<Zone *> zones;
-
-    for (const auto &value : array) {
-        auto zone = new Zone;
-        zone->setJson(value.toObject());
-
-        zones.append(zone);
-    }
-
-    setZones(zones);
-}
-
-bool ZonesModel::loading() const
-{
-    return m_loading;
-}
-
-void ZonesModel::setLoading(bool loading)
-{
-    if (m_loading == loading)
-        return;
-
-    m_loading = loading;
-    emit loadingChanged(m_loading);
-}
-
-void ZonesModel::onNetworksChanged()
-{
-    auto zone = qobject_cast<Zone *>(sender());
-
-    if (!zone)
-        return;
-
-    const QModelIndex idx = index(m_zones.indexOf(zone));
-
-    if (!idx.isValid())
-        return;
-
-    emit dataChanged(idx, idx);
 }
 
 int ZonesModel::rowCount(const QModelIndex &parent) const
@@ -116,17 +65,20 @@ QVariant ZonesModel::data(const QModelIndex &index, int role) const
     case NameRole:
         return zone->name();
 
-    case NetworkCountRole:
-        return zone->networksModel()->networks().count();
-
     case GuidRole:
         return zone->guid();
+
+    case IsHomeRole:
+        return zone->isHome();
 
     case LatitudeRole:
         return zone->latitude();
 
     case LongitudeRole:
         return zone->longitude();
+
+    case NetworkCountRole:
+        return zone->networkCount();
 
     case RadiusRole:
         return zone->radius();
@@ -141,10 +93,11 @@ QHash<int, QByteArray> ZonesModel::roleNames() const
     QHash<int, QByteArray> roles;
 
     roles[GuidRole]             = "guid";
+    roles[IsHomeRole]           = "isHome";
     roles[LatitudeRole]         = "latitude";
     roles[LongitudeRole]        = "longitude";
     roles[NameRole]             = "name";
-    roles[NetworkCountRole]     = "networks_count";
+    roles[NetworkCountRole]     = "networkCount";
     roles[RadiusRole]           = "radius";
 
     return roles;

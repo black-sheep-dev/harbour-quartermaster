@@ -44,23 +44,25 @@ SOURCES += src/harbour-quartermaster.cpp \
     src/device/sensors/devicesensorbatterycharging.cpp \
 #    src/device/trackers/devicetrackergps.cpp \
 #    src/device/trackers/devicetrackerwifi.cpp \
-#    src/entities/climate.cpp \
-#    src/entities/entity.cpp \
+    src/entities/climate.cpp \
+    src/entities/entity.cpp \
 #    src/entities/group.cpp \
-#    src/entities/light.cpp \
-#    src/entities/wifinetwork.cpp \
-#    src/entities/zone.cpp \
-#    src/models/entitiesmodel.cpp \
-#    src/models/entitiessortfiltermodel.cpp \
+    src/entities/light.cpp \
+    src/entities/wifinetwork.cpp \
+    src/entities/zone.cpp \
+    src/models/entitiesmodel.cpp \
+    src/models/entitiessortfiltermodel.cpp \
 #    src/models/entityattributesmodel.cpp \
-#    src/models/entitytypesmodel.cpp \
+    src/models/entitytypesmodel.cpp \
 #    src/models/errorlogmodel.cpp \
 #    src/models/logbookmodel.cpp \
-#    src/models/sortfiltermodel.cpp \
-#    src/models/wifinetworkmodel.cpp \
-#    src/models/zonesmodel.cpp \
+    src/models/sortfiltermodel.cpp \
+    src/models/wifinetworkmodel.cpp \
+    src/models/zonesmodel.cpp \
 #    src/threads/errorlogparser.cpp \
-#    src/tools/backuptool.cpp
+    src/service/entitiesservice.cpp \
+    src/tools/backuptool.cpp \
+    src/service/locationtracker.cpp
 
 DISTFILES += qml/harbour-quartermaster.qml \
     qml/SelectWifiNetworkDialog.qml \
@@ -98,7 +100,6 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/settings/SettingsCheckConfigPage.qml \
     qml/pages/settings/SettingsDeveloperModePage.qml \
     qml/pages/settings/SettingsHomeAssistantPage.qml \
-    qml/pages/settings/SettingsHomezonePage.qml \
     qml/pages/settings/SettingsLogBookPage.qml \
     qml/pages/settings/SettingsNotificationsPage.qml \
     qml/pages/wizard/WizardConnectionAdvancedPage.qml \
@@ -149,21 +150,23 @@ HEADERS += \
     src/device/sensors/devicesensorbatterycharging.h \
 #    src/device/trackers/devicetrackergps.h \
 #    src/device/trackers/devicetrackerwifi.h \
-#    src/entities/climate.h \
-#    src/entities/entity.h \
+    src/entities/climate.h \
+    src/entities/entity.h \
 #    src/entities/group.h \
-#    src/entities/light.h \
-#    src/entities/wifinetwork.h \
-#    src/entities/zone.h \
-#    src/models/entitiesmodel.h \
-#    src/models/entitiessortfiltermodel.h \
+    src/entities/light.h \
+    src/entities/wifinetwork.h \
+    src/entities/zone.h \
+    src/models/entitiesmodel.h \
+    src/models/entitiessortfiltermodel.h \
 #    src/models/entityattributesmodel.h \
-#    src/models/entitytypesmodel.h \
+    src/models/entitytypesmodel.h \
 #    src/models/errorlogmodel.h \
 #    src/models/logbookmodel.h \
-#    src/models/sortfiltermodel.h \
-#    src/models/wifinetworkmodel.h \
-#    src/models/zonesmodel.h \
+    src/models/sortfiltermodel.h \
+    src/models/wifinetworkmodel.h \
+    src/models/zonesmodel.h \
 #    src/threads/errorlogparser.h \
-#    src/tools/backuptool.h
-    src/enums.h
+    src/service/entitiesservice.h \
+    src/tools/backuptool.h \
+    src/enums.h \
+    src/service/locationtracker.h

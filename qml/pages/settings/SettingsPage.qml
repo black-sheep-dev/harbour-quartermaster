@@ -27,15 +27,15 @@ Page {
                 icon: "image://theme/icon-m-diagnostic"
                 page: "SettingsDeviceSensorsPage.qml"
             }
-            ListElement {
-                title: qsTr("Homezone");
-                description: qsTr("Manage homezone settings")
-                icon: "image://theme/icon-m-home"
-                page: "SettingsHomezonePage.qml"
-            }
+//            ListElement {
+//                title: qsTr("Homezone");
+//                description: qsTr("Manage homezone settings")
+//                icon: "image://theme/icon-m-home"
+//                page: "SettingsHomezonePage.qml"
+//            }
             ListElement {
                 title: qsTr("Zones");
-                description: qsTr("Manage zones")
+                description: qsTr("Manage zones and related networks")
                 icon: "image://theme/icon-m-dot"
                 page: "SettingsZonesPage.qml"
             }

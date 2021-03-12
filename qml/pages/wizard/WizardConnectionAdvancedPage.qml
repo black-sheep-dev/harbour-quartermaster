@@ -214,9 +214,9 @@ Dialog {
 
     Connections {
         target: App.api()
-        onHostDiscovered: {
+        onRequestFinished: {
             busy = false
-            dialog.discovered = discovered
+            dialog.discovered = success
         }
     }
 

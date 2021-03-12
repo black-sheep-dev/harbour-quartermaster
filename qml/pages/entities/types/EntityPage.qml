@@ -20,7 +20,7 @@ Page {
             }
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: Client.entitiesProvider().updateEntity(entity.entityId)
+                //onClicked: Client.entitiesProvider().updateEntity(entity.entityId)
             }
         }
 
@@ -43,5 +43,5 @@ Page {
         }
     }
 
-    Component.onCompleted: if ((Client.updateModes & Client.UpdateModeSingleEntity) === Client.UpdateModeSingleEntity) Client.entitiesProvider().updateEntity(entity.entityId)
+    //Component.onCompleted: if ((Client.updateModes & Client.UpdateModeSingleEntity) === Client.UpdateModeSingleEntity) Client.entitiesProvider().updateEntity(entity.entityId)
 }

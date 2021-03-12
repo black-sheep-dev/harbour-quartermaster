@@ -81,7 +81,6 @@ Page {
 
             SectionHeader {
                 text: qsTr("Wifi Networks")
-                font.pixelSize: Theme.fontSizeLarge
             }
 
             SilicaListView {

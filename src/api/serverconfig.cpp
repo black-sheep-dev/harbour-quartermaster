@@ -12,7 +12,6 @@
 
 ServerConfig::ServerConfig(QObject *parent) :
     QObject(parent)
-//    m_zone(new Zone(this))
 {
 
 }
@@ -23,12 +22,6 @@ bool ServerConfig::isCompatible()
             && (m_components & ComponentMobileApp)
             && (m_components & ComponentWebhook);
 }
-
-//Zone *ServerConfig::homezone() const
-//{
-//    return m_zone;
-//}
-
 
 bool ServerConfig::isUpdateAvailable(const QString &version) const
 {
@@ -48,9 +41,9 @@ void ServerConfig::setData(const QJsonObject &object)
 
     setExternalUrl(object.value(ApiKey::KEY_EXTERNAL_URL).toString());
     setInternalUrl(object.value(ApiKey::KEY_INTERNAL_URL).toString());
-//    setLocationName(object.value(ApiKey::KEY_LOCATION_NAME).toString());
-    //m_zone->setLatitude(object.value(ApiKey::KEY_LATITUDE).toDouble());
-    //m_zone->setLongitude(object.value(ApiKey::KEY_LONGITUDE).toDouble());
+    setLocationName(object.value(ApiKey::KEY_LOCATION_NAME).toString());
+    setLatitude(object.value(ApiKey::KEY_LATITUDE).toDouble());
+    setLongitude(object.value(ApiKey::KEY_LONGITUDE).toDouble());
 
     // check version
     const QString version = object.value(ApiKey::KEY_VERSION).toString();
@@ -87,11 +80,6 @@ void ServerConfig::setData(const QJsonObject &object)
     m_unitVolume = units.value(ApiKey::KEY_VOLUME).toString();
 }
 
-bool ServerConfig::available() const
-{
-    return m_available;
-}
-
 QVariantList ServerConfig::componentList() const
 {
     return m_componentList;
@@ -110,11 +98,6 @@ QString ServerConfig::configError() const
 bool ServerConfig::configValid() const
 {
     return m_configValid;
-}
-
-QString ServerConfig::error() const
-{
-    return m_error;
 }
 
 quint16 ServerConfig::externalPort() const
@@ -137,15 +120,20 @@ QString ServerConfig::internalUrl() const
     return m_internalUrl;
 }
 
-bool ServerConfig::loading() const
+double ServerConfig::latitude() const
 {
-    return m_loading;
+    return m_latitude;
 }
 
-//QString ServerConfig::locationName() const
-//{
-//    return QString();//m_zone->name();
-//}
+QString ServerConfig::locationName() const
+{
+    return m_locationName;
+}
+
+double ServerConfig::longitude() const
+{
+    return m_longitude;
+}
 
 QString ServerConfig::version() const
 {
@@ -180,18 +168,6 @@ QString ServerConfig::unitVolume() const
 bool ServerConfig::versionCompatibility() const
 {
     return m_versionCompatibility;
-}
-
-void ServerConfig::setAvailable(bool available)
-{
-    if (m_available == available)
-        return;
-
-    m_available = available;
-    emit availableChanged(m_available);
-
-    // reset error
-    m_error = QString();
 }
 
 void ServerConfig::setComponentList(const QVariantList &components)
@@ -230,15 +206,6 @@ void ServerConfig::setConfigValid(bool valid)
     emit configValidChanged(m_configValid);
 }
 
-void ServerConfig::setError(const QString &error)
-{
-    if (m_error == error)
-        return;
-
-    m_error = error;
-    emit errorChanged(m_error);
-}
-
 void ServerConfig::setExternalPort(quint16 port)
 {
     if (m_externalPort == port)
@@ -275,23 +242,32 @@ void ServerConfig::setInternalUrl(const QString &url)
     emit internalUrlChanged(m_internalUrl);
 }
 
-void ServerConfig::setLoading(bool loading)
+void ServerConfig::setLatitude(double latitude)
 {
-    if (m_loading == loading)
+    if (qFuzzyCompare(m_latitude, latitude))
         return;
 
-    m_loading = loading;
-    emit loadingChanged(m_loading);
+    m_latitude = latitude;
+    emit latitudeChanged(m_latitude);
 }
 
-//void ServerConfig::setLocationName(const QString &name)
-//{
-//    if (m_zone->name() == name)
-//        return;
+void ServerConfig::setLocationName(const QString &locationName)
+{
+    if (m_locationName == locationName)
+        return;
 
-//    m_zone->setName(name);
-//    emit locationNameChanged(m_locationName);
-//}
+    m_locationName = locationName;
+    emit locationNameChanged(m_locationName);
+}
+
+void ServerConfig::setLongitude(double longitude)
+{
+    if (qFuzzyCompare(m_longitude, longitude))
+        return;
+
+    m_longitude = longitude;
+    emit longitudeChanged(m_longitude);
+}
 
 void ServerConfig::setUnitLength(const QString &unit)
 {

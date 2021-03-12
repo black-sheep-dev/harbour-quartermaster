@@ -6,7 +6,16 @@ EntitiesSortFilterModel::EntitiesSortFilterModel(QObject *parent) :
     QSortFilterProxyModel(parent)
 {
     setSortRole(EntitiesModel::NameRole);
-    setFilterRole(EntitiesModel::NameRole);
+    setDynamicSortFilter(true);
+}
+
+void EntitiesSortFilterModel::addEntityFilter(quint8 entityType)
+{
+    if (m_entityFilters.contains(entityType))
+        return;
+
+    m_entityFilters.append(entityType);
+    invalidate();
 }
 
 Entity *EntitiesSortFilterModel::entityAt(int i)
@@ -21,17 +30,37 @@ Entity *EntitiesSortFilterModel::entityAt(int i)
     return model->entityAt(mapToSource(idx));
 }
 
-void EntitiesSortFilterModel::sortModel()
+void EntitiesSortFilterModel::resetEntityFilter()
 {
-    sort(0, Qt::AscendingOrder);
+    m_entityFilters.clear();
+    invalidate();
 }
 
-void EntitiesSortFilterModel::setSourceModel(QAbstractItemModel *sourceModel)
+//void EntitiesSortFilterModel::sortModel()
+//{
+//    sort(0, Qt::AscendingOrder);
+//}
+
+//void EntitiesSortFilterModel::setSourceModel(QAbstractItemModel *sourceModel)
+//{
+//    auto model = qobject_cast<EntitiesModel *>(sourceModel);
+//    connect(model, &EntitiesModel::changed, this, &EntitiesSortFilterModel::sortModel);
+
+//    QSortFilterProxyModel::setSourceModel(sourceModel);
+
+//    sortModel();
+//}
+
+bool EntitiesSortFilterModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
-    auto *model = qobject_cast<EntitiesModel *>(sourceModel);
-    connect(model, &EntitiesModel::changed, this, &EntitiesSortFilterModel::sortModel);
+    if (this->sourceModel() == nullptr)
+        return false;
 
-    QSortFilterProxyModel::setSourceModel(sourceModel);
+    auto index = this->sourceModel()->index(source_row, 0, source_parent);
+    if (!index.isValid())
+        return false;
 
-    sortModel();
+    auto type = index.data(EntitiesModel::TypeRole).toUInt();
+
+    return m_entityFilters.contains(type);
 }

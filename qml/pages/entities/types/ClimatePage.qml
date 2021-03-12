@@ -34,40 +34,9 @@ Page {
                 title: entity.name
             }
 
-            Row {
-                x: Theme.horizontalPageMargin
-                width: parent.width - 2*x
-
-                Label {
-                    width: parent.width * 0.7
-                    text: qsTr("Current state:")
-                    color: Theme.highlightColor
-                }
-
-                Label {
-                    text: entity.state
-                    color: Theme.highlightColor
-                }
+            SectionHeader {
+                text: qsTr("Features")
             }
-
-            Row {
-                visible: entity.hasFeature(Climate.ClimateTemperature)
-
-                x: Theme.horizontalPageMargin
-                width: parent.width - 2*x
-
-                Label {
-                    text: qsTr("Current room temperature:")
-                    width: parent.width * 0.7
-                    color: Theme.highlightColor
-                }
-
-                Label {
-                    text: entity.attributes.current_temperature + " " + Client.homeassistantInfo().unitTemperature
-                    color: Theme.highlightColor
-                }
-            }
-
 
             Slider {
                 id: temperatureSlider
@@ -94,12 +63,12 @@ Page {
                     if (pressed)
                         return
 
-                    Client.entitiesProvider().callService("climate",
-                                                          "set_temperature",
-                                                          entity.entityId,
-                                                          {
-                                                              temperature: value
-                                                          })
+                    App.api().callService("climate",
+                                          "set_temperature",
+                                          {
+                                              entity_id: entity.entityId,
+                                              temperature: value
+                                          })
 
                     entity.attributes.temperature = value
                 }
@@ -128,19 +97,34 @@ Page {
                 onCurrentIndexChanged: {
                     const mode = currentItem.text
 
-                    Client.entitiesProvider().callService("climate",
-                                                          "set_preset_mode",
-                                                          entity.entityId,
-                                                          {
-                                                              preset_mode: mode
-                                                          })
+                    App.api().callService("climate",
+                                          "set_preset_mode",
+                                          {
+                                            entity_id: entity.entityId,
+                                            preset_mode: mode
+                                          })
 
                     entity.attributes.preset_mode = mode
                 }
             }
+
+            SectionHeader {
+                text: qsTr("Info")
+            }
+
+            DetailItem {
+                label: qsTr("Current state")
+                value: entity.state
+            }
+
+            DetailItem {
+                visible: entity.hasFeature(Climate.ClimateTemperature)
+                label: qsTr("Current room temperature")
+                value: entity.attributes.current_temperature + " " + App.api().serverConfig().unitTemperature
+            }
         }
     }
 
-    Component.onCompleted: if ((Client.updateModes & Client.UpdateModeSingleEntity) === Client.UpdateModeSingleEntity) Client.entitiesProvider().updateEntity(entity.entityId)
+    //Component.onCompleted: if ((Client.updateModes & Client.UpdateModeSingleEntity) === Client.UpdateModeSingleEntity) Client.entitiesProvider().updateEntity(entity.entityId)
 }
 

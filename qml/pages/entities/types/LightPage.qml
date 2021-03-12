@@ -18,7 +18,7 @@ Page {
             }
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: Client.entitiesProvider().updateEntity(entity.entityId)
+                //onClicked: Client.entitiesProvider().updateEntity(entity.entityId)
             }
         }
 
@@ -35,20 +35,22 @@ Page {
                 title: entity.name
             }
 
+            SectionHeader {
+                text: qsTr("Features")
+            }
+
             TextSwitch {
                 x: Theme.horizontalPageMargin
                 text: qsTr("Switch light on/off")
                 checked: entity.state === "on"
 
                 onClicked: {
-                    Client.entitiesProvider().callService("light",
-                                                          checked ? "turn_on" : "turn_off",
-                                                          entity.entityId)
+                    App.api().callService("light",
+                                          checked ? "turn_on" : "turn_off",
+                                          {
+                                              entity_id: entity.entityId
+                                          })
                 }
-            }
-
-            SectionHeader {
-                text: qsTr("Features")
             }
 
             // ------------------------------------------------------------------------------------------------------------
@@ -73,12 +75,12 @@ Page {
                     if (pressed)
                         return;
 
-                    Client.entitiesProvider().callService("light",
-                                                          "turn_on",
-                                                          entity.entityId,
-                                                          {
-                                                              brightness: value
-                                                          })
+                    App.api().callService("light",
+                                          "turn_on",
+                                          {
+                                              entity_id: entity.entityId,
+                                              brightness: value
+                                          })
                 }
             }
 
@@ -104,12 +106,12 @@ Page {
                     if (pressed)
                         return;
 
-                    Client.entitiesProvider().callService("light",
-                                                          "turn_on",
-                                                          entity.entityId,
-                                                          {
-                                                              color_temp: value
-                                                          })
+                    App.api().callService("light",
+                                          "turn_on",
+                                          {
+                                              entity_id: entity.entityId,
+                                              color_temp: value
+                                          })
                 }
             }
 
@@ -120,20 +122,14 @@ Page {
             Row {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2*x
+                spacing: Theme.paddingLarge
 
                 Label {
                     visible: entity.hasFeature(Light.LightColor)
 
                     text: qsTr("Color")
 
-                    anchors.verticalCenter: colorSelect.verticalCenter
 
-                    color: Theme.highlightColor
-                }
-
-                Item {
-                    width: Theme.paddingLarge
-                    height: 1
                 }
 
                 Rectangle {
@@ -154,16 +150,16 @@ Page {
                             var dialog = pageStack.push("Sailfish.Silica.ColorPickerDialog")
                             dialog.accepted.connect(function() {
                                 entity.color = dialog.color
-                                Client.entitiesProvider().callService("light",
-                                                                      "turn_on",
-                                                                      entity.entityId,
-                                                                      {
-                                                                          rgb_color: [
-                                                                            entity.red(),
-                                                                            entity.green(),
-                                                                            entity.blue()
-                                                                          ]
-                                                                      })
+                                App.api().callService("light",
+                                                      "turn_on",
+                                                      {
+                                                          entity_id: entity.entityId,
+                                                          rgb_color: [
+                                                            entity.red(),
+                                                            entity.green(),
+                                                            entity.blue()
+                                                          ]
+                                                      })
                             })
                         }
                     }
@@ -201,17 +197,17 @@ Page {
                     else
                         effect = currentItem.text
 
-                    Client.entitiesProvider().callService("light",
-                                                          "turn_on",
-                                                          entity.entityId,
-                                                          {
-                                                              effect: effect
-                                                          })
+                    App.api().callService("light",
+                                          "turn_on",
+                                          {
+                                              entity_id: entity.entityId,
+                                              effect: effect
+                                          })
                 }
             }
         }
     }
 
-    Component.onCompleted: if ((Client.updateModes & Client.UpdateModeSingleEntity) === Client.UpdateModeSingleEntity) Client.entitiesProvider().updateEntity(entity.entityId)
+    //Component.onCompleted: if ((Client.updateModes & Client.UpdateModeSingleEntity) === Client.UpdateModeSingleEntity) Client.entitiesProvider().updateEntity(entity.entityId)
 }
 

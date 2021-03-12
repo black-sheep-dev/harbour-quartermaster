@@ -13,10 +13,7 @@ Page {
             MenuItem {
                 enabled: App.api().serverConfig().components & ServerConfig.ComponentConfig
                 text: qsTr("Check Config")
-                onClicked: {
-                    App.api().checkConfig();
-                    pageStack.push(Qt.resolvedUrl("SettingsCheckConfigPage.qml"));
-                }
+                //onClicked: pageQt.resolvedUrl("SettingsCheckConfigPage.qml")
             }
             MenuItem {
                 text: qsTr("Error Log")
@@ -26,6 +23,8 @@ Page {
 
         anchors.fill: parent
         contentHeight: column.height
+
+        RemorsePopup { id: remorse }
 
         Column {
             id: column

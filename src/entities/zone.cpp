@@ -5,37 +5,19 @@
 #include "src/constants.h"
 
 Zone::Zone(QObject *parent) :
-    QObject(parent),
-    m_networks(new WifiNetworkModel(this)),
-    m_name(QString())
+    QObject(parent)
     
 {
-    connect(m_networks, &WifiNetworkModel::changed, this, &Zone::networksChanged);
-}
-
-WifiNetworkModel *Zone::networksModel()
-{
-    return m_networks;
-}
-
-void Zone::setData(const QJsonObject &object)
-{
-    if (object.isEmpty())
-        return;
-
-    const QJsonObject attributes = object.value(ApiKey::KEY_ATTRIBUTES).toObject();
-    const QJsonObject context = object.value(ApiKey::KEY_CONTEXT).toObject();
-
-    setGuid(context.value(ApiKey::KEY_ID).toString());
-    setName(attributes.value(ApiKey::KEY_FRIENDLY_NAME).toString());
-    setLatitude(attributes.value(ApiKey::KEY_LATITUDE).toDouble());
-    setLongitude(attributes.value(ApiKey::KEY_LONGITUDE).toDouble());
-    setRadius(attributes.value(ApiKey::KEY_RADIUS).toDouble());
 }
 
 QString Zone::guid() const
 {
     return m_guid;
+}
+
+bool Zone::isHome() const
+{
+    return m_isHome;
 }
 
 double Zone::latitude() const
@@ -53,6 +35,11 @@ QString Zone::name() const
     return m_name;
 }
 
+quint16 Zone::networkCount() const
+{
+    return m_networkCount;
+}
+
 double Zone::radius() const
 {
     return m_radius;
@@ -65,6 +52,15 @@ void Zone::setGuid(const QString &guid)
 
     m_guid = guid;
     emit guidChanged(m_guid);
+}
+
+void Zone::setIsHome(bool isHome)
+{
+    if (m_isHome == isHome)
+        return;
+
+    m_isHome = isHome;
+    emit isHomeChanged(m_isHome);
 }
 
 void Zone::setLatitude(double latitude)
@@ -92,6 +88,15 @@ void Zone::setName(const QString &name)
 
     m_name = name;
     emit nameChanged(m_name);
+}
+
+void Zone::setNetworkCount(quint16 count)
+{
+    if (m_networkCount == count)
+        return;
+
+    m_networkCount = count;
+    emit networkCountChanged(m_networkCount);
 }
 
 void Zone::setRadius(double radius)
