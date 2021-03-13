@@ -34,7 +34,6 @@ public:
 
     void addEntity(Entity *entity);
     void setEntities(const QList<Entity *> &entities);
-    void updateEntity(Entity *entity);
 
 signals:
     void changed();
@@ -47,6 +46,7 @@ private slots:
 
 private:
     QList<Entity *> m_entities;
+    bool m_parentMode{true};
 
     // QAbstractItemModel interface
 public:

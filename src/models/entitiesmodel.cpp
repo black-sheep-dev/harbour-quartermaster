@@ -47,14 +47,19 @@ bool EntitiesModel::isEmpty() const
 {
     return m_entities.isEmpty();
 }
+
+void EntitiesModel::setParentMode(bool enable)
+{
+    m_parentMode = enable;
+}
 void EntitiesModel::addEntity(Entity *entity)
 {
     if (entity == nullptr)
         return;
 
     beginInsertRows(QModelIndex(), m_entities.count(), m_entities.count());
-
-    entity->setParent(this);
+    if (m_parentMode)
+        entity->setParent(this);
 
     m_entities.append(entity);
     connect(entity, &Entity::changed, this, &EntitiesModel::onEntityChanged);
@@ -67,12 +72,17 @@ void EntitiesModel::setEntities(const QList<Entity *> &entities)
 {
     beginResetModel();
     qDeleteAll(m_entities.begin(), m_entities.end());
-    m_entities.clear();
+    if (m_parentMode) {
+        qDeleteAll(m_entities.begin(), m_entities.end());
+        m_entities.clear();
+    }
+
     m_entities = entities;
 
-
     for (auto entity : m_entities) {
-        entity->setParent(this);
+        if (m_parentMode)
+            entity->setParent(this);
+
         connect(entity, &Entity::changed, this, &EntitiesModel::onEntityChanged);
     }
     endResetModel();
@@ -80,22 +90,6 @@ void EntitiesModel::setEntities(const QList<Entity *> &entities)
     emit changed();
 }
 
-void EntitiesModel::updateEntity(Entity *entity)
-{
-    if (!entity)
-        return;
-
-    const int idx = m_entities.indexOf(entity);
-
-    if (idx < 0) {
-        addEntity(entity);
-    } else {
-        const QModelIndex index = QAbstractListModel::createIndex(idx, 0, entity);
-        emit dataChanged(index, index);
-    }
-
-    emit changed();
-}
 
 void EntitiesModel::reset()
 {
@@ -109,7 +103,21 @@ void EntitiesModel::reset()
 
 void EntitiesModel::onEntityChanged()
 {
-    updateEntity(qobject_cast<Entity *>(sender()));
+    auto entity = qobject_cast<Entity *>(sender());
+
+    if (entity == nullptr)
+        return;
+
+    const int idx = m_entities.indexOf(entity);
+
+    if (idx < 0) {
+        addEntity(entity);
+    } else {
+        const QModelIndex index = QAbstractListModel::createIndex(idx, 0, entity);
+        emit dataChanged(index, index);
+    }
+
+    emit changed();
 }
 
 int EntitiesModel::rowCount(const QModelIndex &parent) const

@@ -83,7 +83,7 @@ Page {
 
             model: SortFilterModel {
                 id: filterModel
-                sourceModel: App.locationTracker().zonesModel()
+                sourceModel: App.locationService().zonesModel()
                 sortRole: ZonesModel.NameRole
                 filterRole: ZonesModel.NameRole
                 filterCaseSensitivity: Qt.CaseInsensitive
@@ -134,7 +134,7 @@ Page {
                         }
                     }
                 }
-                onClicked: pageStack.push(Qt.resolvedUrl("SettingsZonePage.qml"), { zone: App.locationTracker().zonesModel().zoneAt(index)})
+                onClicked: pageStack.push(Qt.resolvedUrl("SettingsZonePage.qml"), { zone: App.locationService().zonesModel().zoneAt(index)})
             }
 
             ViewPlaceholder {

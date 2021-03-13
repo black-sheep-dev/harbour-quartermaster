@@ -6,8 +6,10 @@ import org.nubecula.harbour.quartermaster 1.0
 import "../../components/"
 
 Page {
+    property bool busy: false
     property string title
     property int type
+    property string icon
 
     id: page
 
@@ -16,14 +18,17 @@ Page {
     PageBusyIndicator {
         id: busyIndicator
         size: BusyIndicatorSize.Large
-        running: Client.entitiesProvider().loading
+        running: busy
     }
 
     SilicaFlickable {
         PullDownMenu {
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: Client.entitiesProvider().updateModel(type)
+                onClicked: {
+                    busy = true
+                    App.api().getStates()
+                }
             }
             MenuItem {
                 text: qsTr("Search")
@@ -81,34 +86,31 @@ Page {
 
             model: EntitiesSortFilterModel {
                 id: filterModel
-                sourceModel: Client.entitiesProvider().model(type)
+                sourceModel: App.entitiesService().entitiesModel()
             }
 
             delegate: ListItem {
                 id: delegate
                 width: parent.width
-                contentHeight: Theme.itemSizeExtraLarge
+                contentHeight: Theme.itemSizeMedium
 
                 Row {
                     x: Theme.horizontalPageMargin
-                    width: parent.width - 2 * x
+                    width: parent.width - 2*x
                     height: parent.height
                     anchors.verticalCenter: parent.verticalCenter
+                    spacing: Theme.paddingMedium
 
                     CircleImage {
                         id: avatar
                         width: parent.height - 2 * Theme.paddingSmall
-                        source: Client.baseUrl() + attributes.entity_picture
+                        source: App.api().baseUrl() + attributes.entity_picture
                         anchors.verticalCenter: parent.verticalCenter
 
                         fallbackText: listView.getInitials(name)
                         fallbackItemVisible: attributes.entity_picture ? false : true
                     }
 
-                    Item {
-                        width: Theme.paddingMedium
-                        height: 1
-                    }
 
                     Column {
                         width: parent.width - avatar.width - Theme.paddingMedium
@@ -118,19 +120,19 @@ Page {
                             width: parent.width
                             text: name
                             color: pressed ? Theme.secondaryHighlightColor : Theme.highlightColor
-                            font.pixelSize: Theme.fontSizeLarge
+                            font.pixelSize: Theme.fontSizeMedium
                         }
                         Label {
                             text: {
-                                if (entity_state === "home") return qsTr("At home")
-                                if (entity_state === "not_home") return qsTr("Not at home")
-                                if (entity_state === "unknown") return qsTr("Unkown")
+                                if (entityState === "home") return qsTr("At home")
+                                if (entityState === "not_home") return qsTr("Not at home")
+                                if (entityState === "unknown") return qsTr("Unkown")
 
-                                return entity_state
+                                return entityState
                             }
 
                             color: Theme.secondaryColor
-                            font.pixelSize: Theme.fontSizeMedium
+                            font.pixelSize: Theme.fontSizeSmall
                         }
                     }
                 }
@@ -145,6 +147,18 @@ Page {
     }
 
     Component.onCompleted: {
-        if ((Client.updateModes & Client.UpdateModeEntityModel) === Client.UpdateModeEntityModel) Client.entitiesProvider().updateModel(type)
+        filterModel.resetEntityFilter()
+        filterModel.addEntityFilter(type)
     }
+
+    Component.onDestruction: filterModel.resetEntityFilter()
+
+    Connections {
+        target: App.api()
+        onRequestFinished: if (requestType === Api.RequestGetApiStates) busy = false
+    }
+
+//    Component.onCompleted: {
+//        if ((Client.updateModes & Client.UpdateModeEntityModel) === Client.UpdateModeEntityModel) Client.entitiesProvider().updateModel(type)
+//    }
 }

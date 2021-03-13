@@ -7,7 +7,9 @@
 #include <QJsonObject>
 #include <QMutex>
 #include <QNetworkAccessManager>
+#include <QWebSocket>
 
+#include "api.h"
 #include "credentials.h"
 #include "serverconfig.h"
 
@@ -20,6 +22,10 @@ class ApiConnector : public QObject
     Q_PROPERTY(Credentials credentials READ credentials WRITE setCredentials NOTIFY credentialsChanged)
     Q_PROPERTY(bool encryption READ encryption WRITE setEncryption NOTIFY encryptionChanged)
     Q_PROPERTY(bool logging READ logging WRITE setLogging NOTIFY loggingChanged)
+
+    // WEBSOCKET PROPERTIES
+    Q_PROPERTY(quint8 subscriptions READ subscriptions WRITE setSubscriptions NOTIFY subscriptionsChanged)
+    Q_PROPERTY(bool websocketAtHomeOnly READ websocketAtHomeOnly WRITE setWebsocketAtHomeOnly NOTIFY websocketAtHomeOnlyChanged)
 
 public:
     enum ConnectionFailure {
@@ -40,56 +46,11 @@ public:
     Q_ENUM(ConnectionMode)
     Q_DECLARE_FLAGS(ConnectionModes, ConnectionMode)
 
-    enum Error {
-        ErrorNone,
-        ErrorBadRequest,
-        ErrorDataInvalid,
-        ErrorJsonInvalid,
-        ErrorIntegrationDeleted,
-        ErrorNotFound,
-        ErrorMethodNotAllowed,
-        ErrorMobileAppNotLoaded,
-        ErrorUnauthorized,
-        ErrorUnkown
-    };
-    Q_ENUM(Error)
-
-    enum Request {
-        RequestGetApi,
-        RequestGetApiConfig,
-        RequestGetApiDiscoveryInfo,
-        RequestGetApiEvents,
-        RequestGetApiServices,
-        RequestGetApiHistoryPeriod,
-        RequestGetApiLogBook,
-        RequestGetApiStates,
-        RequestGetApiStatesEntity,
-        RequestGetApiErrorLog,
-        RequestGetApiCameraProxy,
-        RequestPostApiStates,
-        RequestPostApiEvents,
-        RequestPostApiServices,
-        RequestPostApiConfigCheckConfig,
-        RequestPostApiRegisterDevice,
-
-        RequestWebhookCallService                   = 100,
-        RequestWebhookEnableEncryption,
-        RequestWebhookFireEvent,
-        RequestWebhookGetConfig,
-        RequestWebhookGetZones,
-        RequestWebhookRenderTemplate,
-        RequestWebhookRegisterSensor,
-        RequestWebhookStreamCamera,
-        RequestWebhookUpdateLocation,
-        RequestWebhookUpdateRegistration,
-        RequestWebhookUpdateSensorStates
-    };
-    Q_ENUM(Request)
-    Q_DECLARE_FLAGS(Requests, Request)
-
     explicit ApiConnector(QObject *parent = nullptr);
 
+    Q_INVOKABLE QString baseUrl() const;
     Q_INVOKABLE void connectToHost();
+    void initialize();
     Q_INVOKABLE ServerConfig *serverConfig();
 
     // api calls
@@ -126,7 +87,8 @@ public:
     quint8 connectionModes() const;
     Credentials credentials() const;
     bool encryption() const;
-    bool logging() const;
+    bool logging() const;  
+
 
 signals:
     void error(quint8 requestType, quint8 code, const QString &msg = QString());
@@ -134,6 +96,10 @@ signals:
     void requestFinished(quint8 requestType, bool success);
     void requestDataFinished(quint64 requestType, const QJsonDocument &payload = QJsonDocument());
     void requestRegistrationRefresh();
+
+    // websocket
+    void entityStateChanged(const QJsonObject &data);
+    void notificationAvailable(const QJsonObject &data);
 
     // properties
     void atHomeChanged(bool atHome);
@@ -158,6 +124,7 @@ public slots:
     void setEncryption(bool encryption);
     void setLogging(bool logging);
 
+
 private slots:
     void onFinished();
     void onSslErrors(QNetworkReply *reply, const QList<QSslError> &errors);
@@ -169,11 +136,13 @@ private:
     void logData(const QString &identifier, const QByteArray &data);
     void parseDeviceRegistration(const QJsonObject &data);
     void parseConfigCheck(const QJsonObject &data);
+    void refreshBaseUrl();
     void refreshWebhookUrl();
     void updateConnectionFailures(const QString &url);
 
     // members
     QHash<quint8, QString> m_apiEndpoints;
+    QString m_baseUrl;
     ConnectionFailures m_connectionFailures;
     QNetworkAccessManager *m_manager{new QNetworkAccessManager(this)};
     QMutex *m_mutex{new QMutex()};
@@ -187,7 +156,39 @@ private:
     quint8 m_connectionModes{ConnectionMode::ExternalConnection | ConnectionMode::InternalConnection};
     Credentials m_credentials;
     bool m_encryption{false};
-    bool m_logging{false};  
+    bool m_logging{false};
+
+// -----------------------------------------------------------------------------------------------------------------------------------------------
+// WEBSOCKET CONNECTIVITY
+// -----------------------------------------------------------------------------------------------------------------------------------------------
+public:
+    // properties
+    quint8 subscriptions() const;
+    bool websocketAtHomeOnly() const;
+
+signals:
+    // properties
+    void subscriptionsChanged(quint8 subscriptions);
+    void websocketAtHomeOnlyChanged(bool only);
+
+public slots:
+    // properties
+    void setSubscriptions(quint8 subscriptions);
+    void setWebsocketAtHomeOnly(bool only);
+
+private slots:
+
+private:
+    void closeWebsocket();
+    void openWebsocket();
+    void reconnectWebsocket();
+
+
+    QWebSocket m_websocket;
+
+    // properties
+    quint8 m_subscriptions{Api::SubscriptionNone};
+    bool m_websocketAtHomeOnly{false};
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(ApiConnector::ConnectionFailures)
 Q_DECLARE_OPERATORS_FOR_FLAGS(ApiConnector::ConnectionModes)

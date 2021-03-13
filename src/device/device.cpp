@@ -20,11 +20,6 @@ Device::Device(QObject *parent) :
     registerSensor(batteryCharging);
 }
 
-Device::~Device()
-{
-
-}
-
 QString Device::id() const
 {
     return Sailfish::Mdm::SysInfo::deviceUid();

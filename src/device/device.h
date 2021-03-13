@@ -17,7 +17,6 @@ class Device : public QObject
 
 public:
     explicit Device(QObject *parent = nullptr);
-    ~Device() override;
 
     Q_INVOKABLE QString id() const;
     Q_INVOKABLE QString manufacturer() const;

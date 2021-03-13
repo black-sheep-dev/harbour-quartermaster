@@ -7,7 +7,8 @@
 #include "crypto/wallet.h"
 #include "device/device.h"
 #include "service/entitiesservice.h"
-#include "service/locationtracker.h"
+#include "service/locationservice.h"
+#include "service/sensorservice.h"
 
 class App : public QObject
 {
@@ -23,7 +24,8 @@ public:
     Q_INVOKABLE ApiConnector *api();
     Q_INVOKABLE Device *device();
     Q_INVOKABLE EntitiesService *entitiesService();
-    Q_INVOKABLE LocationTracker *locationTracker();
+    Q_INVOKABLE LocationService *locationService();
+    Q_INVOKABLE SensorService *sensorService();
     Q_INVOKABLE Wallet *wallet();
 
     // functions
@@ -57,7 +59,8 @@ private:
     ApiConnector *m_api{new ApiConnector(this)};
     Device *m_device{new Device(this)};
     EntitiesService *m_entitiesService{new EntitiesService(this)};
-    LocationTracker *m_locationTracker{new LocationTracker(this)};
+    LocationService *m_locationService{new LocationService(this)};
+    SensorService *m_sensorService{new SensorService(this)};
     Wallet *m_wallet{new Wallet(this)};
 
     // properties

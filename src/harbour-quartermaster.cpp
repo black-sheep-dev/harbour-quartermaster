@@ -24,13 +24,10 @@ int main(int argc, char *argv[])
     auto uri = "org.nubecula.harbour.quartermaster";
 #endif
 
-
-//    qmlRegisterType<Group>(uri, 1, 0, "Group");
-//
-//    qmlRegisterType<EntityAttributesModel>(uri, 1, 0, "EntityAttributesModel");  
-//
 //    qmlRegisterType<ErrorLogModel>(uri, 1, 0, "ErrorLogModel");
 //    qmlRegisterType<WifiNetworkModel>(uri, 1, 0, "WifiNetworkModel");
+
+    qmlRegisterUncreatableType<Api>(uri, 1, 0, "Api", "not createable");
 
     qmlRegisterType<ApiConnector>(uri, 1, 0, "ApiConnector");
     qmlRegisterType<BackupTool>(uri, 1, 0, "BackupTool");
@@ -39,12 +36,15 @@ int main(int argc, char *argv[])
     qmlRegisterType<DeviceSensor>(uri, 1, 0, "DeviceSensor");
     qmlRegisterType<DeviceSensorModel>(uri, 1, 0, "DeviceSensorModel");
     qmlRegisterType<Entity>(uri, 1, 0, "Entity");
+    qmlRegisterType<EntityAttributesModel>(uri, 1, 0, "EntityAttributesModel");
     qmlRegisterType<EntitiesModel>(uri, 1, 0, "EntitiesModel");
     qmlRegisterType<EntitiesService>(uri, 1, 0, "EntitiesService");
     qmlRegisterType<EntitiesSortFilterModel>(uri, 1, 0, "EntitiesSortFilterModel");
     qmlRegisterType<EntityTypesModel>(uri, 1, 0, "EntityTypesModel");
+    qmlRegisterType<Group>(uri, 1, 0, "Group");
     qmlRegisterType<Light>(uri, 1, 0, "Light");
-    qmlRegisterType<LocationTracker>(uri, 1, 0, "LocationTracker");
+    qmlRegisterType<LocationService>(uri, 1, 0, "LocationService");
+    qmlRegisterType<SensorService>(uri, 1, 0, "SensorService");
     qmlRegisterType<ServerConfig>(uri, 1, 0, "ServerConfig");
     qmlRegisterType<SortFilterModel>(uri, 1, 0, "SortFilterModel");
     qmlRegisterType<Wallet>(uri, 1, 0, "Wallet");

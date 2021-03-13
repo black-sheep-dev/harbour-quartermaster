@@ -1,8 +1,7 @@
 #include "group.h"
 
 Group::Group(QObject *parent) :
-    Entity(parent),
-    m_childrenModel(new EntitiesModel(this))
+    Entity(parent)
 {
     setType(Entity::Group);
     m_childrenModel->setParentMode(false);

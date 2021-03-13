@@ -70,6 +70,10 @@
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Features</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BackupDialog</name>
@@ -128,10 +132,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Device Info</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Current state</source>
         <translation type="unfinished"></translation>
     </message>
@@ -140,7 +140,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Device Settings</source>
+        <source>Features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Info</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -374,11 +378,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Functionality</source>
+        <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Refresh</source>
+        <source>Features</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -411,11 +415,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Child Entities</source>
+        <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Refresh</source>
+        <source>Children</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -583,31 +587,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>When active the entity will be updated when his property page is shown.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>When active all entities of one type will be updated when the corresponding list view is shown.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Single entity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Entity list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Websocket</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>When active the entities will be updated live using websocket connection.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>REST API</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -672,10 +656,6 @@
 <context>
     <name>SettingsConnectionPage</name>
     <message>
-        <source>Connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Hostname</source>
         <translation type="unfinished"></translation>
     </message>
@@ -688,10 +668,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use SSL</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Valid hostname or IP required!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -700,7 +676,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>It is highly recommend to use a ssl connection if your Home Assistant server supports it!</source>
+        <source>Connections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>External Connection</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -824,10 +808,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Position is updated every 30 seconds when activated.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Wifi Tracking</source>
         <translation type="unfinished"></translation>
     </message>
@@ -841,6 +821,22 @@
     </message>
     <message>
         <source>Zones can be created in the Home Assistant web interface.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GPS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update Interval (msec)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wifi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>It is recommend to keep this option enabled!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1124,10 +1120,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Device Info</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Current power usage</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1145,6 +1137,14 @@
     </message>
     <message>
         <source>Total energy usage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Info</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

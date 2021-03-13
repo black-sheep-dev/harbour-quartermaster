@@ -172,6 +172,6 @@ Page {
 
     Connections {
         target: App.api()
-        onRequestFinished: if (requestType === ApiConnector.RequestGetApiStates) busy = false
+        onRequestFinished: if (requestType === Api.RequestGetApiStates) busy = false
     }
 }

@@ -50,7 +50,6 @@ Page {
             id: column
 
             width: parent.width
-
             spacing: Theme.paddingMedium
 
             PageHeader {

@@ -4,7 +4,9 @@ import Sailfish.Silica 1.0
 import org.nubecula.harbour.quartermaster 1.0
 
 Page {
+    property bool busy: false
     property Entity entity
+
 
     id: page
 
@@ -12,13 +14,17 @@ Page {
 
     SilicaFlickable {
         PullDownMenu {
+            busy: page.busy
             MenuItem {
                 text: qsTr("Attributes")
                 onClicked: pageStack.push(Qt.resolvedUrl("../EntityAttributesPage.qml"), { entity: entity })
             }
             MenuItem {
                 text: qsTr("Refresh")
-                //onClicked: Client.entitiesProvider().updateEntity(entity.entityId)
+                onClicked: {
+                    page.busy = true;
+                    App.api().getEntityState(entity.entityId)
+                }
             }
         }
 
@@ -87,6 +93,11 @@ Page {
                 value: entity.attributes.current_a + " A"
             }
         }
+    }
+
+    Connections {
+        target: App.api()
+        onRequestFinished: if (requestType === Api.RequestGetApiStatesEntity) busy = false
     }
 
     //Component.onCompleted: if ((Client.updateModes & Client.UpdateModeSingleEntity) === Client.UpdateModeSingleEntity) Client.entitiesProvider().updateEntity(entity.entityId)

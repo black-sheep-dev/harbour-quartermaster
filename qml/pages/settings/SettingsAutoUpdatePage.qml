@@ -43,65 +43,68 @@ Page {
 
             TextSwitch {
                 id: websocketStatesSwitch
-                enabled: (Client.homeassistantInfo().components & HomeassistantInfo.ComponentWebsocketApi) === HomeassistantInfo.ComponentWebsocketApi
+                enabled: (App.api().serverConfig().components & ServerConfig.ComponentWebsocketApi) === ServerConfig.ComponentWebsocketApi
                 text: qsTr("Live updates")
                 description: qsTr("When active the entities will be updated live using websocket connection.")
                              + "\n"
                              + qsTr("This can lead to very high data consumption, especially with many entities that often change their state!")
 
                 onCheckedChanged: {
+                    var subscriptions = App.api().subscriptions;
                     if (checked)
-                        Client.updateModes |= Client.UpdateModeWebsocket
+                        subscriptions |= Api.SubscriptionStateChanged
                     else
-                        Client.updateModes &= ~Client.UpdateModeWebsocket
+                        subscriptions &= ~Api.SubscriptionStateChanged
+
+                    App.api().subscriptions = subscriptions
                 }
-                Component.onCompleted: checked = (Client.updateModes & Client.UpdateModeWebsocket) === Client.UpdateModeWebsocket
+                Component.onCompleted: checked = (App.api().subscriptions & Api.SubscriptionStateChanged)
             }
 
             Label {
                 width: parent.width
 
-                visible: (Client.homeassistantInfo().components & HomeassistantInfo.ComponentWebsocketApi) !== HomeassistantInfo.ComponentWebsocketApi
+                visible: (App.api().serverConfig().components & ServerConfig.ComponentWebsocketApi) !== ServerConfig.ComponentWebsocketApi
 
                 text: qsTr("Websocket component is not enabled in Home Assistant!")
                 wrapMode: Text.WordWrap
                 color: Theme.highlightColor
             }
 
-            SectionHeader {
-                text: qsTr("REST API")
-            }
+//            SectionHeader {
+//                text: qsTr("REST API")
+//            }
 
-            TextSwitch {
-                id: entityUpdateSwitch
-                text: qsTr("Single entity")
-                description: qsTr("When active the entity will be updated when his property page is shown.")
+//            TextSwitch {
+//                id: entityUpdateSwitch
+//                text: qsTr("Single entity")
+//                description: qsTr("When active the entity will be updated when his property page is shown.")
 
-                onCheckedChanged: {
-                    if (checked)
-                        Client.updateModes |= Client.UpdateModeSingleEntity
-                    else
-                        Client.updateModes &= ~Client.UpdateModeSingleEntity
-                }
-                Component.onCompleted: checked = (Client.updateModes & Client.UpdateModeSingleEntity) === Client.UpdateModeSingleEntity
-            }
+//                onCheckedChanged: {
+//                    if (checked)
+//                        Client.updateModes |= Client.UpdateModeSingleEntity
+//                    else
+//                        Client.updateModes &= ~Client.UpdateModeSingleEntity
+//                }
+//                Component.onCompleted: checked = (Client.updateModes & Client.UpdateModeSingleEntity) === Client.UpdateModeSingleEntity
+//            }
 
-            TextSwitch {
-                id: modelUpdateSwitch
-                text: qsTr("Entity list")
-                description: qsTr("When active all entities of one type will be updated when the corresponding list view is shown.")
+//            TextSwitch {
+//                id: modelUpdateSwitch
+//                text: qsTr("Entity list")
+//                description: qsTr("When active all entities of one type will be updated when the corresponding list view is shown.")
 
-                onCheckedChanged: {
-                    if (checked)
-                        Client.updateModes |= Client.UpdateModeEntityModel
-                    else
-                        Client.updateModes &= ~Client.UpdateModeEntityModel
-                }
-                Component.onCompleted: checked = (Client.updateModes & Client.UpdateModeEntityModel) === Client.UpdateModeEntityModel
-            }
+//                onCheckedChanged: {
+//                    if (checked)
+//                        Client.updateModes |= Client.UpdateModeEntityModel
+//                    else
+//                        Client.updateModes &= ~Client.UpdateModeEntityModel
+//                }
+//                Component.onCompleted: checked = (Client.updateModes & Client.UpdateModeEntityModel) === Client.UpdateModeEntityModel
+//            }
 
         }
     }
 
-    onStatusChanged: if (status === PageStatus.Deactivating) Client.saveSettings()
+    onStatusChanged: if (status === PageStatus.Deactivating) App.saveSettings()
 }

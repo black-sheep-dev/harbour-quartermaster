@@ -70,6 +70,10 @@
         <source>Refresh</source>
         <translation>Aktualisieren</translation>
     </message>
+    <message>
+        <source>Features</source>
+        <translation type="unfinished">Eigenschaften</translation>
+    </message>
 </context>
 <context>
     <name>BackupDialog</name>
@@ -128,10 +132,6 @@
         <translation>Aktualisieren</translation>
     </message>
     <message>
-        <source>Device Info</source>
-        <translation type="unfinished">Geräte Info</translation>
-    </message>
-    <message>
         <source>Current state</source>
         <translation type="unfinished"></translation>
     </message>
@@ -140,8 +140,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Device Settings</source>
-        <translation type="unfinished"></translation>
+        <source>Features</source>
+        <translation type="unfinished">Eigenschaften</translation>
+    </message>
+    <message>
+        <source>Info</source>
+        <translation type="unfinished">Info</translation>
     </message>
 </context>
 <context>
@@ -375,12 +379,12 @@
         <translation>Attribute</translation>
     </message>
     <message>
-        <source>Functionality</source>
-        <translation>Funktionen</translation>
-    </message>
-    <message>
         <source>Refresh</source>
         <translation>Aktualisieren</translation>
+    </message>
+    <message>
+        <source>Features</source>
+        <translation type="unfinished">Eigenschaften</translation>
     </message>
 </context>
 <context>
@@ -412,12 +416,12 @@
         <translation>Gruppe an/aus</translation>
     </message>
     <message>
-        <source>Child Entities</source>
-        <translation>Untergeordnete Entitäten</translation>
-    </message>
-    <message>
         <source>Refresh</source>
         <translation>Aktualisieren</translation>
+    </message>
+    <message>
+        <source>Children</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -585,32 +589,12 @@
         <translation>Das aktivieren dieser Optionen führt zu höherem Batterieverbrauch und Verbrauch von Datenvolumen.</translation>
     </message>
     <message>
-        <source>When active the entity will be updated when his property page is shown.</source>
-        <translation>Wenn aktiv wird die Entität aktualisiert wenn deren Eigenschaften Seite angezeigt wird.</translation>
-    </message>
-    <message>
-        <source>When active all entities of one type will be updated when the corresponding list view is shown.</source>
-        <translation>Wenn aktiv werden alle Entitäten eines Typs aktualisiert, wenn die dazugehörige Listenansicht angezeigt wird.</translation>
-    </message>
-    <message>
-        <source>Single entity</source>
-        <translation>Einzelne Entität</translation>
-    </message>
-    <message>
-        <source>Entity list</source>
-        <translation>Entitäten Liste</translation>
-    </message>
-    <message>
         <source>Websocket</source>
         <translation>Websocket</translation>
     </message>
     <message>
         <source>When active the entities will be updated live using websocket connection.</source>
         <translation>Wenn diese Option aktiviert ist, werden die Entitäten live über eine Websocket-Verbindung aktualisiert.</translation>
-    </message>
-    <message>
-        <source>REST API</source>
-        <translation>REST API</translation>
     </message>
     <message>
         <source>Live updates</source>
@@ -674,10 +658,6 @@
 <context>
     <name>SettingsConnectionPage</name>
     <message>
-        <source>Connection</source>
-        <translation>Verbindung</translation>
-    </message>
-    <message>
         <source>Hostname</source>
         <translation>Hostname</translation>
     </message>
@@ -690,10 +670,6 @@
         <translation>Port</translation>
     </message>
     <message>
-        <source>Use SSL</source>
-        <translation>Benutze SSL</translation>
-    </message>
-    <message>
         <source>Valid hostname or IP required!</source>
         <translation>Gültiger Hostname oder IP benötigt!</translation>
     </message>
@@ -702,8 +678,16 @@
         <translation>Gültiger Port benötigt!</translation>
     </message>
     <message>
-        <source>It is highly recommend to use a ssl connection if your Home Assistant server supports it!</source>
-        <translation>Es wird dringend empfohlen eine SSL Verbindung zu benutzten, wenn der Home Assistant Server dies unterstützt!</translation>
+        <source>Connections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>External Connection</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -826,10 +810,6 @@
         <translation>Das aktivieren dieser Optionen führt zu höherem Batterieverbrauch und Verbrauch von Datenvolumen.</translation>
     </message>
     <message>
-        <source>Position is updated every 30 seconds when activated.</source>
-        <translation>Die Position wird alle 30 Sekunden aktualisiert.</translation>
-    </message>
-    <message>
         <source>Wifi Tracking</source>
         <translation>WLAN Tracking</translation>
     </message>
@@ -844,6 +824,22 @@
     <message>
         <source>Zones can be created in the Home Assistant web interface.</source>
         <translation>Zonen können in der Weboberfläche von Home Assistant eingerichtet werden.</translation>
+    </message>
+    <message>
+        <source>GPS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update Interval (msec)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wifi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>It is recommend to keep this option enabled!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1127,10 +1123,6 @@
         <translation>Aktualisieren</translation>
     </message>
     <message>
-        <source>Device Info</source>
-        <translation type="unfinished">Geräte Info</translation>
-    </message>
-    <message>
         <source>Current power usage</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1149,6 +1141,14 @@
     <message>
         <source>Total energy usage</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Features</source>
+        <translation type="unfinished">Eigenschaften</translation>
+    </message>
+    <message>
+        <source>Info</source>
+        <translation type="unfinished">Info</translation>
     </message>
 </context>
 <context>

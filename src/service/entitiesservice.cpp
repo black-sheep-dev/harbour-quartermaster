@@ -23,23 +23,7 @@ EntityTypesModel *EntitiesService::entityTypesModel()
     return m_entityTypesModel;
 }
 
-void EntitiesService::onRequestDataFinished(quint64 requestType, const QJsonDocument &payload)
-{
-#ifdef QT_DEBUG
-    qDebug() << "ENTITY REQUEST FINISHED: ";
-#endif
-
-    switch (requestType) {
-    case ApiConnector::RequestGetApiStates:
-        parseStates(payload.array());
-        break;
-
-    default:
-        break;
-    }
-}
-
-QString EntitiesService::getEntityIcon(const Entity::EntityType &entityType) const
+QString EntitiesService::getEntityIcon(quint8 entityType) const
 {
     switch (entityType) {
         case Entity::Alarm:
@@ -73,6 +57,38 @@ QString EntitiesService::getEntityIcon(const Entity::EntityType &entityType) con
         default:
             return QStringLiteral("image://theme/icon-m-asterisk");
         }
+}
+
+void EntitiesService::onRequestDataFinished(quint64 requestType, const QJsonDocument &payload)
+{
+#ifdef QT_DEBUG
+    qDebug() << "ENTITY REQUEST FINISHED: ";
+#endif
+
+    switch (requestType) {
+    case Api::RequestGetApiStates:
+        parseStates(payload.array());
+        break;
+
+    case Api::RequestPostApiServices:
+    case Api::RequestGetApiStatesEntity:
+        updateEntity(payload.object());
+        break;
+
+    default:
+        break;
+    }
+}
+
+void EntitiesService::updateEntity(const QJsonObject &obj)
+{
+    auto entity = m_entitiesModel->entityById(obj.value(ApiKey::KEY_ENTITY_ID).toString());
+
+    if (entity == nullptr)
+        return;
+
+    entity->setState(obj.value(ApiKey::KEY_STATE).toVariant());
+    entity->setAttributes(obj.value(ApiKey::KEY_ATTRIBUTES).toObject().toVariantMap());
 }
 
 Entity::EntityType EntitiesService::getEntityType(const QString &entityId) const
@@ -215,9 +231,9 @@ void EntitiesService::parseStates(const QJsonArray &arr)
             entity = new Climate;
             break;
 
-//        case Entity::Group:
-//            entity = new Group;
-//            break;
+        case Entity::Group:
+            entity = new Group;
+            break;
 
         case Entity::Light:
             entity = new Light;
@@ -256,7 +272,7 @@ void EntitiesService::parseStates(const QJsonArray &arr)
         case Entity::Automation:
         case Entity::Camera:
         case Entity::Climate:
-        //case Entity::Group:
+        case Entity::Group:
         case Entity::Light:
         case Entity::Person:
         case Entity::Switch:
@@ -288,6 +304,29 @@ void EntitiesService::parseStates(const QJsonArray &arr)
 
         items.append(getEntityTypeItem(iter.key(), iter.value()));
     }
-
     m_entityTypesModel->setItems(items);
+
+    // process group children
+    if (types.keys().contains(Entity::Group)) {
+        for (auto entity : entities) {
+            if (entity->type() != Entity::Group)
+                continue;
+
+            auto group = qobject_cast<Group *>(entity);
+            auto childIds = group->attributes().value(ApiKey::KEY_ENTITY_ID).toStringList();
+
+            for (const auto child : entities) {
+                if (!childIds.contains(child->entityId()))
+                    continue;
+
+                group->childrenModel()->addEntity(child);
+
+                childIds.removeAll(child->entityId());
+                if (childIds.isEmpty())
+                    break;
+            }
+        }
+    }
+
+
 }

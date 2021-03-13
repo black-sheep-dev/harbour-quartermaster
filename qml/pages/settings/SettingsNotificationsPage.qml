@@ -30,7 +30,7 @@ Page {
                 wrapMode: Text.WordWrap
 
                 color: Theme.highlightColor
-                font.pixelSize: Theme.fontSizeMedium
+                font.pixelSize: Theme.fontSizeSmall
 
                 text: qsTr("Here you can activate / deactivate notifications from your Home Assistant server.")
                       + "\n"
@@ -40,19 +40,27 @@ Page {
 
             TextSwitch {
                 id: websocketNotifySwitch
-                enabled: (Client.homeassistantInfo().components & HomeassistantInfo.ComponentWebsocketApi) === HomeassistantInfo.ComponentWebsocketApi
+                enabled: (App.api().serverConfig().components & ServerConfig.ComponentWebsocketApi) === ServerConfig.ComponentWebsocketApi
                 text: qsTr("Notifications")
                 description: qsTr("When active the application will receive notifications from Home Assistant server over websocket connection.")
                              + "\n"
                              + qsTr("The data of service calls from the notify integration are used. For details, refer to the Home Assistant's documentation!")
 
-                onCheckedChanged: Client.websocketNotify = checked
-                Component.onCompleted: checked = Client.websocketNotify
+                onCheckedChanged: {
+                    var subscriptions = App.api().subscriptions;
+                    if (checked)
+                        subscriptions |= Api.SubscriptionNotifyEvents
+                    else
+                        subscriptions &= ~Api.SubscriptionNotifyEvents
+
+                    App.api().subscriptions = subscriptions
+                }
+                Component.onCompleted: checked = (App.api().subscriptions & Api.SubscriptionNotifyEvents)
             }
 
             Label {
                 width: parent.width
-                visible: (Client.homeassistantInfo().components & HomeassistantInfo.ComponentWebsocketApi) !== HomeassistantInfo.ComponentWebsocketApi
+                visible: (App.api().serverConfig().components & ServerConfig.ComponentWebsocketApi) !== ServerConfig.ComponentWebsocketApi
 
                 text: qsTr("Websocket component is not enabled in Home Assistant!")
                 wrapMode: Text.WordWrap
@@ -61,5 +69,5 @@ Page {
         }
     }
 
-    onStatusChanged: if (status === PageStatus.Deactivating) Client.saveSettings()
+    onStatusChanged: if (status === PageStatus.Deactivating) App.saveSettings()
 }

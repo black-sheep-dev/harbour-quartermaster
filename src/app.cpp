@@ -12,13 +12,17 @@ App::App(QObject *parent) :
     connect(m_api, &ApiConnector::requestRegistrationRefresh, this, &App::registerDevice);
     connect(m_api, &ApiConnector::requestDataFinished, this, &App::onRequestDataFinished);
     connect(m_api, &ApiConnector::requestDataFinished, m_entitiesService, &EntitiesService::onRequestDataFinished);
+    connect(m_api, &ApiConnector::entityStateChanged, m_entitiesService, &EntitiesService::updateEntity);
 
     connect(m_wallet, &Wallet::credentialsChanged, m_api, &ApiConnector::setCredentials);
     connect(m_wallet, &Wallet::validityChanged, this, [this](bool valid) {
         this->setNeedSetup(!valid);
     });
-    connect(m_api->serverConfig(), &ServerConfig::latitudeChanged, m_locationTracker, &LocationTracker::setHomezoneLatitude);
-    connect(m_api->serverConfig(), &ServerConfig::longitudeChanged, m_locationTracker, &LocationTracker::setHomezoneLongitude);
+    connect(m_api->serverConfig(), &ServerConfig::latitudeChanged, m_locationService, &LocationService::setHomezoneLatitude);
+    connect(m_api->serverConfig(), &ServerConfig::longitudeChanged, m_locationService, &LocationService::setHomezoneLongitude);
+
+    connect(m_locationService, &LocationService::webhookRequest, m_api, &ApiConnector::sendWebhookRequest);
+    connect(m_locationService, &LocationService::atHomeChanged, m_api, &ApiConnector::setAtHome);
 
     readSetting();
 
@@ -46,9 +50,14 @@ EntitiesService *App::entitiesService()
     return m_entitiesService;
 }
 
-LocationTracker *App::locationTracker()
+LocationService *App::locationService()
 {
-    return m_locationTracker;
+    return m_locationService;
+}
+
+SensorService *App::sensorService()
+{
+    return m_sensorService;
 }
 
 Wallet *App::wallet()
@@ -103,7 +112,7 @@ void App::updateRegistration()
     data.insert(ApiKey::KEY_MANUFACTURER, m_device->manufacturer());
     data.insert(ApiKey::KEY_MODEL, m_device->model());
 
-    m_api->sendWebhookRequest(ApiConnector::RequestWebhookUpdateRegistration, data);
+    m_api->sendWebhookRequest(Api::RequestWebhookUpdateRegistration, data);
 }
 
 bool App::needSetup() const
@@ -135,8 +144,8 @@ void App::onError(quint8 code, const QString &msg)
 void App::onRequestDataFinished(quint8 requestType, const QJsonDocument &payload)
 {
     switch (requestType) {
-    case ApiConnector::RequestWebhookGetZones:
-        m_locationTracker->setZones(payload.array());
+    case Api::RequestWebhookGetZones:
+        m_locationService->setZones(payload.array());
         break;
 
     default:
@@ -148,7 +157,7 @@ void App::initializeApiData()
 {
     m_api->getConfig();
     m_api->getStates();
-    m_api->sendWebhookRequest(ApiConnector::RequestWebhookGetZones);
+    m_api->sendWebhookRequest(Api::RequestWebhookGetZones);
     updateRegistration();
 }
 
@@ -156,6 +165,8 @@ void App::readSetting()
 {
     QSettings settings;
 
+
+    // connection
     quint16 externalPort{0};
     QString externalUrl;
     quint16 internalPort{0};
@@ -198,6 +209,12 @@ void App::readSetting()
     m_api->serverConfig()->setInternalPort(internalPort);
     m_api->serverConfig()->setInternalUrl(internalUrl);
 
+    // websocket
+    settings.beginGroup(QStringLiteral("WEBSOCKET"));
+    m_api->setSubscriptions(settings.value(QStringLiteral("subscriptions"),0).toUInt());
+    settings.endGroup();
+
+    // developer mode
     settings.beginGroup(QStringLiteral("DEVELOPER_MODE"));
     m_api->setLogging(settings.value(QStringLiteral("api_logging"), false).toBool());
     settings.endGroup();
@@ -211,7 +228,11 @@ void App::writeSettings()
     settings.setValue(QStringLiteral("external_port"), m_api->serverConfig()->externalPort());
     settings.setValue(QStringLiteral("external_url"), m_api->serverConfig()->externalUrl());
     settings.setValue(QStringLiteral("internal_port"), m_api->serverConfig()->internalPort());
-    settings.setValue(QStringLiteral("internal_url"), m_api->serverConfig()->internalUrl());
+    settings.setValue(QStringLiteral("internal_url"), m_api->serverConfig()->internalUrl()); 
+    settings.endGroup();
+
+    settings.beginGroup(QStringLiteral("WEBSOCKET"));
+    settings.setValue(QStringLiteral("subscriptions"), m_api->subscriptions());
     settings.endGroup();
 
     settings.beginGroup(QStringLiteral("DEVELOPER_MODE"));

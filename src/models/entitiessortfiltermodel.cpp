@@ -36,25 +36,13 @@ void EntitiesSortFilterModel::resetEntityFilter()
     invalidate();
 }
 
-//void EntitiesSortFilterModel::sortModel()
-//{
-//    sort(0, Qt::AscendingOrder);
-//}
-
-//void EntitiesSortFilterModel::setSourceModel(QAbstractItemModel *sourceModel)
-//{
-//    auto model = qobject_cast<EntitiesModel *>(sourceModel);
-//    connect(model, &EntitiesModel::changed, this, &EntitiesSortFilterModel::sortModel);
-
-//    QSortFilterProxyModel::setSourceModel(sourceModel);
-
-//    sortModel();
-//}
-
 bool EntitiesSortFilterModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
     if (this->sourceModel() == nullptr)
         return false;
+
+    if (m_entityFilters.isEmpty())
+        return true;
 
     auto index = this->sourceModel()->index(source_row, 0, source_parent);
     if (!index.isValid())

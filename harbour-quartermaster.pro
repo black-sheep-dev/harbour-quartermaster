@@ -33,6 +33,7 @@ CONFIG += sailfishapp
 SOURCES += src/harbour-quartermaster.cpp \
     src/api/apiconnector.cpp \
     src/api/serverconfig.cpp \
+    src/api/websocket.cpp \
     src/app.cpp \
     src/constants.cpp \
     src/crypto/wallet.cpp \
@@ -46,13 +47,13 @@ SOURCES += src/harbour-quartermaster.cpp \
 #    src/device/trackers/devicetrackerwifi.cpp \
     src/entities/climate.cpp \
     src/entities/entity.cpp \
-#    src/entities/group.cpp \
+    src/entities/group.cpp \
     src/entities/light.cpp \
     src/entities/wifinetwork.cpp \
     src/entities/zone.cpp \
     src/models/entitiesmodel.cpp \
     src/models/entitiessortfiltermodel.cpp \
-#    src/models/entityattributesmodel.cpp \
+    src/models/entityattributesmodel.cpp \
     src/models/entitytypesmodel.cpp \
 #    src/models/errorlogmodel.cpp \
 #    src/models/logbookmodel.cpp \
@@ -61,8 +62,9 @@ SOURCES += src/harbour-quartermaster.cpp \
     src/models/zonesmodel.cpp \
 #    src/threads/errorlogparser.cpp \
     src/service/entitiesservice.cpp \
-    src/tools/backuptool.cpp \
-    src/service/locationtracker.cpp
+    src/service/locationservice.cpp \
+    src/service/sensorservice.cpp \
+    src/tools/backuptool.cpp
 
 DISTFILES += qml/harbour-quartermaster.qml \
     qml/SelectWifiNetworkDialog.qml \
@@ -132,10 +134,12 @@ RESOURCES += \
     ressources.qrc
 
 HEADERS += \
+    src/api/api.h \
     src/api/apiconnector.h \
     src/api/credentials.h \
 #    src/api/websocketapi.h \
     src/api/serverconfig.h \
+    src/api/websocket.h \
     src/app.h \
 #    src/client/clientinterface.h \
 #    src/client/entitiesprovider.h \
@@ -152,13 +156,13 @@ HEADERS += \
 #    src/device/trackers/devicetrackerwifi.h \
     src/entities/climate.h \
     src/entities/entity.h \
-#    src/entities/group.h \
+    src/entities/group.h \
     src/entities/light.h \
     src/entities/wifinetwork.h \
     src/entities/zone.h \
     src/models/entitiesmodel.h \
     src/models/entitiessortfiltermodel.h \
-#    src/models/entityattributesmodel.h \
+    src/models/entityattributesmodel.h \
     src/models/entitytypesmodel.h \
 #    src/models/errorlogmodel.h \
 #    src/models/logbookmodel.h \
@@ -167,6 +171,7 @@ HEADERS += \
     src/models/zonesmodel.h \
 #    src/threads/errorlogparser.h \
     src/service/entitiesservice.h \
+    src/service/locationservice.h \
+    src/service/sensorservice.h \
     src/tools/backuptool.h \
-    src/enums.h \
-    src/service/locationtracker.h
+    src/enums.h

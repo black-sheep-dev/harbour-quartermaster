@@ -37,4 +37,6 @@ Image {
             color: Theme.primaryColor
         }
     }
+
+    onStatusChanged: fallbackItemVisible = (status === Image.Error)
 }

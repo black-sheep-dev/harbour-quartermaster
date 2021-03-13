@@ -5,4 +5,7 @@
         <file alias="liberpay">icons/liberpay.svg</file>
         <file alias="weblate">icons/weblate.svg</file>
     </qresource>
+    <qresource prefix="/cover">
+        <file alias="cover-background">icons/cover-background.svg</file>
+    </qresource>
 </RCC>

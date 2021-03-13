@@ -10,49 +10,63 @@
 #include "src/constants.h"
 
 static const QString HASS_API_ENDPOINT_WEBHOOK = QStringLiteral("/api/webhook/");
+static const QString HASS_API_ENDPOINT_WEBSOCKET = QStringLiteral("/api/websocket/");
 
 ApiConnector::ApiConnector(QObject *parent) :
     QObject(parent)
 {
-    m_apiEndpoints[RequestGetApi]                       = QStringLiteral("/api");
-    m_apiEndpoints[RequestGetApiConfig]                 = QStringLiteral("/api/config");
-    m_apiEndpoints[RequestGetApiDiscoveryInfo]          = QStringLiteral("/api/discovery_info");
-    m_apiEndpoints[RequestGetApiEvents]                 = QStringLiteral("/api/events");
-    m_apiEndpoints[RequestGetApiServices]               = QStringLiteral("/api/services");
-    m_apiEndpoints[RequestGetApiHistoryPeriod]          = QStringLiteral("/api/history/period/");
-    m_apiEndpoints[RequestGetApiLogBook]                = QStringLiteral("/api/logbook/");
-    m_apiEndpoints[RequestGetApiStates]                 = QStringLiteral("/api/states");
-    m_apiEndpoints[RequestGetApiStatesEntity]           = QStringLiteral("/api/states/");
-    m_apiEndpoints[RequestGetApiErrorLog]               = QStringLiteral("/api/error_log");
-    m_apiEndpoints[RequestGetApiCameraProxy]            = QStringLiteral("/api/camera_proxy/");
-    m_apiEndpoints[RequestPostApiStates]                = QStringLiteral("/api/states/");
-    m_apiEndpoints[RequestPostApiEvents]                = QStringLiteral("/api/events/");
-    m_apiEndpoints[RequestPostApiServices]              = QStringLiteral("/api/services/");
-    m_apiEndpoints[RequestPostApiConfigCheckConfig]     = QStringLiteral("/api/config/core/check_config");
-    m_apiEndpoints[RequestPostApiRegisterDevice]        = QStringLiteral("/api/mobile_app/registrations");
+    m_apiEndpoints[Api::RequestGetApi]                       = QStringLiteral("/api");
+    m_apiEndpoints[Api::RequestGetApiConfig]                 = QStringLiteral("/api/config");
+    m_apiEndpoints[Api::RequestGetApiDiscoveryInfo]          = QStringLiteral("/api/discovery_info");
+    m_apiEndpoints[Api::RequestGetApiEvents]                 = QStringLiteral("/api/events");
+    m_apiEndpoints[Api::RequestGetApiServices]               = QStringLiteral("/api/services");
+    m_apiEndpoints[Api::RequestGetApiHistoryPeriod]          = QStringLiteral("/api/history/period/");
+    m_apiEndpoints[Api::RequestGetApiLogBook]                = QStringLiteral("/api/logbook/");
+    m_apiEndpoints[Api::RequestGetApiStates]                 = QStringLiteral("/api/states");
+    m_apiEndpoints[Api::RequestGetApiStatesEntity]           = QStringLiteral("/api/states/");
+    m_apiEndpoints[Api::RequestGetApiErrorLog]               = QStringLiteral("/api/error_log");
+    m_apiEndpoints[Api::RequestGetApiCameraProxy]            = QStringLiteral("/api/camera_proxy/");
+    m_apiEndpoints[Api::RequestPostApiStates]                = QStringLiteral("/api/states/");
+    m_apiEndpoints[Api::RequestPostApiEvents]                = QStringLiteral("/api/events/");
+    m_apiEndpoints[Api::RequestPostApiServices]              = QStringLiteral("/api/services/");
+    m_apiEndpoints[Api::RequestPostApiConfigCheckConfig]     = QStringLiteral("/api/config/core/check_config");
+    m_apiEndpoints[Api::RequestPostApiRegisterDevice]        = QStringLiteral("/api/mobile_app/registrations");
 
 
-    m_webhookTypes[RequestWebhookCallService]           = QStringLiteral("call_service");
-    m_webhookTypes[RequestWebhookEnableEncryption]      = QStringLiteral("enable_encryption");
-    m_webhookTypes[RequestWebhookFireEvent]             = QStringLiteral("fire_event");
-    m_webhookTypes[RequestWebhookGetConfig]             = QStringLiteral("get_config");
-    m_webhookTypes[RequestWebhookGetZones]              = QStringLiteral("get_zones");
-    m_webhookTypes[RequestWebhookRegisterSensor]        = QStringLiteral("register_sensor");
-    m_webhookTypes[RequestWebhookRenderTemplate]        = QStringLiteral("render_templates");
-    m_webhookTypes[RequestWebhookStreamCamera]          = QStringLiteral("stream_camera");
-    m_webhookTypes[RequestWebhookUpdateLocation]        = QStringLiteral("update_location");
-    m_webhookTypes[RequestWebhookUpdateRegistration]    = QStringLiteral("update_registration");
-    m_webhookTypes[RequestWebhookUpdateSensorStates]    = QStringLiteral("call_service");
+    m_webhookTypes[Api::RequestWebhookCallService]           = ApiKey::KEY_CALL_SERVICE;
+    m_webhookTypes[Api::RequestWebhookEnableEncryption]      = QStringLiteral("enable_encryption");
+    m_webhookTypes[Api::RequestWebhookFireEvent]             = QStringLiteral("fire_event");
+    m_webhookTypes[Api::RequestWebhookGetConfig]             = QStringLiteral("get_config");
+    m_webhookTypes[Api::RequestWebhookGetZones]              = QStringLiteral("get_zones");
+    m_webhookTypes[Api::RequestWebhookRegisterSensor]        = QStringLiteral("register_sensor");
+    m_webhookTypes[Api::RequestWebhookRenderTemplate]        = QStringLiteral("render_templates");
+    m_webhookTypes[Api::RequestWebhookStreamCamera]          = QStringLiteral("stream_camera");
+    m_webhookTypes[Api::RequestWebhookUpdateLocation]        = QStringLiteral("update_location");
+    m_webhookTypes[Api::RequestWebhookUpdateRegistration]    = QStringLiteral("update_registration");
+    m_webhookTypes[Api::RequestWebhookUpdateSensorStates]    = ApiKey::KEY_CALL_SERVICE;
 
 
     connect(m_manager, &QNetworkAccessManager::sslErrors, this, &ApiConnector::onSslErrors);
-    connect(this, &ApiConnector::credentialsChanged, [this]() { refreshWebhookUrl(); });
+    connect(this, &ApiConnector::credentialsChanged, [this]() {
+        refreshBaseUrl();
+        refreshWebhookUrl();
+    });
+}
+
+QString ApiConnector::baseUrl() const
+{
+    return m_baseUrl;
 }
 
 void ApiConnector::connectToHost()
 {
     m_connectionFailures = ConnectionFailureNone;
     getConfig();
+}
+
+void ApiConnector::initialize()
+{
+    openWebsocket();
 }
 
 ServerConfig *ApiConnector::serverConfig()
@@ -70,34 +84,34 @@ void ApiConnector::callService(const QString &domain, const QString &service, co
 
 void ApiConnector::callService(const QString &domain, const QString &service, const QJsonObject &payload)
 {
-    sendRequest(RequestPostApiServices,
+    sendRequest(Api::RequestPostApiServices,
                 domain + "/" + service,
                 payload);
 }
 
 void ApiConnector::checkApi()
 {
-    sendRequest(RequestGetApi);
+    sendRequest(Api::RequestGetApi);
 }
 
 void ApiConnector::checkConfig()
 {
-    sendRequest(RequestPostApiConfigCheckConfig);
+    sendRequest(Api::RequestPostApiConfigCheckConfig);
 }
 
 void ApiConnector::fireEvent(const QString &event, const QJsonObject &payload)
 {
-    sendRequest(RequestPostApiEvents, event, payload);
+    sendRequest(Api::RequestPostApiEvents, event, payload);
 }
 
 void ApiConnector::getCameraProxy(const QString &entityId)
 {
-    sendRequest(RequestGetApiCameraProxy, entityId);
+    sendRequest(Api::RequestGetApiCameraProxy, entityId);
 }
 
 void ApiConnector::getConfig()
 {
-    sendRequest(RequestGetApiConfig);
+    sendRequest(Api::RequestGetApiConfig);
 }
 
 void ApiConnector::getDiscoveryInfo(const QString &hostname, quint16 port)
@@ -105,22 +119,22 @@ void ApiConnector::getDiscoveryInfo(const QString &hostname, quint16 port)
     m_serverConfig->setInternalUrl(hostname);
     m_serverConfig->setInternalPort(port);
 
-    sendRequest(RequestGetApiDiscoveryInfo, QString(), QJsonObject(), false);
+    sendRequest(Api::RequestGetApiDiscoveryInfo, QString(), QJsonObject(), false);
 }
 
 void ApiConnector::getEntityState(const QString &entityId)
 {
-    sendRequest(RequestGetApiStatesEntity, entityId);
+    sendRequest(Api::RequestGetApiStatesEntity, entityId);
 }
 
 void ApiConnector::getErrorLog()
 {
-    sendRequest(RequestGetApiErrorLog, m_apiEndpoints[RequestGetApiErrorLog]);
+    sendRequest(Api::RequestGetApiErrorLog, m_apiEndpoints[Api::RequestGetApiErrorLog]);
 }
 
 void ApiConnector::getEvents()
 {
-    sendRequest(RequestGetApiConfig, m_apiEndpoints[RequestGetApiConfig]);
+    sendRequest(Api::RequestGetApiConfig, m_apiEndpoints[Api::RequestGetApiConfig]);
 }
 
 void ApiConnector::getHistory(const QDateTime &timestamp, const QStringList &entityIds, const QDateTime &endTime, bool minimal, bool significantChangesOnly)
@@ -142,7 +156,7 @@ void ApiConnector::getHistory(const QDateTime &timestamp, const QStringList &ent
     if (significantChangesOnly)
         query.append(QStringLiteral("?significant_changes_only"));
 
-    sendRequest(RequestGetApiHistoryPeriod, query);
+    sendRequest(Api::RequestGetApiHistoryPeriod, query);
 }
 
 void ApiConnector::getLogbook(const QDateTime &timestamp, const QString &entityId, const QDateTime &endTime)
@@ -158,27 +172,27 @@ void ApiConnector::getLogbook(const QDateTime &timestamp, const QString &entityI
     if (!entityId.isEmpty())
         query.append(QStringLiteral("?entity=") + entityId);
 
-    sendRequest(RequestGetApiLogBook, query);
+    sendRequest(Api::RequestGetApiLogBook, query);
 }
 
 void ApiConnector::getServices()
 {
-    sendRequest(RequestGetApiServices);
+    sendRequest(Api::RequestGetApiServices);
 }
 
 void ApiConnector::getStates()
 {
-    sendRequest(RequestGetApiStates);
+    sendRequest(Api::RequestGetApiStates);
 }
 
 void ApiConnector::registerDevice(const QJsonObject &object)
 {
-    sendRequest(RequestPostApiRegisterDevice, QString(), object);
+    sendRequest(Api::RequestPostApiRegisterDevice, QString(), object);
 }
 
 void ApiConnector::setEntityState(const QString &entityId, const QJsonObject &payload)
 {
-    sendRequest(RequestPostApiStates, entityId, payload);
+    sendRequest(Api::RequestPostApiStates, entityId, payload);
 }
 
 bool ApiConnector::atHome() const
@@ -214,7 +228,7 @@ void ApiConnector::sendRequest(quint8 type, const QString &query, const QJsonObj
     qDebug() << "PAYLOAD: " << payload;
 #endif
 
-    if ( (m_credentials.token.isEmpty() || !token) && type != RequestGetApiDiscoveryInfo )
+    if ( (m_credentials.token.isEmpty() || !token) && type != Api::RequestGetApiDiscoveryInfo )
         return;
 
     // check if request is already running
@@ -227,19 +241,7 @@ void ApiConnector::sendRequest(quint8 type, const QString &query, const QJsonObj
     // build QNetworkRequest
     QNetworkRequest request;
 
-    if ( m_atHome
-         || m_serverConfig->externalUrl().isEmpty()
-         || m_connectionModes == ApiConnector::InternalConnection) {
-
-        request.setUrl(m_serverConfig->internalUrl()
-                       + QStringLiteral(":%1").arg(m_serverConfig->internalPort())
-                       + m_apiEndpoints.value(type) + query);
-    } else {
-        request.setUrl(m_serverConfig->externalUrl()
-                       + QStringLiteral(":%1").arg(m_serverConfig->externalPort())
-                       + m_apiEndpoints.value(type) + query);
-    }
-
+    request.setUrl(m_baseUrl + m_apiEndpoints.value(type) + query);
     request.setSslConfiguration(QSslConfiguration::defaultConfiguration());
     request.setRawHeader("Content-Type", "application/json");
     request.setRawHeader("Accept-Encoding", "gzip");
@@ -257,31 +259,31 @@ void ApiConnector::sendRequest(quint8 type, const QString &query, const QJsonObj
     QNetworkReply *reply{nullptr};
 
     switch (type) {
-    case RequestGetApi:
-    case RequestGetApiConfig:
-    case RequestGetApiDiscoveryInfo:
-    case RequestGetApiEvents:
-    case RequestGetApiServices:
-    case RequestGetApiHistoryPeriod:
-    case RequestGetApiLogBook:
-    case RequestGetApiStates:
-    case RequestGetApiStatesEntity:
-    case RequestGetApiErrorLog:
-    case RequestGetApiCameraProxy:
+    case Api::RequestGetApi:
+    case Api::RequestGetApiConfig:
+    case Api::RequestGetApiDiscoveryInfo:
+    case Api::RequestGetApiEvents:
+    case Api::RequestGetApiServices:
+    case Api::RequestGetApiHistoryPeriod:
+    case Api::RequestGetApiLogBook:
+    case Api::RequestGetApiStates:
+    case Api::RequestGetApiStatesEntity:
+    case Api::RequestGetApiErrorLog:
+    case Api::RequestGetApiCameraProxy:
         reply = m_manager->get(request);
         break;
 
-    case RequestPostApiStates:
-    case RequestPostApiEvents:
-    case RequestPostApiServices:
-    case RequestPostApiConfigCheckConfig:
-    case RequestPostApiRegisterDevice:
+    case Api::RequestPostApiStates:
+    case Api::RequestPostApiEvents:
+    case Api::RequestPostApiServices:
+    case Api::RequestPostApiConfigCheckConfig:
+    case Api::RequestPostApiRegisterDevice:
         reply = m_manager->post(request, QJsonDocument(payload).toJson(QJsonDocument::Compact));
         break;
 
     default:
         m_runningRequest.removeAll(type);
-        emit error(type, ErrorBadRequest, m_apiEndpoints.value(type) + query);
+        emit error(type, Api::ErrorBadRequest, m_apiEndpoints.value(type) + query);
         return;
     }
 
@@ -339,6 +341,10 @@ void ApiConnector::setAtHome(bool atHome)
 
     m_atHome = atHome;
     emit atHomeChanged(m_atHome);
+
+    // refresh urls
+    refreshBaseUrl();
+    refreshWebhookUrl();
 }
 
 void ApiConnector::setConnectionModes(quint8 modes)
@@ -421,25 +427,25 @@ void ApiConnector::onFinished()
         break;
 
     case 400:
-        emit error(type, ErrorDataInvalid, typeString);
+        emit error(type, Api::ErrorDataInvalid, typeString);
         return;
 
     case 401:
-        emit error(type, ErrorUnauthorized, typeString);
+        emit error(type, Api::ErrorUnauthorized, typeString);
         return;
 
     case 404:
-        emit error(type, ErrorNotFound, typeString);
+        emit error(type, Api::ErrorNotFound, typeString);
         return;
 
     case 405:
-        emit error(type, ErrorMethodNotAllowed, typeString);
+        emit error(type, Api::ErrorMethodNotAllowed, typeString);
         return;
 
     default:
         updateConnectionFailures(url);
         emit requestFinished(type, false);
-        emit error(type, ErrorUnkown, errorString);
+        emit error(type, Api::ErrorUnkown, errorString);
         return;
     }
 
@@ -460,7 +466,7 @@ void ApiConnector::onFinished()
         qDebug() << err.errorString();
 #endif
         emit requestFinished(type, false);
-        emit error(type, ErrorJsonInvalid, typeString);
+        emit error(type, Api::ErrorJsonInvalid, typeString);
         return;
     }
 
@@ -474,19 +480,19 @@ void ApiConnector::onFinished()
 
     // request specific handling
     switch (type) {
-    case RequestGetApiConfig:
+    case Api::RequestGetApiConfig:
         m_serverConfig->setData(doc.object());
         break;
 
-    case RequestGetApiDiscoveryInfo:
+    case Api::RequestGetApiDiscoveryInfo:
         m_serverConfig->setData(doc.object());
         break;
 
-    case RequestPostApiRegisterDevice:
+    case Api::RequestPostApiRegisterDevice:
         parseDeviceRegistration(doc.object());
         break;
 
-    case RequestPostApiConfigCheckConfig:
+    case Api::RequestPostApiConfigCheckConfig:
         parseConfigCheck(doc.object());
         break;
 
@@ -539,22 +545,22 @@ void ApiConnector::onWebhookFinished()
         break;
 
     case 400:
-        emit error(type, ErrorDataInvalid, typeString);
+        emit error(type, Api::ErrorDataInvalid, typeString);
         return;
 
     case 404:
-        emit error(type, ErrorMobileAppNotLoaded, typeString);
+        emit error(type, Api::ErrorMobileAppNotLoaded, typeString);
         return;
 
     case 410:
-        emit error(type, ErrorIntegrationDeleted, typeString);
+        emit error(type, Api::ErrorIntegrationDeleted, typeString);
         emit requestRegistrationRefresh();
         return;
 
     default:
         updateConnectionFailures(url);
         emit requestFinished(type, false);
-        emit error(type, ErrorUnkown, errorString);
+        emit error(type, Api::ErrorUnkown, errorString);
         return;
     }
 
@@ -574,7 +580,7 @@ void ApiConnector::onWebhookFinished()
         qDebug() << err.errorString();
 #endif
         emit requestFinished(type, false);
-        emit error(type, ErrorJsonInvalid, typeString);
+        emit error(type, Api::ErrorJsonInvalid, typeString);
         return;
     }
 
@@ -675,6 +681,20 @@ void ApiConnector::parseConfigCheck(const QJsonObject &data)
     m_serverConfig->setConfigError(data.value(ApiKey::KEY_ERRORS).toString());
 }
 
+void ApiConnector::refreshBaseUrl()
+{
+    if ( m_atHome
+         || m_serverConfig->externalUrl().isEmpty()
+         || m_connectionModes == ApiConnector::InternalConnection) {
+
+        m_baseUrl = m_serverConfig->internalUrl()
+                + QStringLiteral(":%1").arg(m_serverConfig->internalPort());
+    } else {
+        m_baseUrl = m_serverConfig->externalUrl()
+                + QStringLiteral(":%1").arg(m_serverConfig->externalPort());
+    }
+}
+
 void ApiConnector::refreshWebhookUrl()
 {
     if (m_connectionModes == ApiConnector::InternalConnection) {
@@ -720,4 +740,59 @@ void ApiConnector::updateConnectionFailures(const QString &url)
     }
 
     emit connectionFailure(m_connectionFailures);
+}
+
+// -----------------------------------------------------------------------------------------------------------------------------------------------
+// WEBSOCKET
+// -----------------------------------------------------------------------------------------------------------------------------------------------
+
+quint8 ApiConnector::subscriptions() const
+{
+    return m_subscriptions;
+}
+
+bool ApiConnector::websocketAtHomeOnly() const
+{
+    return m_websocketAtHomeOnly;
+}
+
+void ApiConnector::setSubscriptions(quint8 subscriptions)
+{
+    if (m_subscriptions == subscriptions)
+        return;
+
+    m_subscriptions = subscriptions;
+    emit subscriptionsChanged(m_subscriptions);
+}
+
+void ApiConnector::setWebsocketAtHomeOnly(bool only)
+{
+    if (m_websocketAtHomeOnly == only)
+        return;
+
+    m_websocketAtHomeOnly = only;
+    emit websocketAtHomeOnlyChanged(m_websocketAtHomeOnly);
+}
+
+void ApiConnector::closeWebsocket()
+{
+
+}
+
+void ApiConnector::openWebsocket()
+{
+    if ( (!m_atHome && m_websocketAtHomeOnly)
+         || m_subscriptions == Api::SubscriptionNone
+         || !(m_serverConfig->components() & ServerConfig::ComponentWebsocketApi) ) {
+
+        return;
+    }
+
+    m_websocket.open(m_baseUrl + HASS_API_ENDPOINT_WEBSOCKET);
+}
+
+void ApiConnector::reconnectWebsocket()
+{
+    closeWebsocket();
+    openWebsocket();
 }

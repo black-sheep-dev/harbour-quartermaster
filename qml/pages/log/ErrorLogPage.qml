@@ -4,6 +4,7 @@ import Sailfish.Silica 1.0
 import org.nubecula.harbour.quartermaster 1.0
 
 Page {
+    property bool busy: false
     property ErrorLogModel logModel
 
     id: page
@@ -13,7 +14,7 @@ Page {
     PageBusyIndicator {
         id: busyIndicator
         size: BusyIndicatorSize.Large
-        running: logModel.loading
+        running: page.busy
         anchors.centerIn: parent
     }
 
