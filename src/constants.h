@@ -34,6 +34,7 @@ struct ApiKey {
     static const QString KEY_FRIENDLY_NAME;
     static const QString KEY_ICON;
     static const QString KEY_ID;
+    static const QString KEY_IDENTIFIER;
     static const QString KEY_INTERNAL_URL;
     static const QString KEY_INVALID;
     static const QString KEY_LATITUDE;

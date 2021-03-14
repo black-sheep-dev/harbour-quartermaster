@@ -17,6 +17,9 @@ DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 TARGET = harbour-quartermaster
 DEFINES += APP_TARGET=\\\"$$TARGET\\\"
 
+# Disable Sailfish Secrets Wallet for e.g. when debugging
+#DEFINES += DISABLE_WALLET
+
 QT += dbus positioning network websockets
 
 PKGCONFIG += \
@@ -49,7 +52,6 @@ SOURCES += src/harbour-quartermaster.cpp \
     src/entities/entity.cpp \
     src/entities/group.cpp \
     src/entities/light.cpp \
-    src/entities/wifinetwork.cpp \
     src/entities/zone.cpp \
     src/models/entitiesmodel.cpp \
     src/models/entitiessortfiltermodel.cpp \
@@ -58,9 +60,9 @@ SOURCES += src/harbour-quartermaster.cpp \
 #    src/models/errorlogmodel.cpp \
 #    src/models/logbookmodel.cpp \
     src/models/sortfiltermodel.cpp \
-    src/models/wifinetworkmodel.cpp \
     src/models/zonesmodel.cpp \
 #    src/threads/errorlogparser.cpp \
+    src/network/accesspointsmodel.cpp \
     src/service/entitiesservice.cpp \
     src/service/locationservice.cpp \
     src/service/sensorservice.cpp \
@@ -158,7 +160,6 @@ HEADERS += \
     src/entities/entity.h \
     src/entities/group.h \
     src/entities/light.h \
-    src/entities/wifinetwork.h \
     src/entities/zone.h \
     src/models/entitiesmodel.h \
     src/models/entitiessortfiltermodel.h \
@@ -167,9 +168,10 @@ HEADERS += \
 #    src/models/errorlogmodel.h \
 #    src/models/logbookmodel.h \
     src/models/sortfiltermodel.h \
-    src/models/wifinetworkmodel.h \
     src/models/zonesmodel.h \
 #    src/threads/errorlogparser.h \
+    src/network/accesspoint.h \
+    src/network/accesspointsmodel.h \
     src/service/entitiesservice.h \
     src/service/locationservice.h \
     src/service/sensorservice.h \

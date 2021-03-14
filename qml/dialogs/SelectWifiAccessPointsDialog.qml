@@ -5,29 +5,25 @@ import org.nubecula.harbour.quartermaster 1.0
 
 Dialog {
     property Zone zone
+    property string identifier
+    property string name
 
-    id: selectNetworkDialog
+    id: dialog
 
     anchors.fill: parent
 
+    canAccept: identifier.length > 0 && name.length > 0
+
     DialogHeader {
         id: header
-        title: qsTr("Select Wifi networks")
+        title: qsTr("Select Access Point")
         reserveExtraContent: true
-    }
-
-    IconButton {
-        icon.source: "image://theme/icon-m-refresh"
-        anchors.right: header.right
-        anchors.bottom: header.bottom
-
-        onClicked: Client.updateNetworksModel();
     }
 
     PageBusyIndicator {
         id: busyIndicator
         size: BusyIndicatorSize.Large
-        running: Client.networksModel().loading
+        running: App.locationService().availableAccessPointsModel().busy
         anchors.centerIn: parent
     }
 
@@ -37,7 +33,7 @@ Dialog {
 
         width: parent.width
 
-        model: Client.networksModel()
+        model: App.locationService().availableAccessPointsModel()
 
         delegate: ListItem {
             height: Theme.itemSizeMedium
@@ -56,12 +52,7 @@ Dialog {
 
                 Image {
                     id: wlanIcon
-                    source: {
-                        if (!defined)
-                            return "image://theme/icon-m-wlan"
-
-                        return discovered ? "image://theme/icon-m-wlan" : "image://theme/icon-m-wlan-no-signal"
-                    }
+                    source: "image://theme/icon-m-wlan"
 
                     anchors.verticalCenter: parent.verticalCenter
                 }
@@ -79,7 +70,7 @@ Dialog {
 
                     Label {
                         width: parent.width
-                        text: defined ? qsTr("Stored network") : qsTr("Available network")
+                        text: qsTr("Available network")
 
                         color: pressed ? Theme.secondaryHighlightColor : Theme.secondaryColor
                         font.pixelSize: Theme.fontSizeSmall
@@ -89,18 +80,21 @@ Dialog {
                 Image {
                     id: selectedIcon
 
-                    visible: selected
+                    visible: dialog.identifier === model.identifier
 
                     source: "image://theme/icon-m-acknowledge"
                     anchors.verticalCenter: parent.verticalCenter
                 }
             }
 
-            onClicked: selected = !selected
+            onClicked: {
+                dialog.identifier = model.identifier
+                dialog.name = model.name
+            }
         }
 
         VerticalScrollDecorator {}
     }
 
-    Component.onCompleted: Client.updateNetworksModel()
+    //Component.onCompleted: App.locationService().scanForAccessPoints()
 }

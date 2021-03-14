@@ -110,6 +110,7 @@ Dialog {
     }
 
     onAccepted: {
+        App.initialize();
         pageStack.clear()
         pageStack.push(Qt.resolvedUrl("../OverviewPage.qml"))
     }

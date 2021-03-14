@@ -61,6 +61,7 @@ void Zone::setIsHome(bool isHome)
 
     m_isHome = isHome;
     emit isHomeChanged(m_isHome);
+    emit changed();
 }
 
 void Zone::setLatitude(double latitude)
@@ -88,6 +89,7 @@ void Zone::setName(const QString &name)
 
     m_name = name;
     emit nameChanged(m_name);
+    emit changed();
 }
 
 void Zone::setNetworkCount(quint16 count)
@@ -97,6 +99,7 @@ void Zone::setNetworkCount(quint16 count)
 
     m_networkCount = count;
     emit networkCountChanged(m_networkCount);
+    emit changed();
 }
 
 void Zone::setRadius(double radius)

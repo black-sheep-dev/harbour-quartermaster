@@ -99,17 +99,6 @@
     </message>
 </context>
 <context>
-    <name>ClientInterface</name>
-    <message>
-        <source>There is an update to version %1 available.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Home Assistant update available!</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>ClimatePage</name>
     <message>
         <source>Attributes</source>
@@ -212,81 +201,6 @@
         <translation type="unfinished">
             <numerusform>%n entity available</numerusform>
         </translation>
-    </message>
-</context>
-<context>
-    <name>EntitiesProvider</name>
-    <message>
-        <source>Alarms</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>List of all alarms</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Automations</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>List of all automations</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cameras</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>List of all cameras</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Climates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Lights</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>List of all lights</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Persons</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>List of all persons</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sensors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>List of all sensors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Switches</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>List of all switches</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>List of all climates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Groups</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>List of all groups</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -535,21 +449,17 @@
     </message>
 </context>
 <context>
-    <name>SelectWifiNetworkDialog</name>
+    <name>SelectWifiAccessPointsDialog</name>
     <message>
-        <source>Select Wifi networks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Stored network</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Available network</source>
+        <source>Select Access Point</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Hidden network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available network</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -788,10 +698,6 @@
 <context>
     <name>SettingsDeviceTrackingPage</name>
     <message>
-        <source>Here you can activate / deactivate different device tracking options.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>GPS Tracking</source>
         <translation type="unfinished"></translation>
     </message>
@@ -812,18 +718,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>WiFi networks will be used to track the device. You need to add Wifi Networks to your different zones in zone settings.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If the device connects to a known wireless network, it will send the position information of its parent zone.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Zones can be created in the Home Assistant web interface.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>GPS</source>
         <translation type="unfinished"></translation>
     </message>
@@ -836,7 +730,31 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>It is recommend to keep this option enabled!</source>
+        <source>If the device discovers a known access point, it will send the position information of its parent zone.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turn on these options will track your device location and send it to the Home Assistant server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable GPS at home</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GPS tracking is turned off when at home. This option needs enabled Wifi tracking.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available access points will be used to track the device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>It is recommend to keep the wifi tracking enabled!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need to add the access points to your different zones on zone settings page. Zones can be created in the Home Assistant web interface.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1036,14 +954,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Wifi Networks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add Wifi Network</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1052,23 +962,31 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Resetting networks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Deleting network</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Hidden network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No wifi networks defined</source>
+        <source>Resetting access points</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Pull down to add networks</source>
+        <source>Add Access Point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wifi Access Points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deleting access point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No wifi access points defined</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pull down to add an access point</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

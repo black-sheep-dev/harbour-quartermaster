@@ -7,6 +7,7 @@ import "../../components/"
 
 Page {
     property Zone zone
+    property AccessPointsModel apsModel: App.locationService().accessPointsModel(zone.guid)
 
     id: page
 
@@ -16,27 +17,28 @@ Page {
         anchors.fill: parent
 
         PullDownMenu {
+            visible: App.locationService().enableWifi
             MenuItem {
-                enabled: (Client.trackingModes & Client.TrackingWifi) === Client.TrackingWifi
                 text: qsTr("Reset")
-                onClicked: resetPopup.execute(qsTr("Resetting networks"), function() {
-                    zone.networksModel().reset()
-                    Client.saveZonesSettings()
+                onClicked: resetPopup.execute(qsTr("Resetting access points"), function() {
+
                 })
             }
 
             MenuItem {
-                enabled: Client.trackingWifi
-                text: qsTr("Add Wifi Network")
+                text: qsTr("Add Access Point")
                 onClicked: {
-                    Client.updateNetworksModel();
-                    Client.networksModel().setSelected(zone.networksModel())
-
-                    var dialog = pageStack.push(Qt.resolvedUrl("../../dialogs/SelectWifiNetworkDialog.qml"), {zone: zone});
+                    var dialog = pageStack.push(Qt.resolvedUrl("../../dialogs/SelectWifiAccessPointsDialog.qml"), {zone: zone});
 
                     dialog.accepted.connect(function() {
-                        Client.networksModel().addSelectedToModel(zone.networksModel())
-                        Client.saveZonesSettings();
+                        if (!App.locationService().addAccessPointToZone(zone.guid,
+                                                                        dialog.identifier,
+                                                                        dialog.name)) {
+                            return;
+                        }
+
+                        apsModel.addAccessPoint(dialog.identifer, dialog.name);
+                        App.locationService().saveAccessPointSettings();
                     })
                 }
             }
@@ -79,16 +81,16 @@ Page {
             }
 
             SectionHeader {
-                text: qsTr("Wifi Networks")
+                text: qsTr("Wifi Access Points")
             }
 
-            SilicaListView {
+            SilicaListView {    
                 id: listView
 
                 width: parent.width
                 height: 600
 
-                model: zone.networksModel()
+                model: apsModel
 
                 delegate: ListItem {
                     id: delegate
@@ -99,11 +101,14 @@ Page {
 
                     menu: ContextMenu {
                         MenuItem {
-                            enabled: Client.trackingWifi
                             text: qsTr("Delete");
-                            onClicked: remorse.execute(delegate, qsTr("Deleting network"), function() {
-                                zone.networksModel().removeNetwork(identifier)
-                                Client.saveZonesSettings()
+                            onClicked: remorse.execute(delegate, qsTr("Deleting access point"), function() {
+                                var ok = App.locationService().removeAccessPointFromZone(zone.guid, identifier)
+
+                                if (!ok) return;
+
+                                apsModel.removeAccessPoint(identifier)
+                                App.locationService().saveAccessPointSettings()
                             })
                         }
                     }
@@ -138,8 +143,8 @@ Page {
 
                 ViewPlaceholder {
                     enabled: listView.count == 0
-                    text: qsTr("No wifi networks defined")
-                    hintText: qsTr("Pull down to add networks")
+                    text: qsTr("No wifi access points defined")
+                    hintText: qsTr("Pull down to add an access point")
                 }
 
                 VerticalScrollDecorator {}

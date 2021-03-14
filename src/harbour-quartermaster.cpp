@@ -25,10 +25,10 @@ int main(int argc, char *argv[])
 #endif
 
 //    qmlRegisterType<ErrorLogModel>(uri, 1, 0, "ErrorLogModel");
-//    qmlRegisterType<WifiNetworkModel>(uri, 1, 0, "WifiNetworkModel");
 
     qmlRegisterUncreatableType<Api>(uri, 1, 0, "Api", "not createable");
 
+    qmlRegisterType<AccessPointsModel>(uri, 1, 0, "AccessPointsModel");
     qmlRegisterType<ApiConnector>(uri, 1, 0, "ApiConnector");
     qmlRegisterType<BackupTool>(uri, 1, 0, "BackupTool");
     qmlRegisterType<Climate>(uri, 1, 0, "Climate");

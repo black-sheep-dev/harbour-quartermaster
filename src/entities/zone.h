@@ -31,6 +31,8 @@ public:
     double radius() const;
 
 signals:
+    void changed();
+
     // properties
     void guidChanged(const QString &guid);
     void isHomeChanged(bool isHome);

@@ -32,9 +32,11 @@ Page {
                 wrapMode: Text.WordWrap
 
                 color: Theme.highlightColor
-                font.pixelSize: Theme.fontSizeMedium
+                font.pixelSize: Theme.fontSizeSmall
 
-                text: qsTr("Here you can activate / deactivate different device tracking options.")
+                text: qsTr("Turn on these options will track your device location and send it to the Home Assistant server.")
+                      + "\n"
+                      +
                       + "\n"
                       + qsTr("Activating these options leads to higher battery consumption and network traffic.");
             }
@@ -53,6 +55,7 @@ Page {
             }
 
             TextField {
+                enabled: gpsTrackingSwitch.checked
                 id: portField
                 width: parent.width / 2
 
@@ -67,6 +70,16 @@ Page {
                 EnterKey.onClicked: focus = false
             }
 
+            TextSwitch {
+                enabled: gpsTrackingSwitch.checked && wifiTrackingSwitch.checked
+                id: disableGpsAtHomeSwitch
+                text: qsTr("Disable GPS at home")
+                description: qsTr("GPS tracking is turned off when at home. This option needs enabled Wifi tracking.")
+
+                onCheckedChanged: App.locationService().disableGpsAtHome = checked
+                Component.onCompleted: checked = App.locationService().disableGpsAtHome
+            }
+
             SectionHeader {
                 text: qsTr("Wifi Tracking")
             }
@@ -74,19 +87,31 @@ Page {
             TextSwitch {
                 id: wifiTrackingSwitch
                 text: qsTr("Wifi")
-                description: qsTr("WiFi networks will be used to track the device. You need to add Wifi Networks to your different zones in zone settings.")
+                description: qsTr("Available access points will be used to track the device.")
+                             + qsTr("If the device discovers a known access point, it will send the position information of its parent zone.")
                              + "\n"
-                             + qsTr("If the device connects to a known wireless network, it will send the position information of its parent zone.")
+                             + qsTr("It is recommend to keep the wifi tracking enabled!")
                              + "\n"
-                             + qsTr("Zones can be created in the Home Assistant web interface.")
-                             + "\n"
-                             + qsTr("It is recommend to keep this option enabled!")
+                             + qsTr("You need to add the access points to your different zones on zone settings page. Zones can be created in the Home Assistant web interface.")
+
+
 
                 onCheckedChanged: App.locationService().enableWifi = checked
                 Component.onCompleted: checked = App.locationService().enableWifi
             }
+
+//            TextSwitch {
+//                enabled: false
+//                id: wifiTrackConnectedApsOnlySwitch
+//                text: qsTr("Connected only")
+//                description: qsTr("Only track access points the device is connected to.")
+
+
+//                onCheckedChanged: App.locationService().trackConnectedApsOnly = checked
+//                Component.onCompleted: checked = App.locationService().trackConnectedApsOnly
+//            }
         }
     }
 
-    onStatusChanged: if (status === PageStatus.Deactivating) Client.saveSettings()
+    onStatusChanged: if (status === PageStatus.Deactivating) App.saveSettings()
 }

@@ -30,6 +30,7 @@ const QString ApiKey::KEY_EVENT_TYPE                    = QStringLiteral("event_
 const QString ApiKey::KEY_FRIENDLY_NAME                 = QStringLiteral("friendly_name");
 const QString ApiKey::KEY_ICON                          = QStringLiteral("icon");
 const QString ApiKey::KEY_ID                            = QStringLiteral("id");
+const QString ApiKey::KEY_IDENTIFIER                    = QStringLiteral("identifier");
 const QString ApiKey::KEY_INTERNAL_URL                  = QStringLiteral("internal_url");
 const QString ApiKey::KEY_INVALID                       = QStringLiteral("invalid");
 const QString ApiKey::KEY_LATITUDE                      = QStringLiteral("latitude");

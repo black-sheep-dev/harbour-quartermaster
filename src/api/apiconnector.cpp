@@ -66,7 +66,9 @@ void ApiConnector::connectToHost()
 
 void ApiConnector::initialize()
 {
-    openWebsocket();
+    //openWebsocket();
+    refreshBaseUrl();
+    refreshWebhookUrl();
 }
 
 ServerConfig *ApiConnector::serverConfig()
@@ -226,6 +228,7 @@ void ApiConnector::sendRequest(quint8 type, const QString &query, const QJsonObj
     qDebug() << "REQUEST TO: " << type;
     qDebug() << "QUERY: " << query;
     qDebug() << "PAYLOAD: " << payload;
+    qDebug() << "AT HOME: " << m_atHome;
 #endif
 
     if ( (m_credentials.token.isEmpty() || !token) && type != Api::RequestGetApiDiscoveryInfo )
@@ -371,6 +374,7 @@ void ApiConnector::setCredentials(const Credentials &credentials)
     emit credentialsChanged(m_credentials);
 
     setEncryption(!m_credentials.secret.isEmpty());
+    refreshWebhookUrl();
 }
 
 void ApiConnector::setEncryption(bool encryption)
@@ -416,6 +420,7 @@ void ApiConnector::onFinished()
     locker.unlock();
 
 #ifdef QT_DEBUG
+    qDebug() << "URL: " << url;
     qDebug() << "REQUEST FINSHED: " << type;
     qDebug() << "STATUS CODE: " << statusCode;
 #endif
@@ -535,6 +540,7 @@ void ApiConnector::onWebhookFinished()
 
 #ifdef QT_DEBUG
     qDebug() << "WEBHOOK REQUEST FINSHED: " << type;
+    qDebug() << "TYPE: " << typeString;
     qDebug() << "STATUS CODE: " << statusCode;
 #endif
 

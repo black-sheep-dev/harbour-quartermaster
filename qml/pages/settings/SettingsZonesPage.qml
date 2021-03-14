@@ -123,8 +123,8 @@ Page {
                         }
                         Label{
                             text: {
-                                if (model.networksCount > 0)
-                                    return qsTr("%n network(s) defined", "", model.networksCount)
+                                if (model.networkCount > 0)
+                                    return qsTr("%n network(s) defined", "", model.networkCount)
                                 else
                                     return qsTr("No networks defined");
                             }

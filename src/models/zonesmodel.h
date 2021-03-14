@@ -29,6 +29,9 @@ public:
     void addZone(Zone *zone);
     void setZones(const QList<Zone *> &zones);
 
+private slots:
+    void updateZone();
+
 private:
     QList<Zone *> m_zones;
 

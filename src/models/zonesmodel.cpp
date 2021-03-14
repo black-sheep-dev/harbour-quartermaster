@@ -24,6 +24,8 @@ void ZonesModel::addZone(Zone *zone)
     if (!zone)
         return;
 
+    connect(zone, &Zone::changed, this, &ZonesModel::updateZone);
+
     beginInsertRows(QModelIndex(), m_zones.count(), m_zones.count());
     zone->setParent(this);
     m_zones.append(zone);
@@ -40,8 +42,31 @@ void ZonesModel::setZones(const QList<Zone *> &zones)
 
     for (auto zone : m_zones) {
         zone->setParent(this);
+
+        connect(zone, &Zone::changed, this, &ZonesModel::updateZone);
     }
     endResetModel();
+}
+
+void ZonesModel::updateZone()
+{
+    auto zone = qobject_cast<Zone *>(sender());
+    if (zone == nullptr)
+        return;
+
+    int i{-1};
+    for (const auto z : m_zones) {
+        i++;
+        if (z->guid() == zone->guid())
+            break;
+    }
+
+    const QModelIndex idx = index(i);
+
+    if (!idx.isValid())
+        return;
+
+    emit dataChanged(idx, idx, QVector<int>() << NameRole << IsHomeRole << NetworkCountRole);
 }
 
 int ZonesModel::rowCount(const QModelIndex &parent) const

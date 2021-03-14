@@ -6,11 +6,12 @@
 #include <QGeoCoordinate>
 #include <QGeoPositionInfo>
 #include <QGeoPositionInfoSource>
+#include <QMutex>
 #include <QNetworkConfigurationManager>
 
 #include <mdm-batteryinfo.h>
 
-#include "src/models/wifinetworkmodel.h"
+#include "src/network/accesspointsmodel.h"
 #include "src/models/zonesmodel.h"
 
 class LocationService : public QObject
@@ -20,22 +21,30 @@ class LocationService : public QObject
     Q_PROPERTY(bool atHome READ atHome WRITE setAtHome NOTIFY atHomeChanged)
     Q_PROPERTY(bool disableGpsAtHome READ disableGpsAtHome WRITE setDisableGpsAtHome NOTIFY disableGpsAtHomeChanged)
     Q_PROPERTY(bool enableGps READ enableGps WRITE setEnableGps NOTIFY enableGpsChanged)
-    Q_PROPERTY(bool enableWifi READ enableWifi WRITE setEnableWifi NOTIFY enableWifiChanged) 
-    Q_PROPERTY(double homezoneLatitude READ homezoneLatitude WRITE setHomezoneLatitude NOTIFY homezoneLatitudeChanged)
-    Q_PROPERTY(double homezoneLongitude READ homezoneLongitude WRITE setHomezoneLongitude NOTIFY homezoneLongitudeChanged)
+    Q_PROPERTY(bool enableWifi READ enableWifi WRITE setEnableWifi NOTIFY enableWifiChanged)
+    Q_PROPERTY(bool trackConnectedApsOnly READ trackConnectedApsOnly WRITE setTrackConnectedApsOnly NOTIFY trackConnectedApsOnlyChanged)
     Q_PROPERTY(quint32 updateInterval READ updateInterval WRITE setUpdateInterval NOTIFY updateIntervalChanged)
 
 public:
     explicit LocationService(QObject *parent = nullptr);
+    ~LocationService() override;
 
     void initialize();
 
+    // network management
+    Q_INVOKABLE AccessPointsModel *accessPointsModel(const QString &zoneGuid);
+    Q_INVOKABLE bool addAccessPointToZone(const QString &zoneGuid, const QString &identifier, const QString &name);
+    Q_INVOKABLE AccessPointsModel *availableAccessPointsModel();
+    Q_INVOKABLE bool removeAccessPointFromZone(const QString &zoneGuid, const QString &identifier);
+    Q_INVOKABLE bool resetAccessPoints(const QString &zoneGuid);
+    Q_INVOKABLE void scanForAccessPoints();
+
+    Q_INVOKABLE void loadAccessPointSettings();
+    Q_INVOKABLE void saveAccessPointSettings();
+
+
     // invokables
-    Q_INVOKABLE Zone *homezone();
-    Q_INVOKABLE WifiNetworkModel *localNetworksModel();
-    Q_INVOKABLE WifiNetworkModel *networksModel(const QString &zoneGuid);
-    Q_INVOKABLE void storeNetworkModel(const QString &zoneGuid, WifiNetworkModel *model);
-    //Q_INVOKABLE void updateWifiNetworks();
+    Q_INVOKABLE Zone *homezone();   
     Q_INVOKABLE ZonesModel *zonesModel();
 
     // properties
@@ -43,22 +52,22 @@ public:
     bool disableGpsAtHome() const;
     bool enableGps() const;
     bool enableWifi() const;
-    double homezoneLatitude() const;
-    double homezoneLongitude() const; 
+    bool trackConnectedApsOnly() const;
     quint32 updateInterval() const;
 
 signals:
     void webhookRequest(quint8 requestType, const QJsonObject &payload);
+    void scanForAccessPointsFinished();
     void settingsChanged();
+
 
     // properties
     void atHomeChanged(bool home);
     void disableGpsAtHomeChanged(bool disabled);
     void enableGpsChanged(bool enabled);
     void enableWifiChanged(bool enabled);
-    void homezoneLatitudeChanged(double latitude);
-    void homezoneLongitudeChanged(double longitude);
-    void updateIntervalChanged(quint32 interval);
+    void trackConnectedApsOnlyChanged(bool only);
+    void updateIntervalChanged(quint32 interval); 
 
 public slots:
     void setZones(const QJsonArray &arr);
@@ -68,26 +77,29 @@ public slots:
     void setDisableGpsAtHome(bool disable);
     void setEnableGps(bool enable);
     void setEnableWifi(bool enable);
-    void setHomezoneLatitude(double latitude);
-    void setHomezoneLongitude(double longitude);
+    void setTrackConnectedApsOnly(bool only);
     void setUpdateInterval(quint32 interval);
 
 private slots:
     void onNetworkConfigurationChanged(const QNetworkConfiguration &config);
+    void onScanForAccessPointsFinished();
     void onPositionChanged(const QGeoPositionInfo &info);
 
 private:
-    void updateHomezone();
+    AccessPoint getAccessPointFromConfig(const QNetworkConfiguration &config) const;
+    void updateAccessPoints();
     void updateTrackers();
+    void updateZones();
 
+    QHash<QString, AccessPoint> m_accessPoints;
+    AccessPointsModel *m_availableAccessPoints{new AccessPointsModel(this)};
     Sailfish::Mdm::BatteryInfo m_battery;
-    QNetworkConfigurationManager *m_ncm{nullptr};
     QGeoPositionInfoSource *m_gps{nullptr};
     Zone *m_homezone{nullptr};
     QString m_lastNetworkIdentifier;
     QGeoPositionInfo m_lastPosition;
-    WifiNetworkModel *m_localNetworksModel{new WifiNetworkModel(this)};
-    QHash<QString, WifiNetwork *> m_networks;
+    QMutex *m_mutex{new QMutex};
+    QNetworkConfigurationManager *m_ncm{nullptr};
     ZonesModel *m_zonesModel{new ZonesModel(this)};
 
     // properties
@@ -95,11 +107,8 @@ private:
     bool m_disableGpsAtHome{true};
     bool m_enableGps{false};
     bool m_enableWifi{true};
-    double m_homezoneLatitude{0};
-    double m_homezoneLongitude{0};
+    bool m_trackConnectedApsOnly{true};
     quint32 m_updateInterval{30000};
-
-
 };
 
 #endif // LOCATIONTRACKER_H

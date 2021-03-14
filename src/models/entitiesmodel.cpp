@@ -71,7 +71,6 @@ void EntitiesModel::addEntity(Entity *entity)
 void EntitiesModel::setEntities(const QList<Entity *> &entities)
 {
     beginResetModel();
-    qDeleteAll(m_entities.begin(), m_entities.end());
     if (m_parentMode) {
         qDeleteAll(m_entities.begin(), m_entities.end());
         m_entities.clear();

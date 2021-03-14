@@ -18,8 +18,6 @@ App::App(QObject *parent) :
     connect(m_wallet, &Wallet::validityChanged, this, [this](bool valid) {
         this->setNeedSetup(!valid);
     });
-    connect(m_api->serverConfig(), &ServerConfig::latitudeChanged, m_locationService, &LocationService::setHomezoneLatitude);
-    connect(m_api->serverConfig(), &ServerConfig::longitudeChanged, m_locationService, &LocationService::setHomezoneLongitude);
 
     connect(m_locationService, &LocationService::webhookRequest, m_api, &ApiConnector::sendWebhookRequest);
     connect(m_locationService, &LocationService::atHomeChanged, m_api, &ApiConnector::setAtHome);
@@ -67,10 +65,15 @@ Wallet *App::wallet()
 
 void App::initialize()
 {
+    m_api->initialize();
+    m_locationService->initialize();
+
     setNeedSetup(!m_wallet->isValid() || m_wallet->lastError() > 0);
 
     if (m_needSetup)
         return;
+
+
 
     initializeApiData();
 }
@@ -214,6 +217,15 @@ void App::readSetting()
     m_api->setSubscriptions(settings.value(QStringLiteral("subscriptions"),0).toUInt());
     settings.endGroup();
 
+    // tracking
+    settings.beginGroup(QStringLiteral("TRACKING"));
+    m_locationService->setEnableGps(settings.value(QStringLiteral("gps_enabled"), false).toBool());
+    m_locationService->setUpdateInterval(settings.value(QStringLiteral("gps_update_interval"), 30000).toUInt());
+    m_locationService->setDisableGpsAtHome(settings.value(QStringLiteral("gps_disable_at_home"), false).toBool());
+    m_locationService->setEnableWifi(settings.value(QStringLiteral("wifi_enabled"), true).toBool());
+    //m_locationService->setTrackConnectedApsOnly(settings.value(QStringLiteral("wifi_track_connected_aps_only"), true).toBool());
+    settings.endGroup();
+
     // developer mode
     settings.beginGroup(QStringLiteral("DEVELOPER_MODE"));
     m_api->setLogging(settings.value(QStringLiteral("api_logging"), false).toBool());
@@ -233,6 +245,14 @@ void App::writeSettings()
 
     settings.beginGroup(QStringLiteral("WEBSOCKET"));
     settings.setValue(QStringLiteral("subscriptions"), m_api->subscriptions());
+    settings.endGroup();
+
+    settings.beginGroup(QStringLiteral("TRACKING"));
+    settings.setValue(QStringLiteral("gps_enabled"), m_locationService->enableGps());
+    settings.setValue(QStringLiteral("gps_update_interval"), m_locationService->updateInterval());
+    settings.setValue(QStringLiteral("gps_disable_at_home"), m_locationService->disableGpsAtHome());
+    settings.setValue(QStringLiteral("wifi_enabled"), m_locationService->enableWifi());
+    //settings.setValue(QStringLiteral("wifi_track_connected_aps_only"), m_locationService->enableWifi());
     settings.endGroup();
 
     settings.beginGroup(QStringLiteral("DEVELOPER_MODE"));
