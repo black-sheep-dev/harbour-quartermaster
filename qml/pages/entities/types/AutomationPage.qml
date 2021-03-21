@@ -22,7 +22,7 @@ Page {
                 text: qsTr("Refresh")
                 onClicked: {
                     page.busy = true;
-                    App.api().getEntityState(entity.entityId)
+                    App.entitiesService().getEntityState(entity.entityId)
                 }
             }
         }
@@ -60,11 +60,11 @@ Page {
                 checked: entity.state === "on"
 
                 onClicked: {
-                    App.api().callService("homeassistant",
-                                          checked ? "turn_on" : "turn_off",
-                                          {
-                                              entity_id: entity.entityId
-                                          })
+                    App.entitiesService().callService("homeassistant",
+                                                      checked ? "turn_on" : "turn_off",
+                                                      {
+                                                          entity_id: entity.entityId
+                                                      })
                 }
             }
 

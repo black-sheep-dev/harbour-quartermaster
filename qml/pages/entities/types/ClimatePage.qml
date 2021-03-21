@@ -22,7 +22,7 @@ Page {
                 text: qsTr("Refresh")
                 onClicked: {
                     page.busy = true;
-                    App.api().getEntityState(entity.entityId)
+                    App.entitiesService().getEntityState(entity.entityId)
                 }
             }
         }
@@ -68,12 +68,12 @@ Page {
                     if (pressed)
                         return
 
-                    App.api().callService("climate",
-                                          "set_temperature",
-                                          {
-                                              entity_id: entity.entityId,
-                                              temperature: value
-                                          })
+                    App.entitiesService().callService("climate",
+                                                      "set_temperature",
+                                                      {
+                                                          entity_id: entity.entityId,
+                                                          temperature: value
+                                                      })
 
                     entity.attributes.temperature = value
                 }
@@ -102,12 +102,12 @@ Page {
                 onCurrentIndexChanged: {
                     const mode = currentItem.text
 
-                    App.api().callService("climate",
-                                          "set_preset_mode",
-                                          {
-                                            entity_id: entity.entityId,
-                                            preset_mode: mode
-                                          })
+                    App.entitiesService().callService("climate",
+                                                      "set_preset_mode",
+                                                      {
+                                                        entity_id: entity.entityId,
+                                                        preset_mode: mode
+                                                      })
 
                     entity.attributes.preset_mode = mode
                 }

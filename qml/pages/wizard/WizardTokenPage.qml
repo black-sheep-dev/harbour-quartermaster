@@ -59,7 +59,7 @@ Dialog {
             label: qsTr("Token")
             placeholderText: qsTr("Enter token")
 
-            text: App.wallet().token
+            text: App.deviceService().token
 
             onTextChanged: checkInput()
         }
@@ -68,8 +68,8 @@ Dialog {
     function checkInput() { canAccept = tokenField.text.length > 0 }
 
     onAccepted: {
-        App.wallet().token = tokenField.text
-        App.api().connectToHost()
+        App.deviceService().token = tokenField.text
+        App.api().initialize()
     }
 
     Component.onCompleted: checkInput()

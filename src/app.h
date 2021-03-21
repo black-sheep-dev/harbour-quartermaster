@@ -3,12 +3,12 @@
 
 #include <QObject>
 
-#include "api/apiconnector.h"
-#include "crypto/wallet.h"
-#include "device/device.h"
+#include <QMutex>
+
+#include "api/apiinterface.h"
+#include "service/deviceservice.h"
 #include "service/entitiesservice.h"
 #include "service/locationservice.h"
-#include "service/sensorservice.h"
 
 class App : public QObject
 {
@@ -21,19 +21,15 @@ public:
     ~App();
 
     // objects
-    Q_INVOKABLE ApiConnector *api();
-    Q_INVOKABLE Device *device();
+    Q_INVOKABLE ApiInterface *api();
+    Q_INVOKABLE DeviceService *deviceService();
     Q_INVOKABLE EntitiesService *entitiesService();
     Q_INVOKABLE LocationService *locationService();
-    Q_INVOKABLE SensorService *sensorService();
-    Q_INVOKABLE Wallet *wallet();
 
     // functions
     Q_INVOKABLE void initialize();
-    Q_INVOKABLE void registerDevice();
     Q_INVOKABLE void reset();
     Q_INVOKABLE void saveSettings();
-    Q_INVOKABLE void updateRegistration();
 
     // properties
     bool needSetup() const;
@@ -48,23 +44,20 @@ public slots:
 
 private slots:
     void onError(quint8 code, const QString &msg);
-    void onRequestDataFinished(quint8 requestType, const QJsonDocument &payload);
 
 private:
-    void initializeApiData();
-
     void readSetting();
     void writeSettings();
 
-    ApiConnector *m_api{new ApiConnector(this)};
-    Device *m_device{new Device(this)};
+    ApiInterface *m_api{new ApiInterface(this)};
+    DeviceService *m_deviceService{new DeviceService(this)};
     EntitiesService *m_entitiesService{new EntitiesService(this)};
     LocationService *m_locationService{new LocationService(this)};
-    SensorService *m_sensorService{new SensorService(this)};
-    Wallet *m_wallet{new Wallet(this)};
+    QMutex *m_mutex{new QMutex()};
 
     // properties
     bool m_needSetup{true};
+
 };
 
 #endif // APP_H

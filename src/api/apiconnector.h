@@ -79,7 +79,6 @@ public:
                                 const QDateTime &endTime = QDateTime());
     Q_INVOKABLE void getServices();
     Q_INVOKABLE void getStates();
-    Q_INVOKABLE void registerDevice(const QJsonObject &object);
     Q_INVOKABLE void setEntityState(const QString &entityId, const QJsonObject &payload);
 
     // properties
@@ -91,8 +90,10 @@ public:
 
 
 signals:
-    void error(quint8 requestType, quint8 code, const QString &msg = QString());
     void connectionFailure(ApiConnector::ConnectionFailures failures);
+    void error(quint8 requestType, quint8 code, const QString &msg = QString());
+    void initialized();
+    void requestFinished(quint8 requestType, quint16 httpCode, const QJsonDocument &payload = QJsonDocument());
     void requestFinished(quint8 requestType, bool success);
     void requestDataFinished(quint64 requestType, const QJsonDocument &payload = QJsonDocument());
     void requestRegistrationRefresh();
@@ -111,8 +112,7 @@ signals:
 public slots:
     void sendRequest(quint8 type,
                      const QString &query = QString(),
-                     const QJsonObject &payload = QJsonObject(),
-                     bool token = true);
+                     const QJsonObject &payload = QJsonObject());
 
     void sendWebhookRequest(quint8 type,
                             const QJsonObject &payload = QJsonObject());

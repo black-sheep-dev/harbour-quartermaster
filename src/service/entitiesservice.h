@@ -1,7 +1,7 @@
 #ifndef ENTITIESSERVICE_H
 #define ENTITIESSERVICE_H
 
-#include <QObject>
+#include "service.h"
 
 #include "src/entities/climate.h"
 #include "src/entities/group.h"
@@ -9,7 +9,7 @@
 #include "src/models/entitiesmodel.h"
 #include "src/models/entitytypesmodel.h"
 
-class EntitiesService : public QObject
+class EntitiesService : public Service
 {
     Q_OBJECT
 
@@ -21,13 +21,20 @@ public:
     Q_INVOKABLE EntityTypesModel *entityTypesModel();
 
     // functions
+    Q_INVOKABLE void callService(const QString &domain,
+                                 const QString &service,
+                                 const QString &entityId);
+    Q_INVOKABLE void callService(const QString &domain,
+                                 const QString &service,
+                                 const QJsonObject &payload = QJsonObject());
     Q_INVOKABLE QString getEntityIcon(quint8 entityType) const;
+    Q_INVOKABLE void getEntityState(const QString &entityId);
+    Q_INVOKABLE void refresh();
 
 signals:
     void homeassistantVersionAvailable(const QString &version);
 
 public slots:
-    void onRequestDataFinished(quint64 requestType, const QJsonDocument &payload);
     void updateEntity(const QJsonObject &obj);
 
 private:
@@ -37,6 +44,13 @@ private:
 
     EntitiesModel *m_entitiesModel{new EntitiesModel(this)};
     EntityTypesModel *m_entityTypesModel{new EntityTypesModel(this)};
+
+    // Service interface
+public:
+    void initialize() override;
+
+public slots:
+    void onRequestFinished(quint8 requestType, const QJsonDocument &data) override;
 };
 
 #endif // ENTITIESSERVICE_H

@@ -8,7 +8,7 @@
 
 
 EntitiesService::EntitiesService(QObject *parent) :
-    QObject(parent)
+    Service(parent)
 {
 
 }
@@ -21,6 +21,21 @@ EntitiesModel *EntitiesService::entitiesModel()
 EntityTypesModel *EntitiesService::entityTypesModel()
 {
     return m_entityTypesModel;
+}
+
+void EntitiesService::callService(const QString &domain, const QString &service, const QString &entityId)
+{
+    QJsonObject payload;
+    payload.insert(ApiKey::KEY_ENTITY_ID, entityId);
+
+    callService(domain, service, payload);
+}
+
+void EntitiesService::callService(const QString &domain, const QString &service, const QJsonObject &payload)
+{
+    emit apiRequest(Api::RequestPostApiServices,
+                    domain + "/" + service,
+                    payload);
 }
 
 QString EntitiesService::getEntityIcon(quint8 entityType) const
@@ -56,28 +71,17 @@ QString EntitiesService::getEntityIcon(quint8 entityType) const
 
         default:
             return QStringLiteral("image://theme/icon-m-asterisk");
-        }
+    }
 }
 
-void EntitiesService::onRequestDataFinished(quint64 requestType, const QJsonDocument &payload)
+void EntitiesService::getEntityState(const QString &entityId)
 {
-#ifdef QT_DEBUG
-    qDebug() << "ENTITY REQUEST FINISHED: ";
-#endif
+    emit apiRequest(Api::RequestGetApiStatesEntity, entityId);
+}
 
-    switch (requestType) {
-    case Api::RequestGetApiStates:
-        parseStates(payload.array());
-        break;
-
-    case Api::RequestPostApiServices:
-    case Api::RequestGetApiStatesEntity:
-        updateEntity(payload.object());
-        break;
-
-    default:
-        break;
-    }
+void EntitiesService::refresh()
+{
+    emit apiRequest(Api::RequestGetApiStates);
 }
 
 void EntitiesService::updateEntity(const QJsonObject &obj)
@@ -327,6 +331,30 @@ void EntitiesService::parseStates(const QJsonArray &arr)
             }
         }
     }
+}
 
+void EntitiesService::initialize()
+{
+    setState(ServiceState::StateInitalizing);
+    refresh();
+}
 
+void EntitiesService::onRequestFinished(quint8 requestType, const QJsonDocument &data)
+{
+    switch (requestType) {
+    case Api::RequestGetApiStates:
+        parseStates(data.array());
+
+        if (state() != ServiceState::StateInitialized)
+            setState(ServiceState::StateInitialized);
+        break;
+
+    case Api::RequestPostApiServices:
+    case Api::RequestGetApiStatesEntity:
+        updateEntity(data.object());
+        break;
+
+    default:
+        break;
+    }
 }

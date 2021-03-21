@@ -33,7 +33,7 @@ Dialog {
             width: parent.width
             wrapMode: Text.WordWrap
 
-            text: qsTr("This is the final step. You can change the device name which shows up in Home Assistant if you want before starting the registration.")
+            text: qsTr("You can change the device name which shows up in Home Assistant before starting the registration.")
             color: Theme.highlightColor
             font.pixelSize: Theme.fontSizeSmall
         }
@@ -50,7 +50,7 @@ Dialog {
             label: qsTr("Device name")
             placeholderText: qsTr("Enter device name")
 
-            text: App.device().name
+            text: App.deviceService().deviceName
 
             onTextChanged: checkInput()
         }
@@ -59,8 +59,8 @@ Dialog {
     function checkInput() { canAccept = deviceNameField.length > 0 }
 
     onAccepted: {
-        App.device().name = deviceNameField.text
-        App.registerDevice()
+        App.deviceService().deviceName = deviceNameField.text
+        App.deviceService().registerDevice()
     }
 
     Component.onCompleted: checkInput()

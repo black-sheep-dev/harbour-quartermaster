@@ -35,12 +35,11 @@ CONFIG += sailfishapp
 
 SOURCES += src/harbour-quartermaster.cpp \
     src/api/apiconnector.cpp \
+    src/api/apiinterface.cpp \
     src/api/serverconfig.cpp \
     src/api/websocket.cpp \
     src/app.cpp \
     src/constants.cpp \
-    src/crypto/wallet.cpp \
-    src/device/device.cpp \
     src/device/devicesensor.cpp \
     src/device/devicesensormodel.cpp \
 #    src/device/devicetracker.cpp \
@@ -63,14 +62,15 @@ SOURCES += src/harbour-quartermaster.cpp \
     src/models/zonesmodel.cpp \
 #    src/threads/errorlogparser.cpp \
     src/network/accesspointsmodel.cpp \
+    src/service/deviceservice.cpp \
     src/service/entitiesservice.cpp \
     src/service/locationservice.cpp \
-    src/service/sensorservice.cpp \
-    src/tools/backuptool.cpp
+    src/service/service.cpp \
+    src/tools/backuptool.cpp \
+    src/tools/helper.cpp
 
 DISTFILES += qml/harbour-quartermaster.qml \
     qml/SelectWifiNetworkDialog.qml \
-    qml/components/ConnectionSettings.qml \
     qml/components/InfoItem.qml \
     qml/components/TestResultItem.qml \
     qml/cover/CoverPage.qml \
@@ -138,6 +138,7 @@ RESOURCES += \
 HEADERS += \
     src/api/api.h \
     src/api/apiconnector.h \
+    src/api/apiinterface.h \
     src/api/credentials.h \
 #    src/api/websocketapi.h \
     src/api/serverconfig.h \
@@ -147,8 +148,6 @@ HEADERS += \
 #    src/client/entitiesprovider.h \
     src/constants.h \
     src/constants.h \
-    src/crypto/wallet.h \
-    src/device/device.h \
     src/device/devicesensor.h \
     src/device/devicesensormodel.h \
 #    src/device/devicetracker.h \
@@ -172,8 +171,10 @@ HEADERS += \
 #    src/threads/errorlogparser.h \
     src/network/accesspoint.h \
     src/network/accesspointsmodel.h \
+    src/service/deviceservice.h \
     src/service/entitiesservice.h \
     src/service/locationservice.h \
-    src/service/sensorservice.h \
+    src/service/service.h \
     src/tools/backuptool.h \
-    src/enums.h
+    src/enums.h \
+    src/tools/helper.h

@@ -11,7 +11,7 @@ DeviceSensor::DeviceSensor(QObject *parent) :
 
 }
 
-QJsonObject DeviceSensor::toJson() const
+QJsonObject DeviceSensor::toJson()
 {
     QJsonObject sensor = getBaseSensorJson();
     sensor.insert(ApiKey::KEY_DEVICE_CLASS, m_deviceClass);
@@ -22,8 +22,10 @@ QJsonObject DeviceSensor::toJson() const
     return sensor;
 }
 
-QJsonObject DeviceSensor::getBaseSensorJson() const
+QJsonObject DeviceSensor::getBaseSensorJson()
 {
+    refreshState();
+
     QJsonObject sensor;
     sensor.insert(ApiKey::KEY_ICON, getIcon());
     sensor.insert(ApiKey::KEY_TYPE, m_sensorType);
@@ -149,11 +151,6 @@ void DeviceSensor::setUnit(const QString &unit)
     emit unitChanged(m_unit);
 }
 
-void DeviceSensor::onStateChanged()
-{
-    emit sensorUpdated(getBaseSensorJson());
-}
-
 QJsonValue DeviceSensor::getStateValue() const
 {
     QJsonValue state;
@@ -180,12 +177,22 @@ QJsonValue DeviceSensor::getStateValue() const
     return state;
 }
 
+void DeviceSensor::onStateChanged()
+{
+    emit sensorUpdated(getBaseSensorJson());
+}
+
 QString DeviceSensor::getIcon() const
 {
     return QString();
 }
 
 void DeviceSensor::onEnabledChanged()
+{
+
+}
+
+void DeviceSensor::refreshState()
 {
 
 }

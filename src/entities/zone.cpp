@@ -10,6 +10,11 @@ Zone::Zone(QObject *parent) :
 {
 }
 
+QString Zone::entityId() const
+{
+    return m_entityId;
+}
+
 QString Zone::guid() const
 {
     return m_guid;
@@ -43,6 +48,15 @@ quint16 Zone::networkCount() const
 double Zone::radius() const
 {
     return m_radius;
+}
+
+void Zone::setEntityId(const QString &entityId)
+{
+    if (m_entityId == entityId)
+        return;
+
+    m_entityId = entityId;
+    emit entityIdChanged(m_entityId);
 }
 
 void Zone::setGuid(const QString &guid)

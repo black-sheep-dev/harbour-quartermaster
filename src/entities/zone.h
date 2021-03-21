@@ -10,6 +10,7 @@ class Zone : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(QString entityId READ entityId WRITE setEntityId NOTIFY entityIdChanged)
     Q_PROPERTY(QString guid READ guid WRITE setGuid NOTIFY guidChanged)
     Q_PROPERTY(bool isHome READ isHome WRITE setIsHome NOTIFY isHomeChanged)
     Q_PROPERTY(double latitude READ latitude WRITE setLatitude NOTIFY latitudeChanged)
@@ -22,6 +23,7 @@ public:
     explicit Zone(QObject *parent = nullptr);
 
     // properties
+    QString entityId() const;
     QString guid() const;
     bool isHome() const;
     double latitude() const;
@@ -34,6 +36,7 @@ signals:
     void changed();
 
     // properties
+    void entityIdChanged(const QString &entityId);
     void guidChanged(const QString &guid);
     void isHomeChanged(bool isHome);
     void latitudeChanged(double latitude);
@@ -44,6 +47,7 @@ signals:
 
 public slots:
     // properties
+    void setEntityId(const QString &entityId);
     void setGuid(const QString &guid);
     void setIsHome(bool isHome);
     void setLatitude(double latitude);
@@ -54,14 +58,14 @@ public slots:
 
 private:
     // properties
+    QString m_entityId;
     QString m_guid;
     bool m_isHome{false};
     double m_latitude{0.0};
     double m_longitude{0.0};
     QString m_name;
     quint16 m_networkCount{0};
-    double m_radius{0.0};
-
+    double m_radius{0.0}; 
 };
 
 #endif // ZONE_H

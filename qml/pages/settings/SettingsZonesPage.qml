@@ -140,7 +140,7 @@ Page {
             ViewPlaceholder {
                 enabled: listView.count == 0
                 text: qsTr("No Zones available")
-                hintText: qsTr("Create new zones in Home Assistant web interface. If zones are defined but are not displayed here, then there is a problem with the connection or the access token. In this case it helps to reset and renew the device registration.")
+                hintText: qsTr("Create new zones in Home Assistant web interface")
             }
 
             VerticalScrollDecorator {}

@@ -160,6 +160,14 @@ Page {
                     }
                 }
             }
+
+            ViewPlaceholder {
+                enabled: listView.count == 0
+                text: qsTr("No entities available")
+                hintText: qsTr("Check your network connection")
+            }
+
+            VerticalScrollDecorator {}
         }
     }
 

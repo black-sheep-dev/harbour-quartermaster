@@ -31,7 +31,7 @@ Page {
                 text: qsTr("Refresh")
                 onClicked: {
                     busy = true
-                    App.api().getStates()
+                    App.entitiesService().refresh()
                 }
             }
         }
@@ -120,6 +120,8 @@ Page {
             text: qsTr("No entities available")
             hintText: qsTr("Check your network connection")
         }
+
+        VerticalScrollDecorator {}
     }
 
     function startSetupWizard() {

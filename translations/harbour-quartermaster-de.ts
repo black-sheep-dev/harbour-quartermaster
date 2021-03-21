@@ -485,6 +485,25 @@
     </message>
 </context>
 <context>
+    <name>Service</name>
+    <message>
+        <source>No error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An undefined error occured</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error in service configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Initialization failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SettingsAutoUpdatePage</name>
     <message>
         <source>Automatic Updates</source>
@@ -685,16 +704,16 @@
         <translation>Aktiviere / Deaktiviere automatische Sensor Updates. Automatische Sensor Updates  führen zu einem höheren Verbrauch von Datenvolumen und Batterieverbrauch.</translation>
     </message>
     <message>
-        <source>Automatic updates</source>
-        <translation>Automatische Updates</translation>
-    </message>
-    <message>
         <source>This toggles all sensors on/off</source>
         <translation>Dies schaltet alle Sensoren an/aus</translation>
     </message>
     <message>
         <source>Sensor List</source>
         <translation>Sensor Liste</translation>
+    </message>
+    <message>
+        <source>Live Updates</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1127,7 +1146,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Server connection infos received. Please check port for external address!</source>
+        <source>Server connection infos received. Please check external port!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

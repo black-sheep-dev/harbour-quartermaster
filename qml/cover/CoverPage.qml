@@ -3,11 +3,12 @@ import Sailfish.Silica 1.0
 
 CoverBackground {
     Image {
+        anchors.left: parent.left
+        anchors.top: parent.top
         width: parent.width
-        height: width
+        height: sourceSize.height * width / sourceSize.width
         smooth: true
         source: "qrc:///cover/cover-background"
-        anchors.centerIn: parent
         opacity: 0.1
     }
 }

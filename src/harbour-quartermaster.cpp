@@ -29,12 +29,12 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<Api>(uri, 1, 0, "Api", "not createable");
 
     qmlRegisterType<AccessPointsModel>(uri, 1, 0, "AccessPointsModel");
-    qmlRegisterType<ApiConnector>(uri, 1, 0, "ApiConnector");
+    qmlRegisterType<ApiInterface>(uri, 1, 0, "ApiInterface");
     qmlRegisterType<BackupTool>(uri, 1, 0, "BackupTool");
     qmlRegisterType<Climate>(uri, 1, 0, "Climate");
-    qmlRegisterType<Device>(uri, 1, 0, "Device");
     qmlRegisterType<DeviceSensor>(uri, 1, 0, "DeviceSensor");
     qmlRegisterType<DeviceSensorModel>(uri, 1, 0, "DeviceSensorModel");
+    qmlRegisterType<DeviceService>(uri, 1, 0, "DeviceService");
     qmlRegisterType<Entity>(uri, 1, 0, "Entity");
     qmlRegisterType<EntityAttributesModel>(uri, 1, 0, "EntityAttributesModel");
     qmlRegisterType<EntitiesModel>(uri, 1, 0, "EntitiesModel");
@@ -44,10 +44,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<Group>(uri, 1, 0, "Group");
     qmlRegisterType<Light>(uri, 1, 0, "Light");
     qmlRegisterType<LocationService>(uri, 1, 0, "LocationService");
-    qmlRegisterType<SensorService>(uri, 1, 0, "SensorService");
     qmlRegisterType<ServerConfig>(uri, 1, 0, "ServerConfig");
     qmlRegisterType<SortFilterModel>(uri, 1, 0, "SortFilterModel");
-    qmlRegisterType<Wallet>(uri, 1, 0, "Wallet");
     qmlRegisterType<Zone>(uri, 1, 0, "Zone");
     qmlRegisterType<ZonesModel>(uri, 1, 0, "ZonesModel");
 

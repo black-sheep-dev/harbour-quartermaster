@@ -140,6 +140,14 @@ Page {
                     }
                 }
             }
+
+            ViewPlaceholder {
+                enabled: listView.count == 0
+                text: qsTr("No sensors available")
+                hintText: qsTr("Check your network connection")
+            }
+
+            VerticalScrollDecorator {}
         }
     }
 

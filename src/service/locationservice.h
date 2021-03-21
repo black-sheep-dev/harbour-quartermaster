@@ -1,7 +1,7 @@
 #ifndef LOCATIONTRACKER_H
 #define LOCATIONTRACKER_H
 
-#include <QObject>
+#include "service.h"
 
 #include <QGeoCoordinate>
 #include <QGeoPositionInfo>
@@ -14,7 +14,7 @@
 #include "src/network/accesspointsmodel.h"
 #include "src/models/zonesmodel.h"
 
-class LocationService : public QObject
+class LocationService : public Service
 {
     Q_OBJECT
 
@@ -29,7 +29,7 @@ public:
     explicit LocationService(QObject *parent = nullptr);
     ~LocationService() override;
 
-    void initialize();
+    void refresh();
 
     // network management
     Q_INVOKABLE AccessPointsModel *accessPointsModel(const QString &zoneGuid);
@@ -38,10 +38,6 @@ public:
     Q_INVOKABLE bool removeAccessPointFromZone(const QString &zoneGuid, const QString &identifier);
     Q_INVOKABLE bool resetAccessPoints(const QString &zoneGuid);
     Q_INVOKABLE void scanForAccessPoints();
-
-    Q_INVOKABLE void loadAccessPointSettings();
-    Q_INVOKABLE void saveAccessPointSettings();
-
 
     // invokables
     Q_INVOKABLE Zone *homezone();   
@@ -56,10 +52,9 @@ public:
     quint32 updateInterval() const;
 
 signals:
-    void webhookRequest(quint8 requestType, const QJsonObject &payload);
     void scanForAccessPointsFinished();
     void settingsChanged();
-
+    void webhookRequest(quint8 requestType, const QJsonObject &payload);
 
     // properties
     void atHomeChanged(bool home);
@@ -70,6 +65,7 @@ signals:
     void updateIntervalChanged(quint32 interval); 
 
 public slots:
+    void setHomezone(Zone *zone);
     void setZones(const QJsonArray &arr);
 
     // properties
@@ -109,6 +105,12 @@ private:
     bool m_enableWifi{true};
     bool m_trackConnectedApsOnly{true};
     quint32 m_updateInterval{30000};
+
+    // Service interface
+public:
+    void initialize() override;
+    void readSettings() override;
+    void writeSettings() override;
 };
 
 #endif // LOCATIONTRACKER_H

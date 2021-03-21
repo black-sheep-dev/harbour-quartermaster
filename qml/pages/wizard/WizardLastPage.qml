@@ -100,10 +100,14 @@ Dialog {
     Connections {
         target: App.api()
         onRequestFinished: {
+            if (requestType !== Api.RequestPostApiRegisterDevice) return;
+
             busy = false
-            canAccept = success
+            canAccept = true
         }
-        onError: {
+        onRequestError: {
+            if (requestType !== Api.RequestPostApiRegisterDevice) return;
+
             busy = false
             errorMsg = msg
         }

@@ -10,6 +10,7 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QMutexLocker>
+#include <QSettings>
 #include <QStandardPaths>
 #include <QTextStream>
 
@@ -18,32 +19,20 @@
 #include "src/api/api.h"
 
 LocationService::LocationService(QObject *parent) :
-    QObject(parent)
+    Service(parent)
 {
     //scanForAccessPoints();
-    loadAccessPointSettings();
-    updateAccessPoints();
-    updateZones();
 }
 
 LocationService::~LocationService()
 {
-    saveAccessPointSettings();
     delete m_mutex;
 }
 
-void LocationService::initialize()
+void LocationService::refresh()
 {
-    connect(this, &LocationService::settingsChanged, this, &LocationService::updateTrackers);
-    updateTrackers();
-
-    // send actual location
-//    if (m_enableWifi) {
-//        for (const auto &config : m_ncm->allConfigurations(QNetworkConfiguration::Active)) {
-//            onNetworkConfigurationChanged(config);
-//            break;
-//        }
-//    }
+    if (m_enableWifi)
+        updateAccessPoints();
 }
 
 AccessPointsModel *LocationService::accessPointsModel(const QString &zoneGuid)
@@ -108,6 +97,7 @@ bool LocationService::removeAccessPointFromZone(const QString &zoneGuid, const Q
 bool LocationService::resetAccessPoints(const QString &zoneGuid)
 {
     m_accessPoints.remove(zoneGuid);
+    updateZones();
 
     return true;
 }
@@ -116,79 +106,6 @@ void LocationService::scanForAccessPoints()
 {
     m_availableAccessPoints->setBusy(true);
     m_ncm->updateConfigurations();
-}
-
-void LocationService::loadAccessPointSettings()
-{
-    QFile file(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/" + APP_TARGET + QStringLiteral("/networks.json"));
-
-    if (!file.open(QIODevice::ReadOnly))
-        return;
-
-    QTextStream in(&file);
-
-    QJsonParseError error{};
-
-    const QJsonObject data = QJsonDocument::fromJson(in.readAll().toLatin1(), &error).object();
-
-    file.close();
-
-    if (error.error) {
-#ifdef QT_DEBUG
-        qDebug() << QStringLiteral("JSON PARSE ERROR");
-        qDebug() << error.errorString();
-#endif
-        return;
-    }
-
-    // parse data
-    for (const auto &zoneGuid : data.keys()) {
-        const QJsonArray aps = data.value(zoneGuid).toArray();
-
-        for (const auto &item : aps) {
-            const QJsonObject obj = item.toObject();
-
-            AccessPoint ap;
-            ap.name = obj.value(ApiKey::KEY_NAME).toString();
-            ap.identifier = obj.value(ApiKey::KEY_IDENTIFIER).toString();
-
-            m_accessPoints.insertMulti(zoneGuid, ap);
-        }
-    }
-}
-
-void LocationService::saveAccessPointSettings()
-{
-    QFile file(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/" + APP_TARGET + QStringLiteral("/networks.json"));
-
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
-        return;
-
-    // create data
-    QJsonObject data;
-
-    for (const auto zone : m_zonesModel->zones()) {
-        QJsonArray array;
-
-        for (const auto &ap : m_accessPoints.values(zone->guid())) {
-            QJsonObject net;
-            net.insert(ApiKey::KEY_NAME, ap.name);
-            net.insert(ApiKey::KEY_IDENTIFIER, ap.identifier);
-
-            array.append(net);
-        }
-
-        if (array.isEmpty())
-            continue;
-
-        data.insert(zone->guid(), array);
-    }
-
-    // write data
-    QTextStream out(&file);
-    out << QString::fromLatin1(QJsonDocument(data).toJson());
-
-    file.close();
 }
 
 Zone *LocationService::homezone()
@@ -231,6 +148,16 @@ quint32 LocationService::updateInterval() const
     return m_updateInterval;
 }
 
+void LocationService::setHomezone(Zone *zone)
+{
+    if (zone == nullptr)
+        return;
+
+    zone->setIsHome(true);
+    m_zonesModel->addZone(zone);
+    m_homezone = zone;
+}
+
 void LocationService::setZones(const QJsonArray &arr)
 {
     QList<Zone *> zones;
@@ -265,6 +192,8 @@ void LocationService::setZones(const QJsonArray &arr)
     }
 
     m_zonesModel->setZones(zones);
+
+    updateAccessPoints();
 }
 
 void LocationService::setAtHome(bool atHome)
@@ -450,6 +379,9 @@ AccessPoint LocationService::getAccessPointFromConfig(const QNetworkConfiguratio
 
 void LocationService::updateAccessPoints()
 {
+    if (!m_enableWifi)
+        return;
+
     QList<AccessPoint> aps;
 
     for (const auto &config : m_ncm->allConfigurations()) {
@@ -501,6 +433,8 @@ void LocationService::updateTrackers()
         connect(m_ncm, &QNetworkConfigurationManager::configurationChanged, this, &LocationService::onNetworkConfigurationChanged, Qt::QueuedConnection);
         connect(m_ncm, &QNetworkConfigurationManager::configurationRemoved, this, &LocationService::onNetworkConfigurationChanged, Qt::QueuedConnection);
 
+        updateAccessPoints();
+
     } else {
         if (m_ncm != nullptr) {
             disconnect(m_ncm, &QNetworkConfigurationManager::updateCompleted, this, &LocationService::onScanForAccessPointsFinished);
@@ -516,4 +450,138 @@ void LocationService::updateZones()
     for (auto zone : m_zonesModel->zones()) {
         zone->setNetworkCount(m_accessPoints.values(zone->guid()).count());
     }
+}
+
+void LocationService::initialize()
+{
+    setState(Service::StateInitalizing);
+
+    connect(this, &LocationService::settingsChanged, this, &LocationService::updateTrackers);
+    updateTrackers();
+
+    setState(Service::StateInitialized);
+}
+
+void LocationService::readSettings()
+{
+    QSettings settings;
+
+    // tracking
+    settings.beginGroup(QStringLiteral("TRACKING"));
+    setEnableGps(settings.value(QStringLiteral("gps_enabled"), false).toBool());
+    setUpdateInterval(settings.value(QStringLiteral("gps_update_interval"), 30000).toUInt());
+    setDisableGpsAtHome(settings.value(QStringLiteral("gps_disable_at_home"), false).toBool());
+    setEnableWifi(settings.value(QStringLiteral("wifi_enabled"), true).toBool());
+    //m_locationService->setTrackConnectedApsOnly(settings.value(QStringLiteral("wifi_track_connected_aps_only"), true).toBool());
+    settings.endGroup();
+
+    // homezone
+    settings.beginGroup(QStringLiteral("HOMEZONE"));
+    const QString guid = settings.value(QStringLiteral("guid")).toString();
+
+    if (!guid.isEmpty()) {
+        auto zone = new Zone();
+        zone->setGuid(guid);
+        zone->setEntityId(QStringLiteral("zone.home"));
+        zone->setName(settings.value(QStringLiteral("name")).toString());
+        zone->setLatitude(settings.value(QStringLiteral("lat"), 0).toDouble());
+        zone->setLongitude(settings.value(QStringLiteral("lon"), 0).toDouble());
+        zone->setRadius(settings.value(QStringLiteral("radius"), 10).toDouble());
+
+        setHomezone(zone);
+    }
+
+    // access point data
+    QFile file(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/" + APP_TARGET + QStringLiteral("/networks.json"));
+
+    if (!file.open(QIODevice::ReadOnly))
+        return;
+
+    QTextStream in(&file);
+
+    QJsonParseError error{};
+
+    const QJsonObject data = QJsonDocument::fromJson(in.readAll().toLatin1(), &error).object();
+
+    file.close();
+
+    if (error.error) {
+#ifdef QT_DEBUG
+        qDebug() << QStringLiteral("JSON PARSE ERROR");
+        qDebug() << error.errorString();
+#endif
+        return;
+    }
+
+    // parse data
+    for (const auto &zoneGuid : data.keys()) {
+        const QJsonArray aps = data.value(zoneGuid).toArray();
+
+        for (const auto &item : aps) {
+            const QJsonObject obj = item.toObject();
+
+            AccessPoint ap;
+            ap.name = obj.value(ApiKey::KEY_NAME).toString();
+            ap.identifier = obj.value(ApiKey::KEY_IDENTIFIER).toString();
+
+            m_accessPoints.insertMulti(zoneGuid, ap);
+        }
+    }
+}
+
+void LocationService::writeSettings()
+{
+    QSettings settings;
+
+    // tracking
+    settings.beginGroup(QStringLiteral("TRACKING"));
+    settings.setValue(QStringLiteral("gps_enabled"), m_enableGps);
+    settings.setValue(QStringLiteral("gps_update_interval"), m_updateInterval);
+    settings.setValue(QStringLiteral("gps_disable_at_home"), m_disableGpsAtHome);
+    settings.setValue(QStringLiteral("wifi_enabled"), m_enableWifi);
+    //settings.setValue(QStringLiteral("wifi_track_connected_aps_only"), m_locationService->enableWifi());
+    settings.endGroup();
+
+    // homezone
+    if (homezone() != nullptr) {
+        settings.beginGroup(QStringLiteral("HOMEZONE"));
+        settings.setValue(QStringLiteral("guid"), m_homezone->guid());
+        settings.setValue(QStringLiteral("name"), m_homezone->latitude());
+        settings.setValue(QStringLiteral("lat"), m_homezone->latitude());
+        settings.setValue(QStringLiteral("lon"), m_homezone->longitude());
+        settings.setValue(QStringLiteral("radius"), m_homezone->radius());
+        settings.endGroup();
+    }
+
+    // access point settings
+    QFile file(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/" + APP_TARGET + QStringLiteral("/networks.json"));
+
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
+
+    // create data
+    QJsonObject data;
+
+    for (const auto zone : m_zonesModel->zones()) {
+        QJsonArray array;
+
+        for (const auto &ap : m_accessPoints.values(zone->guid())) {
+            QJsonObject net;
+            net.insert(ApiKey::KEY_NAME, ap.name);
+            net.insert(ApiKey::KEY_IDENTIFIER, ap.identifier);
+
+            array.append(net);
+        }
+
+        if (array.isEmpty())
+            continue;
+
+        data.insert(zone->guid(), array);
+    }
+
+    // write data
+    QTextStream out(&file);
+    out << QString::fromLatin1(QJsonDocument(data).toJson());
+
+    file.close();
 }

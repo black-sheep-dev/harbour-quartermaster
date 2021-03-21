@@ -43,7 +43,7 @@ Page {
                 label: qsTr("Device Name")
                 placeholderText: qsTr("Enter device name")
 
-                text: App.device().name
+                text: App.deviceService().deviceName
 
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
                 EnterKey.onClicked: nameField.focus = false
@@ -55,32 +55,32 @@ Page {
 
             DetailItem {
                 label: qsTr("Device ID")
-                value: App.device().id()
+                value: App.deviceService().id()
             }
 
             DetailItem {
                 label: qsTr("Manufacturer")
-                value: App.device().manufacturer()
+                value: App.deviceService().manufacturer()
             }
 
             DetailItem {
                 label: qsTr("Model")
-                value: App.device().model()
+                value: App.deviceService().model()
             }
 
             DetailItem {
                 label: qsTr("Software Name")
-                value: App.device().softwareName()
+                value: App.deviceService().softwareName()
             }
 
             DetailItem {
                 label: qsTr("Software Version")
-                value: App.device().softwareVersion()
+                value: App.deviceService().softwareVersion()
             }
 
             DetailItem {
                 label: qsTr("Wifi MAC")
-                value: App.device().wlanMacAddress()
+                value: App.deviceService().wlanMacAddress()
             }
         }
     }
@@ -88,8 +88,8 @@ Page {
     onStatusChanged: {
         if (status != PageStatus.Deactivating) return;
 
-        App.device().name = nameField.text
+        App.deviceService().deviceName = nameField.text
         App.saveSettings()
-        App.updateRegistration();
+        App.deviceService().updateRegistration();
     }
 }

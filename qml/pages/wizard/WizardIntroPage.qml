@@ -1,6 +1,8 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
+import org.nubecula.harbour.quartermaster 1.0
+
 Dialog {
     id: dialog
 
@@ -72,7 +74,7 @@ Dialog {
 
             wrapMode: Text.WordWrap
 
-            text: qsTr("This setup wizard will lead you through the connection process.")
+            text: qsTr("The setup wizard will lead you through the connection process.")
         }
 
         Item {

@@ -24,7 +24,7 @@ Page {
                 text: qsTr("Refresh")
                 onClicked: {
                     page.busy = true;
-                    App.api().getEntityState(entity.entityId)
+                    App.entitiesService().getEntityState(entity.entityId)
                 }
             }
         }

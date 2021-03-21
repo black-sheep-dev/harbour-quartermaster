@@ -33,7 +33,7 @@ ApiConnector::ApiConnector(QObject *parent) :
     m_apiEndpoints[Api::RequestPostApiRegisterDevice]        = QStringLiteral("/api/mobile_app/registrations");
 
 
-    m_webhookTypes[Api::RequestWebhookCallService]           = ApiKey::KEY_CALL_SERVICE;
+    m_webhookTypes[Api::RequestWebhookCallService]           = QStringLiteral("call_service");
     m_webhookTypes[Api::RequestWebhookEnableEncryption]      = QStringLiteral("enable_encryption");
     m_webhookTypes[Api::RequestWebhookFireEvent]             = QStringLiteral("fire_event");
     m_webhookTypes[Api::RequestWebhookGetConfig]             = QStringLiteral("get_config");
@@ -43,7 +43,7 @@ ApiConnector::ApiConnector(QObject *parent) :
     m_webhookTypes[Api::RequestWebhookStreamCamera]          = QStringLiteral("stream_camera");
     m_webhookTypes[Api::RequestWebhookUpdateLocation]        = QStringLiteral("update_location");
     m_webhookTypes[Api::RequestWebhookUpdateRegistration]    = QStringLiteral("update_registration");
-    m_webhookTypes[Api::RequestWebhookUpdateSensorStates]    = ApiKey::KEY_CALL_SERVICE;
+    m_webhookTypes[Api::RequestWebhookUpdateSensorStates]    = QStringLiteral("update_sensor_states");
 
 
     connect(m_manager, &QNetworkAccessManager::sslErrors, this, &ApiConnector::onSslErrors);
@@ -69,6 +69,8 @@ void ApiConnector::initialize()
     //openWebsocket();
     refreshBaseUrl();
     refreshWebhookUrl();
+
+    emit initialized();
 }
 
 ServerConfig *ApiConnector::serverConfig()
@@ -120,8 +122,9 @@ void ApiConnector::getDiscoveryInfo(const QString &hostname, quint16 port)
 {
     m_serverConfig->setInternalUrl(hostname);
     m_serverConfig->setInternalPort(port);
+    refreshBaseUrl();
 
-    sendRequest(Api::RequestGetApiDiscoveryInfo, QString(), QJsonObject(), false);
+    sendRequest(Api::RequestGetApiDiscoveryInfo, QString(), QJsonObject());
 }
 
 void ApiConnector::getEntityState(const QString &entityId)
@@ -187,11 +190,6 @@ void ApiConnector::getStates()
     sendRequest(Api::RequestGetApiStates);
 }
 
-void ApiConnector::registerDevice(const QJsonObject &object)
-{
-    sendRequest(Api::RequestPostApiRegisterDevice, QString(), object);
-}
-
 void ApiConnector::setEntityState(const QString &entityId, const QJsonObject &payload)
 {
     sendRequest(Api::RequestPostApiStates, entityId, payload);
@@ -222,7 +220,7 @@ bool ApiConnector::logging() const
     return m_logging;
 }
 
-void ApiConnector::sendRequest(quint8 type, const QString &query, const QJsonObject &payload, bool token)
+void ApiConnector::sendRequest(quint8 type, const QString &query, const QJsonObject &payload)
 {
 #ifdef QT_DEBUG
     qDebug() << "REQUEST TO: " << type;
@@ -231,7 +229,7 @@ void ApiConnector::sendRequest(quint8 type, const QString &query, const QJsonObj
     qDebug() << "AT HOME: " << m_atHome;
 #endif
 
-    if ( (m_credentials.token.isEmpty() || !token) && type != Api::RequestGetApiDiscoveryInfo )
+    if ( m_credentials.token.isEmpty() && type != Api::RequestGetApiDiscoveryInfo )
         return;
 
     // check if request is already running
@@ -254,7 +252,7 @@ void ApiConnector::sendRequest(quint8 type, const QString &query, const QJsonObj
 #endif
 
 
-    if (token)
+    if (type != Api::RequestGetApiDiscoveryInfo)
         request.setRawHeader("Authorization", "Bearer " + m_credentials.token.toLatin1());
 
 
@@ -493,9 +491,9 @@ void ApiConnector::onFinished()
         m_serverConfig->setData(doc.object());
         break;
 
-    case Api::RequestPostApiRegisterDevice:
-        parseDeviceRegistration(doc.object());
-        break;
+//    case Api::RequestPostApiRegisterDevice:
+//        parseDeviceRegistration(doc.object());
+//        break;
 
     case Api::RequestPostApiConfigCheckConfig:
         parseConfigCheck(doc.object());

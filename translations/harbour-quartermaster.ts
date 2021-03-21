@@ -483,6 +483,25 @@
     </message>
 </context>
 <context>
+    <name>Service</name>
+    <message>
+        <source>No error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An undefined error occured</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error in service configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Initialization failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SettingsAutoUpdatePage</name>
     <message>
         <source>Automatic Updates</source>
@@ -683,15 +702,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Automatic updates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>This toggles all sensors on/off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Sensor List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Live Updates</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1124,7 +1143,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Server connection infos received. Please check port for external address!</source>
+        <source>Server connection infos received. Please check external port!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

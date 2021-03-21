@@ -194,15 +194,23 @@ Dialog {
             TestResultItem {
                 visible: connected && !busy
                 title: qsTr("Mobile app component")
-                description: qsTr("Mobile app component is not activated! Please check your Home Assistant configuration.yaml!")
+                description: qsTr("Mobile app component is not activated!") + " " + qsTr("Please check your Home Assistant configuration.yaml!")
                 result: App.api().serverConfig().components & ServerConfig.ComponentMobileApp
             }
 
             TestResultItem {
                 visible: connected && !busy
                 title: qsTr("Webhook component")
-                description: qsTr("Webhook component is not activated! Please check your Home Assistant configuration.yaml!")
+                description: qsTr("Webhook component is not activated!") + " " + qsTr("Please check your Home Assistant configuration.yaml!")
                 result: App.api().serverConfig().components & ServerConfig.ComponentWebhook
+            }
+
+            TestResultItem {
+                visible: connected && !busy
+                title: qsTr("Websocket component")
+                description: qsTr("Optional Websocket component is not activated!") + " " + qsTr("Please check your Home Assistant configuration.yaml!")
+                result: App.api().serverConfig().components & ServerConfig.ComponentWebsocketApi
+                resultTextFalse: qsTr("MISSING")
             }
         }
 
@@ -212,11 +220,15 @@ Dialog {
     Connections {
         target: App.api()
         onRequestFinished: {
+            if (requestType !== Api.RequestGetApiConfig) return;
+
             dialog.busy = false
-            dialog.connected = success
+            dialog.connected = true
             canAccept = App.api().serverConfig().isCompatible()
         }
-        onError: {
+        onRequestError: {
+            if (requestType !== Api.RequestGetApiConfig) return;
+
             dialog.error = msg
             dialog.busy = false
         }

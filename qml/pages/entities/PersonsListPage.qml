@@ -138,11 +138,19 @@ Page {
                 }
             }
 
+            ViewPlaceholder {
+                enabled: listView.count == 0
+                text: qsTr("No persons available")
+                hintText: qsTr("Create new persons in Home Assistant web interface")
+            }
+
+            VerticalScrollDecorator {}
+
             function getInitials(name) {
                 var initials = name.match(/\b\w/g) || [];
                 initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
                 return initials
-            }
+            }  
         }
     }
 

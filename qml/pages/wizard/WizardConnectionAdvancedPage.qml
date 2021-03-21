@@ -57,7 +57,7 @@ Dialog {
                 width: parent.width
                 wrapMode: Text.WordWrap
 
-                text: discovered ? qsTr("Server connection infos received. Please check port for external address!") :
+                text: discovered ? qsTr("Server connection infos received. Please check external port!") :
                           qsTr("Failed to connect to server. Go back and check your data!")
 
                 font.pixelSize: Theme.fontSizeSmall
@@ -215,8 +215,16 @@ Dialog {
     Connections {
         target: App.api()
         onRequestFinished: {
+            if (requestType !== Api.RequestGetApiDiscoveryInfo) return;
+
             busy = false
-            dialog.discovered = success
+            dialog.discovered = true
+        }
+        onRequestError: {
+            if (requestType !== Api.RequestGetApiDiscoveryInfo) return;
+
+            busy = false
+            dialog.discovered = false
         }
     }
 

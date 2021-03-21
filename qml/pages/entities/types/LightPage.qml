@@ -22,7 +22,7 @@ Page {
                 text: qsTr("Refresh")
                 onClicked: {
                     page.busy = true;
-                    App.api().getEntityState(entity.entityId)
+                    App.entitiesService().getEntityState(entity.entityId)
                 }
             }
         }
@@ -50,11 +50,11 @@ Page {
                 checked: entity.state === "on"
 
                 onClicked: {
-                    App.api().callService("light",
-                                          checked ? "turn_on" : "turn_off",
-                                          {
-                                              entity_id: entity.entityId
-                                          })
+                    App.entitiesService().callService("light",
+                                                      checked ? "turn_on" : "turn_off",
+                                                      {
+                                                          entity_id: entity.entityId
+                                                      })
                 }
             }
 
@@ -80,12 +80,12 @@ Page {
                     if (pressed)
                         return;
 
-                    App.api().callService("light",
-                                          "turn_on",
-                                          {
-                                              entity_id: entity.entityId,
-                                              brightness: value
-                                          })
+                    App.entitiesService().callService("light",
+                                                      "turn_on",
+                                                      {
+                                                          entity_id: entity.entityId,
+                                                          brightness: value
+                                                      })
                 }
             }
 
@@ -111,12 +111,12 @@ Page {
                     if (pressed)
                         return;
 
-                    App.api().callService("light",
-                                          "turn_on",
-                                          {
-                                              entity_id: entity.entityId,
-                                              color_temp: value
-                                          })
+                    App.entitiesService().callService("light",
+                                                      "turn_on",
+                                                      {
+                                                          entity_id: entity.entityId,
+                                                          color_temp: value
+                                                      })
                 }
             }
 
@@ -155,16 +155,16 @@ Page {
                             var dialog = pageStack.push("Sailfish.Silica.ColorPickerDialog")
                             dialog.accepted.connect(function() {
                                 entity.color = dialog.color
-                                App.api().callService("light",
-                                                      "turn_on",
-                                                      {
-                                                          entity_id: entity.entityId,
-                                                          rgb_color: [
-                                                            entity.red(),
-                                                            entity.green(),
-                                                            entity.blue()
-                                                          ]
-                                                      })
+                                App.entitiesService().callService("light",
+                                                                  "turn_on",
+                                                                  {
+                                                                      entity_id: entity.entityId,
+                                                                      rgb_color: [
+                                                                        entity.red(),
+                                                                        entity.green(),
+                                                                        entity.blue()
+                                                                      ]
+                                                                  })
                             })
                         }
                     }
@@ -202,12 +202,12 @@ Page {
                     else
                         effect = currentItem.text
 
-                    App.api().callService("light",
-                                          "turn_on",
-                                          {
-                                              entity_id: entity.entityId,
-                                              effect: effect
-                                          })
+                    App.entitiesService().callService("light",
+                                                      "turn_on",
+                                                      {
+                                                          entity_id: entity.entityId,
+                                                          effect: effect
+                                                      })
                 }
             }
         }

@@ -34,8 +34,9 @@ Dialog {
             width: parent.width
             wrapMode: Text.WordWrap
 
-            text: qsTr("You need to provide the connection details to your Home Assistant server.\n"
-                       + "This can either be the hostname / IP in your local network or a remote url if your Home Assistant is reachable from the internet.")
+            text: qsTr("You need to provide the connection details to your Home Assistant server.")
+                  + "\n"
+                  + qsTr("This can either be the hostname or the IP address in your local network.")
 
             font.pixelSize: Theme.fontSizeSmall
             color: Theme.highlightColor
@@ -109,7 +110,6 @@ Dialog {
     }
 
     onAccepted: {
-        App.api().connectionModes = ApiConnector.InternalConnection
         App.api().getDiscoveryInfo(hostnameField.text, portField.text)
     }
 
