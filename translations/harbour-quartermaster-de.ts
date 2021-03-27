@@ -1452,7 +1452,8 @@
     <message>
         <source>You need to provide a valid Long-Lived Access Token.
 You can create one on profile page in your Home Assistant webfrontend and copy the token string into the input field below.</source>
-        <translation>Du musst einen gültigen Long-Lived Access Token eingeben. Du kannst einen auf der Profil Seite in der Home Assistant Weboberfläche erstellen und diesen in das untere Eingabefeld kopieren.</translation>
+        <translation>Du musst einen gültigen Long-Lived Access Token eingeben.
+Du kannst einen auf der Profil Seite in der Home Assistant Weboberfläche erstellen und diesen in das untere Eingabefeld kopieren.</translation>
     </message>
 </context>
 </TS>
