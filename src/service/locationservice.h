@@ -54,7 +54,6 @@ public:
 signals:
     void scanForAccessPointsFinished();
     void settingsChanged();
-    void webhookRequest(quint8 requestType, const QJsonObject &payload);
 
     // properties
     void atHomeChanged(bool home);
@@ -78,8 +77,9 @@ public slots:
 
 private slots:
     void onNetworkConfigurationChanged(const QNetworkConfiguration &config);
-    void onScanForAccessPointsFinished();
+    void onOnlineStateChanged(bool online);
     void onPositionChanged(const QGeoPositionInfo &info);
+    void onScanForAccessPointsFinished();
 
 private:
     AccessPoint getAccessPointFromConfig(const QNetworkConfiguration &config) const;
@@ -96,6 +96,7 @@ private:
     QGeoPositionInfo m_lastPosition;
     QMutex *m_mutex{new QMutex};
     QNetworkConfigurationManager *m_ncm{nullptr};
+    QGeoPositionInfo m_updatePosition;
     ZonesModel *m_zonesModel{new ZonesModel(this)};
 
     // properties
@@ -108,9 +109,14 @@ private:
 
     // Service interface
 public:
+    void connectToApi() override;
     void initialize() override;
     void readSettings() override;
     void writeSettings() override;
+
+    // Service interface
+public slots:
+    void onRequestFinished(quint8 requestType, const QJsonDocument &data) override;
 };
 
 #endif // LOCATIONTRACKER_H

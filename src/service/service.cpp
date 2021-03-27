@@ -11,6 +11,19 @@ Service::~Service()
 
 }
 
+ApiInterface *Service::api()
+{
+    return m_api;
+}
+
+void Service::setApi(ApiInterface *api)
+{
+    m_api = api;
+
+    if (m_api != nullptr)
+        connectToApi();
+}
+
 void Service::saveSettings()
 {
     writeSettings();
@@ -42,6 +55,11 @@ void Service::setState(Service::ServiceState state)
 
     m_state = state;
     emit stateChanged(m_state);
+}
+
+void Service::connectToApi()
+{
+
 }
 
 void Service::initialize()
@@ -89,5 +107,11 @@ void Service::onRequestError(quint8 requestType, quint8 code, const QString &msg
 void Service::onRequestFinished(quint8 requestType, const QJsonDocument &data)
 {
     Q_UNUSED(requestType)
+    Q_UNUSED(data)
+}
+
+void Service::onWebsocketEvent(const QString &event, const QJsonValue &data)
+{
+    Q_UNUSED(event)
     Q_UNUSED(data)
 }

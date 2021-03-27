@@ -8,6 +8,7 @@
 #include <QJsonObject>
 #include <QMutex>
 #include <QNetworkAccessManager>
+#include <QWebSocket>
 
 #include "api.h"
 #include "credentials.h"
@@ -20,8 +21,18 @@ class ApiInterface : public QObject
     Q_PROPERTY(bool atHome READ atHome WRITE setAtHome NOTIFY atHomeChanged)
     Q_PROPERTY(Credentials credentials READ credentials WRITE setCredentials NOTIFY credentialsChanged)
     Q_PROPERTY(bool logging READ logging WRITE setLogging NOTIFY loggingChanged)
+    Q_PROPERTY(States states READ states WRITE setStates NOTIFY statesChanged)
 
 public:
+    enum State {
+        StateUninitialized                      = 0x0,
+        StateHasConnectionInfos                 = 0x1,
+        StateHasCredentialsToken                = 0x2,
+        StateHasCredentialsWebhook              = 0x4
+    };
+    Q_ENUM(State)
+    Q_DECLARE_FLAGS(States, State)
+
     explicit ApiInterface(QObject *parent = nullptr);
     ~ApiInterface();
 
@@ -34,8 +45,9 @@ public:
 
     // properties
     bool atHome() const;
-    Credentials credentials() const;
+    Credentials credentials() const;    
     bool logging() const;
+    States states() const;
 
 signals:
     void requestError(quint8 requestType, quint8 code, const QString &msg = QString());
@@ -45,6 +57,7 @@ signals:
     void atHomeChanged(bool atHome);
     void credentialsChanged(const Credentials &credentials);
     void loggingChanged(bool logging);
+    void statesChanged(States states);
 
 public slots:
     void sendRequest(quint8 type,
@@ -58,6 +71,7 @@ public slots:
     void setAtHome(bool atHome);
     void setCredentials(const Credentials &credentials);
     void setLogging(bool logging);
+    void setStates(States states);
 
 private slots:
     void onRequestFinished();
@@ -65,6 +79,7 @@ private slots:
 
 private:
     void logData(const QString &identifier, const QByteArray &data);
+    void refreshStates();
     void refreshUrls();
 
     // settings
@@ -83,7 +98,45 @@ private:
     // properties
     bool m_atHome{true};
     Credentials m_credentials;
+    States m_states{State::StateUninitialized};
     bool m_logging{false};
+
+// -----------------------------------------------------------------------------------------------------------------------------------
+// WEBSOCKET
+// -----------------------------------------------------------------------------------------------------------------------------------
+public:
+    void addWebsocketEventsSubscription(const QString &event);
+    void removeWebsocketEventsSubscription(const QString &event);
+
+    // properties
+    quint8 subscriptions() const;
+
+signals:
+    void websocketEvent(const QString &event, const QJsonValue &value);
+
+private slots:
+    void onWebsocketConnected();
+    void onWebsocketDisconnected();
+    void onWebsocketMessageReceived(const QString &msg);
+
+private:
+    void websocketAuthenticate();
+    void websocketClose();
+    void websocketReconnect();
+    void websocketOpen();
+
+    void updateWebsocketSubscriptions();
+
+    void parseWebsocketEvent(const QJsonObject &payload);
+    void sendWebsocketCommand(QJsonObject payload);
+    void sendWebsocketMessage(const QJsonObject &payload);
+
+    int m_interactions{1};
+    QHash<QString, int> m_subscriptionEvents;
+    QWebSocket *m_websocket{new QWebSocket(APP_TARGET, QWebSocketProtocol::VersionLatest, this)};
+    QString m_websocketUrl;
+
 };
+Q_DECLARE_OPERATORS_FOR_FLAGS(ApiInterface::States)
 
 #endif // APIINTERFACE_H

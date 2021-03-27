@@ -38,7 +38,7 @@ Page {
                         }
 
                         apsModel.addAccessPoint(dialog.identifer, dialog.name);
-                        App.locationService().saveAccessPointSettings();
+                        App.locationService().saveSettings();
                     })
                 }
             }

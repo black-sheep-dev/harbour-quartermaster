@@ -8,28 +8,9 @@
 App::App(QObject *parent) :
     QObject(parent)
 {
-    // device service
-    connect(m_deviceService, &DeviceService::credentialsChanged, m_api, &ApiInterface::setCredentials);
-    connect(m_deviceService, &DeviceService::apiRequest, m_api, &ApiInterface::sendRequest);
-    connect(m_deviceService, &DeviceService::webhookRequest, m_api, &ApiInterface::sendWebhookRequest);
-    connect(m_api, &ApiInterface::requestFinished, m_deviceService, &DeviceService::onRequestFinished);
-    connect(m_api, &ApiInterface::requestError, m_deviceService, &DeviceService::onRequestError);
-
-    // location service
-    connect(m_locationService, &LocationService::webhookRequest, m_api, &ApiInterface::sendWebhookRequest);
-    connect(m_locationService, &LocationService::atHomeChanged, m_api, &ApiInterface::setAtHome);
-
-    // entities service
-    connect(m_entitiesService, &EntitiesService::apiRequest, m_api, &ApiInterface::sendRequest);
-    connect(m_api, &ApiInterface::requestFinished, m_entitiesService, &EntitiesService::onRequestFinished);
-    connect(m_api, &ApiInterface::requestError, m_entitiesService, &EntitiesService::onRequestError);
-
-//    connect(m_api, &ApiConnector::requestDataFinished, m_deviceService, &DeviceService::onRequestFinished);
-
-//    connect(m_api, &ApiConnector::requestDataFinished, this, &App::onRequestDataFinished);
-//    connect(m_api, &ApiConnector::requestDataFinished, m_entitiesService, &EntitiesService::onRequestDataFinished);
-//    connect(m_api, &ApiConnector::entityStateChanged, m_entitiesService, &EntitiesService::updateEntity);
-
+    m_deviceService->setApi(m_api);
+    m_locationService->setApi(m_api);
+    m_entitiesService->setApi(m_api);
 
     readSetting();
 
@@ -37,7 +18,7 @@ App::App(QObject *parent) :
     m_deviceService->initialize();
     setNeedSetup(!m_deviceService->isRegistered());
     //setNeedSetup(true);
-
+    //m_api->setAtHome(false);
     m_api->initialize();
 }
 
@@ -88,7 +69,9 @@ void App::saveSettings()
 {
     writeSettings();
 
+    m_api->saveSettings();
     m_deviceService->saveSettings();
+    m_entitiesService->saveSettings();
     m_locationService->saveSettings();
 }
 

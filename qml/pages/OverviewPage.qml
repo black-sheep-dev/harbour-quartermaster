@@ -140,6 +140,11 @@ Page {
         onRequestFinished: if (requestType === Api.RequestGetApiStates) busy = false
     }
 
+    Connections {
+        target: App.entitiesService()
+        onStateChanged: busy = (state === EntitiesService.StateInitalizing)
+    }
+
     Component.onCompleted: sortModel.sortModel()
 
 }

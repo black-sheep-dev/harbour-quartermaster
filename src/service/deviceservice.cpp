@@ -201,6 +201,10 @@ void DeviceService::setToken(const QString &token)
 
 void DeviceService::createCollection()
 {
+#ifdef DISABLE_SAILFISH_SECRETS
+    return;
+#endif
+
     Sailfish::Secrets::CreateCollectionRequest createCollection;
     createCollection.setManager(&m_secretManager);
     createCollection.setCollectionLockType(Sailfish::Secrets::CreateCollectionRequest::DeviceLock);
@@ -231,6 +235,10 @@ void DeviceService::createCollection()
 
 void DeviceService::deleteCollection()
 {
+#ifdef DISABLE_SAILFISH_SECRETS
+    return;
+#endif
+
     Sailfish::Secrets::DeleteCollectionRequest createCollection;
     createCollection.setManager(&m_secretManager);
     createCollection.setUserInteractionMode(Sailfish::Secrets::SecretManager::SystemInteraction);
@@ -257,6 +265,20 @@ void DeviceService::deleteCollection()
 
 void DeviceService::loadCredentials()
 {
+#ifdef DISABLE_SAILFISH_SECRETS
+    QSettings settings;
+    settings.beginGroup(QStringLiteral("SECRETS"));
+    m_credentials.cloudhookUrl = settings.value(QStringLiteral("cloudhook_url")).toString();
+    m_credentials.remoteUiUrl = settings.value(QStringLiteral("remote_ui_url")).toString();
+    m_credentials.secret = settings.value(QStringLiteral("secret")).toString();
+    m_credentials.token = settings.value(QStringLiteral("token")).toString();
+    m_credentials.webhookId = settings.value(QStringLiteral("webhook_id")).toString();
+    settings.endGroup();
+
+    emit credentialsChanged(m_credentials);
+    return;
+#endif
+
     auto fetchCode = new Sailfish::Secrets::StoredSecretRequest;
 
     fetchCode->setManager(&m_secretManager);
@@ -297,6 +319,18 @@ void DeviceService::loadCredentials()
 
 void DeviceService::storeCredentials()
 {
+#ifdef DISABLE_SAILFISH_SECRETS
+    QSettings settings;
+    settings.beginGroup(QStringLiteral("SECRETS"));
+    settings.setValue(QStringLiteral("cloudhook_url"), m_credentials.cloudhookUrl);
+    settings.setValue(QStringLiteral("remote_ui_url"), m_credentials.remoteUiUrl);
+    settings.setValue(QStringLiteral("secret"), m_credentials.secret);
+    settings.setValue(QStringLiteral("token"), m_credentials.token);
+    settings.setValue(QStringLiteral("webhook_id"), m_credentials.webhookId);
+    settings.endGroup();
+    return;
+#endif
+
 #ifdef QT_DEBUG
     qDebug() << QStringLiteral("CREDENTIALS STORE");
 #endif
@@ -351,6 +385,15 @@ void DeviceService::parseDeviceRegistration(const QJsonObject &data)
     storeCredentials();
 
     emit credentialsChanged(m_credentials);
+}
+
+void DeviceService::connectToApi()
+{
+    connect(this, &DeviceService::credentialsChanged, api(), &ApiInterface::setCredentials);
+    connect(this, &DeviceService::apiRequest, api(), &ApiInterface::sendRequest);
+    connect(this, &DeviceService::webhookRequest, api(), &ApiInterface::sendWebhookRequest);
+    connect(api(), &ApiInterface::requestFinished, this, &DeviceService::onRequestFinished);
+    connect(api(), &ApiInterface::requestError, this, &DeviceService::onRequestError);
 }
 
 void DeviceService::initialize()

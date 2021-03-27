@@ -53,15 +53,6 @@ public:
         RequestWebhookUpdateSensorStates
     };
     Q_ENUM(Request)
-
-    enum Subscription {
-        SubscriptionNone                = 0x0,
-        SubscriptionNotifyEvents        = 0x1,
-        SubscriptionStateChanged        = 0x2
-    };
-    Q_ENUM(Subscription)
-    Q_DECLARE_FLAGS(Subscriptions, Subscription)
 };
-Q_DECLARE_OPERATORS_FOR_FLAGS(Api::Subscriptions)
 
 #endif // API_H

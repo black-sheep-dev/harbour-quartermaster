@@ -17,8 +17,8 @@ DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 TARGET = harbour-quartermaster
 DEFINES += APP_TARGET=\\\"$$TARGET\\\"
 
-# Disable Sailfish Secrets Wallet for e.g. when debugging
-#DEFINES += DISABLE_WALLET
+# custom defines
+#DEFINES += DISABLE_SAILFISH_SECRETS
 
 QT += dbus positioning network websockets
 
@@ -34,19 +34,14 @@ LIBS += -lz
 CONFIG += sailfishapp
 
 SOURCES += src/harbour-quartermaster.cpp \
-    src/api/apiconnector.cpp \
     src/api/apiinterface.cpp \
     src/api/serverconfig.cpp \
-    src/api/websocket.cpp \
     src/app.cpp \
     src/constants.cpp \
     src/device/devicesensor.cpp \
     src/device/devicesensormodel.cpp \
-#    src/device/devicetracker.cpp \
     src/device/sensors/devicesensorbattery.cpp \
     src/device/sensors/devicesensorbatterycharging.cpp \
-#    src/device/trackers/devicetrackergps.cpp \
-#    src/device/trackers/devicetrackerwifi.cpp \
     src/entities/climate.cpp \
     src/entities/entity.cpp \
     src/entities/group.cpp \
@@ -137,24 +132,16 @@ RESOURCES += \
 
 HEADERS += \
     src/api/api.h \
-    src/api/apiconnector.h \
     src/api/apiinterface.h \
     src/api/credentials.h \
-#    src/api/websocketapi.h \
     src/api/serverconfig.h \
-    src/api/websocket.h \
     src/app.h \
-#    src/client/clientinterface.h \
-#    src/client/entitiesprovider.h \
     src/constants.h \
     src/constants.h \
     src/device/devicesensor.h \
     src/device/devicesensormodel.h \
-#    src/device/devicetracker.h \
     src/device/sensors/devicesensorbattery.h \
     src/device/sensors/devicesensorbatterycharging.h \
-#    src/device/trackers/devicetrackergps.h \
-#    src/device/trackers/devicetrackerwifi.h \
     src/entities/climate.h \
     src/entities/entity.h \
     src/entities/group.h \

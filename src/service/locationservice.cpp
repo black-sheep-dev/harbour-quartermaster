@@ -22,10 +22,12 @@ LocationService::LocationService(QObject *parent) :
     Service(parent)
 {
     //scanForAccessPoints();
+    readSettings();
 }
 
 LocationService::~LocationService()
 {
+    writeSettings();
     delete m_mutex;
 }
 
@@ -193,6 +195,7 @@ void LocationService::setZones(const QJsonArray &arr)
 
     m_zonesModel->setZones(zones);
 
+    updateZones();
     updateAccessPoints();
 }
 
@@ -294,32 +297,32 @@ void LocationService::onNetworkConfigurationChanged(const QNetworkConfiguration 
 
             m_lastNetworkIdentifier = config.identifier();
 
-            QGeoPositionInfo info;
-            info.setCoordinate(QGeoCoordinate(zone->latitude(), zone->longitude()));
-            info.setTimestamp(QDateTime::currentDateTimeUtc());
-            info.setAttribute(QGeoPositionInfo::HorizontalAccuracy, qreal(zone->radius()));
+            // save for later send when coming online again because of access point connection changed
+            m_updatePosition.setCoordinate(QGeoCoordinate(zone->latitude(), zone->longitude()));
+            m_updatePosition.setTimestamp(QDateTime::currentDateTimeUtc());
+            m_updatePosition.setAttribute(QGeoPositionInfo::HorizontalAccuracy, qreal(zone->radius()));
 
-            locker.unlock();
-
-            onPositionChanged(info);
             return;
         }
     }
 }
 
-void LocationService::onScanForAccessPointsFinished()
+void LocationService::onOnlineStateChanged(bool online)
 {
-#ifdef QT_DEBUG
-    qDebug() << "AP SCAN FINISHED";
-#endif
-
-    updateAccessPoints();
+    if (!online)
+        return;
 
     QMutexLocker locker(m_mutex);
-    m_availableAccessPoints->setBusy(false);
+    auto info = m_updatePosition;
     locker.unlock();
 
-    emit scanForAccessPointsFinished();
+    if (!info.isValid())
+        return;
+
+    onPositionChanged(info);
+
+    locker.relock();
+    m_updatePosition = QGeoPositionInfo();
 }
 
 void LocationService::onPositionChanged(const QGeoPositionInfo &info)
@@ -365,7 +368,24 @@ void LocationService::onPositionChanged(const QGeoPositionInfo &info)
 
     locker.unlock();
 
+
+    if (m_ncm->isOnline())
     emit webhookRequest(Api::RequestWebhookUpdateLocation, location);
+}
+
+void LocationService::onScanForAccessPointsFinished()
+{
+#ifdef QT_DEBUG
+    qDebug() << "AP SCAN FINISHED";
+#endif
+
+    updateAccessPoints();
+
+    QMutexLocker locker(m_mutex);
+    m_availableAccessPoints->setBusy(false);
+    locker.unlock();
+
+    emit scanForAccessPointsFinished();
 }
 
 AccessPoint LocationService::getAccessPointFromConfig(const QNetworkConfiguration &config) const
@@ -426,12 +446,16 @@ void LocationService::updateTrackers()
     }
 
     // enable wifi tracker
-    if (m_enableWifi && m_ncm == nullptr) {
+    if (m_enableWifi) {
+        if ( m_ncm != nullptr)
+            return;
+
         m_ncm = new QNetworkConfigurationManager(this);
-        connect(m_ncm, &QNetworkConfigurationManager::updateCompleted, this, &LocationService::onScanForAccessPointsFinished, Qt::QueuedConnection);
-        connect(m_ncm, &QNetworkConfigurationManager::configurationAdded, this, &LocationService::onNetworkConfigurationChanged, Qt::QueuedConnection);
-        connect(m_ncm, &QNetworkConfigurationManager::configurationChanged, this, &LocationService::onNetworkConfigurationChanged, Qt::QueuedConnection);
-        connect(m_ncm, &QNetworkConfigurationManager::configurationRemoved, this, &LocationService::onNetworkConfigurationChanged, Qt::QueuedConnection);
+        connect(m_ncm, &QNetworkConfigurationManager::onlineStateChanged, this, &LocationService::onOnlineStateChanged);
+        connect(m_ncm, &QNetworkConfigurationManager::updateCompleted, this, &LocationService::onScanForAccessPointsFinished);
+//       connect(m_ncm, &QNetworkConfigurationManager::configurationAdded, this, &LocationService::onNetworkConfigurationChanged);
+        connect(m_ncm, &QNetworkConfigurationManager::configurationChanged, this, &LocationService::onNetworkConfigurationChanged);
+//       connect(m_ncm, &QNetworkConfigurationManager::configurationRemoved, this, &LocationService::onNetworkConfigurationChanged);
 
         updateAccessPoints();
 
@@ -452,9 +476,18 @@ void LocationService::updateZones()
     }
 }
 
+void LocationService::connectToApi()
+{
+    connect(this, &LocationService::webhookRequest, api(), &ApiInterface::sendWebhookRequest);
+    connect(api(), &ApiInterface::requestFinished, this, &LocationService::onRequestFinished);
+    connect(this, &LocationService::atHomeChanged, api(), &ApiInterface::setAtHome);
+}
+
 void LocationService::initialize()
 {
     setState(Service::StateInitalizing);
+
+    emit webhookRequest(Api::RequestWebhookGetZones);
 
     connect(this, &LocationService::settingsChanged, this, &LocationService::updateTrackers);
     updateTrackers();
@@ -579,9 +612,20 @@ void LocationService::writeSettings()
         data.insert(zone->guid(), array);
     }
 
+    if (data.isEmpty())
+        return;
+
     // write data
     QTextStream out(&file);
     out << QString::fromLatin1(QJsonDocument(data).toJson());
 
     file.close();
+}
+
+void LocationService::onRequestFinished(quint8 requestType, const QJsonDocument &data)
+{
+    if (requestType != Api::RequestWebhookGetZones)
+        return;
+
+    setZones(data.array());
 }

@@ -13,8 +13,11 @@ class EntitiesService : public Service
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool liveUpdates READ liveUpdates WRITE setLiveUpdates NOTIFY liveUpdatesChanged)
+
 public:
     explicit EntitiesService(QObject *parent = nullptr);
+    ~EntitiesService();
 
     // members
     Q_INVOKABLE EntitiesModel *entitiesModel();
@@ -31,11 +34,20 @@ public:
     Q_INVOKABLE void getEntityState(const QString &entityId);
     Q_INVOKABLE void refresh();
 
+    // properties
+    bool liveUpdates() const;
+
 signals:
     void homeassistantVersionAvailable(const QString &version);
 
+    // properties
+    void liveUpdatesChanged(bool liveUpdates);
+
 public slots:
     void updateEntity(const QJsonObject &obj);
+
+    // properties
+    void setLiveUpdates(bool liveUpdates);
 
 private:
     Entity::EntityType getEntityType(const QString &entityId) const;
@@ -45,12 +57,19 @@ private:
     EntitiesModel *m_entitiesModel{new EntitiesModel(this)};
     EntityTypesModel *m_entityTypesModel{new EntityTypesModel(this)};
 
+    // properties
+    bool m_liveUpdates{false};
+
     // Service interface
 public:
+    void connectToApi() override;
     void initialize() override;
+    void readSettings() override;
+    void writeSettings() override;
 
 public slots:
     void onRequestFinished(quint8 requestType, const QJsonDocument &data) override;
+    void onWebsocketEvent(const QString &event, const QJsonValue &data) override;
 };
 
 #endif // ENTITIESSERVICE_H

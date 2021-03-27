@@ -138,29 +138,6 @@
     </message>
 </context>
 <context>
-    <name>ConnectionSettings</name>
-    <message>
-        <source>Hostname</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enter hostname</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use SSL</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>It is highly recommend to use a ssl connection if your homeasstiant server support this!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Port</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>DeviceSensorBattery</name>
     <message>
         <source>Battery State</source>
@@ -184,6 +161,14 @@
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>No entities available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check your network connection</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EntitiesOverviewPage</name>
@@ -201,6 +186,14 @@
         <translation type="unfinished">
             <numerusform>%n entity available</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>No entities available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check your network connection</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -432,6 +425,14 @@
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>No persons available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create new persons in Home Assistant web interface</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RestoreBackupDialog</name>
@@ -479,6 +480,14 @@
     </message>
     <message>
         <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No sensors available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check your network connection</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -698,10 +707,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Here you can activate / deactivate automatic sensors updates. Automatic sensor updates can lead to more network traffic and battery consumption.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>This toggles all sensors on/off</source>
         <translation type="unfinished"></translation>
     </message>
@@ -711,6 +716,10 @@
     </message>
     <message>
         <source>Live Updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Device sensors can send their current state to the Home Assistant server. This can lead to high network traffic and battery consumption.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1034,11 +1043,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Create new zones in Home Assistant web interface. If zones are defined but are not displayed here, then there is a problem with the connection or the access token. In this case it helps to reset and renew the device registration.</source>
+        <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Search</source>
+        <source>Create new zones in Home Assistant web interface</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1174,16 +1183,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You need to provide the connection details to your Home Assistant server.
-This can either be the hostname / IP in your local network or a remote url if your Home Assistant is reachable from the internet.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Enter hostname (e.g. http://server)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Connect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need to provide the connection details to your Home Assistant server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This can either be the hostname or the IP address in your local network.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1210,7 +1222,7 @@ This can either be the hostname / IP in your local network or a remote url if yo
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This is the final step. You can change the device name which shows up in Home Assistant if you want before starting the registration.</source>
+        <source>You can change the device name which shows up in Home Assistant before starting the registration.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1277,11 +1289,27 @@ This can either be the hostname / IP in your local network or a remote url if yo
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mobile app component is not activated! Please check your Home Assistant configuration.yaml!</source>
+        <source>Mobile app component is not activated!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Webhook component is not activated! Please check your Home Assistant configuration.yaml!</source>
+        <source>Please check your Home Assistant configuration.yaml!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Webhook component is not activated!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Websocket component</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Optional Websocket component is not activated!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MISSING</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1289,10 +1317,6 @@ This can either be the hostname / IP in your local network or a remote url if yo
     <name>WizardIntroPage</name>
     <message>
         <source>Welcome to Quartermaster</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This setup wizard will lead you through the connection process.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1313,6 +1337,10 @@ This can either be the hostname / IP in your local network or a remote url if yo
     </message>
     <message>
         <source>Resetting application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The setup wizard will lead you through the connection process.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -4,7 +4,7 @@ import Sailfish.Silica 1.0
 import org.nubecula.harbour.quartermaster 1.0
 
 Page {
-    property bool busy: App.api().runningRequests & ApiConnector.RequestWebhookGetZones
+    property bool busy: App.api().runningRequests & Api.RequestWebhookGetZones
 
     id: page
 
@@ -21,7 +21,7 @@ Page {
         PullDownMenu {
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: App.api().sendWebhookRequest(ApiConnector.RequestWebhookGetZones)
+                onClicked: App.api().sendWebhookRequest(Api.RequestWebhookGetZones)
             }
             MenuItem {
                 text: qsTr("Search")

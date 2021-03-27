@@ -1,5 +1,6 @@
 #include "apiinterface.h"
 
+#include <QAbstractSocket>
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonParseError>
@@ -12,6 +13,7 @@
 #include "src/tools/helper.h"
 
 static const QString HASS_API_ENDPOINT_WEBHOOK = QStringLiteral("/api/webhook/");
+static const QString HASS_API_ENDPOINT_WEBSOCKET = QStringLiteral("/api/websocket");
 
 ApiInterface::ApiInterface(QObject *parent) :
     QObject(parent)
@@ -46,9 +48,32 @@ ApiInterface::ApiInterface(QObject *parent) :
     m_webhookTypes[Api::RequestWebhookUpdateRegistration]    = QStringLiteral("update_registration");
     m_webhookTypes[Api::RequestWebhookUpdateSensorStates]    = QStringLiteral("update_sensor_states");
 
+    m_websocket->ignoreSslErrors();
+    m_websocket->setSslConfiguration(QSslConfiguration::defaultConfiguration());
+
+    connect(m_websocket, &QWebSocket::connected, this, &ApiInterface::onWebsocketConnected);
+    connect(m_websocket, &QWebSocket::disconnected, this, &ApiInterface::onWebsocketDisconnected);
+    connect(m_websocket,
+            static_cast<void (QWebSocket::*)(QAbstractSocket::SocketError)>(&QWebSocket::error),
+            [](QAbstractSocket::SocketError error) {
+                    qDebug() << "WEBSOCKET ERROR: " << error;
+    });
+    connect(m_websocket, &QWebSocket::sslErrors, []() {
+        qDebug() << "WEBSOCKET ERROR";
+    });
+
+    // states changed events
+    connect(this, &ApiInterface::statesChanged, [this](States states) {
+       if ( states & StateHasConnectionInfos
+            && states & StateHasCredentialsToken ) {
+
+           websocketOpen();
+       }
+    });
+
     readSettings();
 
-    refreshUrls();
+    refreshStates();
 }
 
 ApiInterface::~ApiInterface()
@@ -70,7 +95,7 @@ void ApiInterface::getDiscoveryInfo(const QString &hostname, quint16 port)
 {
     m_config->setInternalUrl(hostname);
     m_config->setInternalPort(port);
-    refreshUrls();
+    refreshStates();
 
     sendRequest(Api::RequestGetApiDiscoveryInfo, QString(), QJsonObject());
 }
@@ -105,6 +130,11 @@ bool ApiInterface::logging() const
     return m_logging;
 }
 
+ApiInterface::States ApiInterface::states() const
+{
+    return m_states;
+}
+
 void ApiInterface::sendRequest(quint8 type, const QString &query, const QJsonObject &payload)
 {
 #ifdef QT_DEBUG
@@ -123,6 +153,7 @@ void ApiInterface::sendRequest(quint8 type, const QString &query, const QJsonObj
         return;
 
     m_runningRequest.append(type);
+    locker.unlock();
 
     // build QNetworkRequest
     QNetworkRequest request;
@@ -187,12 +218,10 @@ void ApiInterface::sendWebhookRequest(quint8 type, const QJsonValue &payload)
     if (m_credentials.webhookId.isEmpty())
         return;
 
-    // check if request is already running
-//    QMutexLocker locker(m_mutex);
-//    if (m_runningRequest.contains(type))
-//        return;
-
-//    m_runningRequest.append(type);
+    QMutexLocker locker(m_mutex);
+    if (!m_runningRequest.contains(type))
+         m_runningRequest.append(type);
+    locker.unlock();
 
     // prepare message
     QJsonObject message;
@@ -228,7 +257,7 @@ void ApiInterface::setAtHome(bool atHome)
     m_atHome = atHome;
     emit atHomeChanged(m_atHome);
 
-    refreshUrls();
+    refreshStates();
 }
 
 void ApiInterface::setCredentials(const Credentials &credentials)
@@ -239,7 +268,8 @@ void ApiInterface::setCredentials(const Credentials &credentials)
     m_credentials = credentials;
     emit credentialsChanged(m_credentials);
 
-    refreshUrls();
+    // refresh
+    refreshStates();
 }
 
 void ApiInterface::setLogging(bool logging)
@@ -249,6 +279,15 @@ void ApiInterface::setLogging(bool logging)
 
     m_logging = logging;
     emit loggingChanged(m_logging);
+}
+
+void ApiInterface::setStates(States states)
+{
+    if (m_states == states)
+        return;
+
+    m_states = states;
+    emit statesChanged(m_states);
 }
 
 void ApiInterface::onRequestFinished()
@@ -331,6 +370,7 @@ void ApiInterface::onRequestFinished()
     switch (type) {
     case Api::RequestGetApiConfig:
         m_config->setData(doc.object());
+        refreshStates();
         break;
 
     case Api::RequestGetApiDiscoveryInfo:
@@ -360,11 +400,11 @@ void ApiInterface::onWebhookRequestFinished()
     const QByteArray raw = reply->readAll();
     const QString errorString = reply->errorString();
 
-    reply->deleteLater();
+    QMutexLocker locker(m_mutex);
+    m_runningRequest.removeAll(type);
+    locker.unlock();
 
-//    QMutexLocker locker(m_mutex);
-//    m_runningRequest.removeAll(type);
-//    locker.unlock();
+    reply->deleteLater();
 
 #ifdef QT_DEBUG
     qDebug() << "WEBHOOK REQUEST FINSHED: " << type;
@@ -441,6 +481,36 @@ void ApiInterface::logData(const QString &identifier, const QByteArray &data)
     file.close();
 }
 
+void ApiInterface::refreshStates()
+{
+    States states = m_states;
+
+    // token
+    if (m_credentials.token.isEmpty())
+        states &= ~StateHasCredentialsToken;
+    else
+        states |= StateHasCredentialsToken;
+
+    // webhook id
+    if (m_credentials.webhookId.isEmpty())
+        states &= ~StateHasCredentialsWebhook;
+    else
+        states |= StateHasCredentialsWebhook;
+
+    // connection
+    if ( m_config->internalUrl().startsWith(QLatin1String("http")) ) {
+        states |= StateHasConnectionInfos;
+    } else {
+        states &= ~StateHasConnectionInfos;
+    }
+
+    // apply
+    setStates(states);
+
+    // refresh related
+    refreshUrls();
+}
+
 void ApiInterface::refreshUrls()
 {
     // base url
@@ -452,23 +522,22 @@ void ApiInterface::refreshUrls()
                 + QStringLiteral(":%1").arg(m_config->externalPort());
     }
 
+    // reconnect websocket
+    m_websocketUrl = m_baseUrl;
+    m_websocketUrl.replace(QStringLiteral("http"), QStringLiteral("ws"));
+    m_websocketUrl.append(HASS_API_ENDPOINT_WEBSOCKET);
+
+    websocketReconnect();
+
     // webhook url
     if ( !m_credentials.cloudhookUrl.isEmpty() ) {
         m_webhookUrl = m_credentials.cloudhookUrl;
     } else if ( !m_credentials.remoteUiUrl.isEmpty() ) {
         m_webhookUrl = m_credentials.remoteUiUrl + HASS_API_ENDPOINT_WEBHOOK + m_credentials.webhookId;
-    } else if ( !m_config->externalUrl().isEmpty() ) {
-
-        if (m_atHome) {
-            m_webhookUrl = m_config->internalUrl()
-                    + QStringLiteral(":%1").arg(m_config->internalPort())
-                    + HASS_API_ENDPOINT_WEBHOOK + m_credentials.webhookId;
-        } else {
-            m_webhookUrl = m_config->externalUrl()
-                    + QStringLiteral(":%1").arg(m_config->externalPort())
-                    + HASS_API_ENDPOINT_WEBHOOK + m_credentials.webhookId;
-        }
-
+    } else if ( !m_config->externalUrl().isEmpty() && !m_atHome ) {
+        m_webhookUrl = m_config->externalUrl()
+                + QStringLiteral(":%1").arg(m_config->externalPort())
+                + HASS_API_ENDPOINT_WEBHOOK + m_credentials.webhookId;
     } else {
         m_webhookUrl = m_config->internalUrl()
                 + QStringLiteral(":%1").arg(m_config->internalPort())
@@ -533,4 +602,225 @@ void ApiInterface::writeSettings()
     settings.setValue(QStringLiteral("internal_port"), m_config->internalPort());
     settings.setValue(QStringLiteral("internal_url"), m_config->internalUrl());
     settings.endGroup();
+}
+
+void ApiInterface::addWebsocketEventsSubscription(const QString &event)
+{
+#ifdef QT_DEBUG
+    qDebug() << QStringLiteral("Websocket add subscription: ") << event;
+#endif
+
+    if ( m_subscriptionEvents.keys().contains(event)
+         && m_subscriptionEvents.value(event) >= 0 ) {
+        return;
+    }
+
+    m_subscriptionEvents.insert(event, 0);
+
+    updateWebsocketSubscriptions();
+}
+
+void ApiInterface::removeWebsocketEventsSubscription(const QString &event)
+{
+#ifdef QT_DEBUG
+    qDebug() << QStringLiteral("Websocket remove subscription :") << event;
+#endif
+
+    if (!m_subscriptionEvents.keys().contains(event))
+        return;
+
+    m_subscriptionEvents.insert(event, m_subscriptionEvents.value(event) * -1);
+
+    updateWebsocketSubscriptions();
+}
+
+void ApiInterface::onWebsocketConnected()
+{
+#ifdef QT_DEBUG
+    qDebug() << QStringLiteral("Websocket connected: ") << m_websocket->requestUrl().toString();
+#endif
+
+    connect(m_websocket, &QWebSocket::textMessageReceived, this, &ApiInterface::onWebsocketMessageReceived);
+}
+
+void ApiInterface::onWebsocketDisconnected()
+{
+#ifdef QT_DEBUG
+    qDebug() << QStringLiteral("Websocket disconnected: ") << m_websocket->requestUrl().toString();
+#endif
+
+    if ( m_websocket->closeCode() == QWebSocketProtocol::CloseCodeGoingAway
+         && m_websocket->closeReason() == QLatin1String("RECONNECT") ) {
+
+        websocketOpen();
+    }
+}
+
+void ApiInterface::onWebsocketMessageReceived(const QString &msg)
+{
+#ifdef QT_DEBUG
+    qDebug() << QStringLiteral("Websocket message received");
+    //qDebug() << msg;
+#endif
+
+    QJsonParseError error{};
+
+    const auto obj = QJsonDocument::fromJson(msg.toLatin1(), &error).object();
+
+    if (error.error) {
+#ifdef QT_DEBUG
+        qDebug() << QStringLiteral("JSON PARSE ERROR");
+        qDebug() << error.errorString();
+#endif
+        return;
+    }
+
+    const auto type = obj.value(ApiKey::KEY_TYPE).toString();
+
+    if (type == ApiKey::KEY_EVENT) {
+        parseWebsocketEvent(obj);
+
+    } else if (type == ApiKey::KEY_AUTH_REQUIRED) {
+        websocketAuthenticate();
+
+    } else if (type == ApiKey::KEY_AUTH_OK) {
+        updateWebsocketSubscriptions();
+    }
+}
+
+void ApiInterface::websocketAuthenticate()
+{
+    QJsonObject payload;
+    payload.insert(ApiKey::KEY_TYPE, ApiKey::KEY_AUTH);
+    payload.insert(ApiKey::KEY_ACCESS_TOKEN, m_credentials.token);
+
+    sendWebsocketMessage(payload);
+}
+
+void ApiInterface::websocketClose()
+{
+#ifdef QT_DEBUG
+    qDebug() << QStringLiteral("Websocket close");
+#endif
+
+    m_websocket->close();
+}
+
+void ApiInterface::websocketReconnect()
+{
+#ifdef QT_DEBUG
+    qDebug() << QStringLiteral("Websocket reconnect");
+#endif
+
+    if (!m_websocket->isValid()) {
+        websocketOpen();
+        return;
+    }
+
+    // m_websocktUrl didn't changed
+    if (m_websocket->requestUrl().toString().startsWith(m_websocketUrl))
+        return;
+
+    m_websocket->close(QWebSocketProtocol::CloseCodeGoingAway, QStringLiteral("RECONNECT"));
+}
+
+void ApiInterface::websocketOpen()
+{
+#ifdef QT_DEBUG
+    qDebug() << QStringLiteral("Websocket open");
+#endif
+
+    if ( !(m_states & StateHasConnectionInfos)
+         || !(m_states & StateHasCredentialsToken) )
+        return;
+
+    if (m_websocket->isValid())
+        return;
+
+    if ( m_websocketUrl.isEmpty() || m_subscriptionEvents.isEmpty())
+        return;
+
+    QHashIterator<QString, int> iter(m_subscriptionEvents);
+    while (iter.hasNext()) {
+        iter.next();
+
+        m_subscriptionEvents.insert(iter.key(), 0);
+    }
+
+    m_websocket->open(m_websocketUrl);
+}
+
+void ApiInterface::updateWebsocketSubscriptions()
+{
+#ifdef QT_DEBUG
+    qDebug() << QStringLiteral("Websocket subscription update");
+    qDebug() << m_subscriptionEvents.keys();
+#endif
+
+    if ( !m_subscriptionEvents.isEmpty()
+         && !m_websocket->isValid() ) {
+        websocketOpen();
+        return;
+    }
+
+    if ( m_subscriptionEvents.isEmpty()
+         && m_websocket->isValid() ) {
+        websocketClose();
+        return;
+    }
+
+    QHashIterator<QString, int> iter(m_subscriptionEvents);
+    while (iter.hasNext()) {
+        iter.next();
+
+        QJsonObject payload;
+
+        if (iter.value() < 0) {
+            payload.insert(ApiKey::KEY_TYPE, ApiKey::KEY_UNSUBSCRIBE_EVENTS);
+            payload.insert(ApiKey::KEY_SUBSCRIPTION, iter.value() * -1);
+
+            m_subscriptionEvents.remove(iter.key());
+
+        } else if (iter.value() == 0) {
+            payload.insert(ApiKey::KEY_TYPE, ApiKey::KEY_SUBSCRIBE_EVENTS);
+            payload.insert(ApiKey::KEY_EVENT_TYPE, iter.key());
+
+            m_subscriptionEvents.insert(iter.key(), m_interactions);
+
+        } else {
+            continue;
+        }
+
+        sendWebsocketCommand(payload);
+    }
+}
+
+void ApiInterface::parseWebsocketEvent(const QJsonObject &payload)
+{
+    const QJsonObject event = payload.value(ApiKey::KEY_EVENT).toObject();
+    const QJsonObject data = event.value(ApiKey::KEY_DATA).toObject();
+
+    if (data.isEmpty())
+        return;
+
+    emit websocketEvent(event.value(ApiKey::KEY_EVENT_TYPE).toString(),
+                        data);
+}
+
+void ApiInterface::sendWebsocketCommand(QJsonObject payload)
+{
+    payload.insert(ApiKey::KEY_ID, m_interactions);
+    m_interactions++;
+
+    m_websocket->sendTextMessage(QJsonDocument(payload).toJson(QJsonDocument::Compact));
+}
+
+void ApiInterface::sendWebsocketMessage(const QJsonObject &payload)
+{
+#ifdef QT_DEBUG
+    qDebug() << QStringLiteral("Websocket message send: ");
+    qDebug() << payload;
+#endif
+
+    m_websocket->sendTextMessage(QJsonDocument(payload).toJson(QJsonDocument::Compact));
 }

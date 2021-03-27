@@ -49,16 +49,8 @@ Page {
                              + "\n"
                              + qsTr("This can lead to very high data consumption, especially with many entities that often change their state!")
 
-                onCheckedChanged: {
-                    var subscriptions = App.api().subscriptions;
-                    if (checked)
-                        subscriptions |= Api.SubscriptionStateChanged
-                    else
-                        subscriptions &= ~Api.SubscriptionStateChanged
-
-                    App.api().subscriptions = subscriptions
-                }
-                Component.onCompleted: checked = (App.api().subscriptions & Api.SubscriptionStateChanged)
+                onCheckedChanged: App.entitiesService().liveUpdates = checked
+                Component.onCompleted: checked = App.entitiesService().liveUpdates
             }
 
             Label {

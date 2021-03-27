@@ -2,15 +2,19 @@
 
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QSettings>
 
 #include "src/constants.h"
-#include "src/api/apiconnector.h"
-
 
 EntitiesService::EntitiesService(QObject *parent) :
     Service(parent)
 {
 
+}
+
+EntitiesService::~EntitiesService()
+{
+    writeSettings();
 }
 
 EntitiesModel *EntitiesService::entitiesModel()
@@ -84,6 +88,11 @@ void EntitiesService::refresh()
     emit apiRequest(Api::RequestGetApiStates);
 }
 
+bool EntitiesService::liveUpdates() const
+{
+    return m_liveUpdates;
+}
+
 void EntitiesService::updateEntity(const QJsonObject &obj)
 {
     auto entity = m_entitiesModel->entityById(obj.value(ApiKey::KEY_ENTITY_ID).toString());
@@ -93,6 +102,21 @@ void EntitiesService::updateEntity(const QJsonObject &obj)
 
     entity->setState(obj.value(ApiKey::KEY_STATE).toVariant());
     entity->setAttributes(obj.value(ApiKey::KEY_ATTRIBUTES).toObject().toVariantMap());
+}
+
+void EntitiesService::setLiveUpdates(bool liveUpdates)
+{
+    if (m_liveUpdates == liveUpdates)
+        return;
+
+    m_liveUpdates = liveUpdates;
+    emit liveUpdatesChanged(m_liveUpdates);
+
+    // update api subscription
+    if (m_liveUpdates)
+        api()->addWebsocketEventsSubscription(ApiKey::KEY_STATE_CHANGED);
+    else
+        api()->removeWebsocketEventsSubscription(ApiKey::KEY_STATE_CHANGED);
 }
 
 Entity::EntityType EntitiesService::getEntityType(const QString &entityId) const
@@ -333,10 +357,37 @@ void EntitiesService::parseStates(const QJsonArray &arr)
     }
 }
 
+void EntitiesService::connectToApi()
+{
+    connect(this, &EntitiesService::apiRequest, api(), &ApiInterface::sendRequest);
+    connect(api(), &ApiInterface::requestFinished, this, &EntitiesService::onRequestFinished);
+    connect(api(), &ApiInterface::requestError, this, &EntitiesService::onRequestError);
+    connect(api(), &ApiInterface::websocketEvent, this, &EntitiesService::onWebsocketEvent);
+}
+
 void EntitiesService::initialize()
 {
     setState(ServiceState::StateInitalizing);
+    readSettings();
     refresh();
+}
+
+void EntitiesService::readSettings()
+{
+    QSettings settings;
+
+    settings.beginGroup(QStringLiteral("ENTITIES"));
+    setLiveUpdates(settings.value(QStringLiteral("live_updates"), false).toBool());
+    settings.endGroup();
+}
+
+void EntitiesService::writeSettings()
+{
+    QSettings settings;
+
+    settings.beginGroup(QStringLiteral("ENTITIES"));
+    settings.setValue(QStringLiteral("live_updates"), m_liveUpdates);
+    settings.endGroup();
 }
 
 void EntitiesService::onRequestFinished(quint8 requestType, const QJsonDocument &data)
@@ -357,4 +408,12 @@ void EntitiesService::onRequestFinished(quint8 requestType, const QJsonDocument 
     default:
         break;
     }
+}
+
+void EntitiesService::onWebsocketEvent(const QString &event, const QJsonValue &data)
+{
+    if (event != ApiKey::KEY_STATE_CHANGED)
+        return;
+
+    updateEntity(data.toObject().value(ApiKey::KEY_NEW_STATE).toObject());
 }
