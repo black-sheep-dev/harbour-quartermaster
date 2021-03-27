@@ -1,12 +1,14 @@
 #include "devicesensorbatterycharging.h"
 
+#include "src/constants.h"
+
 DeviceSensorBatteryCharging::DeviceSensorBatteryCharging(QObject *parent) :
     DeviceSensor(parent)
 {
     setName(tr("Battery Charging"));
-    setDeviceClass(QStringLiteral("battery_charging"));
-    setSensorType(QStringLiteral("binary_sensor"));
-    setUniqueId(QStringLiteral("battery_charging"));
+    setDeviceClass(ApiKey::KEY_BATTERY_CHARGING);
+    setSensorType(ApiKey::KEY_BINARY_SENSOR);
+    setUniqueId(ApiKey::KEY_BATTERY_CHARGING);
 
     setState(int(m_battery.chargerStatus()));
 

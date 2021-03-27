@@ -17,7 +17,6 @@ Page {
             id: column
 
             x: Theme.horizontalPageMargin
-
             width: page.width - 2 * x
             spacing: Theme.paddingMedium
 
@@ -34,13 +33,13 @@ Page {
                              + "\n"
                              + qsTr("Attach this data to a new issue on GitHub if you need support!")
 
-                onCheckedChanged: Client.apiLogging = checked
+                onCheckedChanged: App.api().logging = checked
 
-                Component.onCompleted: checked = Client.apiLogging
+                Component.onCompleted: checked = App.api().logging
             }
         }
     }
 
-    onStatusChanged: if (status === PageStatus.Deactivating) Client.saveSettings()
+    onStatusChanged: if (status === PageStatus.Deactivating) App.saveSettings()
 }
 

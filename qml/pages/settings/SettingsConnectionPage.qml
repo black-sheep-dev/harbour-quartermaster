@@ -7,11 +7,17 @@ Page {
     id: page
 
     function applyChanges() {
-        Client.hostname = hostnameField.text;
-        Client.ssl = sslSwitch.checked;
-        Client.port = portField.text;
+        if (externalHostnameField.acceptableInput && externalPortField.acceptableInput) {
+            App.api().serverConfig().externalUrl = externalHostnameField.text
+            App.api().serverConfig().externalPort = externalPortField.text
+        }
 
-        Client.saveSettings();
+        if (internalHostnameField.acceptableInput && internalPortField.acceptableInput) {
+            App.api().serverConfig().internalUrl = internalHostnameField.text
+            App.api().serverConfig().internalPort = internalPortField.text
+        }
+
+        App.saveSettings();
     }
 
     allowedOrientations: Orientation.All
@@ -28,17 +34,21 @@ Page {
             spacing: Theme.paddingMedium
 
             PageHeader {
-                title: qsTr("Connection")
+                title: qsTr("Connections")
+            }
+
+            SectionHeader {
+                text: qsTr("Internal Connection")
             }
 
             TextField {
-                id: hostnameField
+                id: internalHostnameField
                 width: parent.width
 
                 label: qsTr("Hostname")
                 placeholderText: qsTr("Enter hostname")
 
-                text: Client.hostname
+                text: App.api().serverConfig().internalUrl
 
                 inputMethodHints: Qt.ImhUrlCharactersOnly
                 validator: RegExpValidator {
@@ -46,56 +56,105 @@ Page {
                 }
 
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
-                EnterKey.onClicked: portField.focus = true
+                EnterKey.onClicked: internalPortField.focus = true
+
+                autoScrollEnabled: true
             }
 
             Label {
-                x: Theme.horizontalPageMargin
-                width: parent.width - 2 * x
-                visible: !hostnameField.acceptableInput
+                width: parent.width
+                visible: !internalHostnameField.acceptableInput
                 text: qsTr("Valid hostname or IP required!")
                 color: Theme.errorColor
                 font.pixelSize: Theme.fontSizeExtraSmall
             }
 
             TextField {
-                id: portField
+                id: internalPortField
                 width: parent.width / 2
 
                 label: qsTr("Port")
 
-                text: Client.port
+                text: App.api().serverConfig().internalPort
+
+                inputMethodHints: Qt.ImhDigitsOnly
+                validator: IntValidator { bottom: 1; top: 65535;}
+
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: externalHostnameField.focus = true
+
+                autoScrollEnabled: true
+            }
+
+            Label {
+                width: parent.width
+                visible: !internalPortField.acceptableInput
+                text: qsTr("Valid port required!") +  " (1-65535)"
+                color: Theme.errorColor
+                font.pixelSize: Theme.fontSizeExtraSmall
+            }
+
+            SectionHeader {
+                text: qsTr("External Connection")
+            }
+
+            TextField {
+                id: externalHostnameField
+                width: parent.width
+
+                label: qsTr("Hostname")
+                placeholderText: qsTr("Enter hostname")
+
+                text: App.api().serverConfig().externalUrl
+
+                inputMethodHints: Qt.ImhUrlCharactersOnly
+                validator: RegExpValidator {
+                    regExp: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.?[a-z]{2,8}(:[0-9]{1,5})?(\/.*)?$|^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$|[a-zA-Z0-9-_]{1,}/gm
+                }
+
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: externalPortField.focus = true
+
+                autoScrollEnabled: true
+            }
+
+            Label {
+                width: parent.width
+                visible: !externalHostnameField.acceptableInput
+                text: qsTr("Valid hostname or IP required!")
+                color: Theme.errorColor
+                font.pixelSize: Theme.fontSizeExtraSmall
+            }
+
+            TextField {
+                id: externalPortField
+                width: parent.width / 2
+
+                label: qsTr("Port")
+
+                text: App.api().serverConfig().externalPort
 
                 inputMethodHints: Qt.ImhDigitsOnly
                 validator: IntValidator { bottom: 1; top: 65535;}
 
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
                 EnterKey.onClicked: focus = false
+
+                autoScrollEnabled: true
             }
 
             Label {
-                x: Theme.horizontalPageMargin
-                width: parent.width - 2 * x
-                visible: !portField.acceptableInput
+                width: parent.width
+                visible: !externalPortField.acceptableInput
                 text: qsTr("Valid port required!") +  " (1-65535)"
                 color: Theme.errorColor
                 font.pixelSize: Theme.fontSizeExtraSmall
             }
-
-            TextSwitch {
-                id: sslSwitch
-                text: qsTr("Use SSL")
-                description: qsTr("It is highly recommend to use a ssl connection if your Home Assistant server supports it!")
-
-                checked: Client.ssl
-            }
         }
+
+        VerticalScrollDecorator {}
     }
 
-    onStatusChanged: {
-        if (status != PageStatus.Deactivating) return;
-
-        if (hostnameField.acceptableInput && portField.acceptableInput) page.applyChanges()
-    }
+    onStatusChanged: if (status == PageStatus.Deactivating) page.applyChanges();
 }
 

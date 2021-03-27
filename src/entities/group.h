@@ -14,7 +14,7 @@ public:
     Q_INVOKABLE EntitiesModel *childrenModel();
 
 private:
-    EntitiesModel *m_childrenModel{nullptr};
+    EntitiesModel *m_childrenModel{new EntitiesModel(this)};
 };
 
 #endif // GROUP_H

@@ -1,35 +1,36 @@
 #include "devicesensor.h"
 
+#include "src/constants.h"
+
 DeviceSensor::DeviceSensor(QObject *parent) :
     QObject(parent),
     m_deviceClass(QStringLiteral("None")),
-    m_name(QString()),
-    m_sensorType(QStringLiteral("sensor")),
-    m_state(QVariant(0)),
-    m_uniqueId(QString()),
-    m_unit(QString())
+    m_sensorType(ApiKey::KEY_SENSOR),
+    m_state(QVariant(0))
 {
 
 }
 
-QJsonObject DeviceSensor::toJson() const
+QJsonObject DeviceSensor::toJson()
 {
     QJsonObject sensor = getBaseSensorJson();
-    sensor.insert(QStringLiteral("device_class"), m_deviceClass);
-    sensor.insert(QStringLiteral("icon"), getIcon());
-    sensor.insert(QStringLiteral("name"), m_name);
-    sensor.insert(QStringLiteral("unit_of_measurement"), m_unit);
+    sensor.insert(ApiKey::KEY_DEVICE_CLASS, m_deviceClass);
+    sensor.insert(ApiKey::KEY_ICON, getIcon());
+    sensor.insert(ApiKey::KEY_NAME, m_name);
+    sensor.insert(ApiKey::KEY_UNIT_OF_MEASUREMENT, m_unit);
 
     return sensor;
 }
 
-QJsonObject DeviceSensor::getBaseSensorJson() const
+QJsonObject DeviceSensor::getBaseSensorJson()
 {
+    refreshState();
+
     QJsonObject sensor;
-    sensor.insert(QStringLiteral("icon"), getIcon());
-    sensor.insert(QStringLiteral("type"), m_sensorType);
-    sensor.insert(QStringLiteral("state"), getStateValue());
-    sensor.insert(QStringLiteral("unique_id"), m_uniqueId);
+    sensor.insert(ApiKey::KEY_ICON, getIcon());
+    sensor.insert(ApiKey::KEY_TYPE, m_sensorType);
+    sensor.insert(ApiKey::KEY_STATE, getStateValue());
+    sensor.insert(ApiKey::KEY_UNIQUE_ID, m_uniqueId);
 
     return sensor;
 }
@@ -150,11 +151,6 @@ void DeviceSensor::setUnit(const QString &unit)
     emit unitChanged(m_unit);
 }
 
-void DeviceSensor::onStateChanged()
-{
-    emit sensorUpdated(getBaseSensorJson());
-}
-
 QJsonValue DeviceSensor::getStateValue() const
 {
     QJsonValue state;
@@ -181,12 +177,22 @@ QJsonValue DeviceSensor::getStateValue() const
     return state;
 }
 
+void DeviceSensor::onStateChanged()
+{
+    emit sensorUpdated(getBaseSensorJson());
+}
+
 QString DeviceSensor::getIcon() const
 {
     return QString();
 }
 
 void DeviceSensor::onEnabledChanged()
+{
+
+}
+
+void DeviceSensor::refreshState()
 {
 
 }

@@ -13,6 +13,7 @@ Page {
         Column {
             id: column
             width:parent.width
+            spacing: Theme.paddingMedium
 
             PageHeader {
                 title: qsTr("About")
@@ -28,11 +29,6 @@ Page {
                 sourceSize.height: 512
                 anchors.horizontalCenter: parent.horizontalCenter
                 opacity: 0.7
-            }
-
-            Item {
-                height: Theme.paddingLarge
-                width: 1
             }
 
             Label {
@@ -51,7 +47,7 @@ Page {
             }
 
             Item {
-                height: Theme.paddingLarge
+                height: Theme.paddingMedium
                 width: 1
             }
 
@@ -65,20 +61,76 @@ Page {
             }
 
             SectionHeader{
-                text: qsTr("Sources")
+                text: qsTr("Translations")
             }
+
+            Label {
+                x : Theme.horizontalPageMargin
+                width: parent.width - 2*x
+                wrapMode: Text.WordWrap
+                font.pixelSize: Theme.fontSizeSmall
+
+                text: qsTr("Your language is not available? You are welcome to support this project by translating it on my self hosted Weblate server.")
+            }
+
             BackgroundItem{
                 width: parent.width
                 height: Theme.itemSizeMedium
                 Row{
-                    width:parent.width - 2 * x
+                    x : Theme.horizontalPageMargin
+                    width: parent.width - 2*x
                     height: parent.height
-                    x:Theme.horizontalPageMargin
                     spacing:Theme.paddingMedium
 
                     Image {
                         width: parent.height
                         height: width
+                        fillMode: Image.PreserveAspectFit
+                        anchors.verticalCenter: parent.verticalCenter
+                        source: "qrc:///icons/weblate"
+                    }
+
+                    Label{
+                        width: parent.width - parent.height - parent.spacing
+                        anchors.verticalCenter: parent.verticalCenter
+                        wrapMode: Text.WrapAnywhere
+                        font.pixelSize: Theme.fontSizeSmall
+
+                        text: "https://weblate.nubecula.org/projects/" + Qt.application.name
+                        color: parent.parent.pressed ? Theme.highlightColor : Theme.primaryColor
+
+                    }
+                }
+                onClicked: Qt.openUrlExternally("https://weblate.nubecula.org/projects/" + Qt.application.name)
+            }
+
+            Image {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width
+                height: sourceSize.height * width / sourceSize.width
+                smooth: true
+                fillMode: Image.PreserveAspectFit
+                source: "http://weblate.nubecula.org/widgets/" + Qt.application.name + "/-/" + Qt.application.name + "/multi-auto.svg"
+            }
+
+            SectionHeader{
+                text: qsTr("Sources")
+            }
+
+            BackgroundItem{
+                width: parent.width
+                height: Theme.itemSizeMedium
+                Row{
+                    x : Theme.horizontalPageMargin
+                    width: parent.width - 2*x
+                    height: parent.height
+                    spacing:Theme.paddingMedium
+
+                    Image {
+                        width: parent.height
+                        height: width
+                        fillMode: Image.PreserveAspectFit
+                        anchors.verticalCenter: parent.verticalCenter
                         source: "qrc:///icons/git"
                     }
 
@@ -93,24 +145,37 @@ Page {
 
                     }
                 }
-                onClicked: Qt.openUrlExternally("https://github.com/black-sheep-dev/"  + Qt.application.name)
+                onClicked: Qt.openUrlExternally("https://github.com/black-sheep-dev/" + Qt.application.name)
             }
 
             SectionHeader{
                 text: qsTr("Donations")
             }
 
+            Label {
+                x : Theme.horizontalPageMargin
+                width: parent.width - 2*x
+
+                wrapMode: Text.Wrap
+                font.pixelSize: Theme.fontSizeSmall
+                text: qsTr("If you like my work why not buy me a beer?")
+            }
+
             BackgroundItem{
                 width: parent.width
                 height: Theme.itemSizeMedium
+
                 Row{
-                    width:parent.width - 2 * x
+                    x: Theme.horizontalPageMargin
+                    width: parent.width - 2*x
                     height: parent.height
-                    x:Theme.horizontalPageMargin
                     spacing:Theme.paddingMedium
+
                     Image {
                         width: parent.height
                         height: width
+                        fillMode: Image.PreserveAspectFit
+                        anchors.verticalCenter: parent.verticalCenter
                         source: "qrc:///icons/paypal"
                     }
                     Label{
@@ -119,10 +184,45 @@ Page {
                         wrapMode: Text.WrapAnywhere
                         font.pixelSize: Theme.fontSizeSmall
                         color: parent.parent.pressed ? Theme.highlightColor : Theme.primaryColor
-                        text: qsTr("If you like my work you can buy me a beer.")
+                        text: qsTr("Donate with PayPal")
                     }
                 }
                 onClicked: Qt.openUrlExternally("https://www.paypal.com/paypalme/nubecula/1")
+            }
+
+            BackgroundItem{
+                width: parent.width
+                height: Theme.itemSizeMedium
+
+                Row{
+                    x: Theme.horizontalPageMargin
+                    width: parent.width - 2*x
+                    height: parent.height
+
+                    spacing:Theme.paddingMedium
+
+                    Image {
+                        width: parent.height
+                        height: width
+                        fillMode: Image.PreserveAspectFit
+                        anchors.verticalCenter: parent.verticalCenter
+                        source: "qrc:///icons/liberpay"
+                    }
+                    Label{
+                        width: parent.width - parent.height - parent.spacing
+                        anchors.verticalCenter: parent.verticalCenter
+                        wrapMode: Text.WrapAnywhere
+                        font.pixelSize: Theme.fontSizeSmall
+                        color: parent.parent.pressed ? Theme.highlightColor : Theme.primaryColor
+                        text: qsTr("Donate with Liberpay")
+                    }
+                }
+                onClicked: Qt.openUrlExternally("https://liberapay.com/black-sheep-dev/donate")
+            }
+
+            Item {
+                width: 1
+                height: Theme.paddingSmall
             }
         }
     }

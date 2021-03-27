@@ -13,8 +13,8 @@ int EntitiesModel::entitiesCount() const
 
 Entity *EntitiesModel::entityById(const QString &entityId)
 {
-    for (auto & m_entitie : m_entities) {
-        auto entity = qobject_cast<Entity *>(m_entitie);
+    for (auto e : m_entities) {
+        auto entity = qobject_cast<Entity *>(e);
         if (entity->entityId() == entityId)
             return entity;
     }
@@ -52,10 +52,9 @@ void EntitiesModel::setParentMode(bool enable)
 {
     m_parentMode = enable;
 }
-
 void EntitiesModel::addEntity(Entity *entity)
 {
-    if (!entity)
+    if (entity == nullptr)
         return;
 
     beginInsertRows(QModelIndex(), m_entities.count(), m_entities.count());
@@ -72,7 +71,6 @@ void EntitiesModel::addEntity(Entity *entity)
 void EntitiesModel::setEntities(const QList<Entity *> &entities)
 {
     beginResetModel();
-
     if (m_parentMode) {
         qDeleteAll(m_entities.begin(), m_entities.end());
         m_entities.clear();
@@ -80,8 +78,7 @@ void EntitiesModel::setEntities(const QList<Entity *> &entities)
 
     m_entities = entities;
 
-
-    for (auto &entity : m_entities) {
+    for (auto entity : m_entities) {
         if (m_parentMode)
             entity->setParent(this);
 
@@ -92,9 +89,22 @@ void EntitiesModel::setEntities(const QList<Entity *> &entities)
     emit changed();
 }
 
-void EntitiesModel::updateEntity(Entity *entity)
+
+void EntitiesModel::reset()
 {
-    if (!entity)
+    beginResetModel();
+    if (!m_entities.isEmpty()) {
+        qDeleteAll(m_entities.begin(), m_entities.end());
+        m_entities.clear();
+    }
+    endResetModel();
+}
+
+void EntitiesModel::onEntityChanged()
+{
+    auto entity = qobject_cast<Entity *>(sender());
+
+    if (entity == nullptr)
         return;
 
     const int idx = m_entities.indexOf(entity);
@@ -109,19 +119,6 @@ void EntitiesModel::updateEntity(Entity *entity)
     emit changed();
 }
 
-void EntitiesModel::reset()
-{
-    beginResetModel();
-    qDeleteAll(m_entities.begin(), m_entities.end());
-    m_entities.clear();
-    endResetModel();
-}
-
-void EntitiesModel::onEntityChanged()
-{
-    updateEntity(qobject_cast<Entity *>(sender()));
-}
-
 int EntitiesModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
@@ -134,12 +131,9 @@ QVariant EntitiesModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    Entity *entity = m_entities.at(index.row());
+    const auto entity = m_entities.at(index.row());
 
     switch (role) {
-    case Qt::DisplayRole:
-        return entity->name();
-
     case NameRole:
         return entity->name();
 
@@ -172,10 +166,10 @@ QHash<int, QByteArray> EntitiesModel::roleNames() const
 
     roles[AttributesRole]           = "attributes";
     roles[ContextRole]              = "context";
-    roles[EntityIdRole]             = "entity_id";
-    roles[SupportedFeaturesRole]    = "supported_features";
+    roles[EntityIdRole]             = "entityId";
+    roles[SupportedFeaturesRole]    = "supportedFeatures";
     roles[NameRole]                 = "name";
-    roles[StateRole]                = "entity_state";
+    roles[StateRole]                = "entityState";
     roles[TypeRole]                 = "type";
 
     return roles;

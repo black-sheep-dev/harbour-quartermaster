@@ -34,7 +34,6 @@ public:
 
     void addEntity(Entity *entity);
     void setEntities(const QList<Entity *> &entities);
-    void updateEntity(Entity *entity);
 
 signals:
     void changed();

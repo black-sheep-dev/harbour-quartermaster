@@ -17,7 +17,7 @@ Page {
 
         onTriggered: {
             cameraView.source = ""
-            cameraView.source = Client.baseUrl() + entity.attributes.entity_picture
+            cameraView.source = App.api().baseUrl() + entity.attributes.entity_picture
         }
     }
 
@@ -39,7 +39,7 @@ Page {
                 id: cameraView
                 asynchronous: true
                 cache: false
-                source: Client.baseUrl() + entity.attributes.entity_picture
+                source: App.api().baseUrl() + entity.attributes.entity_picture
                 smooth: true
                 width: column.width * 0.8
 

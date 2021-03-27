@@ -34,46 +34,83 @@ Page {
                 color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeMedium
 
-                text: qsTr("Here you can activate / deactivate different device tracking options.")
+                text: qsTr("Manage options to track your device location and send it to the Home Assistant server.")
                       + "\n"
                       + qsTr("Activating these options leads to higher battery consumption and network traffic.");
             }
 
+            SectionHeader {
+                text: qsTr("GPS Tracking")
+            }
+
             TextSwitch {
                 id: gpsTrackingSwitch
-                text: qsTr("GPS Tracking")
+                text: qsTr("GPS")
                 description: qsTr("Use GPS data to track the device position.")
-                             + "\n"
-                             + qsTr("Position is updated every 30 seconds when activated.")
 
-                onCheckedChanged: {
-                    if (checked)
-                        Client.trackingModes |= Client.TrackingGPS
-                    else
-                        Client.trackingModes &= ~Client.TrackingGPS
-                }
-                Component.onCompleted: checked = (Client.trackingModes & Client.TrackingGPS) === Client.TrackingGPS
+                onCheckedChanged: App.locationService().enableGps = checked
+                Component.onCompleted: checked = App.locationService().enableGps
+            }
+
+            TextField {
+                enabled: gpsTrackingSwitch.checked
+                id: portField
+                width: parent.width / 2
+
+                label: qsTr("Update Interval (msec)")
+
+                text: App.locationService().updateInterval
+
+                inputMethodHints: Qt.ImhDigitsOnly
+                validator: IntValidator { bottom: 1000 }
+
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: focus = false
+            }
+
+            TextSwitch {
+                enabled: gpsTrackingSwitch.checked && wifiTrackingSwitch.checked
+                id: disableGpsAtHomeSwitch
+                text: qsTr("Disable GPS at home")
+                description: qsTr("GPS tracking is turned off when at home. This option needs enabled Wifi tracking.")
+
+                onCheckedChanged: App.locationService().disableGpsAtHome = checked
+                Component.onCompleted: checked = App.locationService().disableGpsAtHome
+            }
+
+            SectionHeader {
+                text: qsTr("Wifi Tracking")
             }
 
             TextSwitch {
                 id: wifiTrackingSwitch
-                text: qsTr("Wifi Tracking")
-                description: qsTr("WiFi networks will be used to track the device. You need to add Wifi Networks to your different zones in zone settings.")
+                text: qsTr("Wifi")
+                description: qsTr("Available access points will be used to track the device.")
                              + "\n"
-                             + qsTr("If the device connects to a known wireless network, it will send the position information of its parent zone.")
+                             + qsTr("If the device discovers a known access point, it will send the position information of its parent zone.")
                              + "\n"
-                             + qsTr("Zones can be created in the Home Assistant web interface.")
+                             + qsTr("It is recommend to keep the wifi tracking enabled!")
+                             + "\n"
+                             + qsTr("You need to add the access points to your different zones on zone settings page. Zones can be created in the Home Assistant web interface.")
 
-                onCheckedChanged: {
-                    if (checked)
-                        Client.trackingModes |= Client.TrackingWifi
-                    else
-                        Client.trackingModes &= ~Client.TrackingWifi
-                }
-                Component.onCompleted: checked = (Client.trackingModes & Client.TrackingWifi) === Client.TrackingWifi
+
+
+                onCheckedChanged: App.locationService().enableWifi = checked
+                Component.onCompleted: checked = App.locationService().enableWifi
             }
+
+//            TextSwitch {
+//                enabled: false
+//                id: wifiTrackConnectedApsOnlySwitch
+//                text: qsTr("Connected only")
+//                description: qsTr("Only track access points the device is connected to.")
+
+
+//                onCheckedChanged: App.locationService().trackConnectedApsOnly = checked
+//                Component.onCompleted: checked = App.locationService().trackConnectedApsOnly
+//            }
         }
     }
 
-    onStatusChanged: if (status === PageStatus.Deactivating) Client.saveSettings()
+    onStatusChanged: if (status === PageStatus.Deactivating) App.saveSettings()
 }

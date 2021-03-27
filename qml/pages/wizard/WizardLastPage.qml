@@ -5,77 +5,67 @@ import org.nubecula.harbour.quartermaster 1.0
 
 import "../../components"
 
-Page {
-    id: page
-
+Dialog {
+    id: dialog
     allowedOrientations: Orientation.Portrait
 
     PageBusyIndicator {
         size: BusyIndicatorSize.Large
-        running: Client.busy
+        running: busy
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
-    SilicaFlickable {
-        anchors.fill: parent
-        contentHeight: column.height
+    DialogHeader {
+        id: header
+        acceptText: qsTr("Complete")
+        cancelText: qsTr("Back")
+    }
 
-        Column {
-            id: column
-            x: Theme.horizontalPageMargin
-            width: parent.width - 2 * x
+    Column {
+        anchors.top: header.bottom
+        x: Theme.horizontalPageMargin
+        width: parent.width - 2*x
+        spacing: Theme.paddingMedium
 
-            opacity: 0
+        Label {
+            width: parent.width
 
-            PageHeader {
-                Row {
-                    x: Theme.paddingMedium
-                    width: parent.width - 2*x
-                    anchors.verticalCenter: parent.verticalCenter
+            text: qsTr("Setup process completed")
 
-                    Label {
-                        width: parent.width / 2
-                        text: qsTr("Back")
+            color: Theme.highlightColor
+            font.pixelSize: Theme.fontSizeLarge
+        }
 
-                        color: Theme.secondaryHighlightColor
-                        font.pixelSize: Theme.fontSizeExtraLarge
-                    }
+        Label {
+            visible: canAccept
+            width: parent.width
+            wrapMode: Text.Wrap
 
-                    Label {
-                        id: labelProceed
-                        visible: false
-                        width: parent.width / 2
-                        text: ""
+            text: qsTr("You can now proceed to the main screen.")
+                  + "\n"
+                  + qsTr("Some of the setting from this wizard can be changed in the applications settings page.")
 
-                        horizontalAlignment: Text.AlignRight
+            color: Theme.highlightColor
+            font.pixelSize: Theme.fontSizeSmall
+        }
 
-                        color: Theme.secondaryHighlightColor
-                        font.pixelSize: Theme.fontSizeExtraLarge
-                    }
-                }
-            }
+        Label {
+            visible: canAccept
+            width: parent.width
+            wrapMode: Text.Wrap
 
-            Label {
-                width: parent.width
+            text: qsTr("Welcome to your smart home!")
 
-                text: qsTr("Registration failed")
-
-                color: Theme.secondaryHighlightColor
-                font.pixelSize: Theme.fontSizeLarge
-            }
+            color: Theme.highlightColor
+            font.pixelSize: Theme.fontSizeMedium
         }
     }
 
-    onStatusChanged: if (status == PageStatus.Active) Client.registerDevice()
-
-    Connections {
-        target: Client.device()
-        onRegisteredChanged: {
-            if (Client.device().registered) {
-                pageStack.clear()
-                pageStack.push(Qt.resolvedUrl("../OverviewPage.qml"))
-            }
-        }
+    onAccepted: {
+        App.needSetup = false
+        App.initialize()
+        pageStack.clear()
+        pageStack.push(Qt.resolvedUrl("../OverviewPage.qml"))
     }
 }

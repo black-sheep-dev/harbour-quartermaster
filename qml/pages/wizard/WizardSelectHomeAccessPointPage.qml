@@ -3,32 +3,31 @@ import Sailfish.Silica 1.0
 
 import org.nubecula.harbour.quartermaster 1.0
 
+import "../../components"
+
 Dialog {
-    property Zone zone
+    property bool busy: true
+    property string identifier
+    property string name
 
-    id: selectNetworkDialog
+    id: dialog
+    allowedOrientations: Orientation.Portrait
 
-    anchors.fill: parent
+    acceptDestination: Qt.resolvedUrl("WizardLastPage.qml")
+
+    canAccept: false
+
+    PageBusyIndicator {
+        size: BusyIndicatorSize.Large
+        running: busy
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+    }
 
     DialogHeader {
         id: header
-        title: qsTr("Select Wifi networks")
-        reserveExtraContent: true
-    }
-
-    IconButton {
-        icon.source: "image://theme/icon-m-refresh"
-        anchors.right: header.right
-        anchors.bottom: header.bottom
-
-        onClicked: Client.updateNetworksModel();
-    }
-
-    PageBusyIndicator {
-        id: busyIndicator
-        size: BusyIndicatorSize.Large
-        running: Client.networksModel().loading
-        anchors.centerIn: parent
+        acceptText: qsTr("Select")
+        cancelText: qsTr("Back")
     }
 
     SilicaListView {
@@ -37,7 +36,7 @@ Dialog {
 
         width: parent.width
 
-        model: Client.networksModel()
+        model: App.locationService().availableAccessPointsModel()
 
         delegate: ListItem {
             height: Theme.itemSizeMedium
@@ -56,12 +55,7 @@ Dialog {
 
                 Image {
                     id: wlanIcon
-                    source: {
-                        if (!defined)
-                            return "image://theme/icon-m-wlan"
-
-                        return discovered ? "image://theme/icon-m-wlan" : "image://theme/icon-m-wlan-no-signal"
-                    }
+                    source: "image://theme/icon-m-wlan"
 
                     anchors.verticalCenter: parent.verticalCenter
                 }
@@ -79,7 +73,7 @@ Dialog {
 
                     Label {
                         width: parent.width
-                        text: defined ? qsTr("Stored network") : qsTr("Available network")
+                        text: qsTr("Available network")
 
                         color: pressed ? Theme.secondaryHighlightColor : Theme.secondaryColor
                         font.pixelSize: Theme.fontSizeSmall
@@ -89,18 +83,41 @@ Dialog {
                 Image {
                     id: selectedIcon
 
-                    visible: selected
+                    visible: dialog.identifier === model.identifier
 
                     source: "image://theme/icon-m-acknowledge"
                     anchors.verticalCenter: parent.verticalCenter
                 }
             }
 
-            onClicked: selected = !selected
+            onClicked: {
+                dialog.identifier = model.identifier
+                dialog.name = model.name
+                canAccept = true
+            }
         }
 
         VerticalScrollDecorator {}
     }
 
-    Component.onCompleted: Client.updateNetworksModel()
+    Connections {
+        target: App.api()
+        onRequestFinished: {
+            if (requestType !== Api.RequestWebhookGetZones) return;
+
+            busy = false
+        }
+        onRequestError: {
+            if (requestType !== Api.RequestPostApiRegisterDevice) return;
+
+            busy = false
+        }
+    }
+
+    onAccepted: {
+        App.locationService().addAccessPointToZone(
+                    App.locationService().homezone().guid,
+                    dialog.identifier,
+                    dialog.name)
+    }
 }

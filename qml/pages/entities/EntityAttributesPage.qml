@@ -10,52 +10,37 @@ Page {
 
     allowedOrientations: Orientation.All
 
-    SilicaListView {
-        id: listView
-
+    SilicaFlickable {
         anchors.fill: parent
-        header: PageHeader {
+
+        PageHeader {
             title: qsTr("Attributes")
         }
 
-        model: SortFilterModel {
-            id: sortModel
-            sourceModel: EntityAttributesModel {
-                entity: page.entity
-            }
-        }
+        contentHeight: Column.height
 
-        delegate: ListItem {
-            id: delegate
+        Column {
+            id: column;
             width: parent.width
-            contentHeight: Theme.itemSizeLarge
+            spacing: Theme.paddingMedium
 
-            Row {
-                x: Theme.horizontalPageMargin
-                width: parent.width - 2 * x
-                height: parent.height
-                anchors.verticalCenter: parent.verticalCenter
-
-                Column {
-                    width: parent.width
-                    anchors.verticalCenter: parent.verticalCenter
-
-                    Label {
-                        width: parent.width
-                        text: key
-                        color: pressed?Theme.secondaryHighlightColor:Theme.highlightColor
-                        font.pixelSize: Theme.fontSizeLarge
+            Repeater {
+                model: SortFilterModel {
+                    id: sortModel
+                    sourceModel: EntityAttributesModel {
+                        entity: page.entity
                     }
-                    Label {
-                        text: value
-                        color: Theme.secondaryColor
-                        font.pixelSize: Theme.fontSizeMedium
-                    }
+                    sortRole: EntityAttributesModel.KeyRole
+                }
+
+                DetailItem {
+                    label: model.key
+                    value: model.value
                 }
             }
-        }
 
-        VerticalScrollDecorator {}
+            VerticalScrollDecorator {}
+        }
     }
 }
 

@@ -1,8 +1,5 @@
 #include "zonesmodel.h"
 
-#include <QJsonArray>
-#include <QJsonObject>
-
 ZonesModel::ZonesModel(QObject *parent) :
     QAbstractListModel(parent)
 {
@@ -27,70 +24,49 @@ void ZonesModel::addZone(Zone *zone)
     if (!zone)
         return;
 
+    connect(zone, &Zone::changed, this, &ZonesModel::updateZone);
+
     beginInsertRows(QModelIndex(), m_zones.count(), m_zones.count());
     zone->setParent(this);
     m_zones.append(zone);
-    connect(zone, &Zone::networksChanged, this, &ZonesModel::onNetworksChanged);
     endInsertRows();
 }
 
 void ZonesModel::setZones(const QList<Zone *> &zones)
 {
     beginResetModel();
-    qDeleteAll(m_zones.begin(), m_zones.end());
+    if (!m_zones.isEmpty())
+        qDeleteAll(m_zones.begin(), m_zones.end());
+
     m_zones = zones;
 
-    for (auto &zone : m_zones) {
+    for (auto zone : m_zones) {
         zone->setParent(this);
-        connect(zone, &Zone::networksChanged, this, &ZonesModel::onNetworksChanged);
+
+        connect(zone, &Zone::changed, this, &ZonesModel::updateZone);
     }
     endResetModel();
-
-    setLoading(false);
-    emit refreshed();
 }
 
-void ZonesModel::setZones(const QJsonArray &array)
+void ZonesModel::updateZone()
 {
-    QList<Zone *> zones;
+    auto zone = qobject_cast<Zone *>(sender());
+    if (zone == nullptr)
+        return;
 
-    for (const QJsonValue &value : array) {
-        auto zone = new Zone;
-        zone->setJson(value.toObject());
-
-        zones.append(zone);
+    int i{-1};
+    for (const auto z : m_zones) {
+        i++;
+        if (z->guid() == zone->guid())
+            break;
     }
 
-    setZones(zones);
-}
-
-bool ZonesModel::loading() const
-{
-    return m_loading;
-}
-
-void ZonesModel::setLoading(bool loading)
-{
-    if (m_loading == loading)
-        return;
-
-    m_loading = loading;
-    emit loadingChanged(m_loading);
-}
-
-void ZonesModel::onNetworksChanged()
-{
-    auto *zone = qobject_cast<Zone *>(sender());
-
-    if (!zone)
-        return;
-
-    const QModelIndex idx = index(m_zones.indexOf(zone));
+    const QModelIndex idx = index(i);
 
     if (!idx.isValid())
         return;
 
-    emit dataChanged(idx, idx);
+    emit dataChanged(idx, idx, QVector<int>() << NameRole << IsHomeRole << NetworkCountRole);
 }
 
 int ZonesModel::rowCount(const QModelIndex &parent) const
@@ -105,7 +81,7 @@ QVariant ZonesModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    Zone *zone = m_zones.at(index.row());
+    const auto zone = m_zones.at(index.row());
 
     switch (role) {
     case Qt::DisplayRole:
@@ -114,17 +90,20 @@ QVariant ZonesModel::data(const QModelIndex &index, int role) const
     case NameRole:
         return zone->name();
 
-    case NetworkCountRole:
-        return zone->networksModel()->networks().count();
-
     case GuidRole:
         return zone->guid();
+
+    case IsHomeRole:
+        return zone->isHome();
 
     case LatitudeRole:
         return zone->latitude();
 
     case LongitudeRole:
         return zone->longitude();
+
+    case NetworkCountRole:
+        return zone->networkCount();
 
     case RadiusRole:
         return zone->radius();
@@ -139,10 +118,11 @@ QHash<int, QByteArray> ZonesModel::roleNames() const
     QHash<int, QByteArray> roles;
 
     roles[GuidRole]             = "guid";
+    roles[IsHomeRole]           = "isHome";
     roles[LatitudeRole]         = "latitude";
     roles[LongitudeRole]        = "longitude";
     roles[NameRole]             = "name";
-    roles[NetworkCountRole]     = "networks_count";
+    roles[NetworkCountRole]     = "networkCount";
     roles[RadiusRole]           = "radius";
 
     return roles;

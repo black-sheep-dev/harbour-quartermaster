@@ -33,12 +33,9 @@ QVariant EntityTypesModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    const EntityTypeItem item = m_items.at(index.row());
+    const auto &item = m_items.at(index.row());
 
     switch (role) {
-    case Qt::DisplayRole:
-        return item.title;
-
     case TitleRole:
         return item.title;
 
@@ -51,6 +48,9 @@ QVariant EntityTypesModel::data(const QModelIndex &index, int role) const
     case TypeRole:
         return item.type;
 
+    case CountRole:
+        return item.count;
+
     default:
         return QVariant();
 
@@ -61,6 +61,7 @@ QHash<int, QByteArray> EntityTypesModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
 
+    roles[CountRole]        = "count";
     roles[TitleRole]        = "title";
     roles[DescriptionRole]  = "description";
     roles[IconRole]         = "icon";

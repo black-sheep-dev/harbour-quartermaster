@@ -9,7 +9,6 @@ Column {
     property string resultTextFalse: qsTr("FAILED")
 
     width: parent.width
-    height: Theme.itemSizeExtraLarge
     spacing: Theme.paddingMedium
 
     Row {
@@ -28,7 +27,7 @@ Column {
         Label {
             anchors.verticalCenter: parent.verticalCenter
             text: result ? resultTextTrue : resultTextFalse
-            wrapMode: Label.WordWrap
+            wrapMode: Text.WordWrap
             width: parent.width * 0.3
 
             horizontalAlignment: Text.AlignRight
@@ -41,6 +40,7 @@ Column {
     Label {
         visible: !result && description.length > 0
         width: parent.width
+        wrapMode: Text.Wrap
 
         text: description
         font.pixelSize: Theme.fontSizeSmall

@@ -17,8 +17,8 @@ class BackupTool : public QObject
 
 public:    
     enum BackupOption {
-        BackupNone      = 0x00,
-        BackupWifi      = 0x01
+        BackupNone          = 0x00,
+        BackupAccessPoints  = 0x01
     };
     Q_ENUM(BackupOption)
     Q_DECLARE_FLAGS(BackupOptions, BackupOption)

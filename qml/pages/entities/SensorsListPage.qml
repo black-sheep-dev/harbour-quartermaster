@@ -6,6 +6,7 @@ import org.nubecula.harbour.quartermaster 1.0
 import "../../components/"
 
 Page {
+    property bool busy: false
     property string title
     property int type
     property string icon
@@ -17,14 +18,17 @@ Page {
     PageBusyIndicator {
         id: busyIndicator
         size: BusyIndicatorSize.Large
-        running: Client.entitiesProvider().loading
+        running: busy
     }
 
     SilicaFlickable {
         PullDownMenu {
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: Client.entitiesProvider().updateModel(type)
+                onClicked: {
+                    busy = true
+                    App.api().getStates()
+                }
             }
             MenuItem {
                 text: qsTr("Search")
@@ -82,29 +86,25 @@ Page {
 
             model: EntitiesSortFilterModel {
                 id: filterModel
-                sourceModel: Client.entitiesProvider().model(type)
+                sourceModel: App.entitiesService().entitiesModel()
             }
 
             delegate: ListItem {
                 id: delegate
                 width: parent.width
-                contentHeight: Theme.itemSizeLarge
+                contentHeight: Theme.itemSizeMedium
 
                 Row {
                     x: Theme.horizontalPageMargin
                     width: parent.width - 2 * x
                     height: parent.height
                     anchors.verticalCenter: parent.verticalCenter
+                    spacing: Theme.paddingMedium
 
                     Image {
                         id: itemIcon
                         source: page.icon
                         anchors.verticalCenter: parent.verticalCenter
-                    }
-
-                    Item {
-                        width: Theme.paddingMedium
-                        height: 1
                     }
 
                     Column {
@@ -115,17 +115,17 @@ Page {
                             width: parent.width
                             text: name
                             color: pressed ? Theme.secondaryHighlightColor : Theme.highlightColor
-                            font.pixelSize: Theme.fontSizeLarge
+                            font.pixelSize: Theme.fontSizeMedium
                         }
                         Label {
                             text: {
-                                if (entity_state === undefined)
+                                if (entityState === undefined)
                                     return qsTr("No sensor data available")
 
-                                if (entity_state === "unavailable")
+                                if (entityState === "unavailable")
                                     return qsTr("Unavailable")
 
-                                var str = entity_state
+                                var str = entityState
                                 if (attributes.unit_of_measurement !== undefined) {
                                     str += " "
                                     str += attributes.unit_of_measurement
@@ -135,15 +135,36 @@ Page {
                             }
 
                             color: Theme.secondaryColor
-                            font.pixelSize: Theme.fontSizeMedium
+                            font.pixelSize: Theme.fontSizeSmall
                         }
                     }
                 }
             }
+
+            ViewPlaceholder {
+                enabled: listView.count == 0
+                text: qsTr("No sensors available")
+                hintText: qsTr("Check your network connection")
+            }
+
+            VerticalScrollDecorator {}
         }
     }
 
     Component.onCompleted: {
-        if ((Client.updateModes & Client.UpdateModeEntityModel) === Client.UpdateModeEntityModel) Client.entitiesProvider().updateModel(type)
+        filterModel.resetEntityFilter()
+        filterModel.addEntityFilter(Entity.Sensor)
+        filterModel.addEntityFilter(Entity.BinarySensor)
     }
+
+    Component.onDestruction: filterModel.resetEntityFilter()
+
+    Connections {
+        target: App.api()
+        onRequestFinished: if (requestType === Api.RequestGetApiStates) busy = false
+    }
+
+//    Component.onCompleted: {
+//        if ((Client.updateModes & Client.UpdateModeEntityModel) === Client.UpdateModeEntityModel) Client.entitiesProvider().updateModel(type)
+//    }
 }

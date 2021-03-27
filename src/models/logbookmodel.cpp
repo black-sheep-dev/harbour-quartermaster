@@ -75,7 +75,7 @@ QVariant LogBookModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    const LogEntry entry = m_entries.at(index.row());
+    const auto entry = m_entries.at(index.row());
 
     switch (role) {
     case DomainRole:

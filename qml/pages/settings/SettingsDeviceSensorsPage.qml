@@ -32,16 +32,18 @@ Page {
                 color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeMedium
 
-                text: qsTr("Here you can activate / deactivate automatic sensors updates. Automatic sensor updates can lead to more network traffic and battery consumption.");
+                text: qsTr("Device sensors can send their current state to the Home Assistant server.")
+                      + "\n"
+                      + qsTr("Activating these options leads to higher battery consumption and network traffic.");
             }
 
             TextSwitch {
                 id: toggleAllSwitch
-                text: qsTr("Automatic updates")
+                text: qsTr("Live Updates")
                 description: qsTr("This toggles all sensors on/off")
 
-                onCheckedChanged: Client.device().sensorAutoUpdate = checked
-                Component.onCompleted: checked = Client.device().sensorAutoUpdate
+                onCheckedChanged: App.deviceService().sensorLiveUpdates = checked
+                Component.onCompleted: checked = App.deviceService().sensorLiveUpdates
             }
 
             SectionHeader {
@@ -53,7 +55,7 @@ Page {
                 height: 600
                 contentHeight: Theme.itemSizeMedium
 
-                model: Client.device().sensorModel()
+                model: App.deviceService().sensorsModel()
 
                 delegate: Item {
                     width: parent.width

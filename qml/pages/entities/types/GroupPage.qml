@@ -4,6 +4,7 @@ import Sailfish.Silica 1.0
 import org.nubecula.harbour.quartermaster 1.0
 
 Page {
+    property bool busy: false
     property Group entity
 
     id: page
@@ -11,14 +12,18 @@ Page {
     allowedOrientations: Orientation.All
 
     SilicaFlickable {
-        PullDownMenu { 
+        PullDownMenu {
+            busy: page.busy
             MenuItem {
                 text: qsTr("Attributes")
                 onClicked: pageStack.push(Qt.resolvedUrl("../EntityAttributesPage.qml"), { entity: entity })
             }
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: Client.entitiesProvider().updateEntity(entity.entityId)
+                onClicked: {
+                    page.busy = true;
+                    App.entitiesService().getEntityState(entity.entityId)
+                }
             }
         }
 
@@ -40,14 +45,16 @@ Page {
                 checked: entity.state === "on"
 
                 onClicked: {
-                    Client.entitiesProvider().callService("homeassistant",
-                                                          checked ? "turn_on" : "turn_off",
-                                                          entity.entityId)
+                    App.entitiesService().callService("homeassistant",
+                                                      checked ? "turn_on" : "turn_off",
+                                                      {
+                                                          entity_id: entity.entityId
+                                                      })
                 }
             }
 
             SectionHeader{
-                text: qsTr("Child Entities")
+                text: qsTr("Children")
             }
         }
 
@@ -63,6 +70,7 @@ Page {
             model: EntitiesSortFilterModel {
                 id: filterModel
                 sourceModel: entity.childrenModel()
+                sortRole: EntitiesModel.NameRole
             }
 
             delegate: ListItem {
@@ -75,17 +83,14 @@ Page {
                     width: parent.width - 2 * x
                     height: parent.height
                     anchors.verticalCenter: parent.verticalCenter
+                    spacing: Theme.paddingMedium
 
                     Image {
                         id: itemIcon
-                        source: Client.entitiesProvider().getEntityIcon(type)
+                        source: App.entitiesService().getEntityIcon(type)
                         anchors.verticalCenter: parent.verticalCenter
                     }
 
-                    Item {
-                        width: Theme.paddingMedium
-                        height: 1
-                    }
 
                     Column {
                         width: parent.width - itemIcon.width - Theme.paddingMedium
@@ -95,19 +100,26 @@ Page {
                             width: parent.width
                             text: name
                             color: pressed ? Theme.secondaryHighlightColor : Theme.highlightColor
-                            font.pixelSize: Theme.fontSizeLarge
+                            font.pixelSize: Theme.fontSizeMedium
                         }
                         Label {
-                            text: entity_state
+                            text: entityState
 
                             color: Theme.secondaryColor
-                            font.pixelSize: Theme.fontSizeMedium
+                            font.pixelSize: Theme.fontSizeSmall
                         }
                     }
                 }
             }
+
+            VerticalScrollDecorator {}
         }
     }
 
-    Component.onCompleted: if ((Client.updateModes & Client.UpdateModeSingleEntity) === Client.UpdateModeSingleEntity) Client.entitiesProvider().updateEntity(entity.entityId)
+    Connections {
+        target: App.api()
+        onRequestFinished: if (requestType === Api.RequestGetApiStatesEntity) busy = false
+    }
+
+    //Component.onCompleted: if ((Client.updateModes & Client.UpdateModeSingleEntity) === Client.UpdateModeSingleEntity) Client.entitiesProvider().updateEntity(entity.entityId)
 }

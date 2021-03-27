@@ -22,8 +22,8 @@ class DeviceSensor : public QObject
 public:    
     explicit DeviceSensor(QObject *parent = nullptr);
 
-    QJsonObject toJson() const;
-    QJsonObject getBaseSensorJson() const;
+    QJsonObject toJson();
+    QJsonObject getBaseSensorJson();
 
     // properties
     bool active() const;
@@ -61,8 +61,8 @@ public slots:
     void setUnit(const QString &unit);
 
 private:
-    void onStateChanged();
     QJsonValue getStateValue() const;
+    void onStateChanged();
 
     // properties
     QString m_deviceClass;
@@ -79,6 +79,7 @@ private:
 public:
     virtual QString getIcon() const;
     virtual void onEnabledChanged();
+    virtual void refreshState();
 };
 
 #endif // DEVICESENSOR_H

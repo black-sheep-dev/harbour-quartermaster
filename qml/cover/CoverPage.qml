@@ -2,14 +2,13 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 CoverBackground {
-
     Image {
-        width: parent.width * 0.8
-        height: width
+        anchors.left: parent.left
+        anchors.top: parent.top
+        width: parent.width
+        height: sourceSize.height * width / sourceSize.width
         smooth: true
-        source: "image://theme/harbour-quartermaster"
-        anchors.centerIn: parent
-        opacity: 0.3
+        source: "qrc:///cover/cover-background"
+        opacity: 0.1
     }
-
 }

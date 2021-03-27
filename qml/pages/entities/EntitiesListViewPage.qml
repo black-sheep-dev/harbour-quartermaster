@@ -6,6 +6,7 @@ import org.nubecula.harbour.quartermaster 1.0
 import "../../components/"
 
 Page {
+    property bool busy: false
     property string title
     property int type
     property string icon
@@ -17,7 +18,7 @@ Page {
     PageBusyIndicator {
         id: busyIndicator
         size: BusyIndicatorSize.Large
-        running: Client.entitiesProvider().loading
+        running: busy
         anchors.centerIn: parent
     }
 
@@ -25,7 +26,10 @@ Page {
         PullDownMenu {
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: Client.entitiesProvider().updateModel(type)
+                onClicked: {
+                    busy = true
+                    App.api().getStates()
+                }
             }
 
             MenuItem {
@@ -84,29 +88,25 @@ Page {
 
             model: EntitiesSortFilterModel {
                 id: filterModel
-                sourceModel: Client.entitiesProvider().model(type)
+                sourceModel: App.entitiesService().entitiesModel()
             }
 
             delegate: ListItem {
                 id: delegate
                 width: parent.width
-                contentHeight: Theme.itemSizeLarge
+                contentHeight: Theme.itemSizeMedium
 
                 Row {
                     x: Theme.horizontalPageMargin
                     width: parent.width - 2 * x
                     height: parent.height
                     anchors.verticalCenter: parent.verticalCenter
+                    spacing: Theme.paddingMedium
 
                     Image {
                         id: itemIcon
                         source: page.icon
                         anchors.verticalCenter: parent.verticalCenter
-                    }
-
-                    Item {
-                        width: Theme.paddingMedium
-                        height: 1
                     }
 
                     Column {
@@ -117,13 +117,13 @@ Page {
                             width: parent.width
                             text: name
                             color: pressed ? Theme.secondaryHighlightColor : Theme.highlightColor
-                            font.pixelSize: Theme.fontSizeLarge
+                            font.pixelSize: Theme.fontSizeMedium
                         }
                         Label {
-                            text: entity_state
+                            text: entityState
 
                             color: Theme.secondaryColor
-                            font.pixelSize: Theme.fontSizeMedium
+                            font.pixelSize: Theme.fontSizeSmall
                         }
                     }
                 }
@@ -160,10 +160,26 @@ Page {
                     }
                 }
             }
+
+            ViewPlaceholder {
+                enabled: listView.count == 0
+                text: qsTr("No entities available")
+                hintText: qsTr("Check your network connection")
+            }
+
+            VerticalScrollDecorator {}
         }
     }
 
     Component.onCompleted: {
-        if ((Client.updateModes & Client.UpdateModeEntityModel) === Client.UpdateModeEntityModel) Client.entitiesProvider().updateModel(type)
+        filterModel.resetEntityFilter()
+        filterModel.addEntityFilter(type)
+    }
+
+    Component.onDestruction: filterModel.resetEntityFilter()
+
+    Connections {
+        target: App.api()
+        onRequestFinished: if (requestType === Api.RequestGetApiStates) busy = false
     }
 }

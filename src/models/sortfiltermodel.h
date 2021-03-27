@@ -10,15 +10,7 @@ class SortFilterModel : public QSortFilterProxyModel
 public:
     explicit SortFilterModel(QObject *parent = nullptr);
 
-    Q_INVOKABLE void setSortOrder(Qt::SortOrder order);
-    Q_INVOKABLE void sortModel();
-
-private:
-    Qt::SortOrder m_sortOrder{Qt::AscendingOrder};
-
-    // QAbstractProxyModel interface
-public:
-    void setSourceModel(QAbstractItemModel *sourceModel) override;
+    Q_INVOKABLE void sortModel(Qt::SortOrder order = Qt::AscendingOrder);
 };
 
 #endif // SORTFILTERMODEL_H
