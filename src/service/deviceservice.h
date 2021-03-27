@@ -79,6 +79,7 @@ private:
     // sailfish secrets
     void createCollection();
     void deleteCollection();
+    void deleteSecret();
     void loadCredentials();
     void storeCredentials();
 

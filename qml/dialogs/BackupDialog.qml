@@ -32,16 +32,16 @@ Dialog {
             id: wifiBackupSwitch
             x: Theme.horizontalPageMargin
             width: parent.width - 2 * x
-            text: qsTr("Wifi settings")
-            description: qsTr("Backup wifi network settings of zones")
+            text: qsTr("Access Point Settings")
+            description: qsTr("Backup access point settings of zones")
 
             onCheckedChanged: {
                 if (checked)
-                    options |= BackupTool.BackupWifi
+                    options |= BackupTool.BackupAccessPoints
                 else
-                    options &= ~BackupTool.BackupWifi
+                    options &= ~BackupTool.BackupAccessPoints
             }
-            Component.onCompleted: checked = (options & BackupTool.BackupWifi) === BackupTool.BackupWifi
+            Component.onCompleted: checked = (options & BackupTool.BackupAccessPoints) === BackupTool.BackupAccessPoints
         }
     }
 }

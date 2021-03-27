@@ -11,6 +11,7 @@ The development is in alpha state at the moment. Not everythings works perfectly
 This application is tested with Sailfish OS Versions:
 
 - 3.4.0.24 (Pallas Yllästunturi)
+- 4.0.1.48 (Koli)
 
 ## Implemented Features
 Here is a list of all implemented features so far. Not all features listed below are finished or error free and are still in active development.
@@ -21,7 +22,7 @@ Here is a list of all implemented features so far. Not all features listed below
 - Authentification with Long-Lived Access Token (see "Authentication" section)
 - Secure storage of all secrets using Sailfish-Secrets
 - Device tracking using GPS (not tested well)
-- Device tracking using available and connected wifi networks
+- Device tracking using connected wifi access points
 - Device sensors:  
 >  - *Battery level* 
 >  - *Battery charging*
@@ -44,16 +45,16 @@ Here is a list of all implemented features so far. Not all features listed below
 - Websocket connection for live updates of entity states
 - Backup & Restore of settings (Wifi, more to come)
 - Notifications from Home Assistant Server (see section "Home Assistant -> Notifications")
-- Browse error log of Home Assistant
-- Check if Home Assistant configuration is valid
-- Internal web view of Home Assistant UI using Gecko engine (seperate login required / not very performant)
+- Automatically switch connection to server from remote to local url if connected to home network
+- ~~Browse error log of Home Assistant~~ (temporary disabled >= 0.2.0)
+- ~~Check if Home Assistant configuration is valid~~ (temporary disabled >= 0.2.0)
+- ~~Internal web view of Home Assistant UI using Gecko engine (seperate login required / not very performant)~~ (temporary disabled >= 0.2.0)
 
 ## Planned Features
 - Two-Factor authentication to get access token (Qt OAuth2 functionality needs at least Qt 5.8 / Sailfish OS 3.4 has antique Qt 5.6 libraries)
 - Autodetect Home Assistant server in local network during setup
 - Encryption of API traffic (webhook api)
 - Cover actions
-- Automatically switch connection to server from remote to local url if connected to home network
 - Access to history log
 - More devices and entity types (need you help because I don't have all of them)
 - More device sensors if requested
@@ -67,6 +68,8 @@ Available translations:
 - German  
   
 If you missing your native language you are welcome to support this project with your translation.
+
+[![https://weblate.nubecula.org/engage/harbour-quartermaster/](https://weblate.nubecula.org/widgets/harbour-quartermaster/-/multi-auto.svg)](https://weblate.nubecula.org/engage/harbour-quartermaster/)
 
 ## Reset Application
 It can happen in some cases that Quartermaster looses the access to the stored secrets on the device. These are stored with "Sailfish Secrets".

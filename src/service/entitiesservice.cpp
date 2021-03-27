@@ -289,7 +289,7 @@ void EntitiesService::parseStates(const QJsonArray &arr)
         // --------------------------------------------------------------------
         // check homeassistant update info is availabel (binary_sensor.updater)
         if (entity->entityId() == QStringLiteral("binary_sensor.updater")) {
-            emit homeassistantVersionAvailable(entity->attributes().value(ApiKey::KEY_NEWEST_VERSION).toString());
+            emit homeAssistantUpdateAvailable(entity->attributes().value(ApiKey::KEY_NEWEST_VERSION).toString());
         }
         // --------------------------------------------------------------------
 
@@ -367,7 +367,7 @@ void EntitiesService::connectToApi()
 
 void EntitiesService::initialize()
 {
-    setState(ServiceState::StateInitalizing);
+    setState(ServiceState::StateInitializing);
     readSettings();
     refresh();
 }

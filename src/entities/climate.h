@@ -7,8 +7,8 @@ class Climate : public Entity
 {
     Q_OBJECT
 
-    Q_PROPERTY(quint16 hvacModes READ hvacModes)
-    Q_PROPERTY(quint16 presetModes READ presetModes)
+    Q_PROPERTY(quint16 hvacModes READ hvacModes NOTIFY hvacModesChanged)
+    Q_PROPERTY(quint16 presetModes READ presetModes NOTIFY presetModesChanged)
 
 public:    
     enum ClimateFeature {
@@ -90,6 +90,10 @@ public:
     quint16 hvacModes() const;
     quint16 presetModes() const;
 
+signals:
+    void hvacModesChanged(quint16 hvacModes);
+    void presetModesChanged(quint16 presetModes);
+
 private:
     quint16 m_hvacAction{CURRENT_HVAC_OFF};
     quint16 m_hvacModes{HVAC_MODE_NONE};
@@ -100,6 +104,7 @@ private:
     // Entity interface
 public:
     void parseAttributes() override;
+
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(Climate::ClimateFeatures)
 Q_DECLARE_OPERATORS_FOR_FLAGS(Climate::HVAC_Modes)

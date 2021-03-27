@@ -104,6 +104,15 @@ Page {
                 onClicked: Qt.openUrlExternally("https://weblate.nubecula.org/projects/" + Qt.application.name)
             }
 
+            Image {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width
+                height: sourceSize.height * width / sourceSize.width
+                smooth: true
+                fillMode: Image.PreserveAspectFit
+                source: "http://weblate.nubecula.org/widgets/" + Qt.application.name + "/-/" + Qt.application.name + "/multi-auto.svg"
+            }
+
             SectionHeader{
                 text: qsTr("Sources")
             }

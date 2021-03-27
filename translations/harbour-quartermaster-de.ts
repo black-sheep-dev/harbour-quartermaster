@@ -29,11 +29,11 @@
     </message>
     <message>
         <source>Your language is not available? You are welcome to support this project by translating it on my self hosted Weblate server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deine Sprache ist nicht verfügbar? Du kannst das Projekt gerne unterstüzten, indem Du eine Übersetzung auf meinen selbst gehosteten Weblate Server machst.</translation>
     </message>
     <message>
         <source>If you like my work why not buy me a beer?</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn Du meine Arbeit magst, warum gibtst du mir nicht einfach ein Bier aus?</translation>
     </message>
     <message>
         <source>Donate with PayPal</source>
@@ -72,7 +72,7 @@
     </message>
     <message>
         <source>Features</source>
-        <translation type="unfinished">Eigenschaften</translation>
+        <translation>Eigenschaften</translation>
     </message>
 </context>
 <context>
@@ -90,12 +90,12 @@
         <translation>Optionen auswählen, von denen eine Sciherung erstellt werden soll. Die Sicherung wird im Ordner Dokumente mit dem aktuellen Zeitstempel abgelegt.</translation>
     </message>
     <message>
-        <source>Wifi settings</source>
-        <translation>WLAN Einstellungen</translation>
+        <source>Access Point Settings</source>
+        <translation>Access Point Einstellungen</translation>
     </message>
     <message>
-        <source>Backup wifi network settings of zones</source>
-        <translation>Sicherung der WLAN Einstellungen der Zonen</translation>
+        <source>Backup access point settings of zones</source>
+        <translation>Sicherung der Access Point Einstellungen der Zonen</translation>
     </message>
 </context>
 <context>
@@ -122,19 +122,19 @@
     </message>
     <message>
         <source>Current state</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktueller Status</translation>
     </message>
     <message>
         <source>Current room temperature</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuelle Raumtemperatur</translation>
     </message>
     <message>
         <source>Features</source>
-        <translation type="unfinished">Eigenschaften</translation>
+        <translation>Eigenschaften</translation>
     </message>
     <message>
         <source>Info</source>
-        <translation type="unfinished">Info</translation>
+        <translation>Info</translation>
     </message>
 </context>
 <context>
@@ -148,7 +148,7 @@
     <name>DeviceSensorBatteryCharging</name>
     <message>
         <source>Battery Charging</source>
-        <translation>Battery Aufladung</translation>
+        <translation>Batterie Aufladung</translation>
     </message>
 </context>
 <context>
@@ -163,11 +163,11 @@
     </message>
     <message>
         <source>No entities available</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Entitäten verfügbar</translation>
     </message>
     <message>
         <source>Check your network connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Netzwerkverbindung überprüfen</translation>
     </message>
 </context>
 <context>
@@ -190,86 +190,86 @@
     </message>
     <message>
         <source>No entities available</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Entitäten verfügbar</translation>
     </message>
     <message>
         <source>Check your network connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Netzwerkverbindung überprüfen</translation>
     </message>
 </context>
 <context>
     <name>EntitiesService</name>
     <message>
         <source>Alarms</source>
-        <translation type="unfinished">Alarme</translation>
+        <translation>Alarme</translation>
     </message>
     <message>
         <source>List of all alarms</source>
-        <translation type="unfinished">Liste aller Alarme</translation>
+        <translation>Liste aller Alarme</translation>
     </message>
     <message>
         <source>Automations</source>
-        <translation type="unfinished">Automatisierungen</translation>
+        <translation>Automatisierungen</translation>
     </message>
     <message>
         <source>List of all automations</source>
-        <translation type="unfinished">Liste aller Automatisierungen</translation>
+        <translation>Liste aller Automatisierungen</translation>
     </message>
     <message>
         <source>Cameras</source>
-        <translation type="unfinished">Kameras</translation>
+        <translation>Kameras</translation>
     </message>
     <message>
         <source>List of all cameras</source>
-        <translation type="unfinished">Liste aller Kameras</translation>
+        <translation>Liste aller Kameras</translation>
     </message>
     <message>
         <source>Climates</source>
-        <translation type="unfinished">Klimageräte</translation>
+        <translation>Klimageräte</translation>
     </message>
     <message>
         <source>List of all climates</source>
-        <translation type="unfinished">Liste aller Klimageräte</translation>
+        <translation>Liste aller Klimageräte</translation>
     </message>
     <message>
         <source>Groups</source>
-        <translation type="unfinished">Gruppen</translation>
+        <translation>Gruppen</translation>
     </message>
     <message>
         <source>List of all groups</source>
-        <translation type="unfinished">Liste aller Gruppen</translation>
+        <translation>Liste aller Gruppen</translation>
     </message>
     <message>
         <source>Lights</source>
-        <translation type="unfinished">Lampen</translation>
+        <translation>Lampen</translation>
     </message>
     <message>
         <source>List of all lights</source>
-        <translation type="unfinished">Liste aller Lampen</translation>
+        <translation>Liste aller Lampen</translation>
     </message>
     <message>
         <source>Persons</source>
-        <translation type="unfinished">Personen</translation>
+        <translation>Personen</translation>
     </message>
     <message>
         <source>List of all persons</source>
-        <translation type="unfinished">Liste aller Personen</translation>
+        <translation>Liste aller Personen</translation>
     </message>
     <message>
         <source>Sensors</source>
-        <translation type="unfinished">Sensoren</translation>
+        <translation>Sensoren</translation>
     </message>
     <message>
         <source>List of all sensors</source>
-        <translation type="unfinished">Liste aller Sensoren</translation>
+        <translation>Liste aller Sensoren</translation>
     </message>
     <message>
         <source>Switches</source>
-        <translation type="unfinished">Schalter</translation>
+        <translation>Schalter</translation>
     </message>
     <message>
         <source>List of all switches</source>
-        <translation type="unfinished">Liste aller Schalter</translation>
+        <translation>Liste aller Schalter</translation>
     </message>
 </context>
 <context>
@@ -291,7 +291,7 @@
     </message>
     <message>
         <source>Features</source>
-        <translation type="unfinished">Eigenschaften</translation>
+        <translation>Eigenschaften</translation>
     </message>
 </context>
 <context>
@@ -371,6 +371,17 @@
     </message>
 </context>
 <context>
+    <name>NotificationService</name>
+    <message>
+        <source>There is an update to version %1 available.</source>
+        <translation>Es ist ein Update auf Version %1 verfügbar.</translation>
+    </message>
+    <message>
+        <source>Home Assistant update available!</source>
+        <translation>Home Assistant Update verfügbar!</translation>
+    </message>
+</context>
+<context>
     <name>OverviewPage</name>
     <message>
         <source>Settings</source>
@@ -379,10 +390,6 @@
     <message>
         <source>Entities</source>
         <translation>Entitäten</translation>
-    </message>
-    <message>
-        <source>Web View</source>
-        <translation>Web Ansicht</translation>
     </message>
     <message>
         <source>Refresh</source>
@@ -398,11 +405,11 @@
     </message>
     <message>
         <source>No entities available</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Entitäten verfügbar</translation>
     </message>
     <message>
         <source>Check your network connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Netzwerkverbindung überprüfen</translation>
     </message>
 </context>
 <context>
@@ -429,11 +436,11 @@
     </message>
     <message>
         <source>No persons available</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Personen verfügbar</translation>
     </message>
     <message>
         <source>Create new persons in Home Assistant web interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Erstelle neue Personen in der Home Assistant Oberfläche</translation>
     </message>
 </context>
 <context>
@@ -455,15 +462,15 @@
     <name>SelectWifiAccessPointsDialog</name>
     <message>
         <source>Select Access Point</source>
-        <translation type="unfinished"></translation>
+        <translation>Access Point auswählen</translation>
     </message>
     <message>
         <source>Hidden network</source>
-        <translation type="unfinished">Versteckes Netzwerk</translation>
+        <translation>Versteckes Netzwerk</translation>
     </message>
     <message>
         <source>Available network</source>
-        <translation type="unfinished">Verfügbares Netzwerk</translation>
+        <translation>Verfügbares Netzwerk</translation>
     </message>
 </context>
 <context>
@@ -486,65 +493,30 @@
     </message>
     <message>
         <source>No sensors available</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Sensoren verfügbar</translation>
     </message>
     <message>
         <source>Check your network connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Netzwerkverbindung überprüfen</translation>
     </message>
 </context>
 <context>
     <name>Service</name>
     <message>
         <source>No error</source>
-        <translation type="unfinished"></translation>
+        <translation>Kein Fehler</translation>
     </message>
     <message>
         <source>An undefined error occured</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein undefinierter Fehler ist geschehen</translation>
     </message>
     <message>
         <source>Error in service configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler in der Service Konfiguration</translation>
     </message>
     <message>
         <source>Initialization failed</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SettingsAutoUpdatePage</name>
-    <message>
-        <source>Automatic Updates</source>
-        <translation>Automatische Updates</translation>
-    </message>
-    <message>
-        <source>Here you can activate / deactivate automatic updates for your entities.</source>
-        <translation>Aktivere / Deaktiviere automatische Updates deiner Entitäten.</translation>
-    </message>
-    <message>
-        <source>Activating these options leads to higher battery consumption and network traffic.</source>
-        <translation>Das aktivieren dieser Optionen führt zu höherem Batterieverbrauch und Verbrauch von Datenvolumen.</translation>
-    </message>
-    <message>
-        <source>Websocket</source>
-        <translation>Websocket</translation>
-    </message>
-    <message>
-        <source>When active the entities will be updated live using websocket connection.</source>
-        <translation>Wenn diese Option aktiviert ist, werden die Entitäten live über eine Websocket-Verbindung aktualisiert.</translation>
-    </message>
-    <message>
-        <source>Live updates</source>
-        <translation>Live Updates</translation>
-    </message>
-    <message>
-        <source>This can lead to very high data consumption, especially with many entities that often change their state!</source>
-        <translation>Dies kann zu einem sehr hohen Datenverbrauch führen, insbesondere bei vielen Entitäten, die ihren Status häufig ändern!</translation>
-    </message>
-    <message>
-        <source>Websocket component is not enabled in Home Assistant!</source>
-        <translation>Die Websocket Komponetne ist nicht in Home Assistant aktiviert!</translation>
+        <translation>Initialisierung fehlgeschlagen</translation>
     </message>
 </context>
 <context>
@@ -578,7 +550,7 @@
     <name>SettingsCheckConfigPage</name>
     <message>
         <source>Home Assistant Config</source>
-        <translation>Home Assistant Config</translation>
+        <translation>Home Assistant Konfiguration</translation>
     </message>
     <message>
         <source>This page shows the status of the configuration files of your Home Assistant server.</source>
@@ -617,15 +589,15 @@
     </message>
     <message>
         <source>Connections</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbindungen</translation>
     </message>
     <message>
         <source>Internal Connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Interne Verbindung</translation>
     </message>
     <message>
         <source>External Connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Externe Verbindung</translation>
     </message>
 </context>
 <context>
@@ -648,7 +620,7 @@
     </message>
     <message>
         <source>Only turn on logging if needed, because it will create a lot of data! Files are stored into Documents folder.</source>
-        <translation>Loggen nur aktivieren wenn benötigt, da es viele Daten generiert! Die Daten werden im Ordner Documents gespeichert.</translation>
+        <translation>Loggen nur aktivieren wenn benötigt, da es viele Daten generiert! Die Daten werden im Ordner Dokumente gespeichert.</translation>
     </message>
 </context>
 <context>
@@ -718,11 +690,15 @@
     </message>
     <message>
         <source>Live Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Live Updates</translation>
     </message>
     <message>
-        <source>Device sensors can send their current state to the Home Assistant server. This can lead to high network traffic and battery consumption.</source>
-        <translation type="unfinished"></translation>
+        <source>Device sensors can send their current state to the Home Assistant server.</source>
+        <translation>Geräte Sensoren können ihren aktuellen Status an den Home Assistant server schicken.</translation>
+    </message>
+    <message>
+        <source>Activating these options leads to higher battery consumption and network traffic.</source>
+        <translation>Das aktivieren dieser Optionen führt zu höherem Batterieverbrauch und Verbrauch von Datenvolumen.</translation>
     </message>
 </context>
 <context>
@@ -749,43 +725,43 @@
     </message>
     <message>
         <source>GPS</source>
-        <translation type="unfinished"></translation>
+        <translation>GPS</translation>
     </message>
     <message>
         <source>Update Interval (msec)</source>
-        <translation type="unfinished"></translation>
+        <translation>Update Intervall (msek)</translation>
     </message>
     <message>
         <source>Wifi</source>
-        <translation type="unfinished"></translation>
+        <translation>WLAN</translation>
     </message>
     <message>
         <source>If the device discovers a known access point, it will send the position information of its parent zone.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turn on these options will track your device location and send it to the Home Assistant server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn das Gerät einen bekannten Access Point entdeckt, wird die Positionsinformation der zugeordneten Zone gesendet.</translation>
     </message>
     <message>
         <source>Disable GPS at home</source>
-        <translation type="unfinished"></translation>
+        <translation>GPS deaktieren wenn zu Hause</translation>
     </message>
     <message>
         <source>GPS tracking is turned off when at home. This option needs enabled Wifi tracking.</source>
-        <translation type="unfinished"></translation>
+        <translation>GPS Tracking wird deaktiviert wenn man zuhause ist. Diese Option benötigt aktiviertes WLAN Tracking.</translation>
     </message>
     <message>
         <source>Available access points will be used to track the device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verfügbare Access Point werden benutzt, um das Gerät zu tracken.</translation>
     </message>
     <message>
         <source>It is recommend to keep the wifi tracking enabled!</source>
-        <translation type="unfinished"></translation>
+        <translation>Es wird empfohlen das WLAN Tracking aktiviert zu lassen!</translation>
     </message>
     <message>
         <source>You need to add the access points to your different zones on zone settings page. Zones can be created in the Home Assistant web interface.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du musst Access Points in den Zonen Einstellungen diesen hinzufügen. Zonen können in der Home Assistant Oberfläche angelegt werden.</translation>
+    </message>
+    <message>
+        <source>Manage options to track your device location and send it to the Home Assistant server.</source>
+        <translation>Verwalte die Optionen um Dein Gerätestandort zu tracken und diesen an den Home Assistant Server zu schicken.</translation>
     </message>
 </context>
 <context>
@@ -834,13 +810,36 @@
         <source>inactive</source>
         <translation>inaktiv</translation>
     </message>
+</context>
+<context>
+    <name>SettingsLiveUpdatePage</name>
     <message>
-        <source>Error Log</source>
-        <translation>Fehler Log</translation>
+        <source>Live Updates</source>
+        <translation>Live Updates</translation>
     </message>
     <message>
-        <source>Check Config</source>
-        <translation type="unfinished">Überprüfe Config</translation>
+        <source>Activating these options leads to higher battery consumption and network traffic.</source>
+        <translation>Das aktivieren dieser Optionen führt zu höherem Batterieverbrauch und Verbrauch von Datenvolumen.</translation>
+    </message>
+    <message>
+        <source>Live updates</source>
+        <translation>Live Updates</translation>
+    </message>
+    <message>
+        <source>When active the entities will be updated live using websocket connection.</source>
+        <translation>Wenn diese Option aktiviert ist, werden die Entitäten live über eine Websocket-Verbindung aktualisiert.</translation>
+    </message>
+    <message>
+        <source>This can lead to very high data consumption, especially with many entities that often change their state!</source>
+        <translation>Dies kann zu einem sehr hohen Datenverbrauch führen, insbesondere bei vielen Entitäten, die ihren Status häufig ändern!</translation>
+    </message>
+    <message>
+        <source>Websocket component is not enabled in Home Assistant!</source>
+        <translation>Die Websocket Komponetne ist nicht in Home Assistant aktiviert!</translation>
+    </message>
+    <message>
+        <source>Here you can manage live updates for your entities state.</source>
+        <translation>Hier kann du Live Updates des Status der Entitäten verwalten.</translation>
     </message>
 </context>
 <context>
@@ -858,24 +857,28 @@
         <translation>Die Websocket Komponetne ist nicht in Home Assistant aktiviert!</translation>
     </message>
     <message>
-        <source>Here you can activate / deactivate notifications from your Home Assistant server.</source>
-        <translation>Aktivere / Deaktiviere Benachrichtigungen von deinem Home Assistant Server.</translation>
-    </message>
-    <message>
-        <source>When active the application will receive notifications from Home Assistant server over websocket connection.</source>
-        <translation>Wenn aktiviert erhält die Andwendung Benachrichtigungen vom Home Assistant Server über eine Websocket Verbindung.</translation>
-    </message>
-    <message>
         <source>The data of service calls from the notify integration are used. For details, refer to the Home Assistant&apos;s documentation!</source>
         <translation>Es werden die Daten der Service-Calls der Notify Integration benutzt. Für Details die Home Assistant Dokumentation zu Rate ziehen!</translation>
+    </message>
+    <message>
+        <source>Updates</source>
+        <translation>Aktualisierungen</translation>
+    </message>
+    <message>
+        <source>When active you are notified about Home Assistant updates for your server.</source>
+        <translation>Wenn aktiviert wirst du über verfügbare Updates für deine Home Assistant Server benachrichtigt.</translation>
+    </message>
+    <message>
+        <source>Here you can manage notifications from your Home Assistant server.</source>
+        <translation>Hier kannst du Benachrichtigungen von deinem Home Assistant Server verwalten.</translation>
+    </message>
+    <message>
+        <source>When active the application will receive notifications from Home Assistant server over a websocket connection.</source>
+        <translation>Wenn aktiviert erhält die Anwendung Benachrichtigungen vom Home Assistant Server über eine Websocket Verbindung.</translation>
     </message>
 </context>
 <context>
     <name>SettingsPage</name>
-    <message>
-        <source>Connection</source>
-        <translation>Verbindung</translation>
-    </message>
     <message>
         <source>Settings</source>
         <translation>Einstellungen</translation>
@@ -921,14 +924,6 @@
         <translation>Entwickler Optionen verwalten</translation>
     </message>
     <message>
-        <source>Auto Updates</source>
-        <translation>Auto Update</translation>
-    </message>
-    <message>
-        <source>Manage automatic entity updates</source>
-        <translation>Automatische Aktualisierungen verwalten</translation>
-    </message>
-    <message>
         <source>Manage backup of settings</source>
         <translation>Verwalte die Sicherungen der Einstellungen</translation>
     </message>
@@ -961,8 +956,20 @@
         <translation>Infos über Quartiermeister</translation>
     </message>
     <message>
-        <source>Manage zones and related networks</source>
-        <translation type="unfinished"></translation>
+        <source>Live Updates</source>
+        <translation>Live Updates</translation>
+    </message>
+    <message>
+        <source>Connections</source>
+        <translation>Verbindungen</translation>
+    </message>
+    <message>
+        <source>Manage zones and access points</source>
+        <translation>Verwalte Zonen und Access Points</translation>
+    </message>
+    <message>
+        <source>Manage automatic state updates</source>
+        <translation>Verwalte automatische Status Updates</translation>
     </message>
 </context>
 <context>
@@ -997,27 +1004,27 @@
     </message>
     <message>
         <source>Resetting access points</source>
-        <translation type="unfinished"></translation>
+        <translation>Setze Access Points zurück</translation>
     </message>
     <message>
         <source>Add Access Point</source>
-        <translation type="unfinished"></translation>
+        <translation>Access Point hinzufügen</translation>
     </message>
     <message>
         <source>Wifi Access Points</source>
-        <translation type="unfinished"></translation>
+        <translation>WLAN Access Points</translation>
     </message>
     <message>
         <source>Deleting access point</source>
-        <translation type="unfinished"></translation>
+        <translation>Lösche Access Point</translation>
     </message>
     <message>
         <source>No wifi access points defined</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine WLAN Access Points definiert</translation>
     </message>
     <message>
         <source>Pull down to add an access point</source>
-        <translation type="unfinished"></translation>
+        <translation>Nach unten ziehen, um einen Access Point hinzuzufügen</translation>
     </message>
 </context>
 <context>
@@ -1047,11 +1054,11 @@
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Suche</translation>
+        <translation>Suche</translation>
     </message>
     <message>
         <source>Create new zones in Home Assistant web interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Erstelle neue Zonen in der Home Assistant Oberfläche</translation>
     </message>
 </context>
 <context>
@@ -1070,31 +1077,31 @@
     </message>
     <message>
         <source>Current power usage</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktueller Verbrauch</translation>
     </message>
     <message>
         <source>Today energy usage</source>
-        <translation type="unfinished"></translation>
+        <translation>Heutiger Verbrauch</translation>
     </message>
     <message>
         <source>Voltage</source>
-        <translation type="unfinished"></translation>
+        <translation>Spannung</translation>
     </message>
     <message>
         <source>Current</source>
-        <translation type="unfinished"></translation>
+        <translation>Strom</translation>
     </message>
     <message>
         <source>Total energy usage</source>
-        <translation type="unfinished"></translation>
+        <translation>Gesamtverbrauch</translation>
     </message>
     <message>
         <source>Features</source>
-        <translation type="unfinished">Eigenschaften</translation>
+        <translation>Eigenschaften</translation>
     </message>
     <message>
         <source>Info</source>
-        <translation type="unfinished">Info</translation>
+        <translation>Info</translation>
     </message>
 </context>
 <context>
@@ -1112,51 +1119,51 @@
     <name>WizardConnectionAdvancedPage</name>
     <message>
         <source>Back</source>
-        <translation type="unfinished">Zurück</translation>
+        <translation>Zurück</translation>
     </message>
     <message>
         <source>Continue</source>
-        <translation type="unfinished">Weiter</translation>
+        <translation>Weiter</translation>
     </message>
     <message>
         <source>Connection Infos</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbindungsdetails</translation>
     </message>
     <message>
         <source>Failed to connect to server. Go back and check your data!</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbindung zum Server fehlgeschlagen. Geh zurück und überprüfe deine Daten!</translation>
     </message>
     <message>
         <source>Internal Connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Interne Verbindung</translation>
     </message>
     <message>
         <source>Hostname</source>
-        <translation type="unfinished">Hostname</translation>
+        <translation>Hostname</translation>
     </message>
     <message>
         <source>Enter hostname</source>
-        <translation type="unfinished">Hostname eingeben</translation>
+        <translation>Hostname eingeben</translation>
     </message>
     <message>
         <source>Valid hostname or IP required!</source>
-        <translation type="unfinished">Gültiger Hostname oder IP benötigt!</translation>
+        <translation>Gültiger Hostname oder IP benötigt!</translation>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished">Port</translation>
+        <translation>Port</translation>
     </message>
     <message>
         <source>Valid port required!</source>
-        <translation type="unfinished">Gültiger Port benötigt!</translation>
+        <translation>Gültiger Port benötigt!</translation>
     </message>
     <message>
         <source>External Connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Externe Verbindung</translation>
     </message>
     <message>
         <source>Server connection infos received. Please check external port!</source>
-        <translation type="unfinished"></translation>
+        <translation>Server Verbindungsdetails empfangen. Bitte überprüfe den externen Port!</translation>
     </message>
 </context>
 <context>
@@ -1187,19 +1194,19 @@
     </message>
     <message>
         <source>Enter hostname (e.g. http://server)</source>
-        <translation type="unfinished"></translation>
+        <translation>Hostname eingeben (z.B. http://server)</translation>
     </message>
     <message>
         <source>Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>Verbinden</translation>
     </message>
     <message>
         <source>You need to provide the connection details to your Home Assistant server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du musst die Verbindungsdetails zu deinem Home Assistant Server eingeben.</translation>
     </message>
     <message>
-        <source>This can either be the hostname or the IP address in your local network.</source>
-        <translation type="unfinished"></translation>
+        <source>This can either be the hostname or the IP address in the local network.</source>
+        <translation>Das kann entweder der Hostname oder die IP Adresse im lokalen Netzwerk sein.</translation>
     </message>
 </context>
 <context>
@@ -1226,7 +1233,7 @@
     </message>
     <message>
         <source>You can change the device name which shows up in Home Assistant before starting the registration.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst vor der Registrierung einen Gerätenamen festlegen , der im Home Assistant angezeigt wird.</translation>
     </message>
 </context>
 <context>
@@ -1269,7 +1276,7 @@
     </message>
     <message>
         <source>Back</source>
-        <translation></translation>
+        <translation>Zurück</translation>
     </message>
     <message>
         <source>Continue</source>
@@ -1293,27 +1300,27 @@
     </message>
     <message>
         <source>Mobile app component is not activated!</source>
-        <translation type="unfinished"></translation>
+        <translation>Mobile App Komponente ist nicht aktiviert!</translation>
     </message>
     <message>
         <source>Please check your Home Assistant configuration.yaml!</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte überprüfe deine Home Assistant configuration.yaml!</translation>
     </message>
     <message>
         <source>Webhook component is not activated!</source>
-        <translation type="unfinished"></translation>
+        <translation>Webhook Komponenten ist nicht aktiviert!</translation>
     </message>
     <message>
         <source>Websocket component</source>
-        <translation type="unfinished"></translation>
+        <translation>Websocket Komponente</translation>
     </message>
     <message>
         <source>Optional Websocket component is not activated!</source>
-        <translation type="unfinished"></translation>
+        <translation>Optionale Websocket Komponente ist nicht aktiviert!</translation>
     </message>
     <message>
         <source>MISSING</source>
-        <translation type="unfinished"></translation>
+        <translation>FEHLT</translation>
     </message>
 </context>
 <context>
@@ -1327,24 +1334,24 @@
         <translation>Weiter</translation>
     </message>
     <message>
-        <source>This device is not connected to a Home Assistant server yet.</source>
-        <translation>Dieses Gerät ist noch nicht mit einem Home Assistant Server verbunden.</translation>
-    </message>
-    <message>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
     <message>
-        <source>If you facing problems with the setup process you can try to reset the data from a previous install.</source>
-        <translation>Falls es zu Probleme beim Einrichtungsassistenten kommt, kann man bestehende Daten einer vorherigen Installation zurücksetzen.</translation>
-    </message>
-    <message>
         <source>Resetting application</source>
-        <translation type="unfinished"></translation>
+        <translation>Setze Anwendung zurück</translation>
     </message>
     <message>
-        <source>The setup wizard will lead you through the connection process.</source>
-        <translation type="unfinished"></translation>
+        <source>This device is not yet connected to a Home Assistant server.</source>
+        <translation>Dieses Gerät ist noch nicht mit einem Home Assistant Server verbunden.</translation>
+    </message>
+    <message>
+        <source>The setup wizard will guide you through the connection process.</source>
+        <translation>Der Einrichtungsassistent wird dich durch den Verbindungsprozess führen.</translation>
+    </message>
+    <message>
+        <source>If there are errors during the setup process, you can try to reset the data from a previous installation.</source>
+        <translation>Wenn es zu Fehlern während der Einrichtung kommt, kannst du probieren die Daten einer vorherigen Installation zurückzusetzen.</translation>
     </message>
 </context>
 <context>
@@ -1354,28 +1361,66 @@
         <translation>Zurück</translation>
     </message>
     <message>
+        <source>Complete</source>
+        <translation>Abschließen</translation>
+    </message>
+    <message>
+        <source>You can now proceed to the main screen.</source>
+        <translation>Du kannst nun zur Hauptseite fortfahren.</translation>
+    </message>
+    <message>
+        <source>Some of the setting from this wizard can be changed in the applications settings page.</source>
+        <translation>Einige der Einstellungen dieses Einrichtungsassistenten können in den Anwendungseinstellungen angepasst werden.</translation>
+    </message>
+    <message>
+        <source>Welcome to your smart home!</source>
+        <translation>Willkommen in deinem Smart Home!</translation>
+    </message>
+    <message>
+        <source>Setup process completed</source>
+        <translation>Einrichtung abgeschlossen</translation>
+    </message>
+</context>
+<context>
+    <name>WizardRegistrationResultPage</name>
+    <message>
+        <source>Continue</source>
+        <translation>Weiter</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Zurück</translation>
+    </message>
+    <message>
         <source>Registration failed</source>
         <translation>Registrierung fehlgeschlagen</translation>
     </message>
     <message>
-        <source>Complete</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Registration completed</source>
-        <translation type="unfinished"></translation>
+        <translation>Registrierung abgeschlossen</translation>
     </message>
     <message>
-        <source>You can now proceed to the main screen.</source>
-        <translation type="unfinished"></translation>
+        <source>In the next step you can choose your home network access point. This information is used to recognize whether you are at home.</source>
+        <translation>Im nächsten Schritt können Sie Ihren Heimnetzwerk Access Point auswählen. Diese Informationen werden verwendet, um zu erkennen, ob Sie zu Hause sind.</translation>
+    </message>
+</context>
+<context>
+    <name>WizardSelectHomeAccessPointPage</name>
+    <message>
+        <source>Select</source>
+        <translation>Auswählen</translation>
     </message>
     <message>
-        <source>Some of the setting from this wizard can be changed in the applications settings page.</source>
-        <translation type="unfinished"></translation>
+        <source>Back</source>
+        <translation>Zurück</translation>
     </message>
     <message>
-        <source>Welcome to your smart home!</source>
-        <translation type="unfinished"></translation>
+        <source>Hidden network</source>
+        <translation>Versteckes Netzwerk</translation>
+    </message>
+    <message>
+        <source>Available network</source>
+        <translation>Verfügbares Netzwerk</translation>
     </message>
 </context>
 <context>

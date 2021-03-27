@@ -60,6 +60,7 @@ SOURCES += src/harbour-quartermaster.cpp \
     src/service/deviceservice.cpp \
     src/service/entitiesservice.cpp \
     src/service/locationservice.cpp \
+    src/service/notificationservice.cpp \
     src/service/service.cpp \
     src/tools/backuptool.cpp \
     src/tools/helper.cpp
@@ -94,11 +95,11 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/entities/types/LightPage.qml \
     qml/pages/entities/types/SwitchPage.qml \
     qml/pages/log/ErrorLogEntryPage.qml \
-    qml/pages/settings/SettingsAutoUpdatePage.qml \
     qml/pages/settings/SettingsBackupPage.qml \
     qml/pages/settings/SettingsCheckConfigPage.qml \
     qml/pages/settings/SettingsDeveloperModePage.qml \
     qml/pages/settings/SettingsHomeAssistantPage.qml \
+    qml/pages/settings/SettingsLiveUpdatePage.qml \
     qml/pages/settings/SettingsLogBookPage.qml \
     qml/pages/settings/SettingsNotificationsPage.qml \
     qml/pages/wizard/WizardConnectionAdvancedPage.qml \
@@ -107,6 +108,8 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/wizard/WizardInfoPage.qml \
     qml/pages/wizard/WizardIntroPage.qml \
     qml/pages/wizard/WizardLastPage.qml \
+    qml/pages/wizard/WizardRegistrationResultPage.qml \
+    qml/pages/wizard/WizardSelectHomeAccessPointPage.qml \
     qml/pages/wizard/WizardTokenPage.qml \
     rpm/harbour-quartermaster.changes \
     rpm/harbour-quartermaster.changes.run.in \
@@ -161,6 +164,7 @@ HEADERS += \
     src/service/deviceservice.h \
     src/service/entitiesservice.h \
     src/service/locationservice.h \
+    src/service/notificationservice.h \
     src/service/service.h \
     src/tools/backuptool.h \
     src/enums.h \

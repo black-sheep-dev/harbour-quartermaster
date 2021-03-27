@@ -22,7 +22,7 @@ Page {
             spacing: Theme.paddingMedium
 
             PageHeader {
-                title: qsTr("Automatic Updates")
+                title: qsTr("Live Updates")
             }
 
             Label {
@@ -32,13 +32,9 @@ Page {
                 color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeMedium
 
-                text: qsTr("Here you can activate / deactivate automatic updates for your entities.")
+                text: qsTr("Here you can manage live updates for your entities state.")
                       + "\n"
                       + qsTr("Activating these options leads to higher battery consumption and network traffic.");
-            }
-
-            SectionHeader {
-                text: qsTr("Websocket")
             }
 
             TextSwitch {

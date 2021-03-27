@@ -27,14 +27,14 @@ public:
 
     enum ServiceState {
         StateUndefined,
-        StateInitalizing,
+        StateInitializing,
         StateInitialized,
         StateCustom                     = 50
     };
     Q_ENUM(ServiceState)
 
     explicit Service(QObject *parent = nullptr);
-    ~Service() override;
+    ~Service() = default;
 
     ApiInterface *api();
     void setApi(ApiInterface *api);
@@ -51,16 +51,16 @@ signals:
 
     // properties
     void errorChanged(quint8 error);
-    void stateChanged(ServiceState state);
+    void stateChanged(Service::ServiceState state);
 
 public slots: 
     // properties
     void setError(quint8 error);
-    void setState(ServiceState state);
+    void setState(Service::ServiceState state);
 
 private:
     ApiInterface *m_api{nullptr};
-    quint8 m_error;
+    quint8 m_error{ErrorNone};
     ServiceState m_state{StateUndefined};
 
     // virtual interface

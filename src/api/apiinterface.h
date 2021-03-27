@@ -57,7 +57,7 @@ signals:
     void atHomeChanged(bool atHome);
     void credentialsChanged(const Credentials &credentials);
     void loggingChanged(bool logging);
-    void statesChanged(States states);
+    void statesChanged(ApiInterface::States states);
 
 public slots:
     void sendRequest(quint8 type,
@@ -71,7 +71,7 @@ public slots:
     void setAtHome(bool atHome);
     void setCredentials(const Credentials &credentials);
     void setLogging(bool logging);
-    void setStates(States states);
+    void setStates(ApiInterface::States states);
 
 private slots:
     void onRequestFinished();

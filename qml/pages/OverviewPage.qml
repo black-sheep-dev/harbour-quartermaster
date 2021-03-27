@@ -23,10 +23,10 @@ Page {
                 text: qsTr("Settings")
                 onClicked: pageStack.push(Qt.resolvedUrl("settings/SettingsPage.qml"))
             }
-            MenuItem {
-                text: qsTr("Web View")
-                onClicked: pageStack.push(Qt.resolvedUrl("WebViewPage.qml"))
-            }
+//            MenuItem {
+//                text: qsTr("Web View")
+//                onClicked: pageStack.push(Qt.resolvedUrl("WebViewPage.qml"))
+//            }
             MenuItem {
                 text: qsTr("Refresh")
                 onClicked: {
@@ -142,7 +142,7 @@ Page {
 
     Connections {
         target: App.entitiesService()
-        onStateChanged: busy = (state === EntitiesService.StateInitalizing)
+        onStateChanged: busy = (state === EntitiesService.StateInitializing)
     }
 
     Component.onCompleted: sortModel.sortModel()

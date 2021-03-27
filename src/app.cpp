@@ -11,6 +11,10 @@ App::App(QObject *parent) :
     m_deviceService->setApi(m_api);
     m_locationService->setApi(m_api);
     m_entitiesService->setApi(m_api);
+    m_notificationService->setApi(m_api);
+
+    connect(m_entitiesService, &EntitiesService::homeAssistantUpdateAvailable,
+            m_notificationService, &NotificationService::onHomeAssistantUpdateAvailable);
 
     readSetting();
 
@@ -25,8 +29,6 @@ App::App(QObject *parent) :
 App::~App()
 {
     writeSettings();
-
-    delete m_mutex;
 }
 
 ApiInterface *App::api()
@@ -49,13 +51,17 @@ LocationService *App::locationService()
     return m_locationService;
 }
 
+NotificationService *App::notificationService()
+{
+    return m_notificationService;
+}
+
 void App::initialize()
 {
-    setNeedSetup(!m_deviceService->isRegistered());
-
     if (m_needSetup)
         return;
 
+    m_notificationService->initialize();
     m_locationService->initialize();
     m_entitiesService->initialize();
 }
@@ -73,6 +79,7 @@ void App::saveSettings()
     m_deviceService->saveSettings();
     m_entitiesService->saveSettings();
     m_locationService->saveSettings();
+    m_notificationService->saveSettings();
 }
 
 bool App::needSetup() const

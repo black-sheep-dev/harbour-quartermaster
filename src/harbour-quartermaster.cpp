@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Group>(uri, 1, 0, "Group");
     qmlRegisterType<Light>(uri, 1, 0, "Light");
     qmlRegisterType<LocationService>(uri, 1, 0, "LocationService");
+    qmlRegisterType<NotificationService>(uri, 1, 0, "NotificationService");
     qmlRegisterType<ServerConfig>(uri, 1, 0, "ServerConfig");
     qmlRegisterType<SortFilterModel>(uri, 1, 0, "SortFilterModel");
     qmlRegisterType<Zone>(uri, 1, 0, "Zone");

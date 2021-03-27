@@ -63,7 +63,7 @@ Dialog {
 
             wrapMode: Text.WordWrap
 
-            text: qsTr("This device is not connected to a Home Assistant server yet.")
+            text: qsTr("This device is not yet connected to a Home Assistant server.")
         }
 
         Label {
@@ -74,7 +74,7 @@ Dialog {
 
             wrapMode: Text.WordWrap
 
-            text: qsTr("The setup wizard will lead you through the connection process.")
+            text: qsTr("The setup wizard will guide you through the connection process.")
         }
 
         Item {
@@ -100,7 +100,7 @@ Dialog {
 
             wrapMode: Text.WordWrap
 
-            text: qsTr("If you facing problems with the setup process you can try to reset the data from a previous install.")
+            text: qsTr("If there are errors during the setup process, you can try to reset the data from a previous installation.")
         }
 
         Item {

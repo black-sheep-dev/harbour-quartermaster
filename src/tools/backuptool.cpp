@@ -37,11 +37,11 @@ bool BackupTool::backup(quint16 options)
     out << quint16(QUARTERMASTER_BACKUP_FILE_VERSION);
 
     // wifi option
-    if (options & BackupWifi) {
+    if (options & BackupAccessPoints) {
         QFile wifi(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/" + APP_TARGET + QStringLiteral("/networks.json"));
 
         if (wifi.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            out << quint16(BackupTool::BackupWifi);
+            out << quint16(BackupTool::BackupAccessPoints);
             out << qCompress(wifi.readAll());
             wifi.close();
         }
@@ -99,7 +99,7 @@ bool BackupTool::restoreBackup(const QString &filename)
         QString path;
 
         // wifi
-        if (option == BackupTool::BackupWifi) {
+        if (option == BackupTool::BackupAccessPoints) {
             path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/" + APP_TARGET + QStringLiteral("/networks.json");
         }
 

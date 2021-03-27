@@ -90,11 +90,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Wifi settings</source>
+        <source>Access Point Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Backup wifi network settings of zones</source>
+        <source>Backup access point settings of zones</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -370,6 +370,17 @@
     </message>
 </context>
 <context>
+    <name>NotificationService</name>
+    <message>
+        <source>There is an update to version %1 available.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Home Assistant update available!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>OverviewPage</name>
     <message>
         <source>Settings</source>
@@ -377,10 +388,6 @@
     </message>
     <message>
         <source>Entities</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Web View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -507,41 +514,6 @@
     </message>
     <message>
         <source>Initialization failed</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SettingsAutoUpdatePage</name>
-    <message>
-        <source>Automatic Updates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Here you can activate / deactivate automatic updates for your entities.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Activating these options leads to higher battery consumption and network traffic.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Websocket</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>When active the entities will be updated live using websocket connection.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Live updates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This can lead to very high data consumption, especially with many entities that often change their state!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Websocket component is not enabled in Home Assistant!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -719,7 +691,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Device sensors can send their current state to the Home Assistant server. This can lead to high network traffic and battery consumption.</source>
+        <source>Device sensors can send their current state to the Home Assistant server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activating these options leads to higher battery consumption and network traffic.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -762,10 +738,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Turn on these options will track your device location and send it to the Home Assistant server.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Disable GPS at home</source>
         <translation type="unfinished"></translation>
     </message>
@@ -783,6 +755,10 @@
     </message>
     <message>
         <source>You need to add the access points to your different zones on zone settings page. Zones can be created in the Home Assistant web interface.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage options to track your device location and send it to the Home Assistant server.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -832,12 +808,35 @@
         <source>inactive</source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>SettingsLiveUpdatePage</name>
     <message>
-        <source>Error Log</source>
+        <source>Live Updates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Check Config</source>
+        <source>Activating these options leads to higher battery consumption and network traffic.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Live updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When active the entities will be updated live using websocket connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This can lead to very high data consumption, especially with many entities that often change their state!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Websocket component is not enabled in Home Assistant!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Here you can manage live updates for your entities state.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -856,24 +855,28 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Here you can activate / deactivate notifications from your Home Assistant server.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>When active the application will receive notifications from Home Assistant server over websocket connection.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The data of service calls from the notify integration are used. For details, refer to the Home Assistant&apos;s documentation!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When active you are notified about Home Assistant updates for your server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Here you can manage notifications from your Home Assistant server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When active the application will receive notifications from Home Assistant server over a websocket connection.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SettingsPage</name>
-    <message>
-        <source>Connection</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Settings</source>
         <translation type="unfinished"></translation>
@@ -919,14 +922,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Auto Updates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Manage automatic entity updates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Manage backup of settings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -959,7 +954,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Manage zones and related networks</source>
+        <source>Live Updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage zones and access points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage automatic state updates</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1195,7 +1202,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This can either be the hostname or the IP address in your local network.</source>
+        <source>This can either be the hostname or the IP address in the local network.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1324,15 +1331,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This device is not connected to a Home Assistant server yet.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If you facing problems with the setup process you can try to reset the data from a previous install.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1340,7 +1339,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The setup wizard will lead you through the connection process.</source>
+        <source>This device is not yet connected to a Home Assistant server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The setup wizard will guide you through the connection process.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there are errors during the setup process, you can try to reset the data from a previous installation.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1351,15 +1358,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Registration failed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Complete</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Registration completed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1372,6 +1371,52 @@
     </message>
     <message>
         <source>Welcome to your smart home!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Setup process completed</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>WizardRegistrationResultPage</name>
+    <message>
+        <source>Continue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Registration failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Registration completed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In the next step you can choose your home network access point. This information is used to recognize whether you are at home.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>WizardSelectHomeAccessPointPage</name>
+    <message>
+        <source>Select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hidden network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available network</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

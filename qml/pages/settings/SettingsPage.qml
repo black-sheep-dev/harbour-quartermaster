@@ -10,7 +10,7 @@ Page {
         id: listView
         model: ListModel {
             ListElement {
-                title: qsTr("Connection");
+                title: qsTr("Connections");
                 description: qsTr("Manage connections settings")
                 icon: "image://theme/icon-m-mobile-network"
                 page: "SettingsConnectionPage.qml"
@@ -27,15 +27,9 @@ Page {
                 icon: "image://theme/icon-m-diagnostic"
                 page: "SettingsDeviceSensorsPage.qml"
             }
-//            ListElement {
-//                title: qsTr("Homezone");
-//                description: qsTr("Manage homezone settings")
-//                icon: "image://theme/icon-m-home"
-//                page: "SettingsHomezonePage.qml"
-//            }
             ListElement {
                 title: qsTr("Zones");
-                description: qsTr("Manage zones and related networks")
+                description: qsTr("Manage zones and access points")
                 icon: "image://theme/icon-m-dot"
                 page: "SettingsZonesPage.qml"
             }
@@ -46,10 +40,10 @@ Page {
                 page: "SettingsNotificationsPage.qml"
             }
             ListElement {
-                title: qsTr("Auto Updates");
-                description: qsTr("Manage automatic entity updates")
+                title: qsTr("Live Updates");
+                description: qsTr("Manage automatic state updates")
                 icon: "image://theme/icon-m-sync"
-                page: "SettingsAutoUpdatePage.qml"
+                page: "SettingsLiveUpdatePage.qml"
             }
             ListElement {
                 title: qsTr("Backup & Restore");

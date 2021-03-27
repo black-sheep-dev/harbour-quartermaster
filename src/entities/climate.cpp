@@ -29,6 +29,8 @@ quint16 Climate::presetModes() const
 void Climate::parseAttributes()
 {
     // hvac modes
+    const quint16 oldHvac = m_hvacModes;
+
     const QStringList itemsHvac = attributes().value(QStringLiteral("hvac_modes")).toStringList();
     for (const auto &item : itemsHvac) {
         if (item == QLatin1String("auto"))
@@ -47,7 +49,12 @@ void Climate::parseAttributes()
             m_hvacModes |= HVAC_MODE_OFF;
     }
 
+    if (oldHvac != m_hvacModes)
+        emit hvacModesChanged(m_hvacModes);
+
     // preset modes
+    const quint16 oldPreset = m_presetModes;
+
     const QStringList itemsPreset = attributes().value(QStringLiteral("preset_modes")).toStringList();
     for (const auto &item : itemsPreset) {
         if (item == QLatin1String("activity"))
@@ -65,4 +72,7 @@ void Climate::parseAttributes()
         else if (item == QLatin1String("sleep"))
             m_presetModes |= PresetSleep;
     }
+
+    if (oldPreset != m_presetModes)
+        emit presetModesChanged(m_presetModes);
 }

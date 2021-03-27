@@ -110,6 +110,11 @@ void LocationService::scanForAccessPoints()
     m_ncm->updateConfigurations();
 }
 
+void LocationService::getZones()
+{
+    emit webhookRequest(Api::RequestWebhookGetZones);
+}
+
 Zone *LocationService::homezone()
 {
     return m_homezone;
@@ -485,9 +490,9 @@ void LocationService::connectToApi()
 
 void LocationService::initialize()
 {
-    setState(Service::StateInitalizing);
+    setState(Service::StateInitializing);
 
-    emit webhookRequest(Api::RequestWebhookGetZones);
+    getZones();
 
     connect(this, &LocationService::settingsChanged, this, &LocationService::updateTrackers);
     updateTrackers();

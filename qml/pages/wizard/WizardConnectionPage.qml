@@ -36,7 +36,7 @@ Dialog {
 
             text: qsTr("You need to provide the connection details to your Home Assistant server.")
                   + "\n"
-                  + qsTr("This can either be the hostname or the IP address in your local network.")
+                  + qsTr("This can either be the hostname or the IP address in the local network.")
 
             font.pixelSize: Theme.fontSizeSmall
             color: Theme.highlightColor

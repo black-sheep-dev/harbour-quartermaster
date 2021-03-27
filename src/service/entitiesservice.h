@@ -38,7 +38,7 @@ public:
     bool liveUpdates() const;
 
 signals:
-    void homeassistantVersionAvailable(const QString &version);
+    void homeAssistantUpdateAvailable(const QString &version);
 
     // properties
     void liveUpdatesChanged(bool liveUpdates);

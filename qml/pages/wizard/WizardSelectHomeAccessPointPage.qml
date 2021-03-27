@@ -3,27 +3,31 @@ import Sailfish.Silica 1.0
 
 import org.nubecula.harbour.quartermaster 1.0
 
+import "../../components"
+
 Dialog {
-    property Zone zone
+    property bool busy: true
     property string identifier
     property string name
 
     id: dialog
+    allowedOrientations: Orientation.Portrait
 
-    anchors.fill: parent
+    acceptDestination: Qt.resolvedUrl("WizardLastPage.qml")
 
-    canAccept: identifier.length > 0 && name.length > 0
+    canAccept: false
+
+    PageBusyIndicator {
+        size: BusyIndicatorSize.Large
+        running: busy
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+    }
 
     DialogHeader {
         id: header
-        title: qsTr("Select Access Point")
-    }
-
-    PageBusyIndicator {
-        id: busyIndicator
-        size: BusyIndicatorSize.Large
-        running: App.locationService().availableAccessPointsModel().busy
-        anchors.centerIn: parent
+        acceptText: qsTr("Select")
+        cancelText: qsTr("Back")
     }
 
     SilicaListView {
@@ -89,11 +93,31 @@ Dialog {
             onClicked: {
                 dialog.identifier = model.identifier
                 dialog.name = model.name
+                canAccept = true
             }
         }
 
         VerticalScrollDecorator {}
     }
 
-    //Component.onCompleted: App.locationService().scanForAccessPoints()
+    Connections {
+        target: App.api()
+        onRequestFinished: {
+            if (requestType !== Api.RequestWebhookGetZones) return;
+
+            busy = false
+        }
+        onRequestError: {
+            if (requestType !== Api.RequestPostApiRegisterDevice) return;
+
+            busy = false
+        }
+    }
+
+    onAccepted: {
+        App.locationService().addAccessPointToZone(
+                    App.locationService().homezone().guid,
+                    dialog.identifier,
+                    dialog.name)
+    }
 }

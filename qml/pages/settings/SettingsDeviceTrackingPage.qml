@@ -32,11 +32,9 @@ Page {
                 wrapMode: Text.WordWrap
 
                 color: Theme.highlightColor
-                font.pixelSize: Theme.fontSizeSmall
+                font.pixelSize: Theme.fontSizeMedium
 
-                text: qsTr("Turn on these options will track your device location and send it to the Home Assistant server.")
-                      + "\n"
-                      +
+                text: qsTr("Manage options to track your device location and send it to the Home Assistant server.")
                       + "\n"
                       + qsTr("Activating these options leads to higher battery consumption and network traffic.");
             }
@@ -88,6 +86,7 @@ Page {
                 id: wifiTrackingSwitch
                 text: qsTr("Wifi")
                 description: qsTr("Available access points will be used to track the device.")
+                             + "\n"
                              + qsTr("If the device discovers a known access point, it will send the position information of its parent zone.")
                              + "\n"
                              + qsTr("It is recommend to keep the wifi tracking enabled!")

@@ -40,7 +40,8 @@ public:
     Q_INVOKABLE void scanForAccessPoints();
 
     // invokables
-    Q_INVOKABLE Zone *homezone();   
+    Q_INVOKABLE void getZones();
+    Q_INVOKABLE Zone *homezone();
     Q_INVOKABLE ZonesModel *zonesModel();
 
     // properties

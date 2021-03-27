@@ -6,11 +6,6 @@ Service::Service(QObject *parent) :
 
 }
 
-Service::~Service()
-{
-
-}
-
 ApiInterface *Service::api()
 {
     return m_api;

@@ -32,7 +32,9 @@ Page {
                 color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeMedium
 
-                text: qsTr("Device sensors can send their current state to the Home Assistant server. This can lead to high network traffic and battery consumption.");
+                text: qsTr("Device sensors can send their current state to the Home Assistant server.")
+                      + "\n"
+                      + qsTr("Activating these options leads to higher battery consumption and network traffic.");
             }
 
             TextSwitch {

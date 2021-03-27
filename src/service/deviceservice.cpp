@@ -11,6 +11,7 @@
 #include <mdm-sysinfo.h>
 #include <Sailfish/Secrets/createcollectionrequest.h>
 #include <Sailfish/Secrets/deletecollectionrequest.h>
+#include <Sailfish/Secrets/deletesecretrequest.h>
 #include <Sailfish/Secrets/storesecretrequest.h>
 #include <Sailfish/Secrets/storedsecretrequest.h>
 
@@ -20,8 +21,8 @@
 #include "src/device/sensors/devicesensorbattery.h"
 #include "src/device/sensors/devicesensorbatterycharging.h"
 
-const QString WALLET_COLLECTION_NAME            = QStringLiteral("quartermaster");
-const QString WALLET_COLLECTION_NAME_DEBUG      = QStringLiteral("quartermasterdebug");
+const QString WALLET_COLLECTION_NAME            = QStringLiteral("quartermasternew");
+const QString WALLET_COLLECTION_NAME_DEBUG      = QStringLiteral("quartermasternewdebug");
 
 DeviceService::DeviceService(QObject *parent) :
     Service(parent),
@@ -105,7 +106,7 @@ void DeviceService::registerDevice()
 void DeviceService::registerSensors()
 {
     for (const auto sensor : m_sensorsModel->sensors()) {
-        webhookRequest(Api::RequestWebhookRegisterSensor, sensor->toJson());
+        emit webhookRequest(Api::RequestWebhookRegisterSensor, sensor->toJson());
     }
 }
 
@@ -147,7 +148,7 @@ void DeviceService::sendSensorUpdate(const QJsonObject &data)
     QJsonArray arr;
 
     arr.append(data);
-    webhookRequest(Api::RequestWebhookUpdateSensorStates, arr);
+    emit webhookRequest(Api::RequestWebhookUpdateSensorStates, arr);
 }
 
 void DeviceService::sendSensorUpdates()
@@ -158,7 +159,7 @@ void DeviceService::sendSensorUpdates()
         data.append(sensor->getBaseSensorJson());
     }
 
-    webhookRequest(Api::RequestWebhookUpdateSensorStates, data);
+    emit webhookRequest(Api::RequestWebhookUpdateSensorStates, data);
 }
 
 void DeviceService::setDeviceName(const QString &deviceName)
@@ -209,7 +210,7 @@ void DeviceService::createCollection()
     createCollection.setManager(&m_secretManager);
     createCollection.setCollectionLockType(Sailfish::Secrets::CreateCollectionRequest::DeviceLock);
     createCollection.setDeviceLockUnlockSemantic(Sailfish::Secrets::SecretManager::DeviceLockKeepUnlocked);
-    createCollection.setAccessControlMode(Sailfish::Secrets::SecretManager::OwnerOnlyMode);
+    //createCollection.setAccessControlMode(Sailfish::Secrets::SecretManager::SystemAccessControlMode);
     createCollection.setUserInteractionMode(Sailfish::Secrets::SecretManager::SystemInteraction);
     createCollection.setCollectionName(
                                    #ifdef QT_DEBUG
@@ -239,27 +240,47 @@ void DeviceService::deleteCollection()
     return;
 #endif
 
-    Sailfish::Secrets::DeleteCollectionRequest createCollection;
-    createCollection.setManager(&m_secretManager);
-    createCollection.setUserInteractionMode(Sailfish::Secrets::SecretManager::SystemInteraction);
-    createCollection.setCollectionName(
+    Sailfish::Secrets::DeleteCollectionRequest deleteCollection;
+    deleteCollection.setManager(&m_secretManager);
+    deleteCollection.setCollectionName(
                     #ifdef QT_DEBUG
                         WALLET_COLLECTION_NAME_DEBUG
                     #else
                         WALLET_COLLECTION_NAME
                     #endif
                 );
-    createCollection.setStoragePluginName(Sailfish::Secrets::SecretManager::DefaultEncryptedStoragePluginName);
-    createCollection.startRequest();
-    createCollection.waitForFinished();
+    deleteCollection.setStoragePluginName(Sailfish::Secrets::SecretManager::DefaultEncryptedStoragePluginName);
+    deleteCollection.setUserInteractionMode(Sailfish::Secrets::SecretManager::SystemInteraction);
+    deleteCollection.startRequest();
+    deleteCollection.waitForFinished();
 
-    if (createCollection.result().errorCode()) {
+    if (deleteCollection.result().errorCode()) {
         setError(DeviceError::ErrorDeletingCredentials);
     }
 
 #ifdef QT_DEBUG
-    qDebug() << createCollection.result().code();
-    qDebug() << createCollection.result().errorMessage();
+    qDebug() << deleteCollection.result().code();
+    qDebug() << deleteCollection.result().errorMessage();
+#endif
+}
+
+void DeviceService::deleteSecret()
+{
+#ifdef QT_DEBUG
+    qDebug() << "DELETE SECRET REQUEST";
+#endif
+
+    Sailfish::Secrets::DeleteSecretRequest dsr;
+    dsr.setManager(&m_secretManager);
+    dsr.setIdentifier(m_secretsIdentifier);
+    dsr.setUserInteractionMode(Sailfish::Secrets::SecretManager::SystemInteraction);
+    dsr.startRequest();
+
+    dsr.waitForFinished();
+
+#ifdef QT_DEBUG
+    qDebug() << dsr.result().code();
+    qDebug() << dsr.result().errorMessage();
 #endif
 }
 
@@ -302,7 +323,6 @@ void DeviceService::loadCredentials()
 
     QByteArray data = fetchCode->secret().data();
 
-    qDebug() << QStringLiteral("DATA SIZE: ") << data.size();
 
     QDataStream stream(&data, QIODevice::ReadOnly);
     stream >> m_credentials;
@@ -335,8 +355,6 @@ void DeviceService::storeCredentials()
     qDebug() << QStringLiteral("CREDENTIALS STORE");
 #endif
 
-    qDebug() << m_credentials.webhookId;
-
     // reset and create
     deleteCollection();
     createCollection();
@@ -346,8 +364,6 @@ void DeviceService::storeCredentials()
 
     QDataStream stream(&data, QIODevice::WriteOnly);
     stream << m_credentials;
-
-    qDebug() << QStringLiteral("DATA SIZE: ") << data.size();
 
     // store data in wallet
     Sailfish::Secrets::Secret secret(m_secretsIdentifier);
@@ -398,7 +414,7 @@ void DeviceService::connectToApi()
 
 void DeviceService::initialize()
 {
-    setState(ServiceState::StateInitalizing);
+    setState(ServiceState::StateInitializing);
 
     loadCredentials();
 
@@ -433,7 +449,9 @@ void DeviceService::writeSettings()
 
 void DeviceService::onRequestError(quint8 requestType, quint8 code, const QString &msg)
 {
-
+    Q_UNUSED(requestType)
+    Q_UNUSED(code)
+    Q_UNUSED(msg)
 }
 
 void DeviceService::onRequestFinished(quint8 requestType, const QJsonDocument &data)

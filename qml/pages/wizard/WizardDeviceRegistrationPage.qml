@@ -6,7 +6,7 @@ import org.nubecula.harbour.quartermaster 1.0
 Dialog {
     id: dialog
     allowedOrientations: Orientation.Portrait
-    acceptDestination: Qt.resolvedUrl("WizardLastPage.qml")
+    acceptDestination: Qt.resolvedUrl("WizardRegistrationResultPage.qml")
 
     DialogHeader {
         id: header

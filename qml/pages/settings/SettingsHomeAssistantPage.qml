@@ -9,17 +9,17 @@ Page {
     allowedOrientations: Orientation.All
 
     SilicaFlickable {
-        PullDownMenu {
-            MenuItem {
-                enabled: App.api().serverConfig().components & ServerConfig.ComponentConfig
-                text: qsTr("Check Config")
-                //onClicked: pageQt.resolvedUrl("SettingsCheckConfigPage.qml")
-            }
-            MenuItem {
-                text: qsTr("Error Log")
-                onClicked: pageStack.push(Qt.resolvedUrl("../log/ErrorLogPage.qml"), { logModel: Client.errorLogModel() });
-            }
-        }
+//        PullDownMenu {
+//            MenuItem {
+//                enabled: App.api().serverConfig().components & ServerConfig.ComponentConfig
+//                text: qsTr("Check Config")
+//                //onClicked: pageQt.resolvedUrl("SettingsCheckConfigPage.qml")
+//            }
+//            MenuItem {
+//                text: qsTr("Error Log")
+//                onClicked: pageStack.push(Qt.resolvedUrl("../log/ErrorLogPage.qml"), { logModel: Client.errorLogModel() });
+//            }
+//        }
 
         anchors.fill: parent
         contentHeight: column.height
