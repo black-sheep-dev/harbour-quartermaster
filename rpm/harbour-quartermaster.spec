@@ -12,7 +12,7 @@ Summary:    Quartermaster
 Version:    0.2.0
 Release:    1
 Group:      Qt/Qt
-License:    GPLv3
+License:    MIT
 URL:        https://github.com/black-sheep-dev/harbour-quartermaster
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  harbour-quartermaster.yaml
