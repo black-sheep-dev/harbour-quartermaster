@@ -7,6 +7,13 @@ Quartermaster is a native Sailfish OS Home Assistant client which aims to provid
 ## Current state of development
 The development is in alpha state at the moment. Not everythings works perfectly and needs testing.
 
+## Update from 0.1.xx
+When update to version 0.2 you need to do a new device registration.
+I lost access permission to the secrets stored in Sailfish Secrets Collection during development process. Maybe Bug / wrong usage?
+As a workaround for this problem the app will create a new secrets collection.
+Sorry for the inconviniences.
+
+
 ## Sailfish OS
 This application is tested with Sailfish OS Versions:
 
@@ -142,6 +149,6 @@ The files are stored in "Documents/harbour-quartermaster" folder. These files yo
 
 If you like my work, you can buy me a beer! 
 
-[PayPal](https://www.paypal.com/paypalme/nubecula/1)
+[![PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif) ](https://www.paypal.com/paypalme/nubecula/1)
 
-[Liberapay](https://liberapay.com/black-sheep-dev/donate)
+[![Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/black-sheep-dev/donate)

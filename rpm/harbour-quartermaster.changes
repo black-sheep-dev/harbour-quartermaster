@@ -1,4 +1,4 @@
-* Sat Mar 27 2021 Black Sheep <blacksheep@nubecula.org> 0.2.0-1
+* Sun Mar 28 2021 Black Sheep <blacksheep@nubecula.org> 0.2.0-1
 - Complete rewrite of application core
 - New improved setup wizard
 - Change to local connection when at home
@@ -6,6 +6,7 @@
 - Translation fixes
 - Bugfixes
 - Disabled WebView (not working with 4.0.1.48 Koli at the moment)
+- Hopefully not to many new Bugs
 
 * Sun Mar 07 2021 Black Sheep <blacksheep@nubecula.org> 0.1.22-1
 - Add reset button for secret storage and config to intro page of setup wizard
