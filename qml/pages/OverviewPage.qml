@@ -13,12 +13,13 @@ Page {
     PageBusyIndicator {
         id: busyIndicator
         size: BusyIndicatorSize.Large
-        running: busy
+        running: busy && listView.count === 0
         anchors.centerIn: page
     }
 
     SilicaListView {
         PullDownMenu {
+            busy:  page.busy
             MenuItem {
                 text: qsTr("Settings")
                 onClicked: pageStack.push(Qt.resolvedUrl("settings/SettingsPage.qml"))

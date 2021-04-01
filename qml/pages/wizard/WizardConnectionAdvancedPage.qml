@@ -40,9 +40,9 @@ Dialog {
             Behavior on opacity {
                 FadeAnimation {}
             }
+
             Label {
                 visible: !busy
-
                 width: parent.width
 
                 text: qsTr("Connection Infos")
@@ -62,6 +62,22 @@ Dialog {
 
                 font.pixelSize: Theme.fontSizeSmall
                 color: Theme.highlightColor
+            }
+
+            ComboBox {
+                visible: !busy
+                width: parent.width
+                label: qsTr("Preffered Mode")
+
+                menu: ContextMenu {
+                    MenuItem { text: qsTr("Automatic") }
+                    MenuItem { text: qsTr("External Url") }
+                    MenuItem { text: qsTr("Internal Url") }
+                    MenuItem { text: qsTr("Cloud") }
+                }
+
+                Component.onCompleted: currentIndex = App.api().connectionMode
+                onCurrentIndexChanged: App.api().connectionMode = currentIndex
             }
 
             SectionHeader {
