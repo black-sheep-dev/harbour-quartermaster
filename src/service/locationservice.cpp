@@ -310,6 +310,8 @@ void LocationService::onNetworkConfigurationChanged(const QNetworkConfiguration 
             return;
         }
     }
+
+    setAtHome(false);
 }
 
 void LocationService::onOnlineStateChanged(bool online)
@@ -458,9 +460,9 @@ void LocationService::updateTrackers()
         m_ncm = new QNetworkConfigurationManager(this);
         connect(m_ncm, &QNetworkConfigurationManager::onlineStateChanged, this, &LocationService::onOnlineStateChanged);
         connect(m_ncm, &QNetworkConfigurationManager::updateCompleted, this, &LocationService::onScanForAccessPointsFinished);
-//       connect(m_ncm, &QNetworkConfigurationManager::configurationAdded, this, &LocationService::onNetworkConfigurationChanged);
+        connect(m_ncm, &QNetworkConfigurationManager::configurationAdded, this, &LocationService::onNetworkConfigurationChanged);
         connect(m_ncm, &QNetworkConfigurationManager::configurationChanged, this, &LocationService::onNetworkConfigurationChanged);
-//       connect(m_ncm, &QNetworkConfigurationManager::configurationRemoved, this, &LocationService::onNetworkConfigurationChanged);
+        connect(m_ncm, &QNetworkConfigurationManager::configurationRemoved, this, &LocationService::onNetworkConfigurationChanged);
 
         updateAccessPoints();
 

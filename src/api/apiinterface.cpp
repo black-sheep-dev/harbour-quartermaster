@@ -120,6 +120,11 @@ bool ApiInterface::atHome() const
     return m_atHome;
 }
 
+quint8 ApiInterface::connectionMode() const
+{
+    return m_connectionMode;
+}
+
 Credentials ApiInterface::credentials() const
 {
     return m_credentials;
@@ -249,6 +254,17 @@ void ApiInterface::sendWebhookRequest(quint8 type, const QJsonValue &payload)
     connect(reply, &QNetworkReply::finished, this, &ApiInterface::onWebhookRequestFinished);
 }
 
+void ApiInterface::setConnectionMode(quint8 connectionMode)
+{
+    if (m_connectionMode == connectionMode)
+        return;
+
+    m_connectionMode = connectionMode;
+    emit connectionModeChanged(m_connectionMode);
+
+    refreshUrls();
+}
+
 void ApiInterface::setAtHome(bool atHome)
 {
     if (m_atHome == atHome)
@@ -302,12 +318,15 @@ void ApiInterface::onRequestFinished()
     const quint8 type = reply->property(ApiKey::KEY_TYPE.toLatin1()).toUInt();
     const QString typeString = m_webhookTypes.value(type);
     const QString url = reply->url().toString();
+    const QNetworkReply::NetworkError error = reply->error();
     const QString errorString = reply->errorString();
     const QByteArray raw = reply->readAll();
 
     QMutexLocker locker(m_mutex);
     m_runningRequest.removeAll(type);
     locker.unlock();
+
+    reply->deleteLater();
 
 #ifdef QT_DEBUG
     qDebug() << "URL: " << url;
@@ -338,6 +357,9 @@ void ApiInterface::onRequestFinished()
         return;
 
     default:
+        if (m_atHome && error == QNetworkReply::HostNotFoundError)
+            setAtHome(false);
+
         emit requestError(type, Api::ErrorUnkown, errorString);
         return;
     }
@@ -398,6 +420,7 @@ void ApiInterface::onWebhookRequestFinished()
     const QString typeString = m_webhookTypes.value(type);
     const QString url = reply->url().toString();
     const QByteArray raw = reply->readAll();
+    const QNetworkReply::NetworkError error = reply->error();
     const QString errorString = reply->errorString();
 
     QMutexLocker locker(m_mutex);
@@ -431,6 +454,9 @@ void ApiInterface::onWebhookRequestFinished()
         return;
 
     default:
+        if (m_atHome && error == QNetworkReply::HostNotFoundError)
+            setAtHome(false);
+
         emit requestError(type, Api::ErrorUnkown, errorString);
         return;
     }
@@ -513,13 +539,57 @@ void ApiInterface::refreshStates()
 
 void ApiInterface::refreshUrls()
 {
-    // base url
-    if ( m_atHome || m_config->externalUrl().isEmpty() ) {
+    if (m_connectionMode != ConnectionAutomatic) {
         m_baseUrl = m_config->internalUrl()
                 + QStringLiteral(":%1").arg(m_config->internalPort());
+
+        m_webhookUrl = m_config->internalUrl()
+                + QStringLiteral(":%1").arg(m_config->internalPort())
+                + HASS_API_ENDPOINT_WEBHOOK + m_credentials.webhookId;
+
+        if ( m_connectionMode == ConnectionExternal
+             && !m_config->externalUrl().isEmpty() ) {
+
+            m_baseUrl = m_config->externalUrl()
+                    + QStringLiteral(":%1").arg(m_config->externalPort());
+
+            m_webhookUrl = m_config->externalUrl()
+                    + QStringLiteral(":%1").arg(m_config->externalPort())
+                    + HASS_API_ENDPOINT_WEBHOOK + m_credentials.webhookId;
+
+        } else if ( m_connectionMode == ConnectionCloud
+                    && !m_credentials.cloudhookUrl.isEmpty() ) {
+
+            m_baseUrl = m_config->externalUrl()
+                    + QStringLiteral(":%1").arg(m_config->externalPort());
+
+            m_webhookUrl = m_credentials.cloudhookUrl;
+        }
+
     } else {
-        m_baseUrl = m_config->externalUrl()
-                + QStringLiteral(":%1").arg(m_config->externalPort());
+        // base url
+        if ( m_atHome || m_config->externalUrl().isEmpty() ) {
+            m_baseUrl = m_config->internalUrl()
+                    + QStringLiteral(":%1").arg(m_config->internalPort());
+        } else {
+            m_baseUrl = m_config->externalUrl()
+                    + QStringLiteral(":%1").arg(m_config->externalPort());
+        }
+
+        // webhook url
+        if ( !m_credentials.cloudhookUrl.isEmpty() ) {
+            m_webhookUrl = m_credentials.cloudhookUrl;
+        } else if ( !m_credentials.remoteUiUrl.isEmpty() ) {
+            m_webhookUrl = m_credentials.remoteUiUrl + HASS_API_ENDPOINT_WEBHOOK + m_credentials.webhookId;
+        } else if ( !m_config->externalUrl().isEmpty() && !m_atHome ) {
+            m_webhookUrl = m_config->externalUrl()
+                    + QStringLiteral(":%1").arg(m_config->externalPort())
+                    + HASS_API_ENDPOINT_WEBHOOK + m_credentials.webhookId;
+        } else {
+            m_webhookUrl = m_config->internalUrl()
+                    + QStringLiteral(":%1").arg(m_config->internalPort())
+                    + HASS_API_ENDPOINT_WEBHOOK + m_credentials.webhookId;
+        }
     }
 
     // reconnect websocket
@@ -528,21 +598,6 @@ void ApiInterface::refreshUrls()
     m_websocketUrl.append(HASS_API_ENDPOINT_WEBSOCKET);
 
     websocketReconnect();
-
-    // webhook url
-    if ( !m_credentials.cloudhookUrl.isEmpty() ) {
-        m_webhookUrl = m_credentials.cloudhookUrl;
-    } else if ( !m_credentials.remoteUiUrl.isEmpty() ) {
-        m_webhookUrl = m_credentials.remoteUiUrl + HASS_API_ENDPOINT_WEBHOOK + m_credentials.webhookId;
-    } else if ( !m_config->externalUrl().isEmpty() && !m_atHome ) {
-        m_webhookUrl = m_config->externalUrl()
-                + QStringLiteral(":%1").arg(m_config->externalPort())
-                + HASS_API_ENDPOINT_WEBHOOK + m_credentials.webhookId;
-    } else {
-        m_webhookUrl = m_config->internalUrl()
-                + QStringLiteral(":%1").arg(m_config->internalPort())
-                + HASS_API_ENDPOINT_WEBHOOK + m_credentials.webhookId;
-    }
 }
 
 void ApiInterface::readSettings()
@@ -586,6 +641,10 @@ void ApiInterface::readSettings()
         settings.endGroup();
     }
 
+    settings.beginGroup(QStringLiteral("CONNECTION"));
+    setConnectionMode(settings.value(QStringLiteral("connection_mode"), ConnectionMode::ConnectionAutomatic).toUInt());
+    settings.endGroup();
+
     m_config->setExternalPort(externalPort);
     m_config->setExternalUrl(externalUrl);
     m_config->setInternalPort(internalPort);
@@ -597,6 +656,7 @@ void ApiInterface::writeSettings()
     QSettings settings;
 
     settings.beginGroup(QStringLiteral("CONNECTION"));
+    settings.setValue(QStringLiteral("connecion_mode"), m_connectionMode);
     settings.setValue(QStringLiteral("external_port"), m_config->externalPort());
     settings.setValue(QStringLiteral("external_url"), m_config->externalUrl());
     settings.setValue(QStringLiteral("internal_port"), m_config->internalPort());

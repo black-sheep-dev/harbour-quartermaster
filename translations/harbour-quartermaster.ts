@@ -597,6 +597,26 @@
         <source>External Connection</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Preffered Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>External Url</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal Url</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cloud</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsDeveloperModePage</name>
@@ -1160,6 +1180,26 @@
     </message>
     <message>
         <source>Server connection infos received. Please check external port!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preffered Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>External Url</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal Url</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cloud</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

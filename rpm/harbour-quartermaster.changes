@@ -1,3 +1,7 @@
+* Fri Apr 01 2021 Black Sheep <blacksheep@nubecula.org> 0.2.1-1
+- Removed page busy indicator on overview page after app initialiazed
+- Add option to connection settings page to choose the preffered network connection method
+
 * Sun Mar 28 2021 Black Sheep <blacksheep@nubecula.org> 0.2.0-1
 - Complete rewrite of application core
 - New improved setup wizard
