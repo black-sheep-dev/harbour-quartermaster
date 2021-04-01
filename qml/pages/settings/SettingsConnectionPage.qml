@@ -37,6 +37,21 @@ Page {
                 title: qsTr("Connections")
             }
 
+            ComboBox {
+                width: parent.width
+                label: qsTr("Preffered Mode")
+
+                menu: ContextMenu {
+                    MenuItem { text: qsTr("Automatic") }
+                    MenuItem { text: qsTr("External Url") }
+                    MenuItem { text: qsTr("Internal Url") }
+                    MenuItem { text: qsTr("Cloud") }
+                }
+
+                Component.onCompleted: currentIndex = App.api().connectionMode
+                onCurrentIndexChanged: App.api().connectionMode = currentIndex
+            }
+
             SectionHeader {
                 text: qsTr("Internal Connection")
             }
