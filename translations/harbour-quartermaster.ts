@@ -566,14 +566,6 @@
 <context>
     <name>SettingsConnectionPage</name>
     <message>
-        <source>Port</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Valid port required!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Connections</source>
         <translation type="unfinished"></translation>
     </message>
@@ -606,15 +598,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>URL</source>
+        <source>URI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enter url</source>
+        <source>Valid URI required!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Valid url required!</source>
+        <source>Enter URI (e.g. http://server:8123)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1147,10 +1139,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Server connection infos received. Please check external port!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Failed to connect to server. Go back and check your data!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1171,27 +1159,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cloud</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Internal Connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enter url</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Valid url required!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Port</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Valid port required!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1199,7 +1167,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>URL</source>
+        <source>URI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid URI required!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter URI (e.g. http://server:8123)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server connection info received. Please check the data!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1210,15 +1190,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Port</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Valid port required!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1230,19 +1202,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please provide a full url for this!</source>
+        <source>Please provide a full URI with port for this!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>URL</source>
+        <source>URI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enter url (e.g. http://server)</source>
+        <source>Valid URI required!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Valid url required!</source>
+        <source>Enter URI (e.g. http://server:8123)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

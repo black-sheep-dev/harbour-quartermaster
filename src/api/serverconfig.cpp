@@ -39,8 +39,24 @@ void ServerConfig::setData(const QJsonObject &object)
     const QVariantList components = object.value(ApiKey::KEY_COMPONENTS).toArray().toVariantList();
     setComponentList(components);
 
-    setExternalUrl(object.value(ApiKey::KEY_EXTERNAL_URL).toString());
-    setInternalUrl(object.value(ApiKey::KEY_INTERNAL_URL).toString());
+    QString externalUrl = object.value(ApiKey::KEY_EXTERNAL_URL).toString();
+    if (!externalUrl.isEmpty()) {
+        if (!externalUrl.contains(QRegExp(RegExp::PORT_INCLUDED)))
+            externalUrl.append(QStringLiteral(":8123"));
+
+        setExternalUrl(externalUrl);
+    }
+
+
+    QString internalUrl = object.value(ApiKey::KEY_INTERNAL_URL).toString();
+
+    if (!internalUrl.isEmpty()) {
+        if (!internalUrl.contains(QRegExp(RegExp::PORT_INCLUDED)))
+            internalUrl.append(QStringLiteral(":8123"));
+
+        setInternalUrl(internalUrl);
+    }
+
     setLocationName(object.value(ApiKey::KEY_LOCATION_NAME).toString());
     setLatitude(object.value(ApiKey::KEY_LATITUDE).toDouble());
     setLongitude(object.value(ApiKey::KEY_LONGITUDE).toDouble());
@@ -100,19 +116,9 @@ bool ServerConfig::configValid() const
     return m_configValid;
 }
 
-quint16 ServerConfig::externalPort() const
-{
-    return m_externalPort;
-}
-
 QString ServerConfig::externalUrl() const
 {
     return m_externalUrl;
-}
-
-quint16 ServerConfig::internalPort() const
-{
-    return m_internalPort;
 }
 
 QString ServerConfig::internalUrl() const
@@ -206,15 +212,6 @@ void ServerConfig::setConfigValid(bool valid)
     emit configValidChanged(m_configValid);
 }
 
-void ServerConfig::setExternalPort(quint16 port)
-{
-    if (m_externalPort == port)
-        return;
-
-    m_externalPort = port;
-    emit externalPortChanged(m_externalPort);
-}
-
 void ServerConfig::setExternalUrl(const QString &url)
 {
     if (m_externalUrl == url)
@@ -222,15 +219,6 @@ void ServerConfig::setExternalUrl(const QString &url)
 
     m_externalUrl = url;
     emit externalUrlChanged(m_externalUrl);
-}
-
-void ServerConfig::setInternalPort(quint16 internalPort)
-{
-    if (m_internalPort == internalPort)
-        return;
-
-    m_internalPort = internalPort;
-    emit internalPortChanged(m_internalPort);
 }
 
 void ServerConfig::setInternalUrl(const QString &url)

@@ -16,9 +16,7 @@ class ServerConfig : public QObject
     Q_PROPERTY(QString configError READ configError WRITE setConfigError NOTIFY configErrorChanged)
     Q_PROPERTY(bool configValid READ configValid WRITE setConfigValid NOTIFY configValidChanged)
     Q_PROPERTY(quint16 components READ components WRITE setComponents NOTIFY componentsChanged)
-    Q_PROPERTY(quint16 externalPort READ externalPort WRITE setExternalPort NOTIFY externalPortChanged)
     Q_PROPERTY(QString externalUrl READ externalUrl WRITE setExternalUrl NOTIFY externalUrlChanged)
-    Q_PROPERTY(quint16 internalPort READ internalPort WRITE setInternalPort NOTIFY internalPortChanged)
     Q_PROPERTY(QString internalUrl READ internalUrl WRITE setInternalUrl NOTIFY internalUrlChanged)
     Q_PROPERTY(double latitude READ latitude WRITE setLatitude NOTIFY latitudeChanged)
     Q_PROPERTY(QString locationName READ locationName WRITE setLocationName NOTIFY locationNameChanged)
@@ -55,9 +53,7 @@ public:
     quint16 components() const;
     QString configError() const;
     bool configValid() const;
-    quint16 externalPort() const;
     QString externalUrl() const;
-    quint16 internalPort() const;
     QString internalUrl() const;
     double latitude() const;
     QString locationName() const;
@@ -76,9 +72,7 @@ signals:
     void componentsChanged(quint16 components);
     void configErrorChanged(const QString &error);
     void configValidChanged(bool valid);
-    void externalPortChanged(quint16 port);
     void externalUrlChanged(const QString &url);
-    void internalPortChanged(quint16 port);
     void internalUrlChanged(const QString &url);
     void latitudeChanged(double latitude);
     void locationNameChanged(const QString &locationName);
@@ -97,9 +91,7 @@ public slots:
     void setComponents(quint16 components);
     void setConfigError(const QString &error);
     void setConfigValid(bool valid);
-    void setExternalPort(quint16 port);
     void setExternalUrl(const QString &url);
-    void setInternalPort(quint16 port);
     void setInternalUrl(const QString &url);
     void setLatitude(double latitude);
     void setLocationName(const QString &locationName);
@@ -118,9 +110,7 @@ private:
     quint16 m_components{ServerConfig::ComponentNone};
     QString m_configError;
     bool m_configValid{true};
-    quint16 m_externalPort{8123};
     QString m_externalUrl;
-    quint16 m_internalPort{8123};
     QString m_internalUrl;
     bool m_loading{false};
     QString m_locationName;

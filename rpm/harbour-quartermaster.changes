@@ -1,3 +1,7 @@
+* Fri Apr 02 2021 Black Sheep <blacksheep@nubecula.org> 0.2.3-1
+- Changed connection info to connect (now with complete URI)
+- Translation fixes
+
 * Fri Apr 02 2021 Black Sheep <blacksheep@nubecula.org> 0.2.2-1
 - Bugfix with hostname / url validation fixed
 - Changed connection input naming from hostname to url in UI to clarify the function

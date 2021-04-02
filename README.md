@@ -76,6 +76,8 @@ Available translations:
   
 If you missing your native language you are welcome to support this project with your translation.
 
+[https://weblate.nubecula.org/engage/harbour-quartermaster/](https://weblate.nubecula.org/engage/harbour-quartermaster/)
+
 [![https://weblate.nubecula.org/engage/harbour-quartermaster/](https://weblate.nubecula.org/widgets/harbour-quartermaster/-/multi-auto.svg)](https://weblate.nubecula.org/engage/harbour-quartermaster/)
 
 ## Reset Application
@@ -98,6 +100,14 @@ To get this app working with Home Assistant you need to activate the following c
 
 If you have "default_config:" in your configuration.yaml these components should already be active. If you need help please refer to [Home Assistant Documentation](https://www.home-assistant.io/docs/).
 
+It is also recommend to add the internal and external url in the configuration.yaml:
+
+```yaml
+homeassistant:
+  internal_url: "http://server:8123"
+  external_url: "http://home.nubecula.org:8123"
+```
+
 #### Remote Access
 
 You can get remote access by obtaining a Home Assistant Cloud account (paid subscription needed) or you need to make the server accessible by internet. 
@@ -112,10 +122,12 @@ Notifications can be received via websocket connection. At the moment only globa
 
 To send a notification you need to call the service "notify.notify" in Home Assistant:
 
-	service: notify.notify
-	data:
-  		message: Tina comes home!
-  		title: Tina Location
+```yaml
+service: notify.notify
+data:
+  message: Tina comes home!
+  title: Tina Location
+```
 
 The values "message" and ""title" need to have data!
 

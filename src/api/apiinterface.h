@@ -47,7 +47,7 @@ public:
 
     Q_INVOKABLE QString baseUrl();
     Q_INVOKABLE void getConfig();
-    Q_INVOKABLE void getDiscoveryInfo(const QString &hostname, quint16 port);
+    Q_INVOKABLE void getDiscoveryInfo(const QString &uri);
     Q_INVOKABLE void initialize();
     Q_INVOKABLE void saveSettings();
     Q_INVOKABLE ServerConfig *serverConfig();

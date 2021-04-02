@@ -7,14 +7,12 @@ Page {
     id: page
 
     function applyChanges() {
-        if (externalHostnameField.acceptableInput && externalPortField.acceptableInput) {
-            App.api().serverConfig().externalUrl = externalHostnameField.text
-            App.api().serverConfig().externalPort = externalPortField.text
+        if (externalUriField.acceptableInput) {
+            App.api().serverConfig().externalUrl = externalUriField.text
         }
 
-        if (internalHostnameField.acceptableInput && internalPortField.acceptableInput) {
-            App.api().serverConfig().internalUrl = internalHostnameField.text
-            App.api().serverConfig().internalPort = internalPortField.text
+        if (internalUriField.acceptableInput) {
+            App.api().serverConfig().internalUrl = internalUriField.text
         }
 
         App.saveSettings();
@@ -53,15 +51,18 @@ Page {
             }
 
             SectionHeader {
+                visible: discovered
                 text: qsTr("Internal Connection")
             }
 
             TextField {
-                id: internalHostnameField
+                visible: discovered
+
+                id: internalUriField
                 width: parent.width
 
-                label: qsTr("URL")
-                placeholderText: qsTr("Enter url")
+                label: qsTr("URI")
+                placeholderText: qsTr("Enter URI (e.g. http://server:8123)")
 
                 text: App.api().serverConfig().internalUrl
 
@@ -71,54 +72,33 @@ Page {
                 }
 
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
-                EnterKey.onClicked: internalPortField.focus = true
+                EnterKey.onClicked: internalUriField.focus = true
 
                 autoScrollEnabled: true
+
             }
 
             Label {
                 width: parent.width
-                visible: !internalHostnameField.acceptableInput
-                text: qsTr("Valid url required!")
-                color: Theme.errorColor
-                font.pixelSize: Theme.fontSizeExtraSmall
-            }
-
-            TextField {
-                id: internalPortField
-                width: parent.width / 2
-
-                label: qsTr("Port")
-
-                text: App.api().serverConfig().internalPort
-
-                inputMethodHints: Qt.ImhDigitsOnly
-                validator: IntValidator { bottom: 1; top: 65535;}
-
-                EnterKey.iconSource: "image://theme/icon-m-enter-next"
-                EnterKey.onClicked: externalHostnameField.focus = true
-
-                autoScrollEnabled: true
-            }
-
-            Label {
-                width: parent.width
-                visible: !internalPortField.acceptableInput
-                text: qsTr("Valid port required!") +  " (1-65535)"
+                visible: discovered && !internalHostnameField.acceptableInput
+                text: qsTr("Valid URI required!")
                 color: Theme.errorColor
                 font.pixelSize: Theme.fontSizeExtraSmall
             }
 
             SectionHeader {
+                visible: discovered
                 text: qsTr("External Connection")
             }
 
             TextField {
-                id: externalHostnameField
+                visible: discovered
+
+                id: externalUriField
                 width: parent.width
 
-                label: qsTr("URL")
-                placeholderText: qsTr("Enter url")
+                label: qsTr("URI")
+                placeholderText: qsTr("Enter URI (e.g. http://server:8123)")
 
                 text: App.api().serverConfig().externalUrl
 
@@ -128,31 +108,6 @@ Page {
                 }
 
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
-                EnterKey.onClicked: externalPortField.focus = true
-
-                autoScrollEnabled: true
-            }
-
-            Label {
-                width: parent.width
-                visible: !externalHostnameField.acceptableInput
-                text: qsTr("Valid url required!")
-                color: Theme.errorColor
-                font.pixelSize: Theme.fontSizeExtraSmall
-            }
-
-            TextField {
-                id: externalPortField
-                width: parent.width / 2
-
-                label: qsTr("Port")
-
-                text: App.api().serverConfig().externalPort
-
-                inputMethodHints: Qt.ImhDigitsOnly
-                validator: IntValidator { bottom: 1; top: 65535;}
-
-                EnterKey.iconSource: "image://theme/icon-m-enter-next"
                 EnterKey.onClicked: focus = false
 
                 autoScrollEnabled: true
@@ -160,8 +115,8 @@ Page {
 
             Label {
                 width: parent.width
-                visible: !externalPortField.acceptableInput
-                text: qsTr("Valid port required!") +  " (1-65535)"
+                visible: discovered && !externalHostnameField.acceptableInput
+                text: qsTr("Valid URI required!")
                 color: Theme.errorColor
                 font.pixelSize: Theme.fontSizeExtraSmall
             }
