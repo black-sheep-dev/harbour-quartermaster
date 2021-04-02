@@ -79,8 +79,9 @@ Page {
             }
 
             Label {
-                width: parent.width
-                visible: discovered && !internalHostnameField.acceptableInput
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2*x
+                visible: discovered && !internalUriField.acceptableInput
                 text: qsTr("Valid URI required!")
                 color: Theme.errorColor
                 font.pixelSize: Theme.fontSizeExtraSmall
@@ -114,8 +115,9 @@ Page {
             }
 
             Label {
-                width: parent.width
-                visible: discovered && !externalHostnameField.acceptableInput
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2*x
+                visible: discovered && !externalUriField.acceptableInput
                 text: qsTr("Valid URI required!")
                 color: Theme.errorColor
                 font.pixelSize: Theme.fontSizeExtraSmall
