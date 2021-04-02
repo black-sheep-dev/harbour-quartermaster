@@ -623,7 +623,8 @@ void ApiInterface::readSettings()
         externalUrl = settings.value(QStringLiteral("external_url")).toString();   
 
         if (externalPort != 0) {
-            externalUrl.append(QStringLiteral(":%1").arg(externalPort));
+            if (!externalUrl.contains(QRegExp(RegExp::PORT_INCLUDED)))
+                externalUrl.append(QStringLiteral(":%1").arg(externalPort));
             settings.remove(QStringLiteral("external_port"));
         }
 
@@ -631,7 +632,8 @@ void ApiInterface::readSettings()
         internalUrl = settings.value(QStringLiteral("internal_url")).toString();
 
         if (internalPort != 0) {
-            internalUrl.append(QStringLiteral(":%1").arg(internalPort));
+            if (!internalUrl.contains(QRegExp(RegExp::PORT_INCLUDED)))
+                internalUrl.append(QStringLiteral(":%1").arg(internalPort));
             settings.remove(QStringLiteral("internal_port"));
         }
 
