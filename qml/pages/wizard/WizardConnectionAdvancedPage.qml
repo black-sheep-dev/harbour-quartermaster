@@ -11,6 +11,8 @@ Dialog {
     allowedOrientations: Orientation.Portrait
     acceptDestination: Qt.resolvedUrl("WizardTokenPage.qml")
 
+    canAccept: internalHostnameField.acceptableInput && internalPortField.acceptableInput
+
     PageBusyIndicator {
         id: busyIndicator
         anchors.centerIn: parent
@@ -65,7 +67,7 @@ Dialog {
             }
 
             ComboBox {
-                visible: !busy
+                visible: !busy && discovered
                 width: parent.width
                 label: qsTr("Preffered Mode")
 
@@ -91,14 +93,14 @@ Dialog {
                 id: internalHostnameField
                 width: parent.width
 
-                label: qsTr("Hostname")
-                placeholderText: qsTr("Enter hostname")
+                label: qsTr("URL")
+                placeholderText: qsTr("Enter url")
 
                 text: App.api().serverConfig().internalUrl
 
                 inputMethodHints: Qt.ImhUrlCharactersOnly
                 validator: RegExpValidator {
-                    regExp: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.?[a-z]{2,8}(:[0-9]{1,5})?(\/.*)?$|^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$|[a-zA-Z0-9-_]{1,}/gm
+                    regExp: /^(http(s?):\/\/(www\.)?)[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*(\(.[a-zA-Z]{2,5})?(:[0-9]{1,5})?(\/.*)?$/g
                 }
 
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
@@ -106,13 +108,12 @@ Dialog {
 
                 autoScrollEnabled: true
 
-                onTextChanged: checkInput()
             }
 
             Label {
                 width: parent.width
                 visible: discovered && !internalHostnameField.acceptableInput
-                text: qsTr("Valid hostname or IP required!")
+                text: qsTr("Valid url required!")
                 color: Theme.errorColor
                 font.pixelSize: Theme.fontSizeExtraSmall
             }
@@ -134,8 +135,6 @@ Dialog {
                 EnterKey.onClicked: externalHostnameField.focus = true
 
                 autoScrollEnabled: true
-
-                onTextChanged: checkInput()
             }
 
             Label {
@@ -157,28 +156,26 @@ Dialog {
                 id: externalHostnameField
                 width: parent.width
 
-                label: qsTr("Hostname")
-                placeholderText: qsTr("Enter hostname")
+                label: qsTr("URL")
+                placeholderText: qsTr("Enter url")
 
                 text: App.api().serverConfig().externalUrl
 
                 inputMethodHints: Qt.ImhUrlCharactersOnly
                 validator: RegExpValidator {
-                    regExp: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.?[a-z]{2,8}(:[0-9]{1,5})?(\/.*)?$|^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$|[a-zA-Z0-9-_]{1,}/gm
+                    regExp: /^(http(s?):\/\/(www\.)?)[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*(\(.[a-zA-Z]{2,5})?(:[0-9]{1,5})?(\/.*)?$/g
                 }
 
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
                 EnterKey.onClicked: externalPortField.focus = true
 
                 autoScrollEnabled: true
-
-                onTextChanged: checkInput()
             }
 
             Label {
                 width: parent.width
                 visible: discovered && !externalHostnameField.acceptableInput
-                text: qsTr("Valid hostname or IP required!")
+                text: qsTr("Valid url required!")
                 color: Theme.errorColor
                 font.pixelSize: Theme.fontSizeExtraSmall
             }
@@ -200,8 +197,6 @@ Dialog {
                 EnterKey.onClicked: focus = false
 
                 autoScrollEnabled: true
-
-                onTextChanged: checkInput()
             }
 
             Label {
@@ -214,10 +209,6 @@ Dialog {
         }
 
         VerticalScrollDecorator {}
-    }
-
-    function checkInput() {
-        canAccept = internalHostnameField.acceptableInput && internalPortField.acceptableInput
     }
 
     onAccepted: {
@@ -243,6 +234,4 @@ Dialog {
             dialog.discovered = false
         }
     }
-
-    Component.onCompleted: checkInput()
 }

@@ -21,7 +21,7 @@ App::App(QObject *parent) :
     // initialize
     m_deviceService->initialize();
     setNeedSetup(!m_deviceService->isRegistered());
-    //setNeedSetup(false);
+    // setNeedSetup(true);
     //m_api->setAtHome(false);
     m_api->initialize();
 }
