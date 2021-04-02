@@ -98,6 +98,14 @@ To get this app working with Home Assistant you need to activate the following c
 
 If you have "default_config:" in your configuration.yaml these components should already be active. If you need help please refer to [Home Assistant Documentation](https://www.home-assistant.io/docs/).
 
+It is also recommend to add the internal and external url in the configuration.yaml:
+
+```yaml
+homeassistant:
+  internal_url: "http://server:8123"
+  external_url: "http://home.nubecula.org:8123"
+```
+
 #### Remote Access
 
 You can get remote access by obtaining a Home Assistant Cloud account (paid subscription needed) or you need to make the server accessible by internet. 
