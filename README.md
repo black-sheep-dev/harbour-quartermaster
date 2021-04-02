@@ -76,6 +76,8 @@ Available translations:
   
 If you missing your native language you are welcome to support this project with your translation.
 
+[https://weblate.nubecula.org/engage/harbour-quartermaster/](https://weblate.nubecula.org/engage/harbour-quartermaster/)
+
 [![https://weblate.nubecula.org/engage/harbour-quartermaster/](https://weblate.nubecula.org/widgets/harbour-quartermaster/-/multi-auto.svg)](https://weblate.nubecula.org/engage/harbour-quartermaster/)
 
 ## Reset Application
