@@ -60,14 +60,14 @@ Page {
                 id: internalHostnameField
                 width: parent.width
 
-                label: qsTr("Hostname")
-                placeholderText: qsTr("Enter hostname")
+                label: qsTr("URL")
+                placeholderText: qsTr("Enter url")
 
                 text: App.api().serverConfig().internalUrl
 
                 inputMethodHints: Qt.ImhUrlCharactersOnly
                 validator: RegExpValidator {
-                    regExp: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.?[a-z]{2,8}(:[0-9]{1,5})?(\/.*)?$|^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$|[a-zA-Z0-9-_]{1,}/gm
+                    regExp: /^(http(s?):\/\/(www\.)?)[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*(\(.[a-zA-Z]{2,5})?(:[0-9]{1,5})?(\/.*)?$/g
                 }
 
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
@@ -79,7 +79,7 @@ Page {
             Label {
                 width: parent.width
                 visible: !internalHostnameField.acceptableInput
-                text: qsTr("Valid hostname or IP required!")
+                text: qsTr("Valid url required!")
                 color: Theme.errorColor
                 font.pixelSize: Theme.fontSizeExtraSmall
             }
@@ -117,14 +117,14 @@ Page {
                 id: externalHostnameField
                 width: parent.width
 
-                label: qsTr("Hostname")
-                placeholderText: qsTr("Enter hostname")
+                label: qsTr("URL")
+                placeholderText: qsTr("Enter url")
 
                 text: App.api().serverConfig().externalUrl
 
                 inputMethodHints: Qt.ImhUrlCharactersOnly
                 validator: RegExpValidator {
-                    regExp: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.?[a-z]{2,8}(:[0-9]{1,5})?(\/.*)?$|^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$|[a-zA-Z0-9-_]{1,}/gm
+                    regExp: /^(http(s?):\/\/(www\.)?)[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*(\(.[a-zA-Z]{2,5})?(:[0-9]{1,5})?(\/.*)?$/g
                 }
 
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
@@ -136,7 +136,7 @@ Page {
             Label {
                 width: parent.width
                 visible: !externalHostnameField.acceptableInput
-                text: qsTr("Valid hostname or IP required!")
+                text: qsTr("Valid url required!")
                 color: Theme.errorColor
                 font.pixelSize: Theme.fontSizeExtraSmall
             }

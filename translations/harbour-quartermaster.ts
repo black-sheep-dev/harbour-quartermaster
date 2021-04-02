@@ -566,19 +566,7 @@
 <context>
     <name>SettingsConnectionPage</name>
     <message>
-        <source>Hostname</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enter hostname</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Port</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Valid hostname or IP required!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -615,6 +603,18 @@
     </message>
     <message>
         <source>Cloud</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter url</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid url required!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1135,11 +1135,11 @@
 <context>
     <name>WizardConnectionAdvancedPage</name>
     <message>
-        <source>Back</source>
+        <source>Continue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Continue</source>
+        <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1147,39 +1147,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Failed to connect to server. Go back and check your data!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Internal Connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hostname</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enter hostname</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Valid hostname or IP required!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Port</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Valid port required!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>External Connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Server connection infos received. Please check external port!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to connect to server. Go back and check your data!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1202,15 +1174,39 @@
         <source>Cloud</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Internal Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter url</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid url required!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid port required!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>External Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>URL</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>WizardConnectionPage</name>
     <message>
         <source>Connection Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hostname</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1222,15 +1218,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Valid hostname or IP required!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Valid port required!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enter hostname (e.g. http://server)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1242,7 +1230,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This can either be the hostname or the IP address in the local network.</source>
+        <source>Please provide a full url for this!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter url (e.g. http://server)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid url required!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

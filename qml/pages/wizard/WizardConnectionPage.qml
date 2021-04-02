@@ -8,6 +8,8 @@ Dialog {
     allowedOrientations: Orientation.Portrait
     acceptDestination: Qt.resolvedUrl("WizardConnectionAdvancedPage.qml")
 
+    canAccept: hostnameField.acceptableInput && portField.acceptableInput
+
     DialogHeader {
         id: header
         acceptText: qsTr("Connect")
@@ -36,7 +38,17 @@ Dialog {
 
             text: qsTr("You need to provide the connection details to your Home Assistant server.")
                   + "\n"
-                  + qsTr("This can either be the hostname or the IP address in the local network.")
+                  + qsTr("Please provide a full url for this!")
+
+            font.pixelSize: Theme.fontSizeSmall
+            color: Theme.highlightColor
+        }
+
+        Label {
+            width: parent.width
+            wrapMode: Text.WordWrap
+
+            text: "<ul><li>http://server</li><li>http://192.168.168.2</li><li>https://home.example.org</li></ul>"
 
             font.pixelSize: Theme.fontSizeSmall
             color: Theme.highlightColor
@@ -51,28 +63,26 @@ Dialog {
             id: hostnameField
             width: parent.width
 
-            label: qsTr("Hostname")
-            placeholderText: qsTr("Enter hostname (e.g. http://server)")
+            label: qsTr("URL")
+            placeholderText: qsTr("Enter url (e.g. http://server)")
 
             text: App.api().serverConfig().internalUrl
 
             inputMethodHints: Qt.ImhUrlCharactersOnly
             validator: RegExpValidator {
-                regExp: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*(\(.[a-z]{2,5})?(:[0-9]{1,5})?(\/.*)?$/g
+                regExp: /^(http(s?):\/\/(www\.)?)[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*(\(.[a-zA-Z]{2,5})?(:[0-9]{1,5})?(\/.*)?$/g
             }
 
             EnterKey.iconSource: "image://theme/icon-m-enter-next"
             EnterKey.onClicked: portField.focus = true
 
             autoScrollEnabled: true
-
-            onTextChanged: checkInput()
         }
 
         Label {
             width: parent.width
             visible: !hostnameField.acceptableInput
-            text: qsTr("Valid hostname or IP required!")
+            text: qsTr("Valid url required!")
             color: Theme.errorColor
             font.pixelSize: Theme.fontSizeExtraSmall
         }
@@ -92,8 +102,6 @@ Dialog {
             EnterKey.onClicked: focus = false
 
             autoScrollEnabled: true
-
-            onTextChanged: checkInput()
         }
 
         Label {
@@ -105,13 +113,7 @@ Dialog {
         }
     }
 
-    function checkInput() {
-        dialog.canAccept = hostnameField.acceptableInput && portField.acceptableInput
-    }
-
     onAccepted: {
         App.api().getDiscoveryInfo(hostnameField.text, portField.text)
     }
-
-    Component.onCompleted: checkInput()
 }
