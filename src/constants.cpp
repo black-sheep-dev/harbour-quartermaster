@@ -72,3 +72,6 @@ const QString ApiKey::KEY_VOLUME                        = QStringLiteral("volume
 const QString ApiKey::KEY_VERSION                       = QStringLiteral("version");
 const QString ApiKey::KEY_WEBHOOK_ID                    = QStringLiteral("webhook_id");
 const QString ApiKey::KEY_WHEN                          = QStringLiteral("when");
+
+// RegExp
+const QString RegExp::PORT_INCLUDED                     = QStringLiteral(":[0-9]{1,5}");
