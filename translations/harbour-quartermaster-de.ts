@@ -328,7 +328,7 @@
     </message>
     <message>
         <source>Children</source>
-        <translation type="unfinished"></translation>
+        <translation>Children</translation>
     </message>
 </context>
 <context>
@@ -568,14 +568,6 @@
 <context>
     <name>SettingsConnectionPage</name>
     <message>
-        <source>Port</source>
-        <translation>Port</translation>
-    </message>
-    <message>
-        <source>Valid port required!</source>
-        <translation>Gültiger Port benötigt!</translation>
-    </message>
-    <message>
         <source>Connections</source>
         <translation>Verbindungen</translation>
     </message>
@@ -608,16 +600,16 @@
         <translation>Cloud</translation>
     </message>
     <message>
-        <source>URL</source>
-        <translation>URL</translation>
+        <source>URI</source>
+        <translation>URI</translation>
     </message>
     <message>
-        <source>Enter url</source>
-        <translation>URL eingeben</translation>
+        <source>Valid URI required!</source>
+        <translation>Gültige URI benötigt!</translation>
     </message>
     <message>
-        <source>Valid url required!</source>
-        <translation>Gültige URL benötigt!</translation>
+        <source>Enter URI (e.g. http://server:8123)</source>
+        <translation>URI eingeben (z.B. http://server:8123)</translation>
     </message>
 </context>
 <context>
@@ -1150,10 +1142,6 @@
         <translation>Verbindungsdetails</translation>
     </message>
     <message>
-        <source>Server connection infos received. Please check external port!</source>
-        <translation>Server Verbindungsdetails erhalten. Externen Port überprüfen!</translation>
-    </message>
-    <message>
         <source>Failed to connect to server. Go back and check your data!</source>
         <translation>Verbindung zum Server fehlgeschlagen. Geh zurück und überprüfe deine Daten!</translation>
     </message>
@@ -1174,36 +1162,28 @@
         <translation>Interne URL</translation>
     </message>
     <message>
-        <source>Cloud</source>
-        <translation>Cloud</translation>
-    </message>
-    <message>
         <source>Internal Connection</source>
         <translation>Interne Verbindung</translation>
-    </message>
-    <message>
-        <source>Enter url</source>
-        <translation>URL eingeben</translation>
-    </message>
-    <message>
-        <source>Valid url required!</source>
-        <translation>Gültige URL benötigt!</translation>
-    </message>
-    <message>
-        <source>Port</source>
-        <translation>Port</translation>
-    </message>
-    <message>
-        <source>Valid port required!</source>
-        <translation>Gültiger Port benötigt!</translation>
     </message>
     <message>
         <source>External Connection</source>
         <translation>Externe Verbindung</translation>
     </message>
     <message>
-        <source>URL</source>
-        <translation>URL</translation>
+        <source>URI</source>
+        <translation>URI</translation>
+    </message>
+    <message>
+        <source>Valid URI required!</source>
+        <translation>Gültige URI benötigt!</translation>
+    </message>
+    <message>
+        <source>Enter URI (e.g. http://server:8123)</source>
+        <translation>URI eingeben (z.B. http://server:8123)</translation>
+    </message>
+    <message>
+        <source>Server connection info received. Please check the data!</source>
+        <translation>Server Verbindungsdetails empfangen. Diese bitte überprüfen!</translation>
     </message>
 </context>
 <context>
@@ -1213,16 +1193,8 @@
         <translation>Verbindungs Einstellungen</translation>
     </message>
     <message>
-        <source>Port</source>
-        <translation>Port</translation>
-    </message>
-    <message>
         <source>Back</source>
         <translation>Zurück</translation>
-    </message>
-    <message>
-        <source>Valid port required!</source>
-        <translation>Gültiger Port benötigt!</translation>
     </message>
     <message>
         <source>Connect</source>
@@ -1233,20 +1205,20 @@
         <translation>Du musst die Verbindungsdetails zu deinem Home Assistant Server eingeben.</translation>
     </message>
     <message>
-        <source>Please provide a full url for this!</source>
-        <translation>Bitte eine vollständige URL eingeben!</translation>
+        <source>Please provide a full URI with port for this!</source>
+        <translation>Es muss eine vollwertige URI inklusive Port angegeben werden!</translation>
     </message>
     <message>
-        <source>URL</source>
-        <translation>URL</translation>
+        <source>URI</source>
+        <translation>URI</translation>
     </message>
     <message>
-        <source>Enter url (e.g. http://server)</source>
-        <translation>URL eingeben (e.g. http://server)</translation>
+        <source>Valid URI required!</source>
+        <translation></translation>
     </message>
     <message>
-        <source>Valid url required!</source>
-        <translation>Gültige URL benötigt!</translation>
+        <source>Enter URI (e.g. http://server:8123)</source>
+        <translation>URI eingeben (z.B. http://server:8123)</translation>
     </message>
 </context>
 <context>

@@ -91,10 +91,14 @@ void ApiInterface::getConfig()
     sendRequest(Api::RequestGetApiConfig);
 }
 
-void ApiInterface::getDiscoveryInfo(const QString &hostname, quint16 port)
+void ApiInterface::getDiscoveryInfo(const QString &uri)
 {
-    m_config->setInternalUrl(hostname);
-    m_config->setInternalPort(port);
+    QString url = uri;
+
+    if (!url.contains(QRegExp(RegExp::PORT_INCLUDED)))
+        url.append(QStringLiteral(":8123"));
+
+    m_config->setInternalUrl(url);
     refreshStates();
 
     sendRequest(Api::RequestGetApiDiscoveryInfo, QString(), QJsonObject());
@@ -540,40 +544,31 @@ void ApiInterface::refreshStates()
 void ApiInterface::refreshUrls()
 {
     if (m_connectionMode != ConnectionAutomatic) {
-        m_baseUrl = m_config->internalUrl()
-                + QStringLiteral(":%1").arg(m_config->internalPort());
+        m_baseUrl = m_config->internalUrl();
 
         m_webhookUrl = m_config->internalUrl()
-                + QStringLiteral(":%1").arg(m_config->internalPort())
                 + HASS_API_ENDPOINT_WEBHOOK + m_credentials.webhookId;
 
         if ( m_connectionMode == ConnectionExternal
              && !m_config->externalUrl().isEmpty() ) {
 
-            m_baseUrl = m_config->externalUrl()
-                    + QStringLiteral(":%1").arg(m_config->externalPort());
-
+            m_baseUrl = m_config->externalUrl();
             m_webhookUrl = m_config->externalUrl()
-                    + QStringLiteral(":%1").arg(m_config->externalPort())
                     + HASS_API_ENDPOINT_WEBHOOK + m_credentials.webhookId;
 
         } else if ( m_connectionMode == ConnectionCloud
                     && !m_credentials.cloudhookUrl.isEmpty() ) {
 
-            m_baseUrl = m_config->externalUrl()
-                    + QStringLiteral(":%1").arg(m_config->externalPort());
-
+            m_baseUrl = m_config->externalUrl();
             m_webhookUrl = m_credentials.cloudhookUrl;
         }
 
     } else {
         // base url
         if ( m_atHome || m_config->externalUrl().isEmpty() ) {
-            m_baseUrl = m_config->internalUrl()
-                    + QStringLiteral(":%1").arg(m_config->internalPort());
+            m_baseUrl = m_config->internalUrl();
         } else {
-            m_baseUrl = m_config->externalUrl()
-                    + QStringLiteral(":%1").arg(m_config->externalPort());
+            m_baseUrl = m_config->externalUrl();
         }
 
         // webhook url
@@ -583,11 +578,9 @@ void ApiInterface::refreshUrls()
             m_webhookUrl = m_credentials.remoteUiUrl + HASS_API_ENDPOINT_WEBHOOK + m_credentials.webhookId;
         } else if ( !m_config->externalUrl().isEmpty() && !m_atHome ) {
             m_webhookUrl = m_config->externalUrl()
-                    + QStringLiteral(":%1").arg(m_config->externalPort())
                     + HASS_API_ENDPOINT_WEBHOOK + m_credentials.webhookId;
         } else {
             m_webhookUrl = m_config->internalUrl()
-                    + QStringLiteral(":%1").arg(m_config->internalPort())
                     + HASS_API_ENDPOINT_WEBHOOK + m_credentials.webhookId;
         }
     }
@@ -616,22 +609,32 @@ void ApiInterface::readSettings()
         const QString hostname = settings.value(QStringLiteral("hostname"), QString()).toString();
 
         if (hostname.startsWith(QLatin1String("http")))
-            internalUrl = hostname;
+            internalUrl = hostname + QStringLiteral(":%1").arg(port);
         else
-            internalUrl = (ssl ? QStringLiteral("https://") : QStringLiteral("http://")) + hostname;
-
-        internalPort = port;
-        externalPort = port;
+            internalUrl = (ssl ? QStringLiteral("https://") : QStringLiteral("http://")) + hostname + QStringLiteral(":%1").arg(port);
 
         settings.remove("");
         settings.endGroup();
 
     } else {
         settings.beginGroup(QStringLiteral("CONNECTION"));
-        externalPort = quint16(settings.value(QStringLiteral("external_port"), 8123).toUInt());
-        externalUrl = settings.value(QStringLiteral("external_url")).toString();
-        internalPort = quint16(settings.value(QStringLiteral("internal_port"), 8123).toUInt());
+
+        externalPort = quint16(settings.value(QStringLiteral("external_port"), 0).toUInt());
+        externalUrl = settings.value(QStringLiteral("external_url")).toString();   
+
+        if (externalPort != 0) {
+            externalUrl.append(QStringLiteral(":%1").arg(externalPort));
+            settings.remove(QStringLiteral("external_port"));
+        }
+
+        internalPort = quint16(settings.value(QStringLiteral("internal_port"), 0).toUInt());
         internalUrl = settings.value(QStringLiteral("internal_url")).toString();
+
+        if (internalPort != 0) {
+            internalUrl.append(QStringLiteral(":%1").arg(internalPort));
+            settings.remove(QStringLiteral("internal_port"));
+        }
+
         settings.endGroup();
     }
 
@@ -645,9 +648,7 @@ void ApiInterface::readSettings()
     setConnectionMode(settings.value(QStringLiteral("connection_mode"), ConnectionMode::ConnectionAutomatic).toUInt());
     settings.endGroup();
 
-    m_config->setExternalPort(externalPort);
     m_config->setExternalUrl(externalUrl);
-    m_config->setInternalPort(internalPort);
     m_config->setInternalUrl(internalUrl);
 }
 
@@ -657,9 +658,7 @@ void ApiInterface::writeSettings()
 
     settings.beginGroup(QStringLiteral("CONNECTION"));
     settings.setValue(QStringLiteral("connecion_mode"), m_connectionMode);
-    settings.setValue(QStringLiteral("external_port"), m_config->externalPort());
     settings.setValue(QStringLiteral("external_url"), m_config->externalUrl());
-    settings.setValue(QStringLiteral("internal_port"), m_config->internalPort());
     settings.setValue(QStringLiteral("internal_url"), m_config->internalUrl());
     settings.endGroup();
 }

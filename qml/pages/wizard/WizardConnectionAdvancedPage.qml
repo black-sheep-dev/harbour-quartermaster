@@ -11,7 +11,7 @@ Dialog {
     allowedOrientations: Orientation.Portrait
     acceptDestination: Qt.resolvedUrl("WizardTokenPage.qml")
 
-    canAccept: internalHostnameField.acceptableInput && internalPortField.acceptableInput
+    canAccept: internalUriField.acceptableInput
 
     PageBusyIndicator {
         id: busyIndicator
@@ -59,7 +59,7 @@ Dialog {
                 width: parent.width
                 wrapMode: Text.WordWrap
 
-                text: discovered ? qsTr("Server connection infos received. Please check external port!") :
+                text: discovered ? qsTr("Server connection info received. Please check the data!") :
                           qsTr("Failed to connect to server. Go back and check your data!")
 
                 font.pixelSize: Theme.fontSizeSmall
@@ -73,9 +73,15 @@ Dialog {
 
                 menu: ContextMenu {
                     MenuItem { text: qsTr("Automatic") }
-                    MenuItem { text: qsTr("External Url") }
-                    MenuItem { text: qsTr("Internal Url") }
-                    MenuItem { text: qsTr("Cloud") }
+                    MenuItem {
+                        enabled: externalUriField.acceptableInput
+                        text: qsTr("External Url")
+                    }
+                    MenuItem {
+                        enabled: internalUriField.acceptableInput
+                        text: qsTr("Internal Url")
+                    }
+                    //MenuItem { text: qsTr("Cloud") }
                 }
 
                 Component.onCompleted: currentIndex = App.api().connectionMode
@@ -90,11 +96,11 @@ Dialog {
             TextField {
                 visible: discovered
 
-                id: internalHostnameField
+                id: internalUriField
                 width: parent.width
 
-                label: qsTr("URL")
-                placeholderText: qsTr("Enter url")
+                label: qsTr("URI")
+                placeholderText: qsTr("Enter URI (e.g. http://server:8123)")
 
                 text: App.api().serverConfig().internalUrl
 
@@ -104,7 +110,7 @@ Dialog {
                 }
 
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
-                EnterKey.onClicked: internalPortField.focus = true
+                EnterKey.onClicked: internalUriField.focus = true
 
                 autoScrollEnabled: true
 
@@ -112,35 +118,8 @@ Dialog {
 
             Label {
                 width: parent.width
-                visible: discovered && !internalHostnameField.acceptableInput
-                text: qsTr("Valid url required!")
-                color: Theme.errorColor
-                font.pixelSize: Theme.fontSizeExtraSmall
-            }
-
-            TextField {
-                visible: discovered
-
-                id: internalPortField
-                width: parent.width / 2
-
-                label: qsTr("Port")
-
-                text: App.api().serverConfig().internalPort
-
-                inputMethodHints: Qt.ImhDigitsOnly
-                validator: IntValidator { bottom: 1; top: 65535;}
-
-                EnterKey.iconSource: "image://theme/icon-m-enter-next"
-                EnterKey.onClicked: externalHostnameField.focus = true
-
-                autoScrollEnabled: true
-            }
-
-            Label {
-                width: parent.width
-                visible: discovered && !internalPortField.acceptableInput
-                text: qsTr("Valid port required!") +  " (1-65535)"
+                visible: discovered && !internalUriField.acceptableInput
+                text: qsTr("Valid URI required!")
                 color: Theme.errorColor
                 font.pixelSize: Theme.fontSizeExtraSmall
             }
@@ -153,11 +132,11 @@ Dialog {
             TextField {
                 visible: discovered
 
-                id: externalHostnameField
+                id: externalUriField
                 width: parent.width
 
-                label: qsTr("URL")
-                placeholderText: qsTr("Enter url")
+                label: qsTr("URI")
+                placeholderText: qsTr("Enter URI (e.g. http://server:8123)")
 
                 text: App.api().serverConfig().externalUrl
 
@@ -167,33 +146,6 @@ Dialog {
                 }
 
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
-                EnterKey.onClicked: externalPortField.focus = true
-
-                autoScrollEnabled: true
-            }
-
-            Label {
-                width: parent.width
-                visible: discovered && !externalHostnameField.acceptableInput
-                text: qsTr("Valid url required!")
-                color: Theme.errorColor
-                font.pixelSize: Theme.fontSizeExtraSmall
-            }
-
-            TextField {
-                visible: discovered
-
-                id: externalPortField
-                width: parent.width / 2
-
-                label: qsTr("Port")
-
-                text: App.api().serverConfig().externalPort
-
-                inputMethodHints: Qt.ImhDigitsOnly
-                validator: IntValidator { bottom: 1; top: 65535;}
-
-                EnterKey.iconSource: "image://theme/icon-m-enter-next"
                 EnterKey.onClicked: focus = false
 
                 autoScrollEnabled: true
@@ -201,8 +153,8 @@ Dialog {
 
             Label {
                 width: parent.width
-                visible: discovered && !externalPortField.acceptableInput
-                text: qsTr("Valid port required!") +  " (1-65535)"
+                visible: discovered && !externalUriField.acceptableInput
+                text: qsTr("Valid URI required!")
                 color: Theme.errorColor
                 font.pixelSize: Theme.fontSizeExtraSmall
             }
@@ -212,10 +164,8 @@ Dialog {
     }
 
     onAccepted: {
-        App.api().serverConfig().externalUrl = externalHostnameField.text
-        App.api().serverConfig().externalPort = externalPortField.text
-        App.api().serverConfig().internalUrl = internalHostnameField.text
-        App.api().serverConfig().internalPort = internalPortField.text      
+        App.api().serverConfig().externalUrl = externalUriField.text
+        App.api().serverConfig().internalUrl = internalUriField.text
         App.saveSettings()
     }
 

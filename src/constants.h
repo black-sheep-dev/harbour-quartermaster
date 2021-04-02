@@ -78,4 +78,8 @@ struct ApiKey {
     static const QString KEY_WHEN;
 };
 
+struct RegExp {
+    static const QString PORT_INCLUDED;
+};
+
 #endif // CONSTANTS_H
