@@ -120,10 +120,12 @@ Notifications can be received via websocket connection. At the moment only globa
 
 To send a notification you need to call the service "notify.notify" in Home Assistant:
 
-	service: notify.notify
-	data:
-  		message: Tina comes home!
-  		title: Tina Location
+```yaml
+service: notify.notify
+data:
+  message: Tina comes home!
+  title: Tina Location
+```
 
 The values "message" and ""title" need to have data!
 
