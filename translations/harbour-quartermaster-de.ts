@@ -568,20 +568,8 @@
 <context>
     <name>SettingsConnectionPage</name>
     <message>
-        <source>Hostname</source>
-        <translation>Hostname</translation>
-    </message>
-    <message>
-        <source>Enter hostname</source>
-        <translation>Hostname eingeben</translation>
-    </message>
-    <message>
         <source>Port</source>
         <translation>Port</translation>
-    </message>
-    <message>
-        <source>Valid hostname or IP required!</source>
-        <translation>Gültiger Hostname oder IP benötigt!</translation>
     </message>
     <message>
         <source>Valid port required!</source>
@@ -618,6 +606,18 @@
     <message>
         <source>Cloud</source>
         <translation>Cloud</translation>
+    </message>
+    <message>
+        <source>URL</source>
+        <translation>URL</translation>
+    </message>
+    <message>
+        <source>Enter url</source>
+        <translation>URL eingeben</translation>
+    </message>
+    <message>
+        <source>Valid url required!</source>
+        <translation>Gültige URL benötigt!</translation>
     </message>
 </context>
 <context>
@@ -1138,52 +1138,24 @@
 <context>
     <name>WizardConnectionAdvancedPage</name>
     <message>
-        <source>Back</source>
-        <translation>Zurück</translation>
-    </message>
-    <message>
         <source>Continue</source>
         <translation>Weiter</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Zurück</translation>
     </message>
     <message>
         <source>Connection Infos</source>
         <translation>Verbindungsdetails</translation>
     </message>
     <message>
+        <source>Server connection infos received. Please check external port!</source>
+        <translation>Server Verbindungsdetails erhalten. Externen Port überprüfen!</translation>
+    </message>
+    <message>
         <source>Failed to connect to server. Go back and check your data!</source>
         <translation>Verbindung zum Server fehlgeschlagen. Geh zurück und überprüfe deine Daten!</translation>
-    </message>
-    <message>
-        <source>Internal Connection</source>
-        <translation>Interne Verbindung</translation>
-    </message>
-    <message>
-        <source>Hostname</source>
-        <translation>Hostname</translation>
-    </message>
-    <message>
-        <source>Enter hostname</source>
-        <translation>Hostname eingeben</translation>
-    </message>
-    <message>
-        <source>Valid hostname or IP required!</source>
-        <translation>Gültiger Hostname oder IP benötigt!</translation>
-    </message>
-    <message>
-        <source>Port</source>
-        <translation>Port</translation>
-    </message>
-    <message>
-        <source>Valid port required!</source>
-        <translation>Gültiger Port benötigt!</translation>
-    </message>
-    <message>
-        <source>External Connection</source>
-        <translation>Externe Verbindung</translation>
-    </message>
-    <message>
-        <source>Server connection infos received. Please check external port!</source>
-        <translation>Server Verbindungsdetails empfangen. Bitte überprüfe den externen Port!</translation>
     </message>
     <message>
         <source>Preffered Mode</source>
@@ -1199,11 +1171,39 @@
     </message>
     <message>
         <source>Internal Url</source>
-        <translation>Interne Url</translation>
+        <translation>Interne URL</translation>
     </message>
     <message>
         <source>Cloud</source>
         <translation>Cloud</translation>
+    </message>
+    <message>
+        <source>Internal Connection</source>
+        <translation>Interne Verbindung</translation>
+    </message>
+    <message>
+        <source>Enter url</source>
+        <translation>URL eingeben</translation>
+    </message>
+    <message>
+        <source>Valid url required!</source>
+        <translation>Gültige URL benötigt!</translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation>Port</translation>
+    </message>
+    <message>
+        <source>Valid port required!</source>
+        <translation>Gültiger Port benötigt!</translation>
+    </message>
+    <message>
+        <source>External Connection</source>
+        <translation>Externe Verbindung</translation>
+    </message>
+    <message>
+        <source>URL</source>
+        <translation>URL</translation>
     </message>
 </context>
 <context>
@@ -1211,10 +1211,6 @@
     <message>
         <source>Connection Settings</source>
         <translation>Verbindungs Einstellungen</translation>
-    </message>
-    <message>
-        <source>Hostname</source>
-        <translation>Hostname</translation>
     </message>
     <message>
         <source>Port</source>
@@ -1225,16 +1221,8 @@
         <translation>Zurück</translation>
     </message>
     <message>
-        <source>Valid hostname or IP required!</source>
-        <translation>Gültiger Hostname oder IP benötigt!</translation>
-    </message>
-    <message>
         <source>Valid port required!</source>
         <translation>Gültiger Port benötigt!</translation>
-    </message>
-    <message>
-        <source>Enter hostname (e.g. http://server)</source>
-        <translation>Hostname eingeben (z.B. http://server)</translation>
     </message>
     <message>
         <source>Connect</source>
@@ -1245,8 +1233,20 @@
         <translation>Du musst die Verbindungsdetails zu deinem Home Assistant Server eingeben.</translation>
     </message>
     <message>
-        <source>This can either be the hostname or the IP address in the local network.</source>
-        <translation>Das kann entweder der Hostname oder die IP Adresse im lokalen Netzwerk sein.</translation>
+        <source>Please provide a full url for this!</source>
+        <translation>Bitte eine vollständige URL eingeben!</translation>
+    </message>
+    <message>
+        <source>URL</source>
+        <translation>URL</translation>
+    </message>
+    <message>
+        <source>Enter url (e.g. http://server)</source>
+        <translation>URL eingeben (e.g. http://server)</translation>
+    </message>
+    <message>
+        <source>Valid url required!</source>
+        <translation>Gültige URL benötigt!</translation>
     </message>
 </context>
 <context>
