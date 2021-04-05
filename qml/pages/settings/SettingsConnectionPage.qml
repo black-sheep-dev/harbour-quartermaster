@@ -7,13 +7,15 @@ Page {
     id: page
 
     function applyChanges() {
-        if (externalUriField.acceptableInput) {
-            App.api().serverConfig().externalUrl = externalUriField.text
+        if (externalUrlField.acceptableInput) {
+            App.api().serverConfig().externalUrl = externalUrlField.text
         }
 
-        if (internalUriField.acceptableInput) {
-            App.api().serverConfig().internalUrl = internalUriField.text
+        if (internalUrlField.acceptableInput) {
+            App.api().serverConfig().internalUrl = internalUrlField.text
         }
+
+        App.api().connectionMode = modeComboBox.currentIndex
 
         App.saveSettings();
     }
@@ -36,33 +38,30 @@ Page {
             }
 
             ComboBox {
+                id: modeComboBox
                 width: parent.width
                 label: qsTr("Preffered Mode")
 
                 menu: ContextMenu {
                     MenuItem { text: qsTr("Automatic") }
-                    MenuItem { text: qsTr("External Url") }
-                    MenuItem { text: qsTr("Internal Url") }
+                    MenuItem { text: qsTr("External URL") }
+                    MenuItem { text: qsTr("Internal URL") }
                     MenuItem { text: qsTr("Cloud") }
                 }
 
                 Component.onCompleted: currentIndex = App.api().connectionMode
-                onCurrentIndexChanged: App.api().connectionMode = currentIndex
             }
 
             SectionHeader {
-                visible: discovered
                 text: qsTr("Internal Connection")
             }
 
             TextField {
-                visible: discovered
-
-                id: internalUriField
+                id: internalUrlField
                 width: parent.width
 
-                label: qsTr("URI")
-                placeholderText: qsTr("Enter URI (e.g. http://server:8123)")
+                label: qsTr("URL")
+                placeholderText: qsTr("Enter URL (e.g. http://server:8123)")
 
                 text: App.api().serverConfig().internalUrl
 
@@ -72,33 +71,31 @@ Page {
                 }
 
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
-                EnterKey.onClicked: internalUriField.focus = true
+                EnterKey.onClicked: internalUrlField.focus = true
 
                 autoScrollEnabled: true
 
             }
 
             Label {
-                width: parent.width
-                visible: discovered && !internalHostnameField.acceptableInput
-                text: qsTr("Valid URI required!")
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2*x
+                visible: !internalUrlField.acceptableInput
+                text: qsTr("Valid URL required!")
                 color: Theme.errorColor
                 font.pixelSize: Theme.fontSizeExtraSmall
             }
 
             SectionHeader {
-                visible: discovered
                 text: qsTr("External Connection")
             }
 
             TextField {
-                visible: discovered
-
-                id: externalUriField
+                id: externalUrlField
                 width: parent.width
 
-                label: qsTr("URI")
-                placeholderText: qsTr("Enter URI (e.g. http://server:8123)")
+                label: qsTr("URL")
+                placeholderText: qsTr("Enter URL (e.g. http://server:8123)")
 
                 text: App.api().serverConfig().externalUrl
 
@@ -114,8 +111,9 @@ Page {
             }
 
             Label {
-                width: parent.width
-                visible: discovered && !externalHostnameField.acceptableInput
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2*x
+                visible: !externalUrlField.acceptableInput
                 text: qsTr("Valid URI required!")
                 color: Theme.errorColor
                 font.pixelSize: Theme.fontSizeExtraSmall

@@ -8,7 +8,7 @@ Dialog {
     allowedOrientations: Orientation.Portrait
     acceptDestination: Qt.resolvedUrl("WizardConnectionAdvancedPage.qml")
 
-    canAccept: uriField.acceptableInput
+    canAccept: urlField.acceptableInput
 
     DialogHeader {
         id: header
@@ -38,7 +38,7 @@ Dialog {
 
             text: qsTr("You need to provide the connection details to your Home Assistant server.")
                   + "\n"
-                  + qsTr("Please provide a full URI with port for this!")
+                  + qsTr("Please provide a full URL with port for this!")
 
             font.pixelSize: Theme.fontSizeSmall
             color: Theme.highlightColor
@@ -60,11 +60,11 @@ Dialog {
         }
 
         TextField {
-            id: uriField
+            id: urlField
             width: parent.width
 
-            label: qsTr("URI")
-            placeholderText: qsTr("Enter URI (e.g. http://server:8123)")
+            label: qsTr("URL")
+            placeholderText: qsTr("Enter URL (e.g. http://server:8123)")
 
             text: App.api().serverConfig().internalUrl
 
@@ -74,21 +74,21 @@ Dialog {
             }
 
             EnterKey.iconSource: "image://theme/icon-m-enter-next"
-            EnterKey.onClicked: portField.focus = true
+            EnterKey.onClicked: false
 
             autoScrollEnabled: true
         }
 
         Label {
             width: parent.width
-            visible: !uriField.acceptableInput
-            text: qsTr("Valid URI required!")
+            visible: !urlField.acceptableInput
+            text: qsTr("Valid URL required!")
             color: Theme.errorColor
             font.pixelSize: Theme.fontSizeExtraSmall
         }
     }
 
     onAccepted: {
-        App.api().getDiscoveryInfo(uriField.text)
+        App.api().getDiscoveryInfo(urlField.text)
     }
 }

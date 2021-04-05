@@ -95,6 +95,9 @@ bool EntitiesService::liveUpdates() const
 
 void EntitiesService::updateEntity(const QJsonObject &obj)
 {
+    if (m_entitiesModel->entitiesCount() == 0)
+        return;
+
     auto entity = m_entitiesModel->entityById(obj.value(ApiKey::KEY_ENTITY_ID).toString());
 
     if (entity == nullptr)
