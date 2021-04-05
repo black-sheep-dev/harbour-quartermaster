@@ -21,7 +21,7 @@ Page {
         PullDownMenu {
             MenuItem {
                 text: qsTr("Refresh")
-                onClicked: Client.entitiesProvider().refresh()
+                onClicked: App.entitiesService().refresh()
             }
         }
 

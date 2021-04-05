@@ -28,7 +28,7 @@ Page {
                 text: qsTr("Refresh")
                 onClicked: {
                     busy = true
-                    App.api().getStates()
+                    App.entitiesService().refresh()
                 }
             }
 

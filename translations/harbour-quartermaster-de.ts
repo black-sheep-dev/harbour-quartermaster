@@ -588,28 +588,32 @@
         <translation>Automatisch</translation>
     </message>
     <message>
-        <source>External Url</source>
-        <translation>Externe Url</translation>
-    </message>
-    <message>
-        <source>Internal Url</source>
-        <translation>Interne Url</translation>
-    </message>
-    <message>
         <source>Cloud</source>
         <translation>Cloud</translation>
-    </message>
-    <message>
-        <source>URI</source>
-        <translation>URI</translation>
     </message>
     <message>
         <source>Valid URI required!</source>
         <translation>Gültige URI benötigt!</translation>
     </message>
     <message>
-        <source>Enter URI (e.g. http://server:8123)</source>
-        <translation>URI eingeben (z.B. http://server:8123)</translation>
+        <source>External URL</source>
+        <translation>Externe URL</translation>
+    </message>
+    <message>
+        <source>Internal URL</source>
+        <translation>Interne URL</translation>
+    </message>
+    <message>
+        <source>URL</source>
+        <translation>URL</translation>
+    </message>
+    <message>
+        <source>Enter URL (e.g. http://server:8123)</source>
+        <translation>URL eingeben (z.B. http://server:8123)</translation>
+    </message>
+    <message>
+        <source>Valid URL required!</source>
+        <translation>Gültige URL eingeben!</translation>
     </message>
 </context>
 <context>
@@ -1154,14 +1158,6 @@
         <translation>Automatisch</translation>
     </message>
     <message>
-        <source>External Url</source>
-        <translation>Externe URL</translation>
-    </message>
-    <message>
-        <source>Internal Url</source>
-        <translation>Interne URL</translation>
-    </message>
-    <message>
         <source>Internal Connection</source>
         <translation>Interne Verbindung</translation>
     </message>
@@ -1170,20 +1166,32 @@
         <translation>Externe Verbindung</translation>
     </message>
     <message>
-        <source>URI</source>
-        <translation>URI</translation>
-    </message>
-    <message>
         <source>Valid URI required!</source>
         <translation>Gültige URI benötigt!</translation>
     </message>
     <message>
-        <source>Enter URI (e.g. http://server:8123)</source>
-        <translation>URI eingeben (z.B. http://server:8123)</translation>
-    </message>
-    <message>
         <source>Server connection info received. Please check the data!</source>
         <translation>Server Verbindungsdetails empfangen. Diese bitte überprüfen!</translation>
+    </message>
+    <message>
+        <source>External URL</source>
+        <translation>Externe URL</translation>
+    </message>
+    <message>
+        <source>Internal URL</source>
+        <translation>Interne URL</translation>
+    </message>
+    <message>
+        <source>URL</source>
+        <translation>URL</translation>
+    </message>
+    <message>
+        <source>Enter URL (e.g. http://server:8123)</source>
+        <translation>URL eingeben (z.B. http://server:8123)</translation>
+    </message>
+    <message>
+        <source>Valid URL required!</source>
+        <translation>Gültige URL eingeben!</translation>
     </message>
 </context>
 <context>
@@ -1205,20 +1213,20 @@
         <translation>Du musst die Verbindungsdetails zu deinem Home Assistant Server eingeben.</translation>
     </message>
     <message>
-        <source>Please provide a full URI with port for this!</source>
-        <translation>Es muss eine vollwertige URI inklusive Port angegeben werden!</translation>
+        <source>Please provide a full URL with port for this!</source>
+        <translation>Es muss eine gültige URL mit Port eingegeben werden!</translation>
     </message>
     <message>
-        <source>URI</source>
-        <translation>URI</translation>
+        <source>URL</source>
+        <translation>URL</translation>
     </message>
     <message>
-        <source>Valid URI required!</source>
-        <translation></translation>
+        <source>Enter URL (e.g. http://server:8123)</source>
+        <translation>URL eingeben (z.B. http://server:8123)</translation>
     </message>
     <message>
-        <source>Enter URI (e.g. http://server:8123)</source>
-        <translation>URI eingeben (z.B. http://server:8123)</translation>
+        <source>Valid URL required!</source>
+        <translation>Gültige URL eingeben!</translation>
     </message>
 </context>
 <context>
