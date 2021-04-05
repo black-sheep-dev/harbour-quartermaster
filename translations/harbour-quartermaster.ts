@@ -586,19 +586,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>External Url</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Internal Url</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Cloud</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>URI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -606,7 +594,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enter URI (e.g. http://server:8123)</source>
+        <source>External URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter URL (e.g. http://server:8123)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid URL required!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1151,14 +1155,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>External Url</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Internal Url</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Internal Connection</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1167,19 +1163,31 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>URI</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Valid URI required!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enter URI (e.g. http://server:8123)</source>
+        <source>Server connection info received. Please check the data!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Server connection info received. Please check the data!</source>
+        <source>External URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter URL (e.g. http://server:8123)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valid URL required!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1202,19 +1210,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please provide a full URI with port for this!</source>
+        <source>Please provide a full URL with port for this!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>URI</source>
+        <source>URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Valid URI required!</source>
+        <source>Enter URL (e.g. http://server:8123)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enter URI (e.g. http://server:8123)</source>
+        <source>Valid URL required!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

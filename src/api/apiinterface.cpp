@@ -623,7 +623,8 @@ void ApiInterface::readSettings()
         externalUrl = settings.value(QStringLiteral("external_url")).toString();   
 
         if (externalPort != 0) {
-            externalUrl.append(QStringLiteral(":%1").arg(externalPort));
+            if (!externalUrl.contains(QRegExp(RegExp::PORT_INCLUDED)))
+                externalUrl.append(QStringLiteral(":%1").arg(externalPort));
             settings.remove(QStringLiteral("external_port"));
         }
 
@@ -631,7 +632,8 @@ void ApiInterface::readSettings()
         internalUrl = settings.value(QStringLiteral("internal_url")).toString();
 
         if (internalPort != 0) {
-            internalUrl.append(QStringLiteral(":%1").arg(internalPort));
+            if (!internalUrl.contains(QRegExp(RegExp::PORT_INCLUDED)))
+                internalUrl.append(QStringLiteral(":%1").arg(internalPort));
             settings.remove(QStringLiteral("internal_port"));
         }
 
@@ -657,7 +659,7 @@ void ApiInterface::writeSettings()
     QSettings settings;
 
     settings.beginGroup(QStringLiteral("CONNECTION"));
-    settings.setValue(QStringLiteral("connecion_mode"), m_connectionMode);
+    settings.setValue(QStringLiteral("connection_mode"), m_connectionMode);
     settings.setValue(QStringLiteral("external_url"), m_config->externalUrl());
     settings.setValue(QStringLiteral("internal_url"), m_config->internalUrl());
     settings.endGroup();
@@ -793,7 +795,10 @@ void ApiInterface::websocketOpen()
          || !(m_states & StateHasCredentialsToken) )
         return;
 
-    if (m_websocket->isValid())
+//    if (m_websocket->isValid())
+//        return;
+
+    if (m_websocket->state() == QAbstractSocket::ConnectingState)
         return;
 
     if ( m_websocketUrl.isEmpty() || m_subscriptionEvents.isEmpty())
@@ -816,17 +821,17 @@ void ApiInterface::updateWebsocketSubscriptions()
     qDebug() << m_subscriptionEvents.keys();
 #endif
 
-    if ( !m_subscriptionEvents.isEmpty()
-         && !m_websocket->isValid() ) {
-        websocketOpen();
-        return;
-    }
+//    if ( !m_subscriptionEvents.isEmpty()
+//         && !m_websocket->isValid() ) {
+//        websocketOpen();
+//        return;
+//    }
 
-    if ( m_subscriptionEvents.isEmpty()
-         && m_websocket->isValid() ) {
-        websocketClose();
-        return;
-    }
+//    if ( m_subscriptionEvents.isEmpty()
+//         && m_websocket->isValid() ) {
+//        websocketClose();
+//        return;
+//    }
 
     QHashIterator<QString, int> iter(m_subscriptionEvents);
     while (iter.hasNext()) {

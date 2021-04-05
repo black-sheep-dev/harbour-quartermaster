@@ -11,7 +11,7 @@ Dialog {
     allowedOrientations: Orientation.Portrait
     acceptDestination: Qt.resolvedUrl("WizardTokenPage.qml")
 
-    canAccept: internalUriField.acceptableInput
+    canAccept: internalUrlField.acceptableInput
 
     PageBusyIndicator {
         id: busyIndicator
@@ -74,12 +74,12 @@ Dialog {
                 menu: ContextMenu {
                     MenuItem { text: qsTr("Automatic") }
                     MenuItem {
-                        enabled: externalUriField.acceptableInput
-                        text: qsTr("External Url")
+                        enabled: externalUrlField.acceptableInput
+                        text: qsTr("External URL")
                     }
                     MenuItem {
-                        enabled: internalUriField.acceptableInput
-                        text: qsTr("Internal Url")
+                        enabled: internalUrlField.acceptableInput
+                        text: qsTr("Internal URL")
                     }
                     //MenuItem { text: qsTr("Cloud") }
                 }
@@ -96,11 +96,11 @@ Dialog {
             TextField {
                 visible: discovered
 
-                id: internalUriField
+                id: internalUrlField
                 width: parent.width
 
-                label: qsTr("URI")
-                placeholderText: qsTr("Enter URI (e.g. http://server:8123)")
+                label: qsTr("URL")
+                placeholderText: qsTr("Enter URL (e.g. http://server:8123)")
 
                 text: App.api().serverConfig().internalUrl
 
@@ -110,7 +110,7 @@ Dialog {
                 }
 
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
-                EnterKey.onClicked: internalUriField.focus = true
+                EnterKey.onClicked: internalUrlField.focus = true
 
                 autoScrollEnabled: true
 
@@ -118,8 +118,8 @@ Dialog {
 
             Label {
                 width: parent.width
-                visible: discovered && !internalUriField.acceptableInput
-                text: qsTr("Valid URI required!")
+                visible: discovered && !internalUrlField.acceptableInput
+                text: qsTr("Valid URL required!")
                 color: Theme.errorColor
                 font.pixelSize: Theme.fontSizeExtraSmall
             }
@@ -132,11 +132,11 @@ Dialog {
             TextField {
                 visible: discovered
 
-                id: externalUriField
+                id: externalUrlField
                 width: parent.width
 
-                label: qsTr("URI")
-                placeholderText: qsTr("Enter URI (e.g. http://server:8123)")
+                label: qsTr("URL")
+                placeholderText: qsTr("Enter URL (e.g. http://server:8123)")
 
                 text: App.api().serverConfig().externalUrl
 
@@ -153,7 +153,7 @@ Dialog {
 
             Label {
                 width: parent.width
-                visible: discovered && !externalUriField.acceptableInput
+                visible: discovered && !externalUrlField.acceptableInput
                 text: qsTr("Valid URI required!")
                 color: Theme.errorColor
                 font.pixelSize: Theme.fontSizeExtraSmall
@@ -164,8 +164,8 @@ Dialog {
     }
 
     onAccepted: {
-        App.api().serverConfig().externalUrl = externalUriField.text
-        App.api().serverConfig().internalUrl = internalUriField.text
+        App.api().serverConfig().externalUrl = externalUrlField.text
+        App.api().serverConfig().internalUrl = internalUrlField.text
         App.saveSettings()
     }
 
