@@ -74,7 +74,7 @@ Dialog {
             }
 
             EnterKey.iconSource: "image://theme/icon-m-enter-next"
-            EnterKey.onClicked: false
+            EnterKey.onClicked: focus = false
 
             autoScrollEnabled: true
         }

@@ -1,3 +1,6 @@
+* Thu Apr 08 2021 Black Sheep <blacksheep@nubecula.org> 0.2.5-1
+- Fixed bug in setup wizard
+
 * Mon Apr 05 2021 Black Sheep <blacksheep@nubecula.org> 0.2.4-1
 - Fixed bug hardlock the app when using websocket
 - UI fixes
