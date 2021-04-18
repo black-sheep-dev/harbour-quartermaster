@@ -1467,7 +1467,7 @@
     </message>
     <message>
         <source>Connect</source>
-        <translation></translation>
+        <translation>Verbinden</translation>
     </message>
     <message>
         <source>You need to provide a valid Long-Lived Access Token.
