@@ -1,3 +1,8 @@
+* Thu May 27 2021 Black Sheep <blacksheep@nubecula.org> 0.2.6-1
+- Fixed bug with url when not using port during setup
+- Give GitHub star using SailHub in about page
+- aarch64 build
+
 * Thu Apr 08 2021 Black Sheep <blacksheep@nubecula.org> 0.2.5-1
 - Fixed bug in setup wizard
 
