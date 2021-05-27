@@ -93,12 +93,12 @@ void ApiInterface::getConfig()
 
 void ApiInterface::getDiscoveryInfo(const QString &uri)
 {
-    QString url = uri;
+//    QString url = uri;
 
-    if (!url.contains(QRegExp(RegExp::PORT_INCLUDED)))
-        url.append(QStringLiteral(":8123"));
+//    if (!url.contains(QRegExp(RegExp::PORT_INCLUDED)))
+//        url.append(QStringLiteral(":8123"));
 
-    m_config->setInternalUrl(url);
+    m_config->setInternalUrl(uri);
     refreshStates();
 
     sendRequest(Api::RequestGetApiDiscoveryInfo, QString(), QJsonObject());

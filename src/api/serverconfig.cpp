@@ -41,8 +41,8 @@ void ServerConfig::setData(const QJsonObject &object)
 
     QString externalUrl = object.value(ApiKey::KEY_EXTERNAL_URL).toString();
     if (!externalUrl.isEmpty()) {
-        if (!externalUrl.contains(QRegExp(RegExp::PORT_INCLUDED)))
-            externalUrl.append(QStringLiteral(":8123"));
+//        if (!externalUrl.contains(QRegExp(RegExp::PORT_INCLUDED)))
+//            externalUrl.append(QStringLiteral(":8123"));
 
         setExternalUrl(externalUrl);
     }
@@ -51,8 +51,8 @@ void ServerConfig::setData(const QJsonObject &object)
     QString internalUrl = object.value(ApiKey::KEY_INTERNAL_URL).toString();
 
     if (!internalUrl.isEmpty()) {
-        if (!internalUrl.contains(QRegExp(RegExp::PORT_INCLUDED)))
-            internalUrl.append(QStringLiteral(":8123"));
+//        if (!internalUrl.contains(QRegExp(RegExp::PORT_INCLUDED)))
+//            internalUrl.append(QStringLiteral(":8123"));
 
         setInternalUrl(internalUrl);
     }
