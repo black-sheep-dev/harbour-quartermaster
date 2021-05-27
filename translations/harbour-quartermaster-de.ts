@@ -43,6 +43,10 @@
         <source>Donate with Liberpay</source>
         <translation>Spenden via Liberpay</translation>
     </message>
+    <message>
+        <source>Give star</source>
+        <translation>Stern vergeben</translation>
+    </message>
 </context>
 <context>
     <name>AutomationPage</name>
