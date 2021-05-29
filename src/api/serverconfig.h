@@ -105,6 +105,8 @@ public slots:
     void setVersionCompatibility(bool compatibility);
 
 private:
+    QString cleanUrl(const QString &url) const;
+
     // properties
     QVariantList m_componentList;
     quint16 m_components{ServerConfig::ComponentNone};
