@@ -17,6 +17,14 @@ NotificationService::~NotificationService()
     writeSettings();
 }
 
+void NotificationService::setApi(ApiInterface *api)
+{
+    Service::setApi(api);
+
+    setHomeAssistantVersion(api->serverConfig()->version());
+    connect(api->serverConfig(), &ServerConfig::versionChanged, this, &NotificationService::setHomeAssistantVersion);
+}
+
 QString NotificationService::homeAssistantVersion() const
 {
     return m_homeAssistantVersion;
@@ -29,23 +37,15 @@ quint8 NotificationService::options() const
 
 void NotificationService::onHomeAssistantUpdateAvailable(const QString &version)
 {
-    if (m_updateNotified)
+    if (version.isEmpty())
         return;
 
-    if (!(m_options & NotificationOption::ServerUpdates))
+    if (m_availableVersion == version)
         return;
 
-    if (m_homeAssistantVersion == version)
-        return;
+    m_availableVersion = version;
 
-    Notification notify;
-    notify.setCategory(QStringLiteral("x-nemo.software-update"));
-    notify.setBody(tr("There is an update to version %1 available.").arg(version));
-    notify.setSummary(tr("Home Assistant update available!"));
-    notify.setIcon(QStringLiteral("image://theme/icon-lock-application-update"));
-    notify.publish();
-
-    m_updateNotified = true;
+    sendUpdateNotification();
 }
 
 void NotificationService::setHomeAssistantVersion(const QString &version)
@@ -55,6 +55,8 @@ void NotificationService::setHomeAssistantVersion(const QString &version)
 
     m_homeAssistantVersion = version;
     emit homeAssistantVersionChanged(m_homeAssistantVersion);
+
+    sendUpdateNotification();
 }
 
 void NotificationService::setOptions(quint8 options)
@@ -70,6 +72,26 @@ void NotificationService::setOptions(quint8 options)
 
     m_options = options;
     emit optionsChanged(m_options);
+}
+
+void NotificationService::sendUpdateNotification()
+{
+
+    if (!(m_options & NotificationOption::ServerUpdates))
+        return;
+
+    if (m_availableVersion.isEmpty() || m_homeAssistantVersion.isEmpty())
+        return;
+
+    if (m_homeAssistantVersion == m_availableVersion)
+        return;
+
+    Notification notify;
+    notify.setCategory(QStringLiteral("x-nemo.software-update"));
+    notify.setBody(tr("There is an update to version %1 available.").arg(m_availableVersion));
+    notify.setSummary(tr("Home Assistant update available!"));
+    notify.setIcon(QStringLiteral("image://theme/icon-lock-application-update"));
+    notify.publish();
 }
 
 void NotificationService::updateOptions(quint8 before, quint8 after)

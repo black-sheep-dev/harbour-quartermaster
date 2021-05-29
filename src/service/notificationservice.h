@@ -23,6 +23,8 @@ public:
     explicit NotificationService(QObject *parent = nullptr);
     ~NotificationService();
 
+    void setApi(ApiInterface *api);
+
     // properties
     QString homeAssistantVersion() const;
     quint8 options() const;
@@ -40,9 +42,10 @@ public slots:
     void setOptions(quint8 options);
 
 private:
+    void sendUpdateNotification();
     void updateOptions(quint8 before, quint8 after);
 
-    bool m_updateNotified{false};
+    QString m_availableVersion;
 
     // properties
     QString m_homeAssistantVersion;

@@ -39,7 +39,7 @@ void ServerConfig::setData(const QJsonObject &object)
     const QVariantList components = object.value(ApiKey::KEY_COMPONENTS).toArray().toVariantList();
     setComponentList(components);
 
-    QString externalUrl = object.value(ApiKey::KEY_EXTERNAL_URL).toString();
+    const QString externalUrl = object.value(ApiKey::KEY_EXTERNAL_URL).toString();
     if (!externalUrl.isEmpty()) {
 //        if (!externalUrl.contains(QRegExp(RegExp::PORT_INCLUDED)))
 //            externalUrl.append(QStringLiteral(":8123"));
@@ -48,7 +48,7 @@ void ServerConfig::setData(const QJsonObject &object)
     }
 
 
-    QString internalUrl = object.value(ApiKey::KEY_INTERNAL_URL).toString();
+    const QString internalUrl = object.value(ApiKey::KEY_INTERNAL_URL).toString();
 
     if (!internalUrl.isEmpty()) {
 //        if (!internalUrl.contains(QRegExp(RegExp::PORT_INCLUDED)))
@@ -214,19 +214,23 @@ void ServerConfig::setConfigValid(bool valid)
 
 void ServerConfig::setExternalUrl(const QString &url)
 {
-    if (m_externalUrl == url)
+    const QString check = cleanUrl(url);
+
+    if (m_externalUrl == check)
         return;
 
-    m_externalUrl = url;
+    m_externalUrl = check;
     emit externalUrlChanged(m_externalUrl);
 }
 
 void ServerConfig::setInternalUrl(const QString &url)
 {
-    if (m_internalUrl == url)
+    const QString check = cleanUrl(url);
+
+    if (m_internalUrl == check)
         return;
 
-    m_internalUrl = url;
+    m_internalUrl = check;
     emit internalUrlChanged(m_internalUrl);
 }
 
@@ -327,4 +331,15 @@ void ServerConfig::setVersionCompatibility(bool compatibility)
 
     m_versionCompatibility = compatibility;
     emit versionCompatibilityChanged(m_versionCompatibility);
+}
+
+QString ServerConfig::cleanUrl(const QString &url) const
+{
+    QString out = url;
+
+    while (out.endsWith('/')) {
+        out.remove(out.length() - 1, 1);
+    }
+
+    return out;
 }

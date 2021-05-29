@@ -7,7 +7,7 @@
 
 App::App(QObject *parent) :
     QObject(parent)
-{
+{    
     m_deviceService->setApi(m_api);
     m_locationService->setApi(m_api);
     m_entitiesService->setApi(m_api);

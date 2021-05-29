@@ -8,12 +8,12 @@ Page {
     allowedOrientations: Orientation.All
 
     DBusInterface {
-            id: sailHubInterface
+        id: sailHubInterface
 
-            service: "harbour.sailhub.service"
-            iface: "harbour.sailhub.service"
-            path: "/harbour/sailhub/service"
-        }
+        service: "harbour.sailhub.service"
+        iface: "harbour.sailhub.service"
+        path: "/harbour/sailhub/service"
+    }
 
     SilicaFlickable {
         anchors.fill: parent
