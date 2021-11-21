@@ -491,7 +491,7 @@
     </message>
     <message>
         <source>No sensors available</source>
-        <translation type="unfinished"></translation>
+        <translation>没有可用用户</translation>
     </message>
     <message>
         <source>Check your network connection</source>
@@ -556,7 +556,7 @@
     </message>
     <message>
         <source>Errors</source>
-        <translation type="unfinished"></translation>
+        <translation>错误</translation>
     </message>
     <message>
         <source>The config component is not activated on Home Assistant server.</source>
@@ -1063,7 +1063,7 @@
     </message>
     <message>
         <source>No Zones available</source>
-        <translation type="unfinished"></translation>
+        <translation>没有可用文件</translation>
     </message>
     <message>
         <source>Search</source>
@@ -1364,7 +1364,7 @@
     </message>
     <message>
         <source>The setup wizard will guide you through the connection process.</source>
-        <translation type="unfinished"></translation>
+        <translation>设置引导程序将会指导你整个配置过程。</translation>
     </message>
     <message>
         <source>If there are errors during the setup process, you can try to reset the data from a previous installation.</source>
