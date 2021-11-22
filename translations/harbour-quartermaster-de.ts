@@ -1467,7 +1467,7 @@
     </message>
     <message>
         <source>Back</source>
-        <translation></translation>
+        <translation>Zurück</translation>
     </message>
     <message>
         <source>Connect</source>
