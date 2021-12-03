@@ -96,6 +96,10 @@ Page {
                 var page;
 
                 switch (type) {
+                case Entity.Light:
+                    page = "entities/LightsListPage.qml"
+                    break;
+
                 case Entity.Person:
                     page = "entities/PersonsListPage.qml"
                     break;
