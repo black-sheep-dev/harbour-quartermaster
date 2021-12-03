@@ -104,6 +104,10 @@ Page {
                     page = "entities/SensorsListPage.qml"
                     break;
 
+                case Entity.Switch:
+                    page = "entities/SwitchesListPage.qml"
+                    break;
+
                 default:
                     page = "entities/EntitiesListViewPage.qml"
                     break;

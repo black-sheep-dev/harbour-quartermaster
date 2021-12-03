@@ -87,6 +87,7 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/entities/EntityAttributesPage.qml \
     qml/pages/entities/PersonsListPage.qml \
     qml/pages/entities/SensorsListPage.qml \
+    qml/pages/entities/SwitchesListPage.qml \
     qml/pages/entities/types/AutomationPage.qml \
     qml/pages/entities/types/CameraPage.qml \
     qml/pages/entities/types/ClimatePage.qml \

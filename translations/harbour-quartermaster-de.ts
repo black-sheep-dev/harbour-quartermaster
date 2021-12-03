@@ -1125,6 +1125,45 @@
     </message>
 </context>
 <context>
+    <name>SwitchesListPage</name>
+    <message>
+        <source>Refresh</source>
+        <translation>Aktualisieren</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>Suche</translation>
+    </message>
+    <message>
+        <source>No entities available</source>
+        <translation>Keine Entitäten verfügbar</translation>
+    </message>
+    <message>
+        <source>Check your network connection</source>
+        <translation>Netzwerkverbindung überprüfen</translation>
+    </message>
+    <message>
+        <source>on</source>
+        <comment>state</comment>
+        <translation>an</translation>
+    </message>
+    <message>
+        <source>off</source>
+        <comment>state</comment>
+        <translation>aus</translation>
+    </message>
+    <message>
+        <source>unavailable</source>
+        <comment>state</comment>
+        <translation>nicht verfügbar</translation>
+    </message>
+    <message>
+        <source>undefined</source>
+        <comment>state</comment>
+        <translation>undefiniert</translation>
+    </message>
+</context>
+<context>
     <name>TestResultItem</name>
     <message>
         <source>FAILED</source>
