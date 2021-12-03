@@ -175,33 +175,6 @@
     </message>
 </context>
 <context>
-    <name>EntitiesOverviewPage</name>
-    <message>
-        <source>Refresh</source>
-        <translation>Aktualisieren</translation>
-    </message>
-    <message>
-        <source>Entities</source>
-        <translation>Entitäten</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n entity available</source>
-        <comment>0</comment>
-        <translation>
-            <numerusform>%n Entität verfügbar</numerusform>
-            <numerusform>%n Entitäten verfügbar</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>No entities available</source>
-        <translation>Keine Entitäten verfügbar</translation>
-    </message>
-    <message>
-        <source>Check your network connection</source>
-        <translation>Netzwerkverbindung überprüfen</translation>
-    </message>
-</context>
-<context>
     <name>EntitiesService</name>
     <message>
         <source>Alarms</source>

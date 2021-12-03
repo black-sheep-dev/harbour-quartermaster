@@ -175,32 +175,6 @@
     </message>
 </context>
 <context>
-    <name>EntitiesOverviewPage</name>
-    <message>
-        <source>Refresh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Entities</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <source>%n entity available</source>
-        <comment>0</comment>
-        <translation type="unfinished">
-            <numerusform>%n entity available</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>No entities available</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Check your network connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>EntitiesService</name>
     <message>
         <source>Alarms</source>
