@@ -5,15 +5,15 @@
     <name>AboutPage</name>
     <message>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>О программе</translation>
     </message>
     <message>
         <source>Sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Исходный код</translation>
     </message>
     <message>
         <source>Donations</source>
-        <translation type="unfinished"></translation>
+        <translation>Поддержать</translation>
     </message>
     <message>
         <source>Quartermaster</source>
@@ -25,27 +25,27 @@
     </message>
     <message>
         <source>Translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Переводы</translation>
     </message>
     <message>
         <source>Your language is not available? You are welcome to support this project by translating it on my self hosted Weblate server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет перевода на ваш язык? Вы можете помочь проекту переведя интерфейс программы на моем сервере Weblate.</translation>
     </message>
     <message>
         <source>If you like my work why not buy me a beer?</source>
-        <translation type="unfinished"></translation>
+        <translation>Почему бы не угостить меня пивком, если вам нравится моя работа?</translation>
     </message>
     <message>
         <source>Donate with PayPal</source>
-        <translation type="unfinished"></translation>
+        <translation>Поддержать через PayPal</translation>
     </message>
     <message>
         <source>Donate with Liberpay</source>
-        <translation type="unfinished"></translation>
+        <translation>Поддержать через Liberpay</translation>
     </message>
     <message>
         <source>Give star</source>
-        <translation type="unfinished"></translation>
+        <translation>Отметить звёздочкой</translation>
     </message>
 </context>
 <context>
@@ -72,7 +72,7 @@
     </message>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить</translation>
     </message>
     <message>
         <source>Features</source>
@@ -122,7 +122,7 @@
     </message>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить</translation>
     </message>
     <message>
         <source>Current state</source>
@@ -159,11 +159,11 @@
     <name>EntitiesListViewPage</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Поиск</translation>
     </message>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить</translation>
     </message>
     <message>
         <source>No entities available</source>
@@ -171,14 +171,14 @@
     </message>
     <message>
         <source>Check your network connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверьте соединение с Интернет</translation>
     </message>
 </context>
 <context>
     <name>EntitiesOverviewPage</name>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить</translation>
     </message>
     <message>
         <source>Entities</source>
@@ -199,7 +199,7 @@
     </message>
     <message>
         <source>Check your network connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверьте соединение с Интернет</translation>
     </message>
 </context>
 <context>
@@ -292,7 +292,7 @@
     </message>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить</translation>
     </message>
     <message>
         <source>Features</source>
@@ -310,11 +310,11 @@
     <name>ErrorLogPage</name>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Поиск</translation>
     </message>
 </context>
 <context>
@@ -329,7 +329,7 @@
     </message>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить</translation>
     </message>
     <message>
         <source>Children</source>
@@ -372,7 +372,7 @@
     </message>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить</translation>
     </message>
 </context>
 <context>
@@ -390,7 +390,7 @@
     <name>OverviewPage</name>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки</translation>
     </message>
     <message>
         <source>Entities</source>
@@ -398,7 +398,7 @@
     </message>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить</translation>
     </message>
     <message numerus="yes">
         <source>%n entity available</source>
@@ -415,14 +415,14 @@
     </message>
     <message>
         <source>Check your network connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверьте соединение с Интернет</translation>
     </message>
 </context>
 <context>
     <name>PersonsListPage</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Поиск</translation>
     </message>
     <message>
         <source>At home</source>
@@ -438,7 +438,7 @@
     </message>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить</translation>
     </message>
     <message>
         <source>No persons available</source>
@@ -487,7 +487,7 @@
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Поиск</translation>
     </message>
     <message>
         <source>Unavailable</source>
@@ -495,7 +495,7 @@
     </message>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить</translation>
     </message>
     <message>
         <source>No sensors available</source>
@@ -503,7 +503,7 @@
     </message>
     <message>
         <source>Check your network connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Проверьте соединение с Интернет</translation>
     </message>
 </context>
 <context>
@@ -884,7 +884,7 @@
     </message>
     <message>
         <source>Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить</translation>
     </message>
     <message>
         <source>When active you are notified about Home Assistant updates for your server.</source>
@@ -903,7 +903,7 @@
     <name>SettingsPage</name>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки</translation>
     </message>
     <message>
         <source>Device Info</source>
@@ -971,7 +971,7 @@
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>О программе</translation>
     </message>
     <message>
         <source>Infos about Quartermaster</source>
@@ -1018,7 +1018,7 @@
     </message>
     <message>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Сброс</translation>
     </message>
     <message>
         <source>Hidden network</source>
@@ -1057,7 +1057,7 @@
     </message>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить</translation>
     </message>
     <message>
         <source>No networks defined</source>
@@ -1075,7 +1075,7 @@
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Поиск</translation>
     </message>
     <message>
         <source>Create new zones in Home Assistant web interface</source>
@@ -1094,7 +1094,7 @@
     </message>
     <message>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить</translation>
     </message>
     <message>
         <source>Current power usage</source>
@@ -1360,7 +1360,7 @@
     </message>
     <message>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Сброс</translation>
     </message>
     <message>
         <source>Resetting application</source>
