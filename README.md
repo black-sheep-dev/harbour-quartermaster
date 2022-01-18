@@ -160,6 +160,6 @@ The files are stored in "Documents/harbour-quartermaster" folder. These files yo
 
 If you like my work, you can buy me a beer! 
 
-[![PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif) ](https://www.paypal.com/paypalme/nubecula/1)
+[![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white) ](https://www.paypal.com/paypalme/nubecula/1)
 
-[![Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/black-sheep-dev/donate)
+[![Liberapay](https://img.shields.io/badge/Liberapay-F6C915?style=for-the-badge&logo=liberapay&logoColor=black)](https://liberapay.com/black-sheep-dev/donate)
