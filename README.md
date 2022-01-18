@@ -4,6 +4,8 @@ Quartermaster is a native Sailfish OS Home Assistant client which aims to provid
 
 >![](icons/128x128/harbour-quartermaster.png)
 
+![](https://www.codefactor.io/repository/github/black-sheep-dev/harbour-quartermaster/badge?style=plastic)
+
 [![](https://github.com/black-sheep-dev/harbour-quartermaster/actions/workflows/main.yml/badge.svg)](https://github.com/black-sheep-dev/harbour-quartermaster/actions/workflows/main.yml)
 
 ![](http://weblate.nubecula.org/widgets/harbour-quartermaster/-/harbour-quartermaster/svg-badge.svg)
