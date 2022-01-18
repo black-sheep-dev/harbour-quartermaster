@@ -36,6 +36,12 @@ void EntitiesSortFilterModel::resetEntityFilter()
     invalidate();
 }
 
+void EntitiesSortFilterModel::search(const QString &pattern)
+{
+    m_pattern = pattern;
+    invalidate();
+}
+
 bool EntitiesSortFilterModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
     if (this->sourceModel() == nullptr)
@@ -50,5 +56,17 @@ bool EntitiesSortFilterModel::filterAcceptsRow(int source_row, const QModelIndex
 
     auto type = index.data(EntitiesModel::TypeRole).toUInt();
 
-    return m_entityFilters.contains(type);
+
+
+    if (!m_entityFilters.contains(type)) {
+        return false;
+    }
+
+    if (m_pattern.isEmpty()) {
+        return true;
+    }
+
+    auto name = index.data(EntitiesModel::NameRole).toString();
+
+    return name.contains(m_pattern, Qt::CaseInsensitive);
 }

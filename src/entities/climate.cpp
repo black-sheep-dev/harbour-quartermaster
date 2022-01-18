@@ -50,7 +50,7 @@ void Climate::parseAttributes()
     }
 
     if (oldHvac != m_hvacModes)
-        emit hvacModesChanged(m_hvacModes);
+        emit hvacModesChanged();
 
     // preset modes
     const quint16 oldPreset = m_presetModes;
@@ -74,5 +74,5 @@ void Climate::parseAttributes()
     }
 
     if (oldPreset != m_presetModes)
-        emit presetModesChanged(m_presetModes);
+        emit presetModesChanged();
 }

@@ -17,11 +17,13 @@ Page {
         PullDownMenu {
             busy: page.busy
             MenuItem {
-                text: qsTr("Attributes")
+                //% "Attributes"
+                text: qsTrId("id-attributes")
                 onClicked: pageStack.push(Qt.resolvedUrl("../EntityAttributesPage.qml"), { entity: entity })
             }
             MenuItem {
-                text: qsTr("Refresh")
+                //% "Refresh"
+                text: qsTrId("id-refresh")
                 onClicked: {
                     page.busy = true;
                     App.entitiesService().getEntityState(entity.entityId)
@@ -43,7 +45,8 @@ Page {
             }
 
             SectionHeader {
-                text: qsTr("Features")
+                //% "Features"
+                text: qsTrId("id-features")
             }
         }
     }

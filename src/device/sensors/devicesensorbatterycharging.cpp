@@ -5,7 +5,8 @@
 DeviceSensorBatteryCharging::DeviceSensorBatteryCharging(QObject *parent) :
     DeviceSensor(parent)
 {
-    setName(tr("Battery Charging"));
+    //% "Battery Charging"
+    setName(qtTrId("id-battery-charging"));
     setDeviceClass(ApiKey::KEY_BATTERY_CHARGING);
     setSensorType(ApiKey::KEY_BINARY_SENSOR);
     setUniqueId(ApiKey::KEY_BATTERY_CHARGING);

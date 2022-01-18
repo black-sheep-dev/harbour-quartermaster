@@ -5,6 +5,7 @@
 #endif
 
 #include <QCoreApplication>
+#include <QFile>
 #include <QJsonArray>
 #include <QSettings>
 
@@ -20,6 +21,8 @@
 
 #include "src/device/sensors/devicesensorbattery.h"
 #include "src/device/sensors/devicesensorbatterycharging.h"
+
+#include "src/global.h"
 
 const QString WALLET_COLLECTION_NAME            = QStringLiteral("quartermasternew");
 const QString WALLET_COLLECTION_NAME_DEBUG      = QStringLiteral("quartermasternewdebug");
@@ -412,22 +415,14 @@ void DeviceService::connectToApi()
     connect(api(), &ApiInterface::requestError, this, &DeviceService::onRequestError);
 }
 
-void DeviceService::initialize()
-{
-    setState(ServiceState::StateInitializing);
-
-    loadCredentials();
-
-    setState(ServiceState::StateInitialized);
-}
-
 void DeviceService::readSettings()
 {
 #ifdef QT_DEBUG
     qDebug() << QStringLiteral("READ DEVICE SERVICE SETTINGS");
 #endif
 
-    QSettings settings;
+    QSettings settings(QFile(DEFAULT_CONFIG_FILE).exists() ? DEFAULT_CONFIG_FILE : DEPRECATED_CONFIG_FILE, QSettings::NativeFormat);
+
     settings.beginGroup(QStringLiteral("DEVICE"));
     setDeviceName(settings.value(QStringLiteral("name"), Sailfish::Mdm::SysInfo::productName()).toString());
     setSensorLiveUpdates(settings.value(QStringLiteral("sensor_live_updates"), false).toBool());
@@ -440,11 +435,20 @@ void DeviceService::writeSettings()
     qDebug() << QStringLiteral("WRITE DEVICE SERVICE SETTINGS");
 #endif
 
-    QSettings settings;
+    QSettings settings(DEFAULT_CONFIG_FILE, QSettings::NativeFormat);
     settings.beginGroup(QStringLiteral("DEVICE"));
     settings.setValue(QStringLiteral("name"), m_deviceName);
     settings.setValue(QStringLiteral("sensor_live_updates"), m_sensorLiveUpdates);
     settings.endGroup();
+}
+
+void DeviceService::initialize()
+{
+    setState(ServiceState::StateInitializing);
+
+    loadCredentials();
+
+    setState(ServiceState::StateInitialized);
 }
 
 void DeviceService::onRequestError(quint8 requestType, quint8 code, const QString &msg)

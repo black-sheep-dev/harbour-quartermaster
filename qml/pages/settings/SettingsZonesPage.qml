@@ -20,11 +20,13 @@ Page {
     SilicaFlickable {
         PullDownMenu {
             MenuItem {
-                text: qsTr("Refresh")
+                //% "Refresh"
+                text: qsTrId("id-refresh")
                 onClicked: App.api().sendWebhookRequest(Api.RequestWebhookGetZones)
             }
             MenuItem {
-                text: qsTr("Search")
+                //% "Search"
+                text: qsTrId("id-search")
                 onClicked: listView.showSearch = true
             }
         }
@@ -36,7 +38,8 @@ Page {
             width: parent.width
 
             PageHeader {
-                title: qsTr("Zones")
+                //% "Zones"
+                title: qsTrId("id-zones")
             }
 
             SearchField {
@@ -124,9 +127,11 @@ Page {
                         Label{
                             text: {
                                 if (model.networkCount > 0)
-                                    return qsTr("%n network(s) defined", "", model.networkCount)
+                                    //% "%n network(s) defined"
+                                    return qsTrId("id-networks-defined", model.networkCount)
                                 else
-                                    return qsTr("No networks defined");
+                                    //% "No networks defined"
+                                    return qsTrId("id-no-networks-defined");
                             }
 
                             color: Theme.secondaryColor
@@ -139,11 +144,15 @@ Page {
 
             ViewPlaceholder {
                 enabled: listView.count == 0
-                text: qsTr("No Zones available")
-                hintText: qsTr("Create new zones in Home Assistant web interface")
+                //% "No zones available"
+                text: qsTrId("id-no-zones-available")
+                //% "Create new zones in Home Assistant web interface"
+                hintText: qsTrId("id-no-zones-available-desc")
             }
 
             VerticalScrollDecorator {}
         }
     }
+
+    Component.onCompleted: App.api().sendWebhookRequest(Api.RequestWebhookGetZones)
 }

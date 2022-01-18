@@ -9,9 +9,10 @@ Dialog {
         spacing: Theme.paddingMedium
 
         DialogHeader {
-            title: qsTr("Restore Backup")
-
-            acceptText: qsTr("Restore")
+            //% "Restore Backup"
+            title: qsTrId("id-restore-backup")
+            //% "Restore"
+            acceptText: qsTrId("id-restore")
         }
 
         Label {
@@ -19,7 +20,8 @@ Dialog {
             width: parent.width - 2*x
             wrapMode: Text.WordWrap
 
-            text: qsTr("Do you want to restore the backup? Current settings will be replaced!")
+            //% "Do you want to restore the backup? Current settings will be replaced!"
+            text: qsTrId("id-restore-backup-desc")
             color: Theme.highlightColor
         }
     }

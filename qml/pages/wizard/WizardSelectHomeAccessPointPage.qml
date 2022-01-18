@@ -26,8 +26,10 @@ Dialog {
 
     DialogHeader {
         id: header
-        acceptText: qsTr("Select")
-        cancelText: qsTr("Back")
+        //% "Select"
+        acceptText: qsTrId("id-select")
+        //% "Back"
+        cancelText: qsTrId("id-back")
     }
 
     SilicaListView {
@@ -66,14 +68,16 @@ Dialog {
 
                     Label {
                         width: parent.width
-                        text: name.length > 0 ? name : qsTr("Hidden network")
+                        //% "Hidden network"
+                        text: name.length > 0 ? name : qsTrId("id-hidden-network")
                         color: pressed ? Theme.secondaryHighlightColor : Theme.highlightColor
                         font.pixelSize: Theme.fontSizeMedium
                     }
 
                     Label {
                         width: parent.width
-                        text: qsTr("Available network")
+                        //% "Available network"
+                        text: qsTrId("id-available-network")
 
                         color: pressed ? Theme.secondaryHighlightColor : Theme.secondaryColor
                         font.pixelSize: Theme.fontSizeSmall

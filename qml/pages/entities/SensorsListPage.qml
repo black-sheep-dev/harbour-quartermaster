@@ -24,14 +24,16 @@ Page {
     SilicaFlickable {
         PullDownMenu {
             MenuItem {
-                text: qsTr("Refresh")
+                //% "Refresh"
+                text: qsTrId("id-refresh")
                 onClicked: {
                     busy = true
                     App.entitiesService().refresh()
                 }
             }
             MenuItem {
-                text: qsTr("Search")
+                //% "Search"
+                text: qsTrId("id-search")
                 onClicked: listView.showSearch = true
             }
         }
@@ -120,10 +122,12 @@ Page {
                         Label {
                             text: {
                                 if (entityState === undefined)
-                                    return qsTr("No sensor data available")
+                                    //% "No sensor data available"
+                                    return qsTrId("id-no-sensor-data-available")
 
                                 if (entityState === "unavailable")
-                                    return qsTr("Unavailable")
+                                    //% "Unavailable"
+                                    return qsTrId("id-unavailable")
 
                                 var str = entityState
                                 if (attributes.unit_of_measurement !== undefined) {
@@ -143,8 +147,10 @@ Page {
 
             ViewPlaceholder {
                 enabled: listView.count == 0
-                text: qsTr("No sensors available")
-                hintText: qsTr("Check your network connection")
+                //% "No sensors available"
+                text: qsTrId("id-no-sensors-available")
+                //% "Check your network connection"
+                hintText: qsTrId("id-check-network")
             }
 
             VerticalScrollDecorator {}

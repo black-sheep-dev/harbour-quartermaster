@@ -2,6 +2,7 @@
 
 #include <QSettings>
 #include <QCoreApplication>
+#include <QTimer>
 
 #include "constants.h"
 
@@ -57,13 +58,14 @@ NotificationService *App::notificationService()
 }
 
 void App::initialize()
-{
+{    
     if (m_needSetup)
         return;
 
-    m_notificationService->initialize();
-    m_locationService->initialize();
-    m_entitiesService->initialize();
+    QTimer::singleShot(2000, m_api, &ApiInterface::getConfig);
+    QTimer::singleShot(2000, m_entitiesService, &EntitiesService::initialize);
+    QTimer::singleShot(2000, m_notificationService, &NotificationService::initialize);
+    QTimer::singleShot(2000, m_locationService, &LocationService::initialize);
 }
 
 void App::reset()

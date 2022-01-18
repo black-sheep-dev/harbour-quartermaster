@@ -12,9 +12,13 @@
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::setApplicationVersion(APP_VERSION);
-    QCoreApplication::setOrganizationName(QStringLiteral("nubecula.org"));
-    QCoreApplication::setOrganizationDomain(QStringLiteral("nubecula.org"));
+    QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
+    app->setApplicationVersion(APP_VERSION);
+    app->setApplicationName("quartermaster");
+    app->setOrganizationDomain("org.nubecula");
+    app->setOrganizationName("org.nubecula");
+
+    QScopedPointer<QQuickView> v(SailfishApp::createView());
 
     qRegisterMetaTypeStreamOperators<Credentials>("Credentials");
 
@@ -59,10 +63,14 @@ int main(int argc, char *argv[])
         Q_UNUSED(engine)
         Q_UNUSED(scriptEngine)
 
-        auto app = new App();
+        auto app = new App(qApp);
 
         return app;
     });
 
-    return SailfishApp::main(argc, argv);
+
+    v->setSource(SailfishApp::pathTo("qml/harbour-quartermaster.qml"));
+    v->show();
+
+    return app->exec();
 }

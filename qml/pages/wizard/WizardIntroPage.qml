@@ -14,7 +14,8 @@ Dialog {
 
     DialogHeader {
         id: header
-        acceptText: qsTr("Continue")
+        //% "Continue"
+        acceptText: qsTrId("id-continue")
         cancelText: ""
     }
 
@@ -43,7 +44,8 @@ Dialog {
         Label {
             width: parent.width
 
-            text: qsTr("Welcome to Quartermaster")
+            //% "Welcome to Quartermaster"
+            text: qsTrId("id-welcome-title")
 
             color: Theme.secondaryHighlightColor
             font.bold: true
@@ -63,7 +65,8 @@ Dialog {
 
             wrapMode: Text.WordWrap
 
-            text: qsTr("This device is not yet connected to a Home Assistant server.")
+            //% "This device is not yet connected to a Home Assistant server."
+            text: qsTrId("id-welcome-info-1")
         }
 
         Label {
@@ -74,7 +77,8 @@ Dialog {
 
             wrapMode: Text.WordWrap
 
-            text: qsTr("The setup wizard will guide you through the connection process.")
+            //% "The setup wizard will guide you through the connection process."
+            text: qsTrId("id-welcome-info-2")
         }
 
         Item {
@@ -100,7 +104,8 @@ Dialog {
 
             wrapMode: Text.WordWrap
 
-            text: qsTr("If there are errors during the setup process, you can try to reset the data from a previous installation.")
+            //% "If there are errors during the setup process, you can try to reset the data from a previous installation."
+            text: qsTrId("id-reset-app-desc")
         }
 
         Item {
@@ -110,8 +115,10 @@ Dialog {
 
         ButtonLayout {
             Button {
-                text: qsTr("Reset")
-                onClicked: resetPopup.execute(qsTr("Resetting application"), function() {
+                //% "Reset"
+                text: qsTrId("id-reset")
+                //% "Resetting application"
+                onClicked: resetPopup.execute(qsTrId("id-resetting-app"), function() {
                     App.reset()
                 })
             }

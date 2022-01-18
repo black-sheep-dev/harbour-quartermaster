@@ -10,7 +10,9 @@
 #include <QStandardPaths>
 
 #include "src/constants.h"
-#include "src/tools/helper.h"
+#include "src/global.h"
+
+#include "compressor.h"
 
 static const QString HASS_API_ENDPOINT_WEBHOOK = QStringLiteral("/api/webhook/");
 static const QString HASS_API_ENDPOINT_WEBSOCKET = QStringLiteral("/api/websocket");
@@ -72,8 +74,6 @@ ApiInterface::ApiInterface(QObject *parent) :
     });
 
     readSettings();
-
-    refreshStates();
 }
 
 ApiInterface::~ApiInterface()
@@ -370,10 +370,7 @@ void ApiInterface::onRequestFinished()
 
 
     // begin parsing data
-    QByteArray data = Helper::gunzip(raw);
-
-    if (data.isEmpty())
-        data = raw;
+    const QByteArray data = Compressor::gunzip(raw);
 
     QJsonParseError err{};
 
@@ -466,10 +463,7 @@ void ApiInterface::onWebhookRequestFinished()
     }
 
     // begin parsing data
-    QByteArray data = Helper::gunzip(raw);
-
-    if (data.isEmpty())
-        data = raw;
+    const QByteArray data = Compressor::gunzip(raw);
 
     QJsonParseError err{};
 
@@ -595,7 +589,7 @@ void ApiInterface::refreshUrls()
 
 void ApiInterface::readSettings()
 {
-    QSettings settings;
+    QSettings settings(QFile(DEFAULT_CONFIG_FILE).exists() ? DEFAULT_CONFIG_FILE : DEPRECATED_CONFIG_FILE, QSettings::NativeFormat);
 
     quint16 externalPort{0};
     QString externalUrl;
@@ -656,7 +650,7 @@ void ApiInterface::readSettings()
 
 void ApiInterface::writeSettings()
 {
-    QSettings settings;
+    QSettings settings(DEFAULT_CONFIG_FILE, QSettings::NativeFormat);
 
     settings.beginGroup(QStringLiteral("CONNECTION"));
     settings.setValue(QStringLiteral("connection_mode"), m_connectionMode);

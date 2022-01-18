@@ -16,8 +16,10 @@ struct ApiKey {
     static const QString KEY_BATTERY_CHARGING;
     static const QString KEY_BATTERY_STATE;
     static const QString KEY_BINARY_SENSOR;
+    static const QString KEY_BRIGHTNESS;
     static const QString KEY_CALL_SERVICE;
     static const QString KEY_CLOUDHOOK_URL;
+    static const QString KEY_COLOR_TEMP;
     static const QString KEY_COMPONENTS;
     static const QString KEY_CONTEXT;
     static const QString KEY_DATA;
@@ -63,6 +65,7 @@ struct ApiKey {
     static const QString KEY_STATE_CHANGED;
     static const QString KEY_SUBSCRIBE_EVENTS;
     static const QString KEY_SUBSCRIPTION;
+    static const QString KEY_SUPPORTED_COLOR_MODES;
     static const QString KEY_SUPPORTED_FEATURES;
     static const QString KEY_SUPPORTS_ENCRYPTION;
     static const QString KEY_TEMPERATURE;
@@ -76,6 +79,8 @@ struct ApiKey {
     static const QString KEY_VOLUME;
     static const QString KEY_WEBHOOK_ID;
     static const QString KEY_WHEN;
+    static const QString KEY_WHITE_VALUE;
+    static const QString KEY_XY;
 };
 
 struct RegExp {

@@ -3,6 +3,8 @@ import Sailfish.Silica 1.0
 
 import org.nubecula.harbour.quartermaster 1.0
 
+import "../../../components"
+
 Page {
     property bool busy: false
     property Light entity
@@ -15,11 +17,13 @@ Page {
         PullDownMenu {
             busy: page.busy
             MenuItem {
-                text: qsTr("Attributes")
+                //% "Attributes"
+                text: qsTrId("id-attributes")
                 onClicked: pageStack.push(Qt.resolvedUrl("../EntityAttributesPage.qml"), { entity: entity })
             }
             MenuItem {
-                text: qsTr("Refresh")
+                //% "Refresh"
+                text: qsTrId("id-refresh")
                 onClicked: {
                     page.busy = true;
                     App.entitiesService().getEntityState(entity.entityId)
@@ -34,19 +38,21 @@ Page {
             id: column
 
             width: parent.width
-            spacing: Theme.paddingMedium
+            spacing: Theme.paddingLarge
 
             PageHeader {
                 title: entity.name
             }
 
             SectionHeader {
-                text: qsTr("Features")
+                //% "Features"
+                text: qsTrId("id-features")
             }
 
             TextSwitch {
                 x: Theme.horizontalPageMargin
-                text: qsTr("Switch light on/off")
+                //% "Switch light on/off"
+                text: qsTrId("id-switch-light-on-off")
                 checked: entity.state === "on"
 
                 onClicked: {
@@ -65,7 +71,8 @@ Page {
             Slider {
                 id: brightnessSlider
 
-                label: qsTr("Brightness")
+                //% "Brightness"
+                label: qsTrId("id-brightness")
 
                 visible: entity.hasFeature(Light.LightBrightness)
 
@@ -96,7 +103,8 @@ Page {
             Slider {
                 id: colorTempSlider
 
-                label: qsTr("Color temperature")
+                //% "Color temperature"
+                label: qsTrId("id-color-temperature")
 
                 visible: entity.hasFeature(Light.LightColorTemp)
 
@@ -124,50 +132,28 @@ Page {
             // COLOR
             // ------------------------------------------------------------------------------------------------------------
 
-            Row {
-                x: Theme.horizontalPageMargin
-                width: parent.width - 2*x
-                spacing: Theme.paddingLarge
+            ColorWheel {
+                id: colorWheel
+                visible: entity.hasFeature(Light.LightColor)
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: Math.min(parent.width, parent.height) * 0.6
+                height: width
 
-                Label {
-                    visible: entity.hasFeature(Light.LightColor)
+                hue: entity.hue
+                saturation: entity.saturation
 
-                    text: qsTr("Color")
-
-
-                }
-
-                Rectangle {
-                    visible: entity.hasFeature(Light.LightColor)
-
-                    id: colorSelect
-                    width: 96
-                    height: 96
-
-                    radius: 48
-
-                    color: entity.color
-
-                    MouseArea {
-                        anchors.fill: colorSelect
-
-                        onClicked: {
-                            var dialog = pageStack.push("Sailfish.Silica.ColorPickerDialog")
-                            dialog.accepted.connect(function() {
-                                entity.color = dialog.color
-                                App.entitiesService().callService("light",
-                                                                  "turn_on",
-                                                                  {
-                                                                      entity_id: entity.entityId,
-                                                                      rgb_color: [
-                                                                        entity.red(),
-                                                                        entity.green(),
-                                                                        entity.blue()
-                                                                      ]
-                                                                  })
-                            })
-                        }
-                    }
+                onRgbChanged: {
+                    entity.color = rgb
+                    App.entitiesService().callService("light",
+                                                      "turn_on",
+                                                      {
+                                                          entity_id: entity.entityId,
+                                                          rgb_color: [
+                                                            entity.red(),
+                                                            entity.green(),
+                                                            entity.blue()
+                                                          ]
+                                                      })
                 }
             }
 
@@ -179,11 +165,13 @@ Page {
                 id: effectCombo
                 visible: entity.hasFeature(Light.LightEffect)
                 width: parent.width
-                label: qsTr("Effect")
+                //% "Effect"
+                label: qsTrId("id-effect")
 
                 menu: ContextMenu {
                     MenuItem {
-                        text: qsTr("off")
+                        //% "off"
+                        text: qsTrId("id-off")
                     }
 
                     Repeater {

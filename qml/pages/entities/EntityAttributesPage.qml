@@ -13,16 +13,17 @@ Page {
     SilicaFlickable {
         anchors.fill: parent
 
-        PageHeader {
-            title: qsTr("Attributes")
-        }
-
         contentHeight: Column.height
 
         Column {
             id: column;
             width: parent.width
             spacing: Theme.paddingMedium
+
+            PageHeader {
+                //% "Attributes"
+                title: qsTrId("id-attributes")
+            }
 
             Repeater {
                 model: SortFilterModel {

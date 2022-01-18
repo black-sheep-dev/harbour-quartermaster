@@ -15,15 +15,17 @@ Dialog {
         spacing: Theme.paddingMedium
 
         DialogHeader {
-            title: qsTr("Create Backup")
-
-            acceptText: qsTr("Create")
+            //% "Create Backup"
+            title: qsTrId("id-create-backup")
+            //% "Create"
+            acceptText: qsTrId("id-create")
         }
 
         Label {
             x: Theme.horizontalPageMargin
             width: parent.width - 2 * x
-            text: qsTr("Select options from which a backup should be made. The backup is saved in the Documents folder with the current time stamp.")
+            //% "Select options from which a backup should be made. The backup is saved in the Documents folder with the current time stamp."
+            text: qsTrId("id-backup-desc")
             wrapMode: Text.WordWrap
             color: Theme.highlightColor
         }
@@ -32,8 +34,10 @@ Dialog {
             id: wifiBackupSwitch
             x: Theme.horizontalPageMargin
             width: parent.width - 2 * x
-            text: qsTr("Access Point Settings")
-            description: qsTr("Backup access point settings of zones")
+            //% "Access point settings"
+            text: qsTrId("id-access-point-settings")
+            //% "Backup access point settings of zones"
+            description: qsTrId("id-backup-access-points-desc")
 
             onCheckedChanged: {
                 if (checked)

@@ -23,12 +23,12 @@ public:
     explicit Zone(QObject *parent = nullptr);
 
     // properties
-    QString entityId() const;
-    QString guid() const;
+    const QString &entityId() const;
+    const QString &guid() const;
     bool isHome() const;
     double latitude() const;
     double longitude() const;
-    QString name() const;
+    const QString &name() const;
     quint16 networkCount() const;
     double radius() const;
 
@@ -36,14 +36,14 @@ signals:
     void changed();
 
     // properties
-    void entityIdChanged(const QString &entityId);
-    void guidChanged(const QString &guid);
-    void isHomeChanged(bool isHome);
-    void latitudeChanged(double latitude);
-    void longitudeChanged(double longitude);
-    void nameChanged(const QString &name);
-    void networkCountChanged(quint16 count);
-    void radiusChanged(double radius);
+    void entityIdChanged();
+    void guidChanged();
+    void isHomeChanged();
+    void latitudeChanged();
+    void longitudeChanged();
+    void nameChanged();
+    void networkCountChanged();
+    void radiusChanged();
 
 public slots:
     // properties

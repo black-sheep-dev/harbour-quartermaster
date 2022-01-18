@@ -16,11 +16,13 @@ Page {
         PullDownMenu {
             busy: page.busy
             MenuItem {
-                text: qsTr("Attributes")
+                //% "Attributes"
+                text: qsTrId("id-attributes")
                 onClicked: pageStack.push(Qt.resolvedUrl("../EntityAttributesPage.qml"), { entity: entity })
             }
             MenuItem {
-                text: qsTr("Refresh")
+                //% "Refresh"
+                text: qsTrId("id-refresh")
                 onClicked: {
                     page.busy = true;
                     App.entitiesService().getEntityState(entity.entityId)
@@ -42,12 +44,14 @@ Page {
             }
 
             SectionHeader {
-                text: qsTr("Features")
+                //% "Features"
+                text: qsTrId("id-features")
             }
 
             TextSwitch {
                 x: Theme.horizontalPageMargin
-                text: qsTr("Switch on/off")
+                //% "Switch on/off"
+                text: qsTrId("id-switch-on-off")
                 checked: entity.state === "on"
 
                 onClicked: {
@@ -60,36 +64,43 @@ Page {
             }
 
             SectionHeader {
-                text: qsTr("Info")
+                visible: entity.attributes !== undefined
+                //% "Info"
+                text: qsTrId("id-info")
             }
 
             DetailItem {
                 visible: entity.attributes.current_power_w !== undefined
-                label: qsTr("Current power usage")
+                //% "Current power usage"
+                label: qsTrId("id-current-power-usage")
                 value: entity.attributes.current_power_w + " W"
             }
 
             DetailItem {
                 visible: entity.attributes.today_energy_kwh !== undefined
-                label: qsTr("Today energy usage")
+                //% "Today energy usage"
+                label: qsTrId("id-today-energy-usage")
                 value: entity.attributes.today_energy_kwh + " kWh"
             }
 
             DetailItem {
                 visible: entity.attributes.today_energy_kwh !== undefined
-                label: qsTr("Total energy usage")
+                //% "Total energy usage"
+                label: qsTrId("id-total-energy-usage")
                 value: entity.attributes.total_energy_kwh + " kWh"
             }
 
             DetailItem {
                 visible: entity.attributes.voltage !== undefined
-                label: qsTr("Voltage")
+                //% "Voltage"
+                label: qsTrId("id-voltage")
                 value: entity.attributes.voltage + " V"
             }
 
             DetailItem {
                 visible: entity.attributes.voltage !== undefined
-                label: qsTr("Current")
+                //% "Current"
+                label: qsTrId("id-current")
                 value: entity.attributes.current_a + " A"
             }
         }

@@ -96,7 +96,7 @@ void ServerConfig::setData(const QJsonObject &object)
     m_unitVolume = units.value(ApiKey::KEY_VOLUME).toString();
 }
 
-QVariantList ServerConfig::componentList() const
+const QVariantList &ServerConfig::componentList() const
 {
     return m_componentList;
 }
@@ -106,7 +106,7 @@ quint16 ServerConfig::components() const
     return m_components;
 }
 
-QString ServerConfig::configError() const
+const QString &ServerConfig::configError() const
 {
     return m_configError;
 }
@@ -116,12 +116,12 @@ bool ServerConfig::configValid() const
     return m_configValid;
 }
 
-QString ServerConfig::externalUrl() const
+const QString &ServerConfig::externalUrl() const
 {
     return m_externalUrl;
 }
 
-QString ServerConfig::internalUrl() const
+const QString &ServerConfig::internalUrl() const
 {
     return m_internalUrl;
 }
@@ -131,7 +131,7 @@ double ServerConfig::latitude() const
     return m_latitude;
 }
 
-QString ServerConfig::locationName() const
+const QString &ServerConfig::locationName() const
 {
     return m_locationName;
 }
@@ -141,32 +141,32 @@ double ServerConfig::longitude() const
     return m_longitude;
 }
 
-QString ServerConfig::version() const
+const QString ServerConfig::version() const
 {
     return m_version.toString();
 }
 
-QString ServerConfig::unitLength() const
+const QString &ServerConfig::unitLength() const
 {
     return m_unitLength;
 }
 
-QString ServerConfig::unitMass() const
+const QString &ServerConfig::unitMass() const
 {
     return m_unitMass;
 }
 
-QString ServerConfig::unitPressure() const
+const QString &ServerConfig::unitPressure() const
 {
     return m_unitPressure;
 }
 
-QString ServerConfig::unitTemperature() const
+const QString &ServerConfig::unitTemperature() const
 {
     return m_unitTemperature;
 }
 
-QString ServerConfig::unitVolume() const
+const QString &ServerConfig::unitVolume() const
 {
     return m_unitVolume;
 }
@@ -182,7 +182,7 @@ void ServerConfig::setComponentList(const QVariantList &components)
         return;
 
     m_componentList = components;
-    emit componentListChanged(m_componentList);
+    emit componentListChanged();
 }
 
 void ServerConfig::setComponents(quint16 components)
@@ -191,7 +191,7 @@ void ServerConfig::setComponents(quint16 components)
         return;
 
     m_components = components;
-    emit componentsChanged(m_components);
+    emit componentsChanged();
 }
 
 void ServerConfig::setConfigError(const QString &error)
@@ -200,7 +200,7 @@ void ServerConfig::setConfigError(const QString &error)
         return;
 
     m_configError = error;
-    emit configErrorChanged(m_configError);
+    emit configErrorChanged();
 }
 
 void ServerConfig::setConfigValid(bool valid)
@@ -209,7 +209,7 @@ void ServerConfig::setConfigValid(bool valid)
         return;
 
     m_configValid = valid;
-    emit configValidChanged(m_configValid);
+    emit configValidChanged();
 }
 
 void ServerConfig::setExternalUrl(const QString &url)
@@ -220,7 +220,7 @@ void ServerConfig::setExternalUrl(const QString &url)
         return;
 
     m_externalUrl = check;
-    emit externalUrlChanged(m_externalUrl);
+    emit externalUrlChanged();
 }
 
 void ServerConfig::setInternalUrl(const QString &url)
@@ -231,7 +231,7 @@ void ServerConfig::setInternalUrl(const QString &url)
         return;
 
     m_internalUrl = check;
-    emit internalUrlChanged(m_internalUrl);
+    emit internalUrlChanged();
 }
 
 void ServerConfig::setLatitude(double latitude)
@@ -240,7 +240,7 @@ void ServerConfig::setLatitude(double latitude)
         return;
 
     m_latitude = latitude;
-    emit latitudeChanged(m_latitude);
+    emit latitudeChanged();
 }
 
 void ServerConfig::setLocationName(const QString &locationName)
@@ -249,7 +249,7 @@ void ServerConfig::setLocationName(const QString &locationName)
         return;
 
     m_locationName = locationName;
-    emit locationNameChanged(m_locationName);
+    emit locationNameChanged();
 }
 
 void ServerConfig::setLongitude(double longitude)
@@ -258,7 +258,7 @@ void ServerConfig::setLongitude(double longitude)
         return;
 
     m_longitude = longitude;
-    emit longitudeChanged(m_longitude);
+    emit longitudeChanged();
 }
 
 void ServerConfig::setUnitLength(const QString &unit)
@@ -267,7 +267,7 @@ void ServerConfig::setUnitLength(const QString &unit)
         return;
 
     m_unitLength = unit;
-    emit unitLengthChanged(m_unitLength);
+    emit unitLengthChanged();
 }
 
 void ServerConfig::setUnitMass(const QString &unit)
@@ -276,7 +276,7 @@ void ServerConfig::setUnitMass(const QString &unit)
         return;
 
     m_unitMass = unit;
-    emit unitMassChanged(m_unitMass);
+    emit unitMassChanged();
 }
 
 void ServerConfig::setUnitPressure(const QString &unit)
@@ -285,7 +285,7 @@ void ServerConfig::setUnitPressure(const QString &unit)
         return;
 
     m_unitPressure = unit;
-    emit unitPressureChanged(m_unitPressure);
+    emit unitPressureChanged();
 }
 
 void ServerConfig::setUnitTemperature(const QString &unit)
@@ -294,7 +294,7 @@ void ServerConfig::setUnitTemperature(const QString &unit)
         return;
 
     m_unitTemperature = unit;
-    emit unitTemperatureChanged(m_unitTemperature);
+    emit unitTemperatureChanged();
 }
 
 void ServerConfig::setUnitVolume(const QString &unit)
@@ -303,7 +303,7 @@ void ServerConfig::setUnitVolume(const QString &unit)
         return;
 
     m_unitVolume = unit;
-    emit unitVolumeChanged(m_unitVolume);
+    emit unitVolumeChanged();
 }
 
 void ServerConfig::setVersion(const QString &version)
@@ -330,7 +330,7 @@ void ServerConfig::setVersionCompatibility(bool compatibility)
         return;
 
     m_versionCompatibility = compatibility;
-    emit versionCompatibilityChanged(m_versionCompatibility);
+    emit versionCompatibilityChanged();
 }
 
 QString ServerConfig::cleanUrl(const QString &url) const

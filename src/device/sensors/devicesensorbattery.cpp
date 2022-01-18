@@ -5,7 +5,8 @@
 DeviceSensorBattery::DeviceSensorBattery(QObject *parent) :
     DeviceSensor(parent)
 {
-    setName(tr("Battery State"));
+    //% "Battery State"
+    setName(qtTrId("id-battery-state"));
     setDeviceClass(ApiKey::KEY_BATTERY);
     setSensorType(ApiKey::KEY_SENSOR);
     setUniqueId(ApiKey::KEY_BATTERY_STATE);

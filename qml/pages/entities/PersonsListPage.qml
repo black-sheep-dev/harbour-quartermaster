@@ -24,14 +24,16 @@ Page {
     SilicaFlickable {
         PullDownMenu {
             MenuItem {
-                text: qsTr("Refresh")
+                //% "Refresh"
+                text: qsTrId("id-refresh")
                 onClicked: {
                     busy = true
                     App.entitiesService().refresh()
                 }
             }
             MenuItem {
-                text: qsTr("Search")
+                //% "Search"
+                text: qsTrId("id-search")
                 onClicked: listView.showSearch = true
             }
         }
@@ -124,9 +126,12 @@ Page {
                         }
                         Label {
                             text: {
-                                if (entityState === "home") return qsTr("At home")
-                                if (entityState === "not_home") return qsTr("Not at home")
-                                if (entityState === "unknown") return qsTr("Unkown")
+                                //% "At home"
+                                if (entityState === "home") return qsTrId("id-at-home")
+                                //% "Not at home"
+                                if (entityState === "not_home") return qsTrId("id-not-at-home")
+                                //% "Unkown"
+                                if (entityState === "unknown") return qsTrId("id-unkown")
 
                                 return entityState
                             }
@@ -140,8 +145,10 @@ Page {
 
             ViewPlaceholder {
                 enabled: listView.count == 0
-                text: qsTr("No persons available")
-                hintText: qsTr("Create new persons in Home Assistant web interface")
+                //% "No persons available"
+                text: qsTrId("id-no-persons-available")
+                //% "Create new persons in Home Assistant web interface"
+                hintText: qsTrId("id-no-persons-available-desc")
             }
 
             VerticalScrollDecorator {}

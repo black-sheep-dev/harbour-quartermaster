@@ -11,8 +11,10 @@ Page {
     SilicaFlickable {
         PullDownMenu {
             MenuItem {
-                text: qsTr("Reset Registration")
-                onClicked: resetPopup.execute(qsTr("Resetting device registration & closing app"), function() {
+                //% "Reset registration"
+                text: qsTrId("id-reset-registration")
+                //% "Resetting device registration & closing app"
+                onClicked: resetPopup.execute(qsTrId("id-reset-registration-text"), function() {
                     App.reset()
                     Qt.quit()
                 })
@@ -26,22 +28,22 @@ Page {
 
         Column {
             id: column
-
-            x: Theme.horizontalPageMargin
-
-            width: page.width - 2 * x
-            spacing: Theme.paddingMedium
+            width: parent.width
+            spacing: Theme.paddingLarge
 
             PageHeader {
-                title: qsTr("Device Info")
+                //% "Device info"
+                title: qsTrId("id-device-info")
             }
 
             TextField {
                 id: nameField
                 width: parent.width
 
-                label: qsTr("Device Name")
-                placeholderText: qsTr("Enter device name")
+                //% "Device name"
+                label: qsTrId("id-device-name")
+                //% "Enter device name"
+                placeholderText: qsTrId("id-enter-device-name")
 
                 text: App.deviceService().deviceName
 
@@ -50,36 +52,43 @@ Page {
             }
 
             SectionHeader {
-                text: qsTr("Informations")
+                //% "Information"
+                text: qsTrId("id-information")
             }
 
             DetailItem {
-                label: qsTr("Device ID")
+                //% "Device ID"
+                label: qsTrId("id-device-id")
                 value: App.deviceService().id()
             }
 
             DetailItem {
-                label: qsTr("Manufacturer")
+                //% "Manufacturer"
+                label: qsTrId("id-manufacturer")
                 value: App.deviceService().manufacturer()
             }
 
             DetailItem {
-                label: qsTr("Model")
+                //% "Model"
+                label: qsTrId("id-model")
                 value: App.deviceService().model()
             }
 
             DetailItem {
-                label: qsTr("Software Name")
+                //% "Software name"
+                label: qsTrId("id-software-name")
                 value: App.deviceService().softwareName()
             }
 
             DetailItem {
-                label: qsTr("Software Version")
+                //% "Software version"
+                label: qsTrId("id-software-version")
                 value: App.deviceService().softwareVersion()
             }
 
             DetailItem {
-                label: qsTr("Wifi MAC")
+                //% "Wifi MAC"
+                label: qsTrId("id-wifi-mac")
                 value: App.deviceService().wlanMacAddress()
             }
         }
@@ -90,6 +99,6 @@ Page {
 
         App.deviceService().deviceName = nameField.text
         App.saveSettings()
-        App.deviceService().updateRegistration();
+        App.deviceService().updateDeviceRegistration();
     }
 }

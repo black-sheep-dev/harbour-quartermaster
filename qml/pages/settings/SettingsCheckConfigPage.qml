@@ -21,34 +21,38 @@ Page {
 
         Column {
             id: column
-            x: Theme.horizontalPageMargin
-            width: parent.width - 2 * x
-            spacing: Theme.paddingMedium
+            width: parent.width
+            spacing: Theme.paddingLarge
 
             PageHeader {
-                title: qsTr("Home Assistant Config")
+                //% "Home Assistant config"
+                title: qsTrId("id-home-assistant-config")
             }
 
             Label {
-                width: parent.width
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
                 wrapMode: Text.WordWrap
 
                 color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeMedium
 
-                text: qsTr("This page shows the status of the configuration files of your Home Assistant server.")
+                //% "This page shows the status of the configuration files of your Home Assistant server."
+                text: qsTrId("id-home-assistant-config-desc")
             }
 
             Label {
                 visible: (Client.homeassistantInfo().components & HomeassistantInfo.ComponentConfig) !== HomeassistantInfo.ComponentConfig
 
-                width: parent.width
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
                 wrapMode: Text.WordWrap
 
                 color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeMedium
 
-                text: qsTr("The config component is not activated on Home Assistant server.")
+                //% "The config component is not activated on Home Assistant server."
+                text: qsTrId("id-config-component-not-activated")
             }
 
             Image {
@@ -69,13 +73,15 @@ Page {
 
             SectionHeader {
                 visible: !Client.homeassistantInfo().configValid
-                text: qsTr("Errors")
+                //% "Errors"
+                text: qsTrId("id-errors")
             }
 
             Label {
                 visible: !Client.homeassistantInfo().configValid
 
-                width: parent.width
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
                 wrapMode: Text.WordWrap
 
                 color: Theme.highlightColor

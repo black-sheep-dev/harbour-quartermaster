@@ -14,7 +14,7 @@ Zone *ZonesModel::zoneAt(const int index)
     return m_zones.at(index);
 }
 
-QList<Zone *> ZonesModel::zones() const
+const QList<Zone *> &ZonesModel::zones() const
 {
     return m_zones;
 }

@@ -15,7 +15,8 @@ Page {
     SilicaListView {
         PullDownMenu {
             MenuItem {
-                text: qsTr("New Backup")
+                //% "New backup"
+                text: qsTrId("id-new-backup")
                 onClicked: {
                     var dialog = pageStack.push(Qt.resolvedUrl("../../dialogs/BackupDialog.qml"))
 
@@ -29,7 +30,8 @@ Page {
         id: listView
 
         header: PageHeader {
-            title: qsTr("Available Backups")
+            //% "Available backups"
+            title: qsTrId("id-available-backups")
         }
 
         anchors.fill: parent
@@ -44,8 +46,10 @@ Page {
 
             menu: ContextMenu {
                 MenuItem {
-                    text: qsTr("Delete")
-                    onClicked: remorse.execute(delegate, qsTr("Deleting backup"), function() {
+                    //% "Delete"
+                    text: qsTrId("id-delete")
+                    //% "Deleting backup"
+                    onClicked: remorse.execute(delegate, qsTrId("id-deleting-backup"), function() {
                         backupTool.deleteBackup(backupTool.availableBackups[index])
                     })
                 }
@@ -93,8 +97,10 @@ Page {
 
         ViewPlaceholder {
             enabled: listView.count == 0
-            text: qsTr("No backups available")
-            hintText: qsTr("Pull down to create a new one")
+            //% "No backups available"
+            text: qsTrId("id-no-backups-available")
+            //% "Pull down to create a new one"
+            hintText: qsTrId("id-no-backups-available-desc")
         }
         VerticalScrollDecorator {}
     }

@@ -1,4 +1,4 @@
-#ifndef SERVICE_H
+﻿#ifndef SERVICE_H
 #define SERVICE_H
 
 #include <QObject>
@@ -66,12 +66,12 @@ private:
     // virtual interface
 public:
     virtual void connectToApi();
-    virtual void initialize();
     virtual QString errorString() const;
     virtual void readSettings();
     virtual void writeSettings();
 
 public slots:
+    virtual void initialize();
     virtual void onRequestError(quint8 requestType, quint8 code, const QString &msg);
     virtual void onRequestFinished(quint8 requestType, const QJsonDocument &data);
     virtual void onWebsocketEvent(const QString &event, const QJsonValue &data);

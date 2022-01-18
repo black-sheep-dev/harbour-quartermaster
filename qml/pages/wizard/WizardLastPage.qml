@@ -18,8 +18,10 @@ Dialog {
 
     DialogHeader {
         id: header
-        acceptText: qsTr("Complete")
-        cancelText: qsTr("Back")
+        //% "Complete"
+        acceptText: qsTrId("id-complete")
+        //% "Back"
+        cancelText: qsTrId("id-back")
     }
 
     Column {
@@ -31,7 +33,8 @@ Dialog {
         Label {
             width: parent.width
 
-            text: qsTr("Setup process completed")
+            //% "Setup process completed"
+            text: qsTrId("id-setup-process-completed")
 
             color: Theme.highlightColor
             font.pixelSize: Theme.fontSizeLarge
@@ -42,9 +45,9 @@ Dialog {
             width: parent.width
             wrapMode: Text.Wrap
 
-            text: qsTr("You can now proceed to the main screen.")
-                  + "\n"
-                  + qsTr("Some of the setting from this wizard can be changed in the applications settings page.")
+            //% "You can now proceed to the main screen."
+            //% "Some of the setting from this wizard can be changed in the applications settings page."
+            text: qsTrId("id-setup-process-completed-desc")
 
             color: Theme.highlightColor
             font.pixelSize: Theme.fontSizeSmall
@@ -55,7 +58,8 @@ Dialog {
             width: parent.width
             wrapMode: Text.Wrap
 
-            text: qsTr("Welcome to your smart home!")
+            //% "Welcome to your smart home!"
+            text: qsTrId("id-welcome-to-smart-home")
 
             color: Theme.highlightColor
             font.pixelSize: Theme.fontSizeMedium

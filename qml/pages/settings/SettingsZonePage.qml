@@ -19,14 +19,17 @@ Page {
         PullDownMenu {
             visible: App.locationService().enableWifi
             MenuItem {
-                text: qsTr("Reset")
-                onClicked: resetPopup.execute(qsTr("Resetting access points"), function() {
+                //% "Reset"
+                text: qsTrId("id-reset")
+                //% "Resetting access points"
+                onClicked: resetPopup.execute(qsTrId("id-resetting-access-points"), function() {
 
                 })
             }
 
             MenuItem {
-                text: qsTr("Add Access Point")
+                //% "Add access point"
+                text: qsTrId("id-add-access-point")
                 onClicked: {
                     var dialog = pageStack.push(Qt.resolvedUrl("../../dialogs/SelectWifiAccessPointsDialog.qml"), {zone: zone});
 
@@ -52,10 +55,11 @@ Page {
             id: column
 
             width: parent.width
-            spacing: Theme.paddingMedium
+            spacing: Theme.paddingLarge
 
             PageHeader {
-                title: qsTr("Zone Settings")
+                //% "Zone settings"
+                title: qsTrId("id-zone-settings")
             }
             Label {
                 x: Theme.horizontalPageMargin
@@ -66,22 +70,26 @@ Page {
             }
 
             DetailItem {
-                label: qsTr("Latitude")
+                //% "Latitude"
+                label: qsTrId("id-latitude")
                 value: zone.latitude
             }
 
             DetailItem {
-                label: qsTr("Longitude")
+                //% "Longitude"
+                label: qsTrId("id-longitude")
                 value: zone.longitude
             }
 
             DetailItem {
-                label: qsTr("Radius")
+                //% "Radius"
+                label: qsTrId("id-radius")
                 value: zone.radius
             }
 
             SectionHeader {
-                text: qsTr("Wifi Access Points")
+                //% "Wifi access points"
+                text: qsTrId("id-wifi-access-points")
             }
 
             SilicaListView {    
@@ -101,8 +109,10 @@ Page {
 
                     menu: ContextMenu {
                         MenuItem {
-                            text: qsTr("Delete");
-                            onClicked: remorse.execute(delegate, qsTr("Deleting access point"), function() {
+                            //% "Delete"
+                            text: qsTrId("id-delete");
+                            //% "Deleting access point"
+                            onClicked: remorse.execute(delegate, qsTrId("id-deleting-access-point"), function() {
                                 var ok = App.locationService().removeAccessPointFromZone(zone.guid, identifier)
 
                                 if (!ok) return;
@@ -134,7 +144,8 @@ Page {
                             width: parent.width - wlanIcon.width - 2 * Theme.paddingMedium
                             anchors.verticalCenter: parent.verticalCenter
 
-                            text: name.length > 0 ? name : qsTr("Hidden network")
+                            //% "Hidden network"
+                            text: name.length > 0 ? name : qsTrId("id-hidden-network")
                             color: pressed ? Theme.secondaryHighlightColor : Theme.secondaryColor
                             font.pixelSize: Theme.fontSizeMedium
                         }
@@ -143,8 +154,10 @@ Page {
 
                 ViewPlaceholder {
                     enabled: listView.count == 0
-                    text: qsTr("No wifi access points defined")
-                    hintText: qsTr("Pull down to add an access point")
+                    //% "No wifi access points defined"
+                    text: qsTrId("id-no-wifi-access-points-defined")
+                    //% "Pull down to add an access point"
+                    hintText: qsTrId("id-no-wifi-access-points-defined-desc")
                 }
 
                 VerticalScrollDecorator {}

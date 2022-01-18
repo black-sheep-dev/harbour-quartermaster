@@ -20,7 +20,8 @@ Page {
             spacing: Theme.paddingMedium
 
             PageHeader {
-                title: qsTr("Log Entry")
+                //% "Log entry"
+                title: qsTrId("id-log-entry")
             }
 
             Label {

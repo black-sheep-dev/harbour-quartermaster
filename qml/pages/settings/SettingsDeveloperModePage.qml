@@ -16,22 +16,22 @@ Page {
         Column {
             id: column
 
-            x: Theme.horizontalPageMargin
-            width: page.width - 2 * x
-            spacing: Theme.paddingMedium
+            width: parent.width
+            spacing: Theme.paddingLarge
 
             PageHeader {
-                title: qsTr("Developer Mode")
+                //% "Developer mode"
+                title: qsTrId("id-developer-mode")
             }
 
             TextSwitch {
                 id: apiLoggingSwitch
-                text: qsTr("API logging")
-                description: qsTr("Log all API requests and replies. This helps to fix errors or to include new devices to Quartermaster.")
-                             + "\n"
-                             + qsTr("Only turn on logging if needed, because it will create a lot of data! Files are stored into Documents folder.")
-                             + "\n"
-                             + qsTr("Attach this data to a new issue on GitHub if you need support!")
+                //% "API logging"
+                text: qsTrId("id-api-logging")
+                //% "Log all API requests and replies. This helps to fix errors or to include new devices to Quartermaster."
+                //% "Only turn on logging if needed, because it will create a lot of data! Files are stored into Documents folder."
+                //% "Attach this data to a new issue on GitHub if you need support!"
+                description: qsTrId("id-api-logging-desc")
 
                 onCheckedChanged: App.api().logging = checked
 

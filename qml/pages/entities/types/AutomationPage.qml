@@ -15,11 +15,13 @@ Page {
         PullDownMenu {    
             busy: page.busy
             MenuItem {
-                text: qsTr("Attributes")
+                //% "Attributes"
+                text: qsTrId("id-attributes")
                 onClicked: pageStack.push(Qt.resolvedUrl("../EntityAttributesPage.qml"), { entity: entity })
             }
             MenuItem {
-                text: qsTr("Refresh")
+                //% "Refresh"
+                text: qsTrId("id-refresh")
                 onClicked: {
                     page.busy = true;
                     App.entitiesService().getEntityState(entity.entityId)
@@ -37,7 +39,8 @@ Page {
             spacing: Theme.paddingMedium
 
             PageHeader {
-                title: qsTr("Automation")
+                //% "Automation"
+                title: qsTrId("id-automation")
             }
 
             Label {
@@ -51,12 +54,14 @@ Page {
             }
 
             SectionHeader {
-                text: qsTr("Features")
+                //% "Features"
+                text: qsTrId("id-features")
             }
 
             TextSwitch {
                 x: Theme.horizontalPageMargin
-                text: qsTr("Automation on/off")
+                //% "Automation on/off"
+                text: qsTrId("id-automation-on-off")
                 checked: entity.state === "on"
 
                 onClicked: {
@@ -69,7 +74,8 @@ Page {
             }
 
             SectionHeader{
-                text: qsTr("Info")
+                //% "Info"
+                text: qsTrId("id-info")
             }
 
             Row {
@@ -77,7 +83,8 @@ Page {
                 width: parent.width - 2*x
 
                 Label {
-                    text: qsTr("Last triggered:")
+                    //% "Last triggered"
+                    text: qsTrId("id-last-triggered") + ":"
                     width: parent.width * 0.5
                     color: Theme.highlightColor
                 }

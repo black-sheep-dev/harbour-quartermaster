@@ -10,8 +10,10 @@ Dialog {
 
     DialogHeader {
         id: header
-        acceptText: qsTr("Register")
-        cancelText: qsTr("Back")
+        //% "Register"
+        acceptText: qsTrId("id-register")
+        //% "Back"
+        cancelText: qsTrId("id-back")
     }
 
     Column {
@@ -23,7 +25,8 @@ Dialog {
         Label {
             width: parent.width
 
-            text: qsTr("Device registration")
+            //% "Device registration"
+            text: qsTrId("id-device-registration")
 
             color: Theme.highlightColor
             font.pixelSize: Theme.fontSizeLarge
@@ -33,7 +36,8 @@ Dialog {
             width: parent.width
             wrapMode: Text.WordWrap
 
-            text: qsTr("You can change the device name which shows up in Home Assistant before starting the registration.")
+            //% "You can change the device name which shows up in Home Assistant before starting the registration."
+            text: qsTrId("id-change-device-name-desc")
             color: Theme.highlightColor
             font.pixelSize: Theme.fontSizeSmall
         }
@@ -47,8 +51,10 @@ Dialog {
             id: deviceNameField
             width: parent.width
 
-            label: qsTr("Device name")
-            placeholderText: qsTr("Enter device name")
+            //% "Device name"
+            label: qsTrId("id-device-name")
+            //% "Enter device name"
+            placeholderText: qsTrId("id-enter-device-name")
 
             text: App.deviceService().deviceName
 

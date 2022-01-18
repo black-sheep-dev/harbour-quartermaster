@@ -35,7 +35,7 @@ QJsonObject DeviceSensor::getBaseSensorJson()
     return sensor;
 }
 
-QString DeviceSensor::deviceClass() const
+const QString &DeviceSensor::deviceClass() const
 {
     return m_deviceClass;
 }
@@ -45,32 +45,32 @@ bool DeviceSensor::enabled() const
     return m_enabled;
 }
 
-QString DeviceSensor::icon() const
+const QString &DeviceSensor::icon() const
 {
     return m_icon;
 }
 
-QString DeviceSensor::name() const
+const QString &DeviceSensor::name() const
 {
     return m_name;
 }
 
-QString DeviceSensor::sensorType() const
+const QString &DeviceSensor::sensorType() const
 {
     return m_sensorType;
 }
 
-QVariant DeviceSensor::state() const
+const QVariant &DeviceSensor::state() const
 {
     return m_state;
 }
 
-QString DeviceSensor::uniqueId() const
+const QString &DeviceSensor::uniqueId() const
 {
     return m_uniqueId;
 }
 
-QString DeviceSensor::unit() const
+const QString &DeviceSensor::unit() const
 {
     return m_unit;
 }
@@ -81,7 +81,7 @@ void DeviceSensor::setDeviceClass(const QString &deviceClass)
         return;
 
     m_deviceClass = deviceClass;
-    emit deviceClassChanged(m_deviceClass);
+    emit deviceClassChanged();
 }
 
 void DeviceSensor::setEnabled(bool enable)
@@ -90,7 +90,7 @@ void DeviceSensor::setEnabled(bool enable)
         return;
 
     m_enabled = enable;
-    emit enabledChanged(m_enabled);
+    emit enabledChanged();
 
     onEnabledChanged();
 }
@@ -101,7 +101,7 @@ void DeviceSensor::setIcon(const QString &icon)
         return;
 
     m_icon = icon;
-    emit iconChanged(m_icon);
+    emit iconChanged();
 }
 
 void DeviceSensor::setName(const QString &name)
@@ -110,7 +110,7 @@ void DeviceSensor::setName(const QString &name)
         return;
 
     m_name = name;
-    emit nameChanged(m_name);
+    emit nameChanged();
 }
 
 void DeviceSensor::setSensorType(const QString &sensorType)
@@ -119,7 +119,7 @@ void DeviceSensor::setSensorType(const QString &sensorType)
         return;
 
     m_sensorType = sensorType;
-    emit sensorTypeChanged(m_sensorType);
+    emit sensorTypeChanged();
 }
 
 void DeviceSensor::setState(const QVariant &state)
@@ -128,7 +128,7 @@ void DeviceSensor::setState(const QVariant &state)
         return;
 
     m_state = state;
-    emit stateChanged(m_state);
+    emit stateChanged();
 
     onStateChanged();
 }
@@ -139,7 +139,7 @@ void DeviceSensor::setUniqueId(const QString &uniqueId)
         return;
 
     m_uniqueId = uniqueId;
-    emit uniqueIdChanged(m_uniqueId);
+    emit uniqueIdChanged();
 }
 
 void DeviceSensor::setUnit(const QString &unit)
@@ -148,7 +148,7 @@ void DeviceSensor::setUnit(const QString &unit)
         return;
 
     m_unit = unit;
-    emit unitChanged(m_unit);
+    emit unitChanged();
 }
 
 QJsonValue DeviceSensor::getStateValue() const

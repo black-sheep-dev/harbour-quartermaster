@@ -10,76 +10,99 @@ Page {
         id: listView
         model: ListModel {
             ListElement {
-                title: qsTr("Connections");
-                description: qsTr("Manage connections settings")
+                //% "Connections"
+                title: qsTrId("id-connections");
+                //% "Manage connections settings"
+                description: qsTrId("id-connections-list-desc")
                 icon: "image://theme/icon-m-mobile-network"
                 page: "SettingsConnectionPage.qml"
             }
             ListElement {
-                title: qsTr("Device Tracking");
-                description: qsTr("Manage tracking options")
+                //% "Device tracking"
+                title: qsTrId("id-device-tracking");
+                //% "Manage tracking options"
+                description: qsTrId("id-device-tracking-list-desc")
                 icon: "image://theme/icon-m-location"
                 page: "SettingsDeviceTrackingPage.qml"
             }
             ListElement {
-                title: qsTr("Device Sensors");
-                description: qsTr("Manage device sensors")
+                //% "Device sensors"
+                title: qsTrId("id-device-sensors");
+                //% "Manage device sensors"
+                description: qsTrId("id-device-sensors-list-desc")
                 icon: "image://theme/icon-m-diagnostic"
                 page: "SettingsDeviceSensorsPage.qml"
             }
             ListElement {
-                title: qsTr("Zones");
-                description: qsTr("Manage zones and access points")
+                //% "Zones"
+                title: qsTrId("id-zones");
+                //% "Manage zones and access points"
+                description: qsTrId("id-zones-list-desc")
                 icon: "image://theme/icon-m-dot"
                 page: "SettingsZonesPage.qml"
             }
             ListElement {
-                title: qsTr("Notifications");
-                description: qsTr("Manage system notifications")
+                //% "Notifications"
+                title: qsTrId("id-notifications");
+                //% "Manage system notifications"
+                description: qsTrId("id-notifications-list-desc")
                 icon: "image://theme/icon-m-notifications"
                 page: "SettingsNotificationsPage.qml"
             }
             ListElement {
-                title: qsTr("Live Updates");
-                description: qsTr("Manage automatic state updates")
+                //% "Live updates"
+                title: qsTrId("id-live-updates");
+                //% "Manage live updates"
+                description: qsTrId("id-live-updates-list-desc")
                 icon: "image://theme/icon-m-sync"
                 page: "SettingsLiveUpdatePage.qml"
             }
             ListElement {
-                title: qsTr("Backup & Restore");
-                description: qsTr("Manage backup of settings")
+                //% "Backup & Restore"
+                title: qsTrId("id-backup-restore");
+                //% "Manage backup of settings"
+                description: qsTrId("id-backup-restore-list-desc")
                 icon: "image://theme/icon-m-backup"
                 page: "SettingsBackupPage.qml"
             }
             ListElement {
-                title: qsTr("Device Info");
-                description: qsTr("Manage device informations")
+                //% "Device info"
+                title: qsTrId("id-device-info");
+                //% "Manage device informations"
+                description: qsTrId("id-device-info-list-desc")
                 icon: "image://theme/icon-m-about"
                 page: "SettingsDeviceInfoPage.qml"
             }
             ListElement {
-                title: qsTr("Home Assistant");
-                description: qsTr("Manage Home Assistant")
+                //% "Home Assistant"
+                title: qsTrId("id-home-assistant");
+                //% "Manage Home Assistant"
+                description: qsTrId("id-home-assistant-list-desc")
                 icon: "image://theme/icon-m-about"
                 page: "SettingsHomeAssistantPage.qml"
             }
             ListElement {
-                title: qsTr("Developer Mode");
-                description: qsTr("Manage developer options")
+                //% "Developer mode"
+                title: qsTrId("id-developer-mode");
+                //% "Manage developer options"
+                description: qsTrId("id-developer-mode-list-desc")
                 icon: "image://theme/icon-m-developer-mode"
                 page: "SettingsDeveloperModePage.qml"
             }
             ListElement {
-                title: qsTr("About");
-                description: qsTr("Infos about Quartermaster")
-                icon: "image://theme/icon-m-developer-mode"
+                //% "About"
+                title: qsTrId("id-about");
+                //% "Infos about Quartermaster"
+                description: qsTrId("id-about-list-desc")
+                icon: "image://theme/icon-m-about"
                 page: "../AboutPage.qml"
             }
         }
 
         anchors.fill: parent
         header: PageHeader {
-            title: qsTr("Settings")
+            //% "Settings"
+            title: qsTrId("id-settings")
         }
 
         delegate: ListItem {

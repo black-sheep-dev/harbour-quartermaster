@@ -1,10 +1,11 @@
 #include "entitiesservice.h"
 
+#include <QFile>
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QSettings>
-
 #include "src/constants.h"
+#include "src/global.h"
 
 EntitiesService::EntitiesService(QObject *parent) :
     Service(parent)
@@ -170,50 +171,68 @@ EntityTypeItem EntitiesService::getEntityTypeItem(const Entity::EntityType &enti
 
     switch (entityType) {
     case Entity::Alarm:
-        item.title = tr("Alarms");
-        item.description = tr("List of all alarms");
+        //% "Alarms"
+        item.title = qtTrId("id-alarms");
+        //% "List of all alarms"
+        item.description = qtTrId("id-list-of-all-alarms");
         break;
 
     case Entity::Automation:
-        item.title = tr("Automations");
-        item.description = tr("List of all automations");
+        //% "Automations"
+        item.title = qtTrId("id-automations");
+        //% "List of all automations"
+        item.description = qtTrId("id-list-of-all-automations");
         break;
 
     case Entity::Camera:
-        item.title = tr("Cameras");
-        item.description = tr("List of all cameras");
+        //% "Cameras"
+        item.title = qtTrId("id-cameras");
+        //% "List of all cameras"
+        item.description = qtTrId("id-list-of-all-cameras");
         break;
 
     case Entity::Climate:
-        item.title = tr("Climates");
-        item.description = tr("List of all climates");
+        //% "Climates"
+        item.title = qtTrId("id-climates");
+        //% "List of all climates"
+        item.description = qtTrId("id-list-of-all-climates");
         break;
 
     case Entity::Group:
-        item.title = tr("Groups");
-        item.description = tr("List of all groups");
+        //% "Groups"
+        item.title = qtTrId("id-groups");
+        //% "List of all groups"
+        item.description = qtTrId("id-list-of-all-groups");
         break;
 
     case Entity::Light:
-        item.title = tr("Lights");
-        item.description = tr("List of all lights");
+        //% "Lights"
+        item.title = qtTrId("id-lights");
+        //% "List of all lights"
+        item.description = qtTrId("id-list-of-all-lights");
         break;
 
     case Entity::Person:
-        item.title = tr("Persons");
-        item.description = tr("List of all persons");
+        //% "Persons"
+        item.title = qtTrId("id-persons");
+        //% "List of all persons"
+        item.description = qtTrId("id-list-of-all-persons");
         break;
 
     case Entity::Sensor:
     case Entity::BinarySensor:
-        item.title = tr("Sensors");
-        item.description = tr("List of all sensors");
+        //% "Sensors"
+        item.title = qtTrId("id-sensors");
+        //% "List of all sensors"
+        item.description = qtTrId("id-list-of-all-sensors");
         item.type = Entity::Sensor;
         break;
 
     case Entity::Switch:
-        item.title = tr("Switches");
-        item.description = tr("List of all switches");
+        //% "Switches"
+        item.title = qtTrId("id-switches");
+        //% "List of all switches"
+        item.description = qtTrId("id-list-of-all-switches");
         break;
 
     default:
@@ -284,7 +303,33 @@ void EntitiesService::parseStates(const QJsonArray &arr)
         const QJsonObject attributes = obj.value(ApiKey::KEY_ATTRIBUTES).toObject();
         entity->setName(attributes.value(ApiKey::KEY_FRIENDLY_NAME).toString());
         entity->setAttributes(attributes.toVariantMap());
-        entity->setSupportedFeatures(quint16(attributes.value(ApiKey::KEY_SUPPORTED_FEATURES).toInt(0)));
+
+        quint16 features = attributes.value(ApiKey::KEY_SUPPORTED_FEATURES).toInt();
+
+        const auto colorModes = attributes.value(ApiKey::KEY_SUPPORTED_COLOR_MODES).toArray();
+
+        if (!colorModes.isEmpty()) {
+            if (colorModes.contains(ApiKey::KEY_BRIGHTNESS)) {
+               features |= Light::LightBrightness;
+            }
+
+            if (colorModes.contains(ApiKey::KEY_XY)) {
+               features |= Light::LightColor;
+               features |= Light::LightBrightness;
+            }
+
+            if (colorModes.contains(ApiKey::KEY_COLOR_TEMP)) {
+               features |= Light::LightColorTemp;
+               features |= Light::LightBrightness;
+            }
+
+            if (colorModes.contains(ApiKey::KEY_WHITE_VALUE)) {
+               features |= Light::LightWhiteValue;
+               features |= Light::LightBrightness;
+            }
+        }
+
+        entity->setSupportedFeatures(features);
 
         // parse context
         entity->setContext(obj.value(ApiKey::KEY_CONTEXT).toObject().toVariantMap());
@@ -368,16 +413,9 @@ void EntitiesService::connectToApi()
     connect(api(), &ApiInterface::websocketEvent, this, &EntitiesService::onWebsocketEvent);
 }
 
-void EntitiesService::initialize()
-{
-    setState(ServiceState::StateInitializing);
-    readSettings();
-    refresh();
-}
-
 void EntitiesService::readSettings()
 {
-    QSettings settings;
+    QSettings settings(QFile(DEFAULT_CONFIG_FILE).exists() ? DEFAULT_CONFIG_FILE : DEPRECATED_CONFIG_FILE, QSettings::NativeFormat);
 
     settings.beginGroup(QStringLiteral("ENTITIES"));
     setLiveUpdates(settings.value(QStringLiteral("live_updates"), false).toBool());
@@ -386,11 +424,18 @@ void EntitiesService::readSettings()
 
 void EntitiesService::writeSettings()
 {
-    QSettings settings;
+    QSettings settings(DEFAULT_CONFIG_FILE, QSettings::NativeFormat);
 
     settings.beginGroup(QStringLiteral("ENTITIES"));
     settings.setValue(QStringLiteral("live_updates"), m_liveUpdates);
     settings.endGroup();
+}
+
+void EntitiesService::initialize()
+{
+    setState(ServiceState::StateInitializing);
+    readSettings();
+    refresh();
 }
 
 void EntitiesService::onRequestFinished(quint8 requestType, const QJsonDocument &data)

@@ -25,8 +25,10 @@ Dialog {
 
     DialogHeader {
         id: header
-        acceptText: qsTr("Continue")
-        cancelText: qsTr("Back")
+        //% "Continue"
+        acceptText: qsTrId("id-continue")
+        //% "Back"
+        cancelText: qsTrId("id-back")
     }
 
     Column {
@@ -46,7 +48,8 @@ Dialog {
             visible: !canAccept
             width: parent.width
 
-            text: qsTr("Registration failed")
+            //% "Registration failed"
+            text: qsTrId("id-registration-failed")
 
             color: Theme.errorColor
             font.pixelSize: Theme.fontSizeLarge
@@ -68,7 +71,8 @@ Dialog {
             visible: canAccept
             width: parent.width
 
-            text: qsTr("Registration completed")
+            //% "Registration completed"
+            text: qsTrId("id-registration-completed")
 
             color: Theme.highlightColor
             font.pixelSize: Theme.fontSizeLarge
@@ -79,7 +83,8 @@ Dialog {
             width: parent.width
             wrapMode: Text.Wrap
 
-            text: qsTr("In the next step you can choose your home network access point. This information is used to recognize whether you are at home.")
+            //% "In the next step you can choose your home network access point. This information is used to recognize whether you are at home."
+            text: qsTrId("id-registration-next-step-info")
 
             color: Theme.highlightColor
             font.pixelSize: Theme.fontSizeSmall

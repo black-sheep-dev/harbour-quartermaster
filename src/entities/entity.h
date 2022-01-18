@@ -47,16 +47,15 @@ public:
 
     explicit Entity(QObject *parent = nullptr);
     explicit Entity(const Entity &other);
-    ~Entity() override;
 
     Q_INVOKABLE bool hasFeature(quint16 feature) const;
 
     // properties
-    QVariantMap attributes() const;
-    QVariantMap context() const;
-    QString entityId() const;
-    QString name() const;
-    QVariant state() const;
+    const QVariantMap &attributes() const;
+    const QVariantMap &context() const;
+    const QString &entityId() const;
+    const QString &name() const;
+    const QVariant &state() const;
     quint16 supportedFeatures() const;
     EntityType type() const;
 
@@ -64,13 +63,13 @@ signals:
     void changed();
 
     // properties
-    void attributesChanged(const QVariantMap &attributes);
-    void contextChanged(const QVariantMap &context);
-    void entityIdChanged(const QString &id);
-    void nameChanged(const QString &name);
-    void stateChanged(const QVariant &state);
-    void supportedFeaturesChanged(quint16 supportedFeatures);
-    void typeChanged(Entity::EntityType type);  
+    void attributesChanged();
+    void contextChanged();
+    void entityIdChanged();
+    void nameChanged();
+    void stateChanged();
+    void supportedFeaturesChanged();
+    void typeChanged();
 
 public slots:
     // properties

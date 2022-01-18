@@ -25,8 +25,10 @@ Dialog {
 
         DialogHeader {
             id: header
-            acceptText: qsTr("Continue")
-            cancelText: qsTr("Back")
+            //% "Continue"
+            acceptText: qsTrId("id-continue")
+            //% "Back"
+            cancelText: qsTrId("id-back")
         }
 
         Column {
@@ -47,7 +49,8 @@ Dialog {
                 visible: !busy
                 width: parent.width
 
-                text: qsTr("Connection Infos")
+                //% "Connection info"
+                text: qsTrId("id-connection-info")
 
                 color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeLarge
@@ -59,8 +62,10 @@ Dialog {
                 width: parent.width
                 wrapMode: Text.WordWrap
 
-                text: discovered ? qsTr("Server connection info received. Please check the data!") :
-                          qsTr("Failed to connect to server. Go back and check your data!")
+                //% "Server connection info received. Please check the data!"
+                text: discovered ? qsTrId("id-server-info-received") :
+                          //% "Failed to connect to server. Go back and check your data!"
+                          qsTrId("id-failed-to-connect-to-server")
 
                 font.pixelSize: Theme.fontSizeSmall
                 color: Theme.highlightColor
@@ -69,17 +74,21 @@ Dialog {
             ComboBox {
                 visible: !busy && discovered
                 width: parent.width
-                label: qsTr("Preffered Mode")
+                //% "Preffered mode"
+                label: qsTrId("id-preffered-mode")
 
                 menu: ContextMenu {
-                    MenuItem { text: qsTr("Automatic") }
+                    //% "Automatic"
+                    MenuItem { text: qsTrId("id-automatic") }
                     MenuItem {
                         enabled: externalUrlField.acceptableInput
-                        text: qsTr("External URL")
+                        //% "External URL"
+                        text: qsTrId("id-external-url")
                     }
                     MenuItem {
                         enabled: internalUrlField.acceptableInput
-                        text: qsTr("Internal URL")
+                        //% "Internal URL"
+                        text: qsTrId("id-internal-url")
                     }
                     //MenuItem { text: qsTr("Cloud") }
                 }
@@ -90,7 +99,8 @@ Dialog {
 
             SectionHeader {
                 visible: discovered
-                text: qsTr("Internal Connection")
+                //% "Internal connection"
+                text: qsTrId("id-internal-connection")
             }
 
             TextField {
@@ -99,8 +109,10 @@ Dialog {
                 id: internalUrlField
                 width: parent.width
 
-                label: qsTr("URL")
-                placeholderText: qsTr("Enter URL (e.g. http://server:8123)")
+                //% "URL"
+                label: qsTrId("id-url")
+                //% "Enter URL (e.g. http://server:8123)"
+                placeholderText: qsTrId("id-enter-url-placeholder")
 
                 text: App.api().serverConfig().internalUrl
 
@@ -119,14 +131,16 @@ Dialog {
             Label {
                 width: parent.width
                 visible: discovered && !internalUrlField.acceptableInput
-                text: qsTr("Valid URL required!")
+                //% "Valid URL required!"
+                text: qsTrId("id-error-valid-url")
                 color: Theme.errorColor
                 font.pixelSize: Theme.fontSizeExtraSmall
             }
 
             SectionHeader {
                 visible: discovered
-                text: qsTr("External Connection")
+                //% "External connection"
+                text: qsTrId("id-external-connection")
             }
 
             TextField {
@@ -135,8 +149,10 @@ Dialog {
                 id: externalUrlField
                 width: parent.width
 
-                label: qsTr("URL")
-                placeholderText: qsTr("Enter URL (e.g. http://server:8123)")
+                //% "URL"
+                label: qsTrId("id-url")
+                //% "Enter URL (e.g. http://server:8123)"
+                placeholderText: qsTrId("id-enter-url-placeholder")
 
                 text: App.api().serverConfig().externalUrl
 
@@ -154,7 +170,8 @@ Dialog {
             Label {
                 width: parent.width
                 visible: discovered && !externalUrlField.acceptableInput
-                text: qsTr("Valid URI required!")
+                //% "Valid URL required!"
+                text: qsTrId("id-error-valid-url")
                 color: Theme.errorColor
                 font.pixelSize: Theme.fontSizeExtraSmall
             }

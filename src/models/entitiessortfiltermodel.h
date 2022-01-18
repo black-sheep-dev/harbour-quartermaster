@@ -14,9 +14,11 @@ public:
     Q_INVOKABLE void addEntityFilter(quint8 entityType);
     Q_INVOKABLE Entity *entityAt(int i);
     Q_INVOKABLE void resetEntityFilter();
+    Q_INVOKABLE void search(const QString &pattern);
 
 private:
     QList<quint8> m_entityFilters;
+    QString m_pattern;
 
     // QAbstractProxyModel interface
 protected:

@@ -1,6 +1,6 @@
 Name: harbour-quartermaster
 Summary: Quartermaster
-Version: 0.2.7
+Version: 0.2.8
 Release: 1
 # The contents of the Group field should be one of the groups listed here:
 # https://github.com/mer-tools/spectacle/blob/master/data/GROUPS
@@ -29,10 +29,11 @@ PkgConfigBR:
   - nemodbus
   - nemonotifications-qt5
   - qt5embedwidget >= 1.14.9
+  - keepalive
 
 # Build dependencies without a pkgconfig setup can be listed here
-# PkgBR:
-#   - package-needed-to-build
+PkgBR:
+  - qt5-qttools-linguist
 
 # Runtime dependencies which are not automatically detected
 Requires:

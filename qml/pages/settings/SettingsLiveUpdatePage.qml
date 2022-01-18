@@ -15,46 +15,48 @@ Page {
 
         Column {
             id: column
-
-            x: Theme.horizontalPageMargin
-            width: parent.width - 2 * x
-
-            spacing: Theme.paddingMedium
+            width: parent.width
+            spacing: Theme.paddingLarge
 
             PageHeader {
-                title: qsTr("Live Updates")
+                //% "Live updates"
+                title: qsTrId("id-live-updates")
             }
 
             Label {
-                width: parent.width
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
                 wrapMode: Text.WordWrap
 
                 color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeMedium
 
-                text: qsTr("Here you can manage live updates for your entities state.")
-                      + "\n"
-                      + qsTr("Activating these options leads to higher battery consumption and network traffic.");
+                //% "Here you can manage live updates for your entities state."
+                //% "Activating these options leads to higher battery consumption and network traffic."
+                text: qsTrId("id-live-updates-desc")
             }
 
             TextSwitch {
                 id: websocketStatesSwitch
                 enabled: (App.api().serverConfig().components & ServerConfig.ComponentWebsocketApi) === ServerConfig.ComponentWebsocketApi
-                text: qsTr("Live updates")
-                description: qsTr("When active the entities will be updated live using websocket connection.")
-                             + "\n"
-                             + qsTr("This can lead to very high data consumption, especially with many entities that often change their state!")
+                //% "Live updates"
+                text: qsTrId("id-live-updates")
+                //% "When active the entities will be updated live using websocket connection."
+                //% "This can lead to very high data consumption, especially with many entities that often change their state!"
+                description: qsTrId("id-switch-live-updates-desc")
 
                 onCheckedChanged: App.entitiesService().liveUpdates = checked
                 Component.onCompleted: checked = App.entitiesService().liveUpdates
             }
 
             Label {
-                width: parent.width
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
 
                 visible: (App.api().serverConfig().components & ServerConfig.ComponentWebsocketApi) !== ServerConfig.ComponentWebsocketApi
 
-                text: qsTr("Websocket component is not enabled in Home Assistant!")
+                //% "Websocket component is not enabled in Home Assistant!"
+                text: qsTrId("id-websocket-component-not-enabled")
                 wrapMode: Text.WordWrap
                 color: Theme.highlightColor
             }

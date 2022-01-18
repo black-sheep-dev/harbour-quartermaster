@@ -12,8 +12,10 @@ Dialog {
 
     DialogHeader {
         id: header
-        acceptText: qsTr("Connect")
-        cancelText: qsTr("Back")
+        //% "Connect"
+        acceptText: qsTrId("id-connect")
+        //% "Back"
+        cancelText: qsTrId("id-back")
     }
 
     Column {
@@ -26,7 +28,8 @@ Dialog {
         Label {
             width: parent.width
 
-            text: qsTr("Connection Settings")
+            //% "Connection settings"
+            text: qsTrId("id-connection-settings")
 
             color: Theme.highlightColor
             font.pixelSize: Theme.fontSizeLarge
@@ -36,9 +39,10 @@ Dialog {
             width: parent.width
             wrapMode: Text.WordWrap
 
-            text: qsTr("You need to provide the connection details to your Home Assistant server.")
-                  + "\n"
-                  + qsTr("Please provide a full URL with port for this!")
+            //% "You need to provide the connection details to your Home Assistant server."
+            //% "Please provide a full URL with port for this!"
+            text: qsTrId("id-wizard-connection-desc")
+
 
             font.pixelSize: Theme.fontSizeSmall
             color: Theme.highlightColor
@@ -63,8 +67,10 @@ Dialog {
             id: urlField
             width: parent.width
 
-            label: qsTr("URL")
-            placeholderText: qsTr("Enter URL (e.g. http://server:8123)")
+            //% "URL"
+            label: qsTrId("id-url")
+            //% "Enter URL (e.g. http://server:8123)"
+            placeholderText: qsTrId("id-enter-url-placeholder")
 
             text: App.api().serverConfig().internalUrl
 
@@ -82,7 +88,8 @@ Dialog {
         Label {
             width: parent.width
             visible: !urlField.acceptableInput
-            text: qsTr("Valid URL required!")
+            //% "Valid URL required!"
+            text: qsTrId("id-error-valid-url")
             color: Theme.errorColor
             font.pixelSize: Theme.fontSizeExtraSmall
         }

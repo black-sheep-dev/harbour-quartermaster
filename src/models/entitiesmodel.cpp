@@ -38,7 +38,7 @@ Entity *EntitiesModel::entityAt(const QModelIndex &index)
     return m_entities.at(index.row());
 }
 
-QList<Entity *> EntitiesModel::entities() const
+const QList<Entity *> &EntitiesModel::entities() const
 {
     return m_entities;
 }
@@ -158,6 +158,26 @@ QVariant EntitiesModel::data(const QModelIndex &index, int role) const
     default:
         return QVariant();
     }
+}
+
+bool EntitiesModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (!index.isValid()) {
+        return false;
+    }
+
+    auto entity = m_entities.at(index.row());
+
+    switch (role) {
+    case StateRole:
+        entity->setState(value);
+        break;
+
+    default:
+        return false;
+    }
+
+    emit dataChanged(index, index, QVector<int>() << role);
 }
 
 QHash<int, QByteArray> EntitiesModel::roleNames() const

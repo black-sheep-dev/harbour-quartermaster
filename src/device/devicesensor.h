@@ -27,27 +27,27 @@ public:
 
     // properties
     bool active() const;
-    QString deviceClass() const;
+    const QString &deviceClass() const;
     bool enabled() const;
-    QString icon() const;
-    QString name() const;
-    QString sensorType() const;
-    QVariant state() const;
-    QString uniqueId() const;
-    QString unit() const;
+    const QString &icon() const;
+    const QString &name() const;
+    const QString &sensorType() const;
+    const QVariant &state() const;
+    const QString &uniqueId() const;
+    const QString &unit() const;
 
 signals:
     void sensorUpdated(const QJsonObject &object);
 
     // properties
-    void deviceClassChanged(const QString &deviceClass);
-    void enabledChanged(bool enabled);
-    void iconChanged(const QString &icon);
-    void nameChanged(const QString &name);
-    void sensorTypeChanged(const QString &sensorType);
-    void stateChanged(const QVariant &state);
-    void uniqueIdChanged(const QString &uniqueId);
-    void unitChanged(const QString &unit);
+    void deviceClassChanged();
+    void enabledChanged();
+    void iconChanged();
+    void nameChanged();
+    void sensorTypeChanged();
+    void stateChanged();
+    void uniqueIdChanged();
+    void unitChanged();
 
 public slots:
     // properties

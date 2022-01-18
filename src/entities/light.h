@@ -10,6 +10,8 @@ class Light : public Entity
     Q_OBJECT
 
     Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged)
+    Q_PROPERTY(qreal hue READ hue WRITE setHue NOTIFY hueChanged)
+    Q_PROPERTY(qreal saturation READ saturation WRITE setSaturation NOTIFY saturationChanged)
 
 public:
     enum LightFeature {
@@ -32,21 +34,27 @@ public:
     Q_INVOKABLE int red() const;
 
     // properties
-    QColor color() const;
+    const QColor &color() const;
+    qreal hue() const;
+    qreal saturation() const;
 
 signals:
     // properties
-    void colorChanged(const QColor &color);
+    void colorChanged();   
+    void hueChanged();
+
+    void saturationChanged();
 
 public slots:
     // properties
     void setColor(const QColor &color);
-
+    void setHue(qreal hue);
+    void setSaturation(qreal saturation);
 private:
     // properties
     QColor m_color;
-
-
+    qreal m_hue{0};
+    qreal m_saturation{0};
 
     // Entity interface
 public:

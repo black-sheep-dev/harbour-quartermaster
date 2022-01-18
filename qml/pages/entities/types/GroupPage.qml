@@ -15,11 +15,13 @@ Page {
         PullDownMenu {
             busy: page.busy
             MenuItem {
-                text: qsTr("Attributes")
+                //% "Attributes"
+                text: qsTrId("id-attributes")
                 onClicked: pageStack.push(Qt.resolvedUrl("../EntityAttributesPage.qml"), { entity: entity })
             }
             MenuItem {
-                text: qsTr("Refresh")
+                //% "Refresh"
+                text: qsTrId("id-refresh")
                 onClicked: {
                     page.busy = true;
                     App.entitiesService().getEntityState(entity.entityId)
@@ -41,7 +43,8 @@ Page {
 
             TextSwitch {
                 x: Theme.horizontalPageMargin
-                text: qsTr("Group on/off")
+                //% "Group on/off"
+                text: qsTrId("id-group-on-off")
                 checked: entity.state === "on"
 
                 onClicked: {
@@ -54,7 +57,8 @@ Page {
             }
 
             SectionHeader{
-                text: qsTr("Children")
+                //% "Children"
+                text: qsTrId("id-children")
             }
         }
 

@@ -1,16 +1,5 @@
-# NOTICE:
-#
-# Application name defined in TARGET has a corresponding QML filename.
-# If name defined in TARGET is changed, the following needs to be done
-# to match new name:
-#   - corresponding QML filename must be changed
-#   - desktop icon filename must be changed
-#   - desktop filename must be changed
-#   - icon definition filename in desktop file must be changed
-#   - translation filenames have to be changed
-
 # VERSION
-VERSION = 0.2.7
+VERSION = 0.2.8
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # The name of your application
@@ -22,16 +11,15 @@ DEFINES += APP_TARGET=\\\"$$TARGET\\\"
 
 QT += dbus positioning network websockets
 
+CONFIG += link_pkgconfig sailfishapp
 PKGCONFIG += \
     sailfishmdm \
     sailfishsecrets \
     nemonotifications-qt5 \
-    qt5embedwidget
+    qt5embedwidget \
+    keepalive
 
-LIBS += -L../../lib -lkeepalive
-LIBS += -lz
-
-CONFIG += sailfishapp
+include(extern/sailfishos-utils/compressor/compressor.pri)
 
 SOURCES += src/harbour-quartermaster.cpp \
     src/api/apiinterface.cpp \
@@ -62,8 +50,7 @@ SOURCES += src/harbour-quartermaster.cpp \
     src/service/locationservice.cpp \
     src/service/notificationservice.cpp \
     src/service/service.cpp \
-    src/tools/backuptool.cpp \
-    src/tools/helper.cpp
+    src/tools/backuptool.cpp
 
 DISTFILES += qml/harbour-quartermaster.qml \
     qml/SelectWifiNetworkDialog.qml \
@@ -120,15 +107,7 @@ DISTFILES += qml/harbour-quartermaster.qml \
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172 512x512
 
-# to disable building translations every time, comment out the
-# following CONFIG line
-CONFIG += sailfishapp_i18n
-
-# German translation is enabled as an example. If you aren't
-# planning to localize your app, remember to comment out the
-# following TRANSLATIONS line. And also do not forget to
-# modify the localized app name in the the .desktop file.
-TRANSLATIONS += translations/harbour-quartermaster-de.ts
+include(translations/translations.pri)
 
 RESOURCES += \
     ressources.qrc
@@ -150,6 +129,7 @@ HEADERS += \
     src/entities/group.h \
     src/entities/light.h \
     src/entities/zone.h \
+    src/global.h \
     src/models/entitiesmodel.h \
     src/models/entitiessortfiltermodel.h \
     src/models/entityattributesmodel.h \
@@ -167,5 +147,4 @@ HEADERS += \
     src/service/notificationservice.h \
     src/service/service.h \
     src/tools/backuptool.h \
-    src/enums.h \
-    src/tools/helper.h
+    src/enums.h

@@ -1,5 +1,7 @@
 #include "entity.h"
 
+#include <QDebug>
+
 Entity::Entity(QObject *parent) :
     QObject(parent),
     m_entityId(QString()),
@@ -22,33 +24,35 @@ Entity::Entity(const Entity &other) :
 
 bool Entity::hasFeature(quint16 feature) const
 {
-    return (m_supportedFeatures & feature) == feature;
+    qDebug() << m_supportedFeatures;
+    qDebug() << (m_supportedFeatures & feature);
+
+    bool has = (m_supportedFeatures & feature) == feature;
+
+    return has;
 }
 
-Entity::~Entity()
-= default;
-
-QVariantMap Entity::attributes() const
+const QVariantMap &Entity::attributes() const
 {
     return m_attributes;
 }
 
-QVariantMap Entity::context() const
+const QVariantMap &Entity::context() const
 {
     return m_context;
 }
 
-QString Entity::entityId() const
+const QString &Entity::entityId() const
 {
     return m_entityId;
 }
 
-QString Entity::name() const
+const QString &Entity::name() const
 {
     return m_name;
 }
 
-QVariant Entity::state() const
+const QVariant &Entity::state() const
 {
     return m_state;
 }
@@ -69,7 +73,7 @@ void Entity::setAttributes(const QVariantMap &attributes)
         return;
 
     m_attributes = attributes;
-    emit attributesChanged(m_attributes);
+    emit attributesChanged();
 
     parseAttributes();
 
@@ -82,7 +86,7 @@ void Entity::setContext(const QVariantMap &context)
         return;
 
     m_context = context;
-    emit contextChanged(m_context);
+    emit contextChanged();
 
     emit changed();
 }
@@ -93,7 +97,7 @@ void Entity::setEntityId(const QString &id)
         return;
 
     m_entityId = id;
-    emit entityIdChanged(m_entityId);
+    emit entityIdChanged();
 }
 
 void Entity::setName(const QString &name)
@@ -102,7 +106,8 @@ void Entity::setName(const QString &name)
         return;
 
     m_name = name;
-    emit nameChanged(m_name);
+    emit nameChanged();
+    emit changed();
 }
 
 void Entity::setState(const QVariant &state)
@@ -111,7 +116,8 @@ void Entity::setState(const QVariant &state)
         return;
 
     m_state = state;
-    emit stateChanged(m_state);
+    emit stateChanged();
+    emit changed();
 }
 
 void Entity::setSupportedFeatures(quint16 supportedFeatures)
@@ -120,7 +126,8 @@ void Entity::setSupportedFeatures(quint16 supportedFeatures)
         return;
 
     m_supportedFeatures = supportedFeatures;
-    emit supportedFeaturesChanged(m_supportedFeatures);
+    emit supportedFeaturesChanged();
+    emit changed();
 }
 
 void Entity::setType(Entity::EntityType type)
@@ -129,7 +136,7 @@ void Entity::setType(Entity::EntityType type)
         return;
 
     m_type = type;
-    emit typeChanged(m_type);
+    emit typeChanged();
 }
 
 void Entity::parseAttributes()

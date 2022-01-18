@@ -20,7 +20,8 @@ Page {
     SilicaListView {
         PullDownMenu {
             MenuItem {
-                text: qsTr("Refresh")
+                //% "Refresh"
+                text: qsTrId("id-refresh")
                 onClicked: App.entitiesService().refresh()
             }
         }
@@ -31,7 +32,8 @@ Page {
 
         anchors.fill: parent
         header: PageHeader {
-            title: qsTr("Entities")
+            //% "Entities"
+            title: qsTrId("id-entities")
         }
 
         model: SortFilterModel {
@@ -73,7 +75,8 @@ Page {
                         font.pixelSize: Theme.fontSizeLarge
                     }
                     Label {
-                        text: qsTr("%n entity available", "0", Client.entitiesProvider().model(type).entitiesCount())
+                        //% "%n entity available"
+                        text: qsTrId("id-entities-available", Client.entitiesProvider().model(type).entitiesCount())
                         color: Theme.secondaryColor
                         font.pixelSize: Theme.fontSizeMedium
                     }
@@ -107,8 +110,10 @@ Page {
 
         ViewPlaceholder {
             enabled: listView.count == 0
-            text: qsTr("No entities available")
-            hintText: qsTr("Check your network connection")
+            //% "No entities available"
+            text: qsTrId("id-no-entities-available")
+            //% "Check your network connection"
+            hintText: qsTrId("id-check-network")
         }
 
         VerticalScrollDecorator {}

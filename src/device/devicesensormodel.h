@@ -23,7 +23,7 @@ public:
     explicit DeviceSensorModel(QObject *parent = nullptr);
     ~DeviceSensorModel() override;
 
-    QList<DeviceSensor *> sensors() const;
+    const QList<DeviceSensor *> &sensors() const;
 
 public slots:
     void addSensor(DeviceSensor *sensor);

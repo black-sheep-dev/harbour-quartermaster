@@ -25,7 +25,8 @@ Page {
     SilicaFlickable {
         PullDownMenu {
             MenuItem {
-                text: qsTr("Refresh")
+                //% "Refresh"
+                text: qsTrId("id-refresh")
                 onClicked: {
                     busy = true
                     App.entitiesService().refresh()
@@ -33,7 +34,8 @@ Page {
             }
 
             MenuItem {
-                text: qsTr("Search")
+                //% "Search"
+                text: qsTrId("id-search")
                 onClicked: listView.showSearch = true
             }
         }
@@ -98,17 +100,24 @@ Page {
 
                 Row {
                     x: Theme.horizontalPageMargin
-                    width: parent.width - 2 * x
+                    width: parent.width - 2*x
                     height: parent.height
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: Theme.paddingMedium
 
-                    Image {
+                    IconButton {
                         id: itemIcon
-                        source: page.icon
                         anchors.verticalCenter: parent.verticalCenter
-                    }
+                        icon.source: page.icon + (model.entityState === "on"  ? "?#64dd17" : "")
+                        onClicked: {
+                            if (model.entityState !== "on" && model.entityState !== "off") return
 
+                            App.entitiesService().callService("homeassistant",
+                                model.entityState === "on" ? "turn_off" : "turn_on",
+                                model.entityId)
+                            filterModel.entityAt(index).state = (model.entityState === "on" ? "off" : "on")
+                        }
+                    }
                     Column {
                         width: parent.width - itemIcon.width - Theme.paddingMedium
                         anchors.verticalCenter: itemIcon.verticalCenter
@@ -163,8 +172,11 @@ Page {
 
             ViewPlaceholder {
                 enabled: listView.count == 0
-                text: qsTr("No entities available")
-                hintText: qsTr("Check your network connection")
+
+                //% "No entities available"
+                text: qsTrId("id-no-entities-available")
+                //% "Check your network connection"
+                hintText: qsTrId("id-check-network")
             }
 
             VerticalScrollDecorator {}

@@ -10,8 +10,10 @@ Dialog {
 
     DialogHeader {
         id: header
-        acceptText: qsTr("Connect")
-        cancelText: qsTr("Back")
+        //% "Connect"
+        acceptText: qsTrId("id-connect")
+        //% "Back"
+        cancelText: qsTrId("id-back")
     }
 
     Column {
@@ -23,7 +25,8 @@ Dialog {
         Label {
             width: parent.width
 
-            text: qsTr("Access Token")
+            //% "Access token"
+            text: qsTrId("id-access-token")
 
             color: Theme.secondaryHighlightColor
             font.pixelSize: Theme.fontSizeLarge
@@ -34,8 +37,9 @@ Dialog {
             wrapMode: Text.WordWrap
             font.pixelSize: Theme.fontSizeSmall
 
-            text: qsTr("You need to provide a valid Long-Lived Access Token.\n"
-                       + "You can create one on profile page in your Home Assistant webfrontend and copy the token string into the input field below.")
+            //% "You need to provide a valid Long-Lived Access Token."
+            //% "You can create one on profile page in your Home Assistant webfrontend and copy the token string into the input field below."
+            text: qsTrId("id-access-token-desc")
             color: Theme.highlightColor
         }
 
@@ -46,7 +50,8 @@ Dialog {
 
         Label {
             width: parent.width
-            text: qsTr("Enter Long-Lived Access Token")
+            //% "Enter Long-Lived Access Token"
+            text: qsTrId("id-enter-token-desc")
 
             color: Theme.secondaryHighlightColor
             font.pixelSize: Theme.fontSizeLarge
@@ -56,8 +61,10 @@ Dialog {
             id: tokenField
             width: parent.width
 
-            label: qsTr("Token")
-            placeholderText: qsTr("Enter token")
+            //% "Token"
+            label: qsTrId("id-token")
+            //% "Enter token"
+            placeholderText: qsTrId("id-enter-token")
 
             text: App.deviceService().token
 

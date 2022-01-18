@@ -1,12 +1,10 @@
 [Desktop Entry]
 Type=Application
-X-Nemo-Application-Type=generic
+X-Nemo-Application-Type=silicia-qt5
 Icon=harbour-quartermaster
 Exec=harbour-quartermaster
 Name=Quartermaster
-# translation example:
-# your app name in German locale (de)
-#
-# Remember to comment out the following line, if you do not want to use
-# a different app name in German locale (de).
 Name[de]=Quartiermeister
+
+[X-Sailjail]
+Sandboxing=Disabled

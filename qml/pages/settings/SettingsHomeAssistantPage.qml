@@ -34,56 +34,83 @@ Page {
             spacing: Theme.paddingSmall
 
             PageHeader {
-                title: qsTr("Home Assistant")
+                //% "Home Assistant"
+                title: qsTrId("id-home-assistant")
             }
 
             DetailItem {
-                label: qsTr("Location Name")
+                //% "Location name"
+                label: qsTrId("id-location-name")
                 value: App.api().serverConfig().locationName
             }
 
             DetailItem {
-                label: qsTr("Version")
+                //% "Version"
+                label: qsTrId("id-version")
                 value: App.api().serverConfig().version
             }
 
             DetailItem {
-                label: qsTr("Compatibility")
-                value: App.api().serverConfig().versionCompatibility ? qsTr("compatible") : qsTr("incompatible")
+                //% "Compatibility"
+                label: qsTrId("id-compatibility")
+                value: App.api().serverConfig().versionCompatibility ?
+                           //% "compatible"
+                           qsTrId("id-compatible") :
+                           //% "icompatible"
+                           qsTrId("id-incompatible")
             }
 
             DetailItem {
-                label: qsTr("Internal URL")
+                //% "Internal URL"
+                label: qsTrId("id-internal-url")
                 value: App.api().serverConfig().internalUrl
             }
 
             DetailItem {
-                label: qsTr("External URL")
+                //% "External URL"
+                label: qsTrId("id-external-url")
                 value: App.api().serverConfig().externalUrl
             }
 
             SectionHeader {
-                text: qsTr("Components")
+                //% "Components"
+                text: qsTrId("id-components")
             }
 
             DetailItem {
                 label: "mobile_app"
-                value: (App.api().serverConfig().components & ServerConfig.ComponentMobileApp) === ServerConfig.ComponentMobileApp ? qsTr("active") : qsTr("inactive")
+                value: (App.api().serverConfig().components & ServerConfig.ComponentMobileApp) === ServerConfig.ComponentMobileApp ?
+                           //% "active"
+                           qsTrId("id-active") :
+                           //% "inactive"
+                           qsTrId("id-inactive")
             }
 
             DetailItem {
                 label: "webhook"
-                value: (App.api().serverConfig().components & ServerConfig.ComponentWebhook) === ServerConfig.ComponentWebhook ? qsTr("active") : qsTr("inactive")
+                value: (App.api().serverConfig().components & ServerConfig.ComponentWebhook) === ServerConfig.ComponentWebhook ?
+                           //% "active"
+                           qsTrId("id-active") :
+                           //% "inactive"
+                           qsTrId("id-inactive")
             }
 
             DetailItem {
                 label: "websocket_api"
-                value: (App.api().serverConfig().components & ServerConfig.ComponentWebsocketApi) === ServerConfig.ComponentWebsocketApi ? qsTr("active") : qsTr("inactive")
+                value: (App.api().serverConfig().components & ServerConfig.ComponentWebsocketApi) === ServerConfig.ComponentWebsocketApi ?
+                           //% "active"
+                           qsTrId("id-active") :
+                           //% "inactive"
+                           qsTrId("id-inactive")
             }
 
             DetailItem {
                 label: "config"
-                value: (App.api().serverConfig().components & ServerConfig.ComponentConfig) === ServerConfig.ComponentConfig ? qsTr("active") : qsTr("inactive")
+                value: (App.api().serverConfig().components & ServerConfig.ComponentConfig) === ServerConfig.ComponentConfig ?
+                           //% "active"
+                           qsTrId("id-active") :
+                           //% "inactive"
+                           qsTrId("id-inactive")
             }
         }
     }

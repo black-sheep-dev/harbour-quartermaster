@@ -3,6 +3,8 @@ import Sailfish.Silica 1.0
 import Nemo.DBus 2.0
 
 Page {
+    property string appId: "harbour-quartermaster"
+
     id: page
 
     allowedOrientations: Orientation.All
@@ -25,12 +27,13 @@ Page {
             spacing: Theme.paddingMedium
 
             PageHeader {
-                title: qsTr("About")
+                //% "About"
+                title: qsTrId("id-about")
             }
 
             Image {
                 id: logo
-                source: "/usr/share/icons/hicolor/512x512/apps/" + Qt.application.name + ".png"
+                source: "/usr/share/icons/hicolor/512x512/apps/" + appId + ".png"
                 smooth: true
                 height: width
                 width: parent.width / 2
@@ -46,7 +49,8 @@ Page {
                 font.pixelSize: Theme.fontSizeExtraLarge
                 color: Theme.secondaryHighlightColor
 
-                text: qsTr("Quartermaster")
+                //% "Quartermaster"
+                text: qsTrId("id-quartermaster")
             }
 
             Label {
@@ -66,11 +70,13 @@ Page {
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeSmall
 
-                text: qsTr("Quartermaster is a native Sailfish OS Home Assistant client.")
+                //% "Quartermaster is a native Sailfish OS Home Assistant client."
+                text: qsTrId("id-about-desc")
             }
 
             SectionHeader{
-                text: qsTr("Translations")
+                //% "Translations"
+                text: qsTrId("id-translations")
             }
 
             Label {
@@ -79,7 +85,8 @@ Page {
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeSmall
 
-                text: qsTr("Your language is not available? You are welcome to support this project by translating it on my self hosted Weblate server.")
+                //% "Your language is not available? You are welcome to support this project by translating it on my self hosted Weblate server."
+                text: qsTrId("id-about-translation-desc")
             }
 
             BackgroundItem{
@@ -105,12 +112,12 @@ Page {
                         wrapMode: Text.WrapAnywhere
                         font.pixelSize: Theme.fontSizeSmall
 
-                        text: "https://weblate.nubecula.org/projects/" + Qt.application.name
+                        text: "https://weblate.nubecula.org/projects/" + appId
                         color: parent.parent.pressed ? Theme.highlightColor : Theme.primaryColor
 
                     }
                 }
-                onClicked: Qt.openUrlExternally("https://weblate.nubecula.org/engage/" + Qt.application.name)
+                onClicked: Qt.openUrlExternally("https://weblate.nubecula.org/engage/" + appId)
             }
 
             Image {
@@ -119,11 +126,12 @@ Page {
                 height: sourceSize.height * width / sourceSize.width
                 smooth: true
                 fillMode: Image.PreserveAspectFit
-                source: "http://weblate.nubecula.org/widgets/" + Qt.application.name + "/-/" + Qt.application.name + "/multi-auto.svg"
+                source: "http://weblate.nubecula.org/widgets/" + appId + "/-/" + appId + "/multi-auto.svg"
             }
 
             SectionHeader{
-                text: qsTr("Sources")
+                //% "Sources"
+                text: qsTrId("id-sources")
             }
 
             BackgroundItem{
@@ -149,25 +157,27 @@ Page {
                         wrapMode: Text.WrapAnywhere
                         font.pixelSize: Theme.fontSizeSmall
 
-                        text: "https://github.com/black-sheep-dev/" + Qt.application.name
+                        text: "https://github.com/black-sheep-dev/" + appId
                         color: parent.parent.pressed ? Theme.highlightColor : Theme.primaryColor
 
                     }
                 }
-                onClicked: Qt.openUrlExternally("https://github.com/black-sheep-dev/" + Qt.application.name)
+                onClicked: Qt.openUrlExternally("https://github.com/black-sheep-dev/" + appId)
             }
 
             ButtonLayout {
                 width: parent.width
 
                 Button {
-                    text: qsTr("Give star")
-                    onClicked: sailHubInterface.call("addStar", ["black-sheep-dev", Qt.application.name])
+                    //% "Give star"
+                    text: qsTrId("id-give-star")
+                    onClicked: sailHubInterface.call("addStar", ["black-sheep-dev", appId])
                 }
             }
 
             SectionHeader{
-                text: qsTr("Donations")
+                //% "Donations"
+                text: qsTrId("id-donations")
             }
 
             Label {
@@ -176,7 +186,8 @@ Page {
 
                 wrapMode: Text.Wrap
                 font.pixelSize: Theme.fontSizeSmall
-                text: qsTr("If you like my work why not buy me a beer?")
+                //% "If you like my work why not buy me a beer?"
+                text: qsTrId("id-about-donation-desc")
             }
 
             BackgroundItem{
@@ -202,7 +213,8 @@ Page {
                         wrapMode: Text.WrapAnywhere
                         font.pixelSize: Theme.fontSizeSmall
                         color: parent.parent.pressed ? Theme.highlightColor : Theme.primaryColor
-                        text: qsTr("Donate with PayPal")
+                        //% "Donate with PayPal"
+                        text: qsTrId("id-donate-paypal")
                     }
                 }
                 onClicked: Qt.openUrlExternally("https://www.paypal.com/paypalme/nubecula/1")
@@ -232,7 +244,8 @@ Page {
                         wrapMode: Text.WrapAnywhere
                         font.pixelSize: Theme.fontSizeSmall
                         color: parent.parent.pressed ? Theme.highlightColor : Theme.primaryColor
-                        text: qsTr("Donate with Liberpay")
+                        //% "Donate with Liberpay"
+                        text: qsTrId("id-donate-liberpay")
                     }
                 }
                 onClicked: Qt.openUrlExternally("https://liberapay.com/black-sheep-dev/donate")

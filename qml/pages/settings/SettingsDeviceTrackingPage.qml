@@ -17,36 +17,38 @@ Page {
 
         Column {
             id: column
-
-            x: Theme.horizontalPageMargin
-            width: parent.width - 2 * x
-
-            spacing: Theme.paddingMedium
+            width: parent.width
+            spacing: Theme.paddingLarge
 
             PageHeader {
-                title: qsTr("Device Tracking")
+                //% "Device tracking"
+                title: qsTrId("id-device-tracking")
             }
 
             Label {
-                width: parent.width
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
                 wrapMode: Text.WordWrap
 
                 color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeMedium
 
-                text: qsTr("Manage options to track your device location and send it to the Home Assistant server.")
-                      + "\n"
-                      + qsTr("Activating these options leads to higher battery consumption and network traffic.");
+                //% "Manage options to track your device location and send it to the Home Assistant server."
+                //% "Activating these options leads to higher battery consumption and network traffic."
+                text: qsTrId("id-device-tracking-desc");
             }
 
             SectionHeader {
-                text: qsTr("GPS Tracking")
+                //% "GPS tracking"
+                text: qsTrId("id-gps-tracking")
             }
 
             TextSwitch {
                 id: gpsTrackingSwitch
-                text: qsTr("GPS")
-                description: qsTr("Use GPS data to track the device position.")
+                //% "GPS"
+                text: qsTrId("id-gps")
+                //% "Use GPS data to track the device position."
+                description: qsTrId("id-gps-tracking-desc")
 
                 onCheckedChanged: App.locationService().enableGps = checked
                 Component.onCompleted: checked = App.locationService().enableGps
@@ -57,7 +59,8 @@ Page {
                 id: portField
                 width: parent.width / 2
 
-                label: qsTr("Update Interval (msec)")
+                //% "Update Interval (msec)"
+                label: qsTrId("id-update-interval-msec")
 
                 text: App.locationService().updateInterval
 
@@ -71,27 +74,29 @@ Page {
             TextSwitch {
                 enabled: gpsTrackingSwitch.checked && wifiTrackingSwitch.checked
                 id: disableGpsAtHomeSwitch
-                text: qsTr("Disable GPS at home")
-                description: qsTr("GPS tracking is turned off when at home. This option needs enabled Wifi tracking.")
+                //% "Disable GPS at home"
+                text: qsTrId("id-disable-gps-at-home")
+                //% "GPS tracking is turned off when at home. This option needs enabled Wifi tracking."
+                description: qsTrId("id-disable-gps-at-home-desc")
 
                 onCheckedChanged: App.locationService().disableGpsAtHome = checked
                 Component.onCompleted: checked = App.locationService().disableGpsAtHome
             }
 
             SectionHeader {
-                text: qsTr("Wifi Tracking")
+                //% "Wifi tracking"
+                text: qsTrId("id-wifi-tracking")
             }
 
             TextSwitch {
                 id: wifiTrackingSwitch
-                text: qsTr("Wifi")
-                description: qsTr("Available access points will be used to track the device.")
-                             + "\n"
-                             + qsTr("If the device discovers a known access point, it will send the position information of its parent zone.")
-                             + "\n"
-                             + qsTr("It is recommend to keep the wifi tracking enabled!")
-                             + "\n"
-                             + qsTr("You need to add the access points to your different zones on zone settings page. Zones can be created in the Home Assistant web interface.")
+                //% "Wifi"
+                text: qsTrId("id-wifi")
+                //% "Available access points will be used to track the device."
+                //% "If the device discovers a known access point, it will send the position information of its parent zone."
+                //% "It is recommend to keep the wifi tracking enabled!"
+                //% "You need to add the access points to your different zones on zone settings page. Zones can be created in the Home Assistant web interface."
+                description: qsTrId("id-wifi-tracking-desc")
 
 
 

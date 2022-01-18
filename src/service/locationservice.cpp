@@ -18,6 +18,8 @@
 
 #include "src/api/api.h"
 
+#include "src/global.h"
+
 LocationService::LocationService(QObject *parent) :
     Service(parent)
 {
@@ -490,21 +492,9 @@ void LocationService::connectToApi()
     connect(this, &LocationService::atHomeChanged, api(), &ApiInterface::setAtHome);
 }
 
-void LocationService::initialize()
-{
-    setState(Service::StateInitializing);
-
-    getZones();
-
-    connect(this, &LocationService::settingsChanged, this, &LocationService::updateTrackers);
-    updateTrackers();
-
-    setState(Service::StateInitialized);
-}
-
 void LocationService::readSettings()
 {
-    QSettings settings;
+    QSettings settings(QFile(DEFAULT_CONFIG_FILE).exists() ? DEFAULT_CONFIG_FILE : DEPRECATED_CONFIG_FILE, QSettings::NativeFormat);
 
     // tracking
     settings.beginGroup(QStringLiteral("TRACKING"));
@@ -532,7 +522,9 @@ void LocationService::readSettings()
     }
 
     // access point data
-    QFile file(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/" + APP_TARGET + QStringLiteral("/networks.json"));
+    QFile file(QFile(DEFAULT_CONFIG_PATH + QStringLiteral("networks.json")).exists() ?
+                   DEFAULT_CONFIG_PATH + QStringLiteral("networks.json") :
+                   DEPRECATED_CONFIG_PATH + QStringLiteral("networks.json"));
 
     if (!file.open(QIODevice::ReadOnly))
         return;
@@ -571,7 +563,7 @@ void LocationService::readSettings()
 
 void LocationService::writeSettings()
 {
-    QSettings settings;
+    QSettings settings(DEFAULT_CONFIG_FILE, QSettings::NativeFormat);
 
     // tracking
     settings.beginGroup(QStringLiteral("TRACKING"));
@@ -594,7 +586,7 @@ void LocationService::writeSettings()
     }
 
     // access point settings
-    QFile file(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/" + APP_TARGET + QStringLiteral("/networks.json"));
+    QFile file(DEFAULT_CONFIG_PATH + QStringLiteral("networks.json"));
 
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return;
@@ -627,6 +619,18 @@ void LocationService::writeSettings()
     out << QString::fromLatin1(QJsonDocument(data).toJson());
 
     file.close();
+}
+
+void LocationService::initialize()
+{
+    setState(Service::StateInitializing);
+
+    getZones();
+
+    connect(this, &LocationService::settingsChanged, this, &LocationService::updateTrackers);
+    updateTrackers();
+
+    setState(Service::StateInitialized);
 }
 
 void LocationService::onRequestFinished(quint8 requestType, const QJsonDocument &data)

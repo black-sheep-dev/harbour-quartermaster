@@ -5,8 +5,10 @@ Column {
     property string title
     property string description
     property bool result: false
-    property string resultTextTrue: qsTr("PASSED")
-    property string resultTextFalse: qsTr("FAILED")
+    //% "PASSED"
+    property string resultTextTrue: qsTrId("id-passed")
+    //% "FAILED"
+    property string resultTextFalse: qsTrId("id-failed")
 
     width: parent.width
     spacing: Theme.paddingMedium

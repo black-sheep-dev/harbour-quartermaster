@@ -16,53 +16,53 @@ Page {
         Column {
             id: column
 
-            x: Theme.horizontalPageMargin
-
-            width: page.width - 2 * x
+            width: parent.width
             spacing: Theme.paddingMedium
 
             PageHeader {
-                title: qsTr("Device Sensors")
+                //% "Device sensors"
+                title: qsTrId("id-device-sensors")
             }
 
             Label {
-                width: parent.width
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2*x
                 wrapMode: Text.WordWrap
 
                 color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeMedium
 
-                text: qsTr("Device sensors can send their current state to the Home Assistant server.")
-                      + "\n"
-                      + qsTr("Activating these options leads to higher battery consumption and network traffic.");
+                //% "Device sensors can send their current state to the Home Assistant server."
+                //% "Activating these options leads to higher battery consumption and network traffic."
+                text: qsTrId("id-device-sensors-desc");
             }
 
             TextSwitch {
                 id: toggleAllSwitch
-                text: qsTr("Live Updates")
-                description: qsTr("This toggles all sensors on/off")
+                //% "Live updates"
+                text: qsTrId("id-live-updates")
+                //% "This toggles all sensors on/off"
+                description: qsTrId("id-sensor-update-on-off")
 
                 onCheckedChanged: App.deviceService().sensorLiveUpdates = checked
                 Component.onCompleted: checked = App.deviceService().sensorLiveUpdates
             }
 
             SectionHeader {
-                text: qsTr("Sensor List")
+                //% "Sensor list"
+                text: qsTrId("id-sensor-list")
             }
 
-            ListView {
-                width: parent.width
-                height: 600
-                contentHeight: Theme.itemSizeMedium
-
+            Repeater {
                 model: App.deviceService().sensorsModel()
 
-                delegate: Item {
+                BackgroundItem {
                     width: parent.width
                     height: Theme.itemSizeMedium
 
                     Label {
-                        width: parent.width
+                        x: Theme.horizontalPageMargin
+                        width: parent.width - 2*x
                         text: name
                         anchors.verticalCenter: parent.verticalCenter
                     }

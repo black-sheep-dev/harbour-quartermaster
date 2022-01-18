@@ -30,8 +30,10 @@ Dialog {
 
         DialogHeader {
             id: header
-            acceptText: qsTr("Continue")
-            cancelText: qsTr("Back")
+            //% "Continue"
+            acceptText: qsTrId("id-continue")
+            //% "Back"
+            cancelText: qsTrId("id-back")
         }
 
         Column {
@@ -51,7 +53,8 @@ Dialog {
                 visible: !busy
                 width: parent.width
 
-                text: qsTr("Home Assistant")
+                //% "Home Assistant"
+                text: qsTrId("id-home-assistant")
 
                 color: Theme.secondaryHighlightColor
                 font.pixelSize: Theme.fontSizeLarge
@@ -60,13 +63,15 @@ Dialog {
             // error
             SectionHeader {
                 visible: !connected && !busy
-                text: qsTr("Connection Error")
+                //% "Connection error"
+                text: qsTrId("id-connection-error")
             }
 
             Label {
                 visible: !connected && !busy
                 width: parent.width
-                text: qsTr("Error connecting to Home Assistant API:")
+                //% "Error connecting to Home Assistant API:"
+                text: qsTrId("id-connection-error-desc")
                 font.pixelSize: Theme.fontSizeMedium
             }
 
@@ -86,14 +91,16 @@ Dialog {
             // success
             SectionHeader {
                 visible: connected && !busy
-                text: qsTr("Informations")
+                //% "Information"
+                text: qsTrId("id-information")
             }
 
             Label {
                 visible: connected && !busy
                 width: parent.width
 
-                text: qsTr("Location name")
+                //% "Location name"
+                text: qsTrId("id-location-name")
 
                 color: Theme.secondaryHighlightColor
                 font.pixelSize: Theme.fontSizeMedium
@@ -117,7 +124,8 @@ Dialog {
                 visible: connected && !busy
                 width: parent.width
 
-                text: qsTr("Version")
+                //% "Version"
+                text: qsTrId("id-version")
 
                 color: Theme.secondaryHighlightColor
                 font.pixelSize: Theme.fontSizeMedium
@@ -141,7 +149,8 @@ Dialog {
                 visible: connected && !busy
                 width: parent.width
 
-                text: qsTr("Internal URL")
+                //% "Internal URL"
+                text: qsTrId("id-internal-url")
 
                 color: Theme.secondaryHighlightColor
                 font.pixelSize: Theme.fontSizeMedium
@@ -165,7 +174,8 @@ Dialog {
                 visible: connected && !busy
                 width: parent.width
 
-                text: qsTr("External URL")
+                //% "External URL"
+                text: qsTrId("id-external-url")
 
                 color: Theme.secondaryHighlightColor
                 font.pixelSize: Theme.fontSizeMedium
@@ -181,36 +191,52 @@ Dialog {
 
             SectionHeader {
                 visible: connected && !busy
-                text: qsTr("Configuration checks")
+                //% "Configuration checks"
+                text: qsTrId("id-configuration-checks")
             }
 
             TestResultItem {
                 visible: connected && !busy
-                title: qsTr("Version compatibility")
-                description: qsTr("Version of Home Assistant is incompatible with this app!")
+                //% "Version compatibility"
+                title: qsTrId("id-version-compatibility")
+                //% "Version of Home Assistant is incompatible with this app!"
+                description: qsTrId("id-version-compatibility-desc")
                 result: App.api().serverConfig().versionCompatibility
             }
 
             TestResultItem {
                 visible: connected && !busy
-                title: qsTr("Mobile app component")
-                description: qsTr("Mobile app component is not activated!") + " " + qsTr("Please check your Home Assistant configuration.yaml!")
+                //% "Mobile app component"
+                title: qsTrId("id-mobile-app-component")
+                //% "Mobile app component is not activated!"
+                description: qsTrId("id-mobile-app-component-not-activated") + " " +
+                                //% "Please check your Home Assistant configuration.yaml!"
+                                qsTrId("id-check-yaml-config")
                 result: App.api().serverConfig().components & ServerConfig.ComponentMobileApp
             }
 
             TestResultItem {
                 visible: connected && !busy
-                title: qsTr("Webhook component")
-                description: qsTr("Webhook component is not activated!") + " " + qsTr("Please check your Home Assistant configuration.yaml!")
+                //% "Webhook component"
+                title: qsTrId("id-webhook-component")
+                //% "Webhook component is not activated!"
+                description: qsTrId("id-webhook-component-not-activated") + " " +
+                             //% "Please check your Home Assistant configuration.yaml!"
+                             qsTrId("id-check-yaml-config")
                 result: App.api().serverConfig().components & ServerConfig.ComponentWebhook
             }
 
             TestResultItem {
                 visible: connected && !busy
-                title: qsTr("Websocket component")
-                description: qsTr("Optional Websocket component is not activated!") + " " + qsTr("Please check your Home Assistant configuration.yaml!")
+                //% "Websocket component"
+                title: qsTrId("id-websocket-component")
+                //% "Optional Websocket component is not activated!"
+                description: qsTrId("id-websocket-component-not-activated") + " " +
+                             //% "Please check your Home Assistant configuration.yaml!"
+                             qsTrId("id-check-yaml-config")
                 result: App.api().serverConfig().components & ServerConfig.ComponentWebsocketApi
-                resultTextFalse: qsTr("MISSING")
+                //% "MISSING"
+                resultTextFalse: qsTrId("id-missing")
             }
         }
 

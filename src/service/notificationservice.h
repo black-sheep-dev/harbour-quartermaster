@@ -53,11 +53,11 @@ private:
 
     // Service interface
 public:
-    void initialize() override;
     void readSettings() override;
     void writeSettings() override;
 
 public slots:
+    void initialize() override;
     void onWebsocketEvent(const QString &event, const QJsonValue &data) override;
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(NotificationService::NotificationOptions)

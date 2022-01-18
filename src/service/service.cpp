@@ -57,25 +57,24 @@ void Service::connectToApi()
 
 }
 
-void Service::initialize()
-{
-    setState(ServiceState::StateInitialized);
-}
-
 QString Service::errorString() const
 {
     switch (error()) {
     case Service::ErrorNone:
-        return tr("No error");
+        //% "No error"
+        return qtTrId("id-no-error");
 
     case Service::ErrorUndefined:
-        return tr("An undefined error occured");
+        //% "An undefined error occured"
+        return qtTrId("id-undefined-error");
 
     case Service::ErrorConfiguration:
-        return tr("Error in service configuration");
+        //% "Error in service configuration"
+        return qtTrId("id-error-in-service-configuration");
 
     case Service::ErrorInitializationFailed:
-        return tr("Initialization failed");
+        //% "Initialization failed"
+        return qtTrId("id-initialization-failed");
 
     default:
         return QString();
@@ -90,6 +89,11 @@ void Service::readSettings()
 void Service::writeSettings()
 {
 
+}
+
+void Service::initialize()
+{
+    setState(ServiceState::StateInitialized);
 }
 
 void Service::onRequestError(quint8 requestType, quint8 code, const QString &msg)

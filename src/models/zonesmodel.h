@@ -24,7 +24,7 @@ public:
     explicit ZonesModel(QObject *parent = nullptr);
 
     Q_INVOKABLE Zone *zoneAt(int index);
-    QList<Zone *> zones() const;
+    const QList<Zone *> &zones() const;
 
     void addZone(Zone *zone);
     void setZones(const QList<Zone *> &zones);

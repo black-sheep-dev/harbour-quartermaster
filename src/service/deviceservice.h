@@ -102,11 +102,11 @@ private:
     // Service interface
 public:
     void connectToApi() override;
-    void initialize() override;
     void readSettings() override;
     void writeSettings() override;
 
 public slots:
+    void initialize() override;
     void onRequestError(quint8 requestType, quint8 code, const QString &msg) override;
     void onRequestFinished(quint8 requestType, const QJsonDocument &data) override;
 

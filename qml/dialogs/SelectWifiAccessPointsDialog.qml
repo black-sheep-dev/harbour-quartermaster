@@ -16,7 +16,8 @@ Dialog {
 
     DialogHeader {
         id: header
-        title: qsTr("Select Access Point")
+        //% "Select Access Point"
+        title: qsTrId("id-select-access-point")
     }
 
     PageBusyIndicator {
@@ -62,14 +63,16 @@ Dialog {
 
                     Label {
                         width: parent.width
-                        text: name.length > 0 ? name : qsTr("Hidden network")
+                        //% "Hidden network"
+                        text: name.length > 0 ? name : qsTrId("id-hidden-network")
                         color: pressed ? Theme.secondaryHighlightColor : Theme.highlightColor
                         font.pixelSize: Theme.fontSizeMedium
                     }
 
                     Label {
                         width: parent.width
-                        text: qsTr("Available network")
+                        //% "Available network"
+                        text: qsTrId("id-available-network")
 
                         color: pressed ? Theme.secondaryHighlightColor : Theme.secondaryColor
                         font.pixelSize: Theme.fontSizeSmall

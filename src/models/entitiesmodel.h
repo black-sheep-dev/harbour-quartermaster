@@ -27,7 +27,7 @@ public:
     Q_INVOKABLE Entity *entityById(const QString &entityId);
     Q_INVOKABLE Entity *entityAt(int index);
     Entity *entityAt(const QModelIndex &index);
-    QList<Entity *> entities() const;
+    const QList<Entity *> &entities() const;
     bool isEmpty() const;
     void setParentMode(bool enable);
 
@@ -52,7 +52,9 @@ private:
 public:
     int rowCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const override;
+    bool setData(const QModelIndex &index, const QVariant &value, int role) override;
     QHash<int, QByteArray> roleNames() const override;
+
 };
 
 #endif // ENTITIESMODEL_H

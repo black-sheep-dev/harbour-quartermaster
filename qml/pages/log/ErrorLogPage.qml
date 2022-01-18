@@ -21,11 +21,13 @@ Page {
     SilicaFlickable {
         PullDownMenu {
             MenuItem {
-                text: qsTr("Refresh")
+                //% "Refresh"
+                text: qsTrId("id-refresh")
                 onClicked: log = Client.refreshErrorLog()
             }
             MenuItem {
-                text: qsTr("Search")
+                //% "Search"
+                text: qsTrId("id-search")
                 onClicked: listView.showSearch = true
             }
         }

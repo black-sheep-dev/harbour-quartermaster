@@ -11,7 +11,7 @@ DeviceSensorModel::~DeviceSensorModel()
     qDeleteAll(m_sensors.begin(), m_sensors.end());
 }
 
-QList<DeviceSensor *> DeviceSensorModel::sensors() const
+const QList<DeviceSensor *> &DeviceSensorModel::sensors() const
 {
     return m_sensors;
 }

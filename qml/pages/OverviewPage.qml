@@ -4,7 +4,7 @@ import Sailfish.Silica 1.0
 import org.nubecula.harbour.quartermaster 1.0
 
 Page {
-    property bool busy
+    property bool busy: true
 
     id: page
 
@@ -21,7 +21,8 @@ Page {
         PullDownMenu {
             busy:  page.busy
             MenuItem {
-                text: qsTr("Settings")
+                //% "Settings"
+                text: qsTrId("id-settings")
                 onClicked: pageStack.push(Qt.resolvedUrl("settings/SettingsPage.qml"))
             }
 //            MenuItem {
@@ -29,7 +30,8 @@ Page {
 //                onClicked: pageStack.push(Qt.resolvedUrl("WebViewPage.qml"))
 //            }
             MenuItem {
-                text: qsTr("Refresh")
+                //% "Refresh"
+                text: qsTrId("id-refresh")
                 onClicked: {
                     busy = true
                     App.entitiesService().refresh()
@@ -44,7 +46,8 @@ Page {
 
         anchors.fill: parent
         header: PageHeader {
-            title: qsTr("Entities")
+            //% "Entities"
+            title: qsTrId("id-entities")
         }
 
         model: SortFilterModel {
@@ -84,7 +87,8 @@ Page {
                         font.pixelSize: Theme.fontSizeMedium
                     }
                     Label {
-                        text: qsTr("%n entity available", "0", model.count)
+                        //% "%n entity available"
+                        text: qsTrId("id-entities-available", model.count)
                         color: Theme.secondaryColor
                         font.pixelSize: Theme.fontSizeSmall
                     }
@@ -118,8 +122,10 @@ Page {
 
         ViewPlaceholder {
             enabled: !busy && listView.count === 0
-            text: qsTr("No entities available")
-            hintText: qsTr("Check your network connection")
+            //% "No entities available"
+            text: qsTrId("id-no-entities-available")
+            //% "Check your network connection"
+            hintText: qsTrId("id-check-network")
         }
 
         VerticalScrollDecorator {}

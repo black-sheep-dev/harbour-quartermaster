@@ -10,12 +10,12 @@ Zone::Zone(QObject *parent) :
 {
 }
 
-QString Zone::entityId() const
+const QString &Zone::entityId() const
 {
     return m_entityId;
 }
 
-QString Zone::guid() const
+const QString &Zone::guid() const
 {
     return m_guid;
 }
@@ -35,7 +35,7 @@ double Zone::longitude() const
     return m_longitude;
 }
 
-QString Zone::name() const
+const QString &Zone::name() const
 {
     return m_name;
 }
@@ -56,7 +56,7 @@ void Zone::setEntityId(const QString &entityId)
         return;
 
     m_entityId = entityId;
-    emit entityIdChanged(m_entityId);
+    emit entityIdChanged();
 }
 
 void Zone::setGuid(const QString &guid)
@@ -65,7 +65,7 @@ void Zone::setGuid(const QString &guid)
         return;
 
     m_guid = guid;
-    emit guidChanged(m_guid);
+    emit guidChanged();
 }
 
 void Zone::setIsHome(bool isHome)
@@ -74,7 +74,7 @@ void Zone::setIsHome(bool isHome)
         return;
 
     m_isHome = isHome;
-    emit isHomeChanged(m_isHome);
+    emit isHomeChanged();
     emit changed();
 }
 
@@ -84,7 +84,7 @@ void Zone::setLatitude(double latitude)
         return;
 
     m_latitude = latitude;
-    emit latitudeChanged(m_latitude);
+    emit latitudeChanged();
 }
 
 void Zone::setLongitude(double longitude)
@@ -93,7 +93,7 @@ void Zone::setLongitude(double longitude)
         return;
 
     m_longitude = longitude;
-    emit longitudeChanged(m_longitude);
+    emit longitudeChanged();
 }
 
 void Zone::setName(const QString &name)
@@ -102,7 +102,7 @@ void Zone::setName(const QString &name)
         return;
 
     m_name = name;
-    emit nameChanged(m_name);
+    emit nameChanged();
     emit changed();
 }
 
@@ -112,7 +112,7 @@ void Zone::setNetworkCount(quint16 count)
         return;
 
     m_networkCount = count;
-    emit networkCountChanged(m_networkCount);
+    emit networkCountChanged();
     emit changed();
 }
 
@@ -122,6 +122,6 @@ void Zone::setRadius(double radius)
         return;
 
     m_radius = radius;
-    emit radiusChanged(m_radius);
+    emit radiusChanged();
 }
 

@@ -91,8 +91,8 @@ public:
     quint16 presetModes() const;
 
 signals:
-    void hvacModesChanged(quint16 hvacModes);
-    void presetModesChanged(quint16 presetModes);
+    void hvacModesChanged();
+    void presetModesChanged();
 
 private:
     quint16 m_hvacAction{CURRENT_HVAC_OFF};

@@ -12,8 +12,10 @@ const QString ApiKey::KEY_BATTERY                       = QStringLiteral("batter
 const QString ApiKey::KEY_BATTERY_CHARGING              = QStringLiteral("battery_charging");
 const QString ApiKey::KEY_BATTERY_STATE                 = QStringLiteral("battery_state");
 const QString ApiKey::KEY_BINARY_SENSOR                 = QStringLiteral("binary_sensor");
+const QString ApiKey::KEY_BRIGHTNESS                    = QStringLiteral("brightness");
 const QString ApiKey::KEY_CALL_SERVICE                  = QStringLiteral("call_service");
 const QString ApiKey::KEY_CLOUDHOOK_URL                 = QStringLiteral("cloudhook_url");
+const QString ApiKey::KEY_COLOR_TEMP                    = QStringLiteral("color_temp");
 const QString ApiKey::KEY_COMPONENTS                    = QStringLiteral("components");
 const QString ApiKey::KEY_CONTEXT                       = QStringLiteral("context");
 const QString ApiKey::KEY_DATA                          = QStringLiteral("data");
@@ -59,6 +61,7 @@ const QString ApiKey::KEY_STATE                         = QStringLiteral("state"
 const QString ApiKey::KEY_STATE_CHANGED                 = QStringLiteral("state_changed");
 const QString ApiKey::KEY_SUBSCRIBE_EVENTS              = QStringLiteral("subscribe_events");
 const QString ApiKey::KEY_SUBSCRIPTION                  = QStringLiteral("subscription");
+const QString ApiKey::KEY_SUPPORTED_COLOR_MODES         = QStringLiteral("supported_color_modes");
 const QString ApiKey::KEY_SUPPORTED_FEATURES            = QStringLiteral("supported_features");
 const QString ApiKey::KEY_SUPPORTS_ENCRYPTION           = QStringLiteral("supports_encryption");
 const QString ApiKey::KEY_TEMPERATURE                   = QStringLiteral("temperature");
@@ -72,6 +75,8 @@ const QString ApiKey::KEY_VOLUME                        = QStringLiteral("volume
 const QString ApiKey::KEY_VERSION                       = QStringLiteral("version");
 const QString ApiKey::KEY_WEBHOOK_ID                    = QStringLiteral("webhook_id");
 const QString ApiKey::KEY_WHEN                          = QStringLiteral("when");
+const QString ApiKey::KEY_WHITE_VALUE                   = QStringLiteral("white_value");
+const QString ApiKey::KEY_XY                            = QStringLiteral("xy");
 
 // RegExp
 const QString RegExp::PORT_INCLUDED                     = QStringLiteral(":[0-9]{1,5}");

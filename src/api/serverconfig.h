@@ -49,41 +49,41 @@ public:
     void setData(const QJsonObject &object);
 
     // properties
-    QVariantList componentList() const;
+    const QVariantList &componentList() const;
     quint16 components() const;
-    QString configError() const;
+    const QString &configError() const;
     bool configValid() const;
-    QString externalUrl() const;
-    QString internalUrl() const;
+    const QString &externalUrl() const;
+    const QString &internalUrl() const;
     double latitude() const;
-    QString locationName() const;
+    const QString &locationName() const;
     double longitude() const;
-    QString unitLength() const;
-    QString unitMass() const;
-    QString unitPressure() const;
-    QString unitTemperature() const;
-    QString unitVolume() const;
-    QString version() const;
+    const QString &unitLength() const;
+    const QString &unitMass() const;
+    const QString &unitPressure() const;
+    const QString &unitTemperature() const;
+    const QString &unitVolume() const;
+    const QString version() const;
     bool versionCompatibility() const;
 
 signals:
     // properties
-    void componentListChanged(const QVariantList &components);
-    void componentsChanged(quint16 components);
-    void configErrorChanged(const QString &error);
-    void configValidChanged(bool valid);
-    void externalUrlChanged(const QString &url);
-    void internalUrlChanged(const QString &url);
-    void latitudeChanged(double latitude);
-    void locationNameChanged(const QString &locationName);
-    void longitudeChanged(double longitude);
-    void unitLengthChanged(const QString &unitLength);
-    void unitMassChanged(const QString &unitMass);
-    void unitPressureChanged(const QString &unitPressure);
-    void unitTemperatureChanged(const QString &unitTemperature);
-    void unitVolumeChanged(const QString &unitVolume);
+    void componentListChanged();
+    void componentsChanged();
+    void configErrorChanged();
+    void configValidChanged();
+    void externalUrlChanged();
+    void internalUrlChanged();
+    void latitudeChanged();
+    void locationNameChanged();
+    void longitudeChanged();
+    void unitLengthChanged();
+    void unitMassChanged();
+    void unitPressureChanged();
+    void unitTemperatureChanged();
+    void unitVolumeChanged();
     void versionChanged(const QString &version);
-    void versionCompatibilityChanged(bool compatibility);
+    void versionCompatibilityChanged();
 
 public slots:
     // properties

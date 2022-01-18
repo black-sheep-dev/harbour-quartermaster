@@ -31,37 +31,46 @@ Page {
             id: column
 
             width: parent.width
-            spacing: Theme.paddingMedium
+            spacing: Theme.paddingLarge
 
             PageHeader {
-                title: qsTr("Connections")
+                //% "Connections"
+                title: qsTrId("id-connections")
             }
 
             ComboBox {
                 id: modeComboBox
                 width: parent.width
-                label: qsTr("Preffered Mode")
+                //% "Preffered mode"
+                label: qsTrId("id-preffered-mode")
 
                 menu: ContextMenu {
-                    MenuItem { text: qsTr("Automatic") }
-                    MenuItem { text: qsTr("External URL") }
-                    MenuItem { text: qsTr("Internal URL") }
-                    MenuItem { text: qsTr("Cloud") }
+                    //% "Automatic"
+                    MenuItem { text: qsTrId("id-automatic") }
+                    //% "External URL"
+                    MenuItem { text: qsTrId("id-external-url") }
+                    //% "Internal URL"
+                    MenuItem { text: qsTrId("id-internal-url") }
+                    //% "Cloud"
+                    MenuItem { text: qsTrId("id-cloud") }
                 }
 
                 Component.onCompleted: currentIndex = App.api().connectionMode
             }
 
             SectionHeader {
-                text: qsTr("Internal Connection")
+                //% "Internal connection"
+                text: qsTrId("id-internal-connection")
             }
 
             TextField {
                 id: internalUrlField
                 width: parent.width
 
-                label: qsTr("URL")
-                placeholderText: qsTr("Enter URL (e.g. http://server:8123)")
+                //% "URL"
+                label: qsTrId("id-url")
+                //% "Enter URL (e.g. http://server:8123)"
+                placeholderText: qsTrId("id-enter-url-placeholder")
 
                 text: App.api().serverConfig().internalUrl
 
@@ -81,21 +90,25 @@ Page {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2*x
                 visible: !internalUrlField.acceptableInput
-                text: qsTr("Valid URL required!")
+                //% "Valid URL required!"
+                text: qsTrId("id-error-valid-url")
                 color: Theme.errorColor
                 font.pixelSize: Theme.fontSizeExtraSmall
             }
 
             SectionHeader {
-                text: qsTr("External Connection")
+                //% "External connection"
+                text: qsTrId("id-external-connection")
             }
 
             TextField {
                 id: externalUrlField
                 width: parent.width
 
-                label: qsTr("URL")
-                placeholderText: qsTr("Enter URL (e.g. http://server:8123)")
+                //% "URL"
+                label: qsTrId("id-url")
+                //% "Enter URL (e.g. http://server:8123)"
+                placeholderText: qsTrId("id-enter-url-placeholder")
 
                 text: App.api().serverConfig().externalUrl
 
@@ -114,7 +127,8 @@ Page {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2*x
                 visible: !externalUrlField.acceptableInput
-                text: qsTr("Valid URI required!")
+                //% "Valid URL required!"
+                text: qsTrId("id-error-valid-url")
                 color: Theme.errorColor
                 font.pixelSize: Theme.fontSizeExtraSmall
             }

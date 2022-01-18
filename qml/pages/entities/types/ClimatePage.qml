@@ -15,11 +15,13 @@ Page {
         PullDownMenu {
             busy: page.busy
             MenuItem {
-                text: qsTr("Attributes")
+                //% "Attributes"
+                text: qsTrId("id-attributes")
                 onClicked: pageStack.push(Qt.resolvedUrl("../EntityAttributesPage.qml"), { entity: entity })
             }
             MenuItem {
-                text: qsTr("Refresh")
+                //% "Refresh"
+                text: qsTrId("id-refresh")
                 onClicked: {
                     page.busy = true;
                     App.entitiesService().getEntityState(entity.entityId)
@@ -40,13 +42,15 @@ Page {
             }
 
             SectionHeader {
-                text: qsTr("Features")
+                //% "Features"
+                text: qsTrId("id-features")
             }
 
             Slider {
                 id: temperatureSlider
 
-                label: qsTr("Target temperature")
+                //% "Target temperature"
+                label: qsTrId("id-target-temperature")
 
                 visible: entity.hasFeature(Climate.ClimateTemperature)
 
@@ -82,12 +86,14 @@ Page {
             ComboBox {
                 visible: entity.presetModes > 0
                 width: parent.width
-                label: qsTr("Preset mode")
+                //% "Preset mode"
+                label: qsTrId("id-preset-mode")
 
                 menu: ContextMenu {
 
                     MenuItem {
-                        text: qsTr("none")
+                        //% "none"
+                        text: qsTrId("id-none")
                     }
 
                     Repeater {
@@ -114,17 +120,20 @@ Page {
             }
 
             SectionHeader {
-                text: qsTr("Info")
+                //% "Info"
+                text: qsTrId("id-info")
             }
 
             DetailItem {
-                label: qsTr("Current state")
+                //% "Current state"
+                label: qsTrId("id-current-state")
                 value: entity.state
             }
 
             DetailItem {
                 visible: entity.hasFeature(Climate.ClimateTemperature)
-                label: qsTr("Current room temperature")
+                //% "Current room temperature"
+                label: qsTrId("id-current-room-temperature")
                 value: entity.attributes.current_temperature + " " + App.api().serverConfig().unitTemperature
             }
         }
