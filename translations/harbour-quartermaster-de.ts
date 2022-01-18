@@ -93,7 +93,7 @@
     </message>
     <message id="id-error-unkown">
         <source>Unknown error</source>
-        <translation>Unbekanner Fehler</translation>
+        <translation type="vanished">Unbekanner Fehler</translation>
     </message>
     <message id="id-about">
         <source>About</source>
@@ -829,7 +829,7 @@ Die Daten von Serviceaufrufen aus der Benachrichtigungsintegration werden verwen
     </message>
     <message id="id-about-list-desc">
         <source>Infos about Quartermaster</source>
-        <translation type="vanished">Infos über Quartiermeister</translation>
+        <translation>Infos über Quartiermeister</translation>
     </message>
     <message id="id-at-home">
         <source>At home</source>
@@ -980,10 +980,6 @@ Das Aktivieren dieser Optionen führt zu höherem Akkuverbrauch und Netzwerkverk
         <translation>Verfügbare Access Points werden verwendet, um das Gerät zu tracken.
 Wenn das Gerät einen bekannten Zugangspunkt entdeckt, sendet es die Positionsinformationen dessen zugeordneten Zone.
 Es wird empfohlen, das WLAN-Tracking aktiviert zu lassen!Du musst den Accespoint zu den verschiedenen Zonen zuvor hinzufügen. Zonen können in der Home Assistant-Weboberfläche erstellt werden.</translation>
-    </message>
-    <message id="icon-m-about">
-        <source>Infos about Quartermaster</source>
-        <translation>Infos über Quartiermeister</translation>
     </message>
 </context>
 </TS>

@@ -94,7 +94,7 @@ The backup is saved in the Documents folder with the current time stamp.</transl
     </message>
     <message id="id-error-unkown">
         <source>Unknown error</source>
-        <translation>Unknown error</translation>
+        <translation type="vanished">Unknown error</translation>
     </message>
     <message id="id-about">
         <source>About</source>
@@ -841,7 +841,7 @@ The data of service calls from the notify integration are used. For details, ref
     </message>
     <message id="id-about-list-desc">
         <source>Infos about Quartermaster</source>
-        <translation type="vanished">Infos about Quartermaster</translation>
+        <translation>Infos about Quartermaster</translation>
     </message>
     <message id="id-no-error">
         <source>No error</source>
@@ -981,10 +981,6 @@ Activating these options leads to higher battery consumption and network traffic
         <translation>Available access points will be used to track the device. 
 If the device discovers a known access point, it will send the position information of its parent zone.It is recommend to keep the wifi tracking enabled!
 You need to add the access points to your different zones on zone settings page. Zones can be created in the Home Assistant web interface.</translation>
-    </message>
-    <message id="icon-m-about">
-        <source>Infos about Quartermaster</source>
-        <translation>Info about Quartermaster</translation>
     </message>
 </context>
 </TS>
