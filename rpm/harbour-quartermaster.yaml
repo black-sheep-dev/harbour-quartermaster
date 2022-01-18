@@ -1,6 +1,6 @@
 Name: harbour-quartermaster
 Summary: Quartermaster
-Version: 0.2.8
+Version: 0.3.0
 Release: 1
 # The contents of the Group field should be one of the groups listed here:
 # https://github.com/mer-tools/spectacle/blob/master/data/GROUPS
@@ -13,6 +13,18 @@ Sources:
 - '%{name}-%{version}.tar.bz2'
 Description: |
   Quartermaster is a native Sailfish OS Home Assistant client
+
+  %if "%{?vendor}" == "chum"
+  PackageName: Aenigma
+  Type: desktop-application
+  Categories:
+    - Tools
+  Custom:
+    Repo: https://github.com/black-sheep-dev/harbour-quartermaster/
+  Icon: https://raw.githubusercontent.com/black-sheep-dev/harbour-quartermaster/master/icons/harbour-aenigma.svg
+  Url:
+    Donation: https://www.paypal.com/paypalme/nubecula/1
+  %endif
 Builder: qmake5
 
 # This section specifies build dependencies that are resolved using pkgconfig.

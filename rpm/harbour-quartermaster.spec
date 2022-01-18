@@ -9,7 +9,7 @@ Name:       harbour-quartermaster
 # << macros
 
 Summary:    Quartermaster
-Version:    0.2.8
+Version:    0.3.0
 Release:    1
 Group:      Qt/Qt
 License:    MIT
@@ -41,6 +41,18 @@ BuildRequires:  desktop-file-utils
 
 %description
 Quartermaster is a native Sailfish OS Home Assistant client
+
+%if "%{?vendor}" == "chum"
+PackageName: Aenigma
+Type: desktop-application
+Categories:
+  - Tools
+Custom:
+  Repo: https://github.com/black-sheep-dev/harbour-quartermaster/
+Icon: https://raw.githubusercontent.com/black-sheep-dev/harbour-quartermaster/master/icons/harbour-aenigma.svg
+Url:
+  Donation: https://www.paypal.com/paypalme/nubecula/1
+%endif
 
 
 %prep

@@ -1,3 +1,11 @@
+* Tue Jan 18 2022 Black Sheep <blacksheep@nubecula.org> 0.3.0-1
+- Toggle switch / light directly in list view by clicking the icon
+- Color wheel for selecting light color
+- Switched to id based translation
+- Preperations for Sailjail
+- Fixed Home Assistant api changes
+- Bugfixes, Bugfixes, Bugfixes
+
 * Sat May 29 2021 Black Sheep <blacksheep@nubecula.org> 0.2.7-1
 - Fixed bug with update notification
 - Clean url from unnecessary slashes (thanks to rubdos for his bug report)
