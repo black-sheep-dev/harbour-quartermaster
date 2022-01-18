@@ -4,6 +4,10 @@ Quartermaster is a native Sailfish OS Home Assistant client which aims to provid
 
 >![](icons/128x128/harbour-quartermaster.png)
 
+[![](https://github.com/black-sheep-dev/harbour-quartermaster/actions/workflows/main.yml/badge.svg)](https://github.com/black-sheep-dev/harbour-quartermaster/actions/workflows/main.yml)
+
+![](http://weblate.nubecula.org/widgets/harbour-quartermaster/-/harbour-quartermaster/svg-badge.svg)
+
 ## Current state of development
 The development is in alpha state at the moment. Not everythings works perfectly and needs testing.
 
@@ -12,13 +16,6 @@ When update to version 0.2 you need to do a new device registration.
 I lost access permission to the secrets stored in Sailfish Secrets Collection during development process. Maybe Bug / wrong usage?
 As a workaround for this problem the app will create a new secrets collection.
 Sorry for the inconviniences.
-
-
-## Sailfish OS
-This application is tested with Sailfish OS Versions:
-
-- 3.4.0.24 (Pallas Yllästunturi)
-- 4.0.1.48 (Koli)
 
 ## Implemented Features
 Here is a list of all implemented features so far. Not all features listed below are finished or error free and are still in active development.
