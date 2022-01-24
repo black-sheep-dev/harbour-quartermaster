@@ -5,27 +5,27 @@
     <name></name>
     <message id="id-passed">
         <source>PASSED</source>
-        <translation type="unfinished"></translation>
+        <translation>ПОДТВЕРЖДЕНО</translation>
     </message>
     <message id="id-failed">
         <source>FAILED</source>
-        <translation type="unfinished"></translation>
+        <translation>ОТКАЗАНО</translation>
     </message>
     <message id="id-create-backup">
         <source>Create Backup</source>
-        <translation type="unfinished"></translation>
+        <translation>Создать резервную копию</translation>
     </message>
     <message id="id-create">
         <source>Create</source>
-        <translation type="unfinished"></translation>
+        <translation>Создать</translation>
     </message>
     <message id="id-backup-desc">
         <source>Select options from which a backup should be made. The backup is saved in the Documents folder with the current time stamp.</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите параметры, из которых следует создать резервную копию. Резервная копия сохраняется в папке &quot;Документы&quot; с отметкой текущего времени.</translation>
     </message>
     <message id="id-access-point-settings">
         <source>Access point settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки точки доступа</translation>
     </message>
     <message id="id-backup-access-points-desc">
         <source>Backup access point settings of zones</source>
@@ -33,63 +33,63 @@
     </message>
     <message id="id-restore-backup">
         <source>Restore Backup</source>
-        <translation type="unfinished"></translation>
+        <translation>Восстановить из резервной копии</translation>
     </message>
     <message id="id-restore">
         <source>Restore</source>
-        <translation type="unfinished"></translation>
+        <translation>Восстановить</translation>
     </message>
     <message id="id-restore-backup-desc">
         <source>Do you want to restore the backup? Current settings will be replaced!</source>
-        <translation type="unfinished"></translation>
+        <translation>Хотите восстановить резервную копию? Текущие настройки будут сброшены!</translation>
     </message>
     <message id="id-select-access-point">
         <source>Select Access Point</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите точку доступа</translation>
     </message>
     <message id="id-hidden-network">
         <source>Hidden network</source>
-        <translation type="unfinished"></translation>
+        <translation>Скрытая сеть</translation>
     </message>
     <message id="id-available-network">
         <source>Available network</source>
-        <translation type="unfinished"></translation>
+        <translation>Доступная сеть</translation>
     </message>
     <message id="id-request-failed">
         <source>Request failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Запрос не выполнен</translation>
     </message>
     <message id="id-error-bad-request">
         <source>Bad request</source>
-        <translation type="unfinished"></translation>
+        <translation>Плохой запрос</translation>
     </message>
     <message id="id-error-data-invalid">
         <source>Data invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Неверные данные</translation>
     </message>
     <message id="id-error-json-invalid">
         <source>JSON invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>JSON недействителен</translation>
     </message>
     <message id="id-error-integration-deleted">
         <source>Integration deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>Интеграция удалена</translation>
     </message>
     <message id="id-error-not-found">
         <source>Not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Не найдено</translation>
     </message>
     <message id="id-error-method-not-allowed">
         <source>Method not allowed</source>
-        <translation type="unfinished"></translation>
+        <translation>Метод запрещен</translation>
     </message>
     <message id="id-error-mobile-app-not-loaded">
         <source>Mobile app extension not loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>Расширение мобильного приложения не загружено</translation>
     </message>
     <message id="id-error--unauthorized">
         <source>Unauthorized</source>
-        <translation type="unfinished"></translation>
+        <translation>Запрещено</translation>
     </message>
     <message id="id-error-unkown">
         <source>Unknown error</source>
@@ -97,19 +97,19 @@
     </message>
     <message id="id-about">
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>О программе</translation>
     </message>
     <message id="id-quartermaster">
         <source>Quartermaster</source>
-        <translation type="unfinished"></translation>
+        <translation>Quartermaster</translation>
     </message>
     <message id="id-about-desc">
         <source>Quartermaster is a native Sailfish OS Home Assistant client.</source>
-        <translation type="unfinished"></translation>
+        <translation>Quartermaster - это нативный клиент Home Assistant для Sailfish OS .</translation>
     </message>
     <message id="id-translations">
         <source>Translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Языки</translation>
     </message>
     <message id="id-about-translation-desc">
         <source>Your language is not available? You are welcome to support this project by translating it on my self hosted Weblate server.</source>
@@ -117,39 +117,39 @@
     </message>
     <message id="id-sources">
         <source>Sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Источники</translation>
     </message>
     <message id="id-give-star">
         <source>Give star</source>
-        <translation type="unfinished"></translation>
+        <translation>Оцените</translation>
     </message>
     <message id="id-donations">
         <source>Donations</source>
-        <translation type="unfinished"></translation>
+        <translation>Пожертвования</translation>
     </message>
     <message id="id-about-donation-desc">
         <source>If you like my work why not buy me a beer?</source>
-        <translation type="unfinished"></translation>
+        <translation>Если тебе нравится приложение, почему бы не угостить меня пивом?</translation>
     </message>
     <message id="id-donate-paypal">
         <source>Donate with PayPal</source>
-        <translation type="unfinished"></translation>
+        <translation>Донат через PayPal</translation>
     </message>
     <message id="id-donate-liberpay">
         <source>Donate with Liberpay</source>
-        <translation type="unfinished"></translation>
+        <translation>Донат через Liberpay</translation>
     </message>
     <message id="id-settings">
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки</translation>
     </message>
     <message id="id-refresh">
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить</translation>
     </message>
     <message id="id-entities">
         <source>Entities</source>
-        <translation type="unfinished"></translation>
+        <translation>Entities</translation>
     </message>
     <message id="id-entities-available" numerus="yes">
         <source>%n entity available</source>
