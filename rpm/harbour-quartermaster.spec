@@ -67,7 +67,7 @@ Url:
 
 %qmake5 
 
-make %{?_smp_mflags}
+%make_build
 
 # >> build post
 # << build post
