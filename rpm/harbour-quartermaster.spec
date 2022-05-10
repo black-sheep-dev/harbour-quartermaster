@@ -38,6 +38,7 @@ BuildRequires:  pkgconfig(qt5embedwidget) >= 1.14.9
 BuildRequires:  pkgconfig(keepalive)
 BuildRequires:  qt5-qttools-linguist
 BuildRequires:  desktop-file-utils
+BuildRequires:  sailfish-mdm-devel
 
 %description
 Quartermaster is a native Sailfish OS Home Assistant client
