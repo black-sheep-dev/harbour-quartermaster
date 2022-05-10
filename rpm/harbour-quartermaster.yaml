@@ -42,7 +42,8 @@ PkgConfigBR:
   - nemonotifications-qt5
   - qt5embedwidget >= 1.14.9
   - keepalive
-  - sailfish-mdm
+ BuildRequires:
+  - sailfish-mdm-devel
 
 # Build dependencies without a pkgconfig setup can be listed here
 PkgBR:
