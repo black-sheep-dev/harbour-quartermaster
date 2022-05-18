@@ -44,8 +44,9 @@ Page {
             }
 
             Label {
-                width: parent.width
                 x : Theme.horizontalPageMargin
+                width: parent.width - 2*x
+
                 font.pixelSize: Theme.fontSizeExtraLarge
                 color: Theme.secondaryHighlightColor
 
@@ -54,8 +55,8 @@ Page {
             }
 
             Label {
-                width: parent.width
                 x : Theme.horizontalPageMargin
+                width: parent.width - 2*x
                 text: Qt.application.version
             }
 
@@ -65,8 +66,8 @@ Page {
             }
 
             Label {
-                width: parent.width - 2 * x
                 x : Theme.horizontalPageMargin
+                width: parent.width - 2*x
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeSmall
 

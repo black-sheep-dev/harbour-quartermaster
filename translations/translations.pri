@@ -1,6 +1,7 @@
 TRANSLATIONS += \
     translations/harbour-quartermaster.ts \
-    translations/harbour-quartermaster-de.ts
+    translations/harbour-quartermaster-de.ts \
+    translations/harbour-quartermaster-nl.ts
 
 qm.input    = TRANSLATIONS
 qm.output   = translations/${QMAKE_FILE_BASE}.qm
