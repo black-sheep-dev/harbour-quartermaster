@@ -1,4 +1,4 @@
-name: BUILD on Sailfish OS 4.3.0.12
+name: BUILD on Sailfish OS 4.4.0.58
 
 on:
   push:
@@ -28,21 +28,21 @@ jobs:
         id: build_armv7hl
         uses: coderus/github-sfos-build@master
         with:
-          release: 4.3.0.12
+          release: 4.4.0.58
           arch: armv7hl
         
       - name: Build i486
         id: build_i486
         uses: coderus/github-sfos-build@master
         with:
-          release: 4.3.0.12
+          release: 4.4.0.58
           arch: i486
 
       - name: Build aarch64
         id: build_aarch64
         uses: coderus/github-sfos-build@master
         with:
-          release: 4.3.0.12
+          release: 4.4.0.58
           arch: aarch64
       
       - name: Upload build result
