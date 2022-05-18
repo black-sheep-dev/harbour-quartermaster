@@ -105,7 +105,7 @@
     </message>
     <message id="id-about-desc">
         <source>Quartermaster is a native Sailfish OS Home Assistant client.</source>
-        <translation>Quartermaster is een Home Assistant Client voor Sailfish OS</translation>
+        <translation>Quartermaster is een Home Assistant Client voor Sailfish OS.</translation>
     </message>
     <message id="id-translations">
         <source>Translations</source>
@@ -324,7 +324,7 @@
     </message>
     <message id="id-config-component-not-activated">
         <source>The config component is not activated on Home Assistant server.</source>
-        <translation>De configuratiecomponent is niet geactiveerd op je Home Assistant server</translation>
+        <translation>De configuratiecomponent is niet geactiveerd op je Home Assistant server.</translation>
     </message>
     <message id="id-errors">
         <source>Errors</source>
@@ -548,7 +548,7 @@
     </message>
     <message id="id-webhook-component-not-activated">
         <source>Webhook component is not activated!</source>
-        <translation>Webhookcomponent is niet geactiveerd</translation>
+        <translation>Webhookcomponent is niet geactiveerd!</translation>
     </message>
     <message id="id-websocket-component">
         <source>Websocket component</source>
