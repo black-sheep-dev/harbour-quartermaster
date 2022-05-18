@@ -31,15 +31,14 @@ BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(Qt5DBus)
 BuildRequires:  pkgconfig(Qt5Network)
 BuildRequires:  pkgconfig(Qt5WebSockets) >= 5.5.1
-BuildRequires:  pkgconfig(Qt5Positioning)
 BuildRequires:  pkgconfig(sailfishsecrets)
 BuildRequires:  pkgconfig(nemodbus)
 BuildRequires:  pkgconfig(nemonotifications-qt5)
 BuildRequires:  pkgconfig(qt5embedwidget) >= 1.14.9
 BuildRequires:  pkgconfig(keepalive)
 BuildRequires:  qt5-qttools-linguist
-BuildRequires:  desktop-file-utils
 BuildRequires:  sailfish-mdm-devel
+BuildRequires:  desktop-file-utils
 
 %description
 Quartermaster is a native Sailfish OS Home Assistant client
@@ -50,8 +49,11 @@ Type: desktop-application
 Categories:
   - Tools
 Custom:
+  DescriptionMD: https://github.com/black-sheep-dev/harbour-quartermaster/raw/master/README.md
   Repo: https://github.com/black-sheep-dev/harbour-quartermaster/
-Icon: https://raw.githubusercontent.com/black-sheep-dev/harbour-quartermaster/master/icons/harbour-aenigma.svg
+Icon: https://raw.githubusercontent.com/black-sheep-dev/harbour-quartermaster/master/icons/harbour-quartermaster.svg
+Screenshots:
+    - https://github.com/black-sheep-dev/harbour-quartermaster/raw/master/metadata/screenshot01.png
 Url:
   Donation: https://www.paypal.com/paypalme/nubecula/1
 %endif
@@ -69,7 +71,7 @@ Url:
 
 %qmake5 
 
-%make_build
+make %{?_smp_mflags}
 
 # >> build post
 # << build post

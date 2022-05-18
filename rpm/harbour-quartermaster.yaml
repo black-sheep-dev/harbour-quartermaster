@@ -20,8 +20,11 @@ Description: |
   Categories:
     - Tools
   Custom:
+    DescriptionMD: https://github.com/black-sheep-dev/harbour-quartermaster/raw/master/README.md
     Repo: https://github.com/black-sheep-dev/harbour-quartermaster/
-  Icon: https://raw.githubusercontent.com/black-sheep-dev/harbour-quartermaster/master/icons/harbour-aenigma.svg
+  Icon: https://raw.githubusercontent.com/black-sheep-dev/harbour-quartermaster/master/icons/harbour-quartermaster.svg
+  Screenshots:
+      - https://github.com/black-sheep-dev/harbour-quartermaster/raw/master/metadata/screenshot01.png
   Url:
     Donation: https://www.paypal.com/paypalme/nubecula/1
   %endif
