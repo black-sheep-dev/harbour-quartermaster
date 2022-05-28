@@ -31,8 +31,8 @@ BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(Qt5DBus)
 BuildRequires:  pkgconfig(Qt5Network)
 BuildRequires:  pkgconfig(Qt5WebSockets) >= 5.5.1
+BuildRequires:  pkgconfig(Qt5Positioning)
 BuildRequires:  pkgconfig(sailfishsecrets)
-BuildRequires:  pkgconfig(nemodbus)
 BuildRequires:  pkgconfig(nemonotifications-qt5)
 BuildRequires:  pkgconfig(qt5embedwidget) >= 1.14.9
 BuildRequires:  pkgconfig(keepalive)

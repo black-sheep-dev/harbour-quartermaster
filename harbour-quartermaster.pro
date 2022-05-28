@@ -9,7 +9,7 @@ DEFINES += APP_TARGET=\\\"$$TARGET\\\"
 # custom defines
 #DEFINES += DISABLE_SAILFISH_SECRETS
 
-QT += dbus network websockets
+QT += dbus positioning network websockets
 
 CONFIG += link_pkgconfig sailfishapp
 PKGCONFIG += \

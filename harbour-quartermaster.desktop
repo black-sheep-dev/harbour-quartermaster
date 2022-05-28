@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-X-Nemo-Application-Type=silicia-qt5
+X-Nemo-Application-Type=silica-qt5
 Icon=harbour-quartermaster
 Exec=harbour-quartermaster
 Name=Quartermaster
