@@ -44,10 +44,10 @@ BuildRequires:  desktop-file-utils
 Quartermaster is a native Sailfish OS Home Assistant client
 
 %if "%{?vendor}" == "chum"
-PackageName: Aenigma
+PackageName: Quartermaster
 Type: desktop-application
 Categories:
-  - Tools
+  - Utility
 Custom:
   DescriptionMD: https://github.com/black-sheep-dev/harbour-quartermaster/raw/master/README.md
   Repo: https://github.com/black-sheep-dev/harbour-quartermaster/
