@@ -9,87 +9,87 @@
     </message>
     <message id="id-failed">
         <source>FAILED</source>
-        <translation type="unfinished"></translation>
+        <translation>ÉCHEC</translation>
     </message>
     <message id="id-create-backup">
         <source>Create Backup</source>
-        <translation type="unfinished"></translation>
+        <translation>Créer une sauvegarde</translation>
     </message>
     <message id="id-create">
         <source>Create</source>
-        <translation type="unfinished"></translation>
+        <translation>Créer</translation>
     </message>
     <message id="id-backup-desc">
         <source>Select options from which a backup should be made. The backup is saved in the Documents folder with the current time stamp.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionnez les options à partir desquelles une sauvegarde doit être effectuée. La sauvegarde est enregistrée dans le dossier Documents avec l&apos;horodatage actuel.</translation>
     </message>
     <message id="id-access-point-settings">
         <source>Access point settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Paramètres du point d&apos;accès</translation>
     </message>
     <message id="id-backup-access-points-desc">
         <source>Backup access point settings of zones</source>
-        <translation type="unfinished"></translation>
+        <translation>Sauvegarde des paramètres des points d&apos;accès des zones</translation>
     </message>
     <message id="id-restore-backup">
         <source>Restore Backup</source>
-        <translation type="unfinished"></translation>
+        <translation>Restaurer la sauvegarde</translation>
     </message>
     <message id="id-restore">
         <source>Restore</source>
-        <translation type="unfinished"></translation>
+        <translation>Restaurer</translation>
     </message>
     <message id="id-restore-backup-desc">
         <source>Do you want to restore the backup? Current settings will be replaced!</source>
-        <translation type="unfinished"></translation>
+        <translation>Voulez-vous restaurer la sauvegarde ? Les paramètres actuels seront remplacés !</translation>
     </message>
     <message id="id-select-access-point">
         <source>Select Access Point</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionnez le point d&apos;accès</translation>
     </message>
     <message id="id-hidden-network">
         <source>Hidden network</source>
-        <translation type="unfinished"></translation>
+        <translation>Réseau masqué</translation>
     </message>
     <message id="id-available-network">
         <source>Available network</source>
-        <translation type="unfinished"></translation>
+        <translation>Réseau disponible</translation>
     </message>
     <message id="id-request-failed">
         <source>Request failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Échec de la requête</translation>
     </message>
     <message id="id-error-bad-request">
         <source>Bad request</source>
-        <translation type="unfinished"></translation>
+        <translation>Mauvaise requête</translation>
     </message>
     <message id="id-error-data-invalid">
         <source>Data invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Données non valides</translation>
     </message>
     <message id="id-error-json-invalid">
         <source>JSON invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>JSON invalide</translation>
     </message>
     <message id="id-error-integration-deleted">
         <source>Integration deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>Intégration supprimée</translation>
     </message>
     <message id="id-error-not-found">
         <source>Not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Non trouvé</translation>
     </message>
     <message id="id-error-method-not-allowed">
         <source>Method not allowed</source>
-        <translation type="unfinished"></translation>
+        <translation>Méthode non autorisée</translation>
     </message>
     <message id="id-error-mobile-app-not-loaded">
         <source>Mobile app extension not loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;extension Mobile app n&apos;est pas activée</translation>
     </message>
     <message id="id-error--unauthorized">
         <source>Unauthorized</source>
-        <translation type="unfinished"></translation>
+        <translation>Non autorisé</translation>
     </message>
     <message id="id-error-unkown">
         <source>Unknown error</source>
@@ -97,142 +97,142 @@
     </message>
     <message id="id-about">
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>À propos</translation>
     </message>
     <message id="id-quartermaster">
         <source>Quartermaster</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Quartermaster</translation>
     </message>
     <message id="id-about-desc">
         <source>Quartermaster is a native Sailfish OS Home Assistant client.</source>
-        <translation type="unfinished"></translation>
+        <translation>Quartermaster est un client natif d&apos;Home Assistant pour Sailfish OS.</translation>
     </message>
     <message id="id-translations">
         <source>Translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Traductions</translation>
     </message>
     <message id="id-about-translation-desc">
         <source>Your language is not available? You are welcome to support this project by translating it on my self hosted Weblate server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Votre langue n&apos;est pas disponible ? Vous êtes le bienvenu pour soutenir ce projet en le traduisant sur mon serveur Weblate auto-hébergé.</translation>
     </message>
     <message id="id-sources">
         <source>Sources</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sources</translation>
     </message>
     <message id="id-give-star">
         <source>Give star</source>
-        <translation type="unfinished"></translation>
+        <translation>Donner une étoile</translation>
     </message>
     <message id="id-donations">
         <source>Donations</source>
-        <translation type="unfinished"></translation>
+        <translation>Dons</translation>
     </message>
     <message id="id-about-donation-desc">
         <source>If you like my work why not buy me a beer?</source>
-        <translation type="unfinished"></translation>
+        <translation>Si vous aimez mon travail, pourquoi ne pas m&apos;offrir une bière ?</translation>
     </message>
     <message id="id-donate-paypal">
         <source>Donate with PayPal</source>
-        <translation type="unfinished"></translation>
+        <translation>Donner avec PayPal</translation>
     </message>
     <message id="id-donate-liberpay">
         <source>Donate with Liberpay</source>
-        <translation type="unfinished"></translation>
+        <translation>Donner avec Liberpay</translation>
     </message>
     <message id="id-settings">
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Paramètres</translation>
     </message>
     <message id="id-refresh">
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualiser</translation>
     </message>
     <message id="id-entities">
         <source>Entities</source>
-        <translation type="unfinished"></translation>
+        <translation>Entités</translation>
     </message>
     <message id="id-entities-available" numerus="yes">
         <source>%n entity available</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n entité disponible</numerusform>
+            <numerusform>%n entités disponibles</numerusform>
         </translation>
     </message>
     <message id="id-no-entities-available">
         <source>No entities available</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucune entité disponible</translation>
     </message>
     <message id="id-check-network">
         <source>Check your network connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Vérifiez votre connexion réseau</translation>
     </message>
     <message id="id-search">
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Recherche</translation>
     </message>
     <message id="id-attributes">
         <source>Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Attributs</translation>
     </message>
     <message id="id-no-persons-available">
         <source>No persons available</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucune personne disponible</translation>
     </message>
     <message id="id-no-persons-available-desc">
         <source>Create new persons in Home Assistant web interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Créer de nouvelles personnes dans l&apos;interface web de Home Assistant</translation>
     </message>
     <message id="id-no-sensor-data-available">
         <source>No sensor data available</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucune donnée de capteur disponible</translation>
     </message>
     <message id="id-unavailable">
         <source>Unavailable</source>
-        <translation type="unfinished"></translation>
+        <translation>Indisponible</translation>
     </message>
     <message id="id-no-sensors-available">
         <source>No sensors available</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucun capteur disponible</translation>
     </message>
     <message id="id-automation">
         <source>Automation</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatisation</translation>
     </message>
     <message id="id-features">
         <source>Features</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonctionnalités</translation>
     </message>
     <message id="id-automation-on-off">
         <source>Automation on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>Activation/désactivation de l&apos;automatisation</translation>
     </message>
     <message id="id-info">
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Info</translation>
     </message>
     <message id="id-last-triggered">
         <source>Last triggered</source>
-        <translation type="unfinished"></translation>
+        <translation>Dernier déclenchement</translation>
     </message>
     <message id="id-target-temperature">
         <source>Target temperature</source>
-        <translation type="unfinished"></translation>
+        <translation>Température cible</translation>
     </message>
     <message id="id-preset-mode">
         <source>Preset mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode prédéfini</translation>
     </message>
     <message id="id-none">
         <source>none</source>
-        <translation type="unfinished"></translation>
+        <translation>aucun</translation>
     </message>
     <message id="id-current-state">
         <source>Current state</source>
-        <translation type="unfinished"></translation>
+        <translation>État actuel</translation>
     </message>
     <message id="id-current-room-temperature">
         <source>Current room temperature</source>
-        <translation type="unfinished"></translation>
+        <translation>Température ambiante actuelle</translation>
     </message>
     <message id="id-group-on-off">
         <source>Group on/off</source>
