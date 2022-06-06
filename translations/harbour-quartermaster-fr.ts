@@ -5,7 +5,7 @@
     <name></name>
     <message id="id-passed">
         <source>PASSED</source>
-        <translation type="unfinished"></translation>
+        <translation>RÉUSSI</translation>
     </message>
     <message id="id-failed">
         <source>FAILED</source>
