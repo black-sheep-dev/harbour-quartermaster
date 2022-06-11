@@ -9,6 +9,10 @@ Dialog {
     id: dialog
     allowedOrientations: Orientation.Portrait
 
+    acceptDestination: Qt.resolvedUrl("../OverviewPage.qml")
+    acceptDestinationAction: PageStackAction.Replace
+    acceptDestinationReplaceTarget: null
+
     PageBusyIndicator {
         size: BusyIndicatorSize.Large
         running: busy
@@ -69,7 +73,5 @@ Dialog {
     onAccepted: {
         App.needSetup = false
         App.initialize()
-        pageStack.clear()
-        pageStack.push(Qt.resolvedUrl("../OverviewPage.qml"))
     }
 }
