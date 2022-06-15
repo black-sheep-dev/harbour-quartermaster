@@ -101,7 +101,7 @@
     </message>
     <message id="id-quartermaster">
         <source>Quartermaster</source>
-        <translation type="unfinished">Quartermaster</translation>
+        <translation>Quartermaster</translation>
     </message>
     <message id="id-about-desc">
         <source>Quartermaster is a native Sailfish OS Home Assistant client.</source>
@@ -117,7 +117,7 @@
     </message>
     <message id="id-sources">
         <source>Sources</source>
-        <translation type="unfinished">Sources</translation>
+        <translation>Sources</translation>
     </message>
     <message id="id-give-star">
         <source>Give star</source>
@@ -208,7 +208,7 @@
     </message>
     <message id="id-info">
         <source>Info</source>
-        <translation type="unfinished">Info</translation>
+        <translation>Info</translation>
     </message>
     <message id="id-last-triggered">
         <source>Last triggered</source>
@@ -240,7 +240,7 @@
     </message>
     <message id="id-children">
         <source>Children</source>
-        <translation type="unfinished"></translation>
+        <translation>Enfants</translation>
     </message>
     <message id="id-switch-light-on-off">
         <source>Switch light on/off</source>
@@ -248,15 +248,15 @@
     </message>
     <message id="id-brightness">
         <source>Brightness</source>
-        <translation type="unfinished"></translation>
+        <translation>Luminosité</translation>
     </message>
     <message id="id-color-temperature">
         <source>Color temperature</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Temp. couleur</translation>
     </message>
     <message id="id-effect">
         <source>Effect</source>
-        <translation type="unfinished"></translation>
+        <translation>Effet</translation>
     </message>
     <message id="id-off">
         <source>off</source>
@@ -280,11 +280,11 @@
     </message>
     <message id="id-voltage">
         <source>Voltage</source>
-        <translation type="unfinished"></translation>
+        <translation>Tension</translation>
     </message>
     <message id="id-current">
         <source>Current</source>
-        <translation type="unfinished"></translation>
+        <translation>Courant</translation>
     </message>
     <message id="id-log-entry">
         <source>Log entry</source>
