@@ -5,91 +5,91 @@
     <name></name>
     <message id="id-passed">
         <source>PASSED</source>
-        <translation type="unfinished"></translation>
+        <translation>LÄPÄISTY</translation>
     </message>
     <message id="id-failed">
         <source>FAILED</source>
-        <translation type="unfinished"></translation>
+        <translation>HYLÄTTY</translation>
     </message>
     <message id="id-create-backup">
         <source>Create Backup</source>
-        <translation type="unfinished"></translation>
+        <translation>Luo varmuuskopio</translation>
     </message>
     <message id="id-create">
         <source>Create</source>
-        <translation type="unfinished"></translation>
+        <translation>Luo</translation>
     </message>
     <message id="id-backup-desc">
         <source>Select options from which a backup should be made. The backup is saved in the Documents folder with the current time stamp.</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse mitä varmuuskopioidaan. Varmuuskopio tallennetaan Documents-kansioon aikaleimattuna.</translation>
     </message>
     <message id="id-access-point-settings">
         <source>Access point settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Tukiasemien asetukset</translation>
     </message>
     <message id="id-backup-access-points-desc">
         <source>Backup access point settings of zones</source>
-        <translation type="unfinished"></translation>
+        <translation>Varmuuskopioi alueiden tukiasema-asetukset</translation>
     </message>
     <message id="id-restore-backup">
         <source>Restore Backup</source>
-        <translation type="unfinished"></translation>
+        <translation>Palauta varmuuskopiosta</translation>
     </message>
     <message id="id-restore">
         <source>Restore</source>
-        <translation type="unfinished"></translation>
+        <translation>Palauta</translation>
     </message>
     <message id="id-restore-backup-desc">
         <source>Do you want to restore the backup? Current settings will be replaced!</source>
-        <translation type="unfinished"></translation>
+        <translation>Haluatko palauttaa asetukset varmuuskopiosta? Tämä korvaa nykyiset asetukset varmuuskopioiduilla!</translation>
     </message>
     <message id="id-select-access-point">
         <source>Select Access Point</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse tukiasema</translation>
     </message>
     <message id="id-hidden-network">
         <source>Hidden network</source>
-        <translation type="unfinished"></translation>
+        <translation>Piilotettu verkko</translation>
     </message>
     <message id="id-available-network">
         <source>Available network</source>
-        <translation type="unfinished"></translation>
+        <translation>Saatavilla oleva verkko</translation>
     </message>
     <message id="id-request-failed">
         <source>Request failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Pyyntö epäonnistui</translation>
     </message>
     <message id="id-error-bad-request">
         <source>Bad request</source>
-        <translation type="unfinished"></translation>
+        <translation>Virheellinen pyyntö</translation>
     </message>
     <message id="id-error-data-invalid">
         <source>Data invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Data ei kelpaa</translation>
     </message>
     <message id="id-error-json-invalid">
         <source>JSON invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Virheellinen JSON data</translation>
     </message>
     <message id="id-error-integration-deleted">
         <source>Integration deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>Integraatio poistettu</translation>
     </message>
     <message id="id-error-not-found">
         <source>Not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei löydetty</translation>
     </message>
     <message id="id-error-method-not-allowed">
         <source>Method not allowed</source>
-        <translation type="unfinished"></translation>
+        <translation>Metodi ei ole sallittu</translation>
     </message>
     <message id="id-error-mobile-app-not-loaded">
         <source>Mobile app extension not loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>Mobiilisovelluslaajennus (Mobile app extension) ei ole ladattu</translation>
     </message>
     <message id="id-error--unauthorized">
         <source>Unauthorized</source>
-        <translation type="unfinished"></translation>
+        <translation>Pääsy evätty</translation>
     </message>
     <message id="id-error-unkown">
         <source>Unknown error</source>
@@ -97,877 +97,877 @@
     </message>
     <message id="id-about">
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Tietoa</translation>
     </message>
     <message id="id-quartermaster">
         <source>Quartermaster</source>
-        <translation type="unfinished"></translation>
+        <translation>Quartermaster</translation>
     </message>
     <message id="id-about-desc">
         <source>Quartermaster is a native Sailfish OS Home Assistant client.</source>
-        <translation type="unfinished"></translation>
+        <translation>Quartermaster on natiivi Home Assistant -asiakasohjelma Sailfish OS:lle.</translation>
     </message>
     <message id="id-translations">
         <source>Translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Käännökset</translation>
     </message>
     <message id="id-about-translation-desc">
         <source>Your language is not available? You are welcome to support this project by translating it on my self hosted Weblate server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Eikö kieltäsi ole saatavilla? Voit halutessasi auttaa projektissa kääntämällä sovellusta itse ylläpitämälläni Weblate-palvelimellani.</translation>
     </message>
     <message id="id-sources">
         <source>Sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Lähdekoodi</translation>
     </message>
     <message id="id-give-star">
         <source>Give star</source>
-        <translation type="unfinished"></translation>
+        <translation>Anna tähti</translation>
     </message>
     <message id="id-donations">
         <source>Donations</source>
-        <translation type="unfinished"></translation>
+        <translation>Lahjoitukset</translation>
     </message>
     <message id="id-about-donation-desc">
         <source>If you like my work why not buy me a beer?</source>
-        <translation type="unfinished"></translation>
+        <translation>Jos pidät siitä mitä olen tehnyt, mikset tarjoaisi minulle olutta?</translation>
     </message>
     <message id="id-donate-paypal">
         <source>Donate with PayPal</source>
-        <translation type="unfinished"></translation>
+        <translation>Lahjoita PayPalilla</translation>
     </message>
     <message id="id-donate-liberpay">
         <source>Donate with Liberpay</source>
-        <translation type="unfinished"></translation>
+        <translation>Lahjoita Librepayllä</translation>
     </message>
     <message id="id-settings">
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Asetukset</translation>
     </message>
     <message id="id-refresh">
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Päivitä</translation>
     </message>
     <message id="id-entities">
         <source>Entities</source>
-        <translation type="unfinished"></translation>
+        <translation>Yksiköt</translation>
     </message>
     <message id="id-entities-available" numerus="yes">
         <source>%n entity available</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n yksikkö saatavilla</numerusform>
+            <numerusform>%n yksikköä saatavilla</numerusform>
         </translation>
     </message>
     <message id="id-no-entities-available">
         <source>No entities available</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei yksiköitä</translation>
     </message>
     <message id="id-check-network">
         <source>Check your network connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Tarkista verkkoyhteytesi</translation>
     </message>
     <message id="id-search">
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Etsi</translation>
     </message>
     <message id="id-attributes">
         <source>Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Ominaisuudet</translation>
     </message>
     <message id="id-no-persons-available">
         <source>No persons available</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei henkilöitä</translation>
     </message>
     <message id="id-no-persons-available-desc">
         <source>Create new persons in Home Assistant web interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Luo uusi a henkilöitä Home Assistantin webkäyttöliittymässä</translation>
     </message>
     <message id="id-no-sensor-data-available">
         <source>No sensor data available</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei sensoridataa</translation>
     </message>
     <message id="id-unavailable">
         <source>Unavailable</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei saatavilla</translation>
     </message>
     <message id="id-no-sensors-available">
         <source>No sensors available</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei sensoreita</translation>
     </message>
     <message id="id-automation">
         <source>Automation</source>
-        <translation type="unfinished"></translation>
+        <translation>Automaatio</translation>
     </message>
     <message id="id-features">
         <source>Features</source>
-        <translation type="unfinished"></translation>
+        <translation>Ominaisuudet</translation>
     </message>
     <message id="id-automation-on-off">
         <source>Automation on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>Automaatio päälle/pois</translation>
     </message>
     <message id="id-info">
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Info</translation>
     </message>
     <message id="id-last-triggered">
         <source>Last triggered</source>
-        <translation type="unfinished"></translation>
+        <translation>Viimeksi liipaistu</translation>
     </message>
     <message id="id-target-temperature">
         <source>Target temperature</source>
-        <translation type="unfinished"></translation>
+        <translation>Tavoitelämpötila</translation>
     </message>
     <message id="id-preset-mode">
         <source>Preset mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Esiasetuksen tila</translation>
     </message>
     <message id="id-none">
         <source>none</source>
-        <translation type="unfinished"></translation>
+        <translation>ei mitään</translation>
     </message>
     <message id="id-current-state">
         <source>Current state</source>
-        <translation type="unfinished"></translation>
+        <translation>Nykyinen tila</translation>
     </message>
     <message id="id-current-room-temperature">
         <source>Current room temperature</source>
-        <translation type="unfinished"></translation>
+        <translation>Nykyinen huonelämpötila</translation>
     </message>
     <message id="id-group-on-off">
         <source>Group on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>Ryhmä päälle/pois</translation>
     </message>
     <message id="id-children">
         <source>Children</source>
-        <translation type="unfinished"></translation>
+        <translation>Lapset</translation>
     </message>
     <message id="id-switch-light-on-off">
         <source>Switch light on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>Kytke valo pois/päälle</translation>
     </message>
     <message id="id-brightness">
         <source>Brightness</source>
-        <translation type="unfinished"></translation>
+        <translation>Kirkkaus</translation>
     </message>
     <message id="id-color-temperature">
         <source>Color temperature</source>
-        <translation type="unfinished"></translation>
+        <translation>Värilämpötila</translation>
     </message>
     <message id="id-effect">
         <source>Effect</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaikutus</translation>
     </message>
     <message id="id-off">
         <source>off</source>
-        <translation type="unfinished"></translation>
+        <translation>pois päältä</translation>
     </message>
     <message id="id-switch-on-off">
         <source>Switch on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>Kytke päälle/pois</translation>
     </message>
     <message id="id-current-power-usage">
         <source>Current power usage</source>
-        <translation type="unfinished"></translation>
+        <translation>Hetkellinen teho</translation>
     </message>
     <message id="id-today-energy-usage">
         <source>Today energy usage</source>
-        <translation type="unfinished"></translation>
+        <translation>Energian kulutus tänään</translation>
     </message>
     <message id="id-total-energy-usage">
         <source>Total energy usage</source>
-        <translation type="unfinished"></translation>
+        <translation>Energian kokonaiskulutus</translation>
     </message>
     <message id="id-voltage">
         <source>Voltage</source>
-        <translation type="unfinished"></translation>
+        <translation>Jännite</translation>
     </message>
     <message id="id-current">
         <source>Current</source>
-        <translation type="unfinished"></translation>
+        <translation>Virta</translation>
     </message>
     <message id="id-log-entry">
         <source>Log entry</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokimerkintä</translation>
     </message>
     <message id="id-new-backup">
         <source>New backup</source>
-        <translation type="unfinished"></translation>
+        <translation>Uusi varmuuskopio</translation>
     </message>
     <message id="id-available-backups">
         <source>Available backups</source>
-        <translation type="unfinished"></translation>
+        <translation>Varmuuskopiot</translation>
     </message>
     <message id="id-delete">
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Poista</translation>
     </message>
     <message id="id-deleting-backup">
         <source>Deleting backup</source>
-        <translation type="unfinished"></translation>
+        <translation>Poistetaan varmuuskopiota</translation>
     </message>
     <message id="id-no-backups-available">
         <source>No backups available</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei varmuuskopioita</translation>
     </message>
     <message id="id-no-backups-available-desc">
         <source>Pull down to create a new one</source>
-        <translation type="unfinished"></translation>
+        <translation>Vedä alas luodaksesi uuden</translation>
     </message>
     <message id="id-home-assistant-config">
         <source>Home Assistant config</source>
-        <translation type="unfinished"></translation>
+        <translation>Homeassistantin asetukset</translation>
     </message>
     <message id="id-home-assistant-config-desc">
         <source>This page shows the status of the configuration files of your Home Assistant server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä sivu näyttää asetustiedostojen tilan Home Assistant -palvelimellasi.</translation>
     </message>
     <message id="id-config-component-not-activated">
         <source>The config component is not activated on Home Assistant server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Asetuskomponentti ei ole käytössä Home Assistant -palvesimella.</translation>
     </message>
     <message id="id-errors">
         <source>Errors</source>
-        <translation type="unfinished"></translation>
+        <translation>Virheet</translation>
     </message>
     <message id="id-connections">
         <source>Connections</source>
-        <translation type="unfinished"></translation>
+        <translation>Yhteydet</translation>
     </message>
     <message id="id-preffered-mode">
         <source>Preffered mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Suosittu tila</translation>
     </message>
     <message id="id-automatic">
         <source>Automatic</source>
-        <translation type="unfinished"></translation>
+        <translation>Automaattinen</translation>
     </message>
     <message id="id-external-url">
         <source>External URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Ulkoverkon osoite</translation>
     </message>
     <message id="id-internal-url">
         <source>Internal URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Sisäverkon osoite</translation>
     </message>
     <message id="id-cloud">
         <source>Cloud</source>
-        <translation type="unfinished"></translation>
+        <translation>Pilvi</translation>
     </message>
     <message id="id-internal-connection">
         <source>Internal connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Sisäverkon osoite</translation>
     </message>
     <message id="id-url">
         <source>URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Osoite</translation>
     </message>
     <message id="id-enter-url-placeholder">
         <source>Enter URL (e.g. http://server:8123)</source>
-        <translation type="unfinished"></translation>
+        <translation>Syötä osoite (esim. http://palvelin:8123)</translation>
     </message>
     <message id="id-error-valid-url">
         <source>Valid URL required!</source>
-        <translation type="unfinished"></translation>
+        <translation>Virheellinen osoite!</translation>
     </message>
     <message id="id-external-connection">
         <source>External connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Ulkoverkon osoite</translation>
     </message>
     <message id="id-reset">
         <source>Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Nollaa</translation>
     </message>
     <message id="id-resetting-access-points">
         <source>Resetting access points</source>
-        <translation type="unfinished"></translation>
+        <translation>Nollataan tukiasemat</translation>
     </message>
     <message id="id-add-access-point">
         <source>Add access point</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisää tukiasema</translation>
     </message>
     <message id="id-zone-settings">
         <source>Zone settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Alueiden asetukset</translation>
     </message>
     <message id="id-latitude">
         <source>Latitude</source>
-        <translation type="unfinished"></translation>
+        <translation>Leveysaste</translation>
     </message>
     <message id="id-longitude">
         <source>Longitude</source>
-        <translation type="unfinished"></translation>
+        <translation>Pituusaste</translation>
     </message>
     <message id="id-radius">
         <source>Radius</source>
-        <translation type="unfinished"></translation>
+        <translation>Säde</translation>
     </message>
     <message id="id-wifi-access-points">
         <source>Wifi access points</source>
-        <translation type="unfinished"></translation>
+        <translation>Wifi-tukiasemat</translation>
     </message>
     <message id="id-deleting-access-point">
         <source>Deleting access point</source>
-        <translation type="unfinished"></translation>
+        <translation>Poistetaan tukiasemaa</translation>
     </message>
     <message id="id-no-wifi-access-points-defined">
         <source>No wifi access points defined</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei määriteltyjä tukiasemia</translation>
     </message>
     <message id="id-no-wifi-access-points-defined-desc">
         <source>Pull down to add an access point</source>
-        <translation type="unfinished"></translation>
+        <translation>Vedä alas lisätäksesi tukiaseman</translation>
     </message>
     <message id="id-zones">
         <source>Zones</source>
-        <translation type="unfinished"></translation>
+        <translation>Alueet</translation>
     </message>
     <message id="id-networks-defined" numerus="yes">
         <source>%n network(s) defined</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n verkko määritetty</numerusform>
+            <numerusform>%n verkkoa määritetty</numerusform>
         </translation>
     </message>
     <message id="id-no-networks-defined">
         <source>No networks defined</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei määritettyjä verkkoja</translation>
     </message>
     <message id="id-no-zones-available">
         <source>No zones available</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei alueita</translation>
     </message>
     <message id="id-no-zones-available-desc">
         <source>Create new zones in Home Assistant web interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Luo uusia alueita Home Assistantin web-käyttöliittymässä</translation>
     </message>
     <message id="id-continue">
         <source>Continue</source>
-        <translation type="unfinished"></translation>
+        <translation>Jatka</translation>
     </message>
     <message id="id-back">
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Takaisin</translation>
     </message>
     <message id="id-connection-info">
         <source>Connection info</source>
-        <translation type="unfinished"></translation>
+        <translation>Yhteyden tiedot</translation>
     </message>
     <message id="id-server-info-received">
         <source>Server connection info received. Please check the data!</source>
-        <translation type="unfinished"></translation>
+        <translation>Palvelimen yhteyden tiedot vastaanotettu. Tarkista tiedot!</translation>
     </message>
     <message id="id-failed-to-connect-to-server">
         <source>Failed to connect to server. Go back and check your data!</source>
-        <translation type="unfinished"></translation>
+        <translation>Palvelimeen yhdistäminen epäonnistui. Palaa ja tarkista tiedot!</translation>
     </message>
     <message id="id-connect">
         <source>Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>Yhdistä</translation>
     </message>
     <message id="id-connection-settings">
         <source>Connection settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Yhteysasetukset</translation>
     </message>
     <message id="id-wizard-connection-desc">
         <source>You need to provide the connection details to your Home Assistant server.Please provide a full URL with port for this!</source>
         <oldsource>You need to provide the connection details to your Home Assistant server. Please provide a full URL with port for this!</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Syötä yhteysasetukset Home Assistant \u2011palvelimelle. Käytä koko osoitetta sisältäen porttinumeron!</translation>
     </message>
     <message id="id-register">
         <source>Register</source>
-        <translation type="unfinished"></translation>
+        <translation>Rekisteröi</translation>
     </message>
     <message id="id-device-registration">
         <source>Device registration</source>
-        <translation type="unfinished"></translation>
+        <translation>Laiterekisteröinti</translation>
     </message>
     <message id="id-change-device-name-desc">
         <source>You can change the device name which shows up in Home Assistant before starting the registration.</source>
-        <translation type="unfinished"></translation>
+        <translation>Voit vaihtaa nimen jolla laite näkyy Home Assistantissa ennen rekisteröinnin aloitusta.</translation>
     </message>
     <message id="id-device-name">
         <source>Device name</source>
-        <translation type="unfinished"></translation>
+        <translation>Laitteen nimi</translation>
     </message>
     <message id="id-enter-device-name">
         <source>Enter device name</source>
-        <translation type="unfinished"></translation>
+        <translation>Syötä laitteen nimi</translation>
     </message>
     <message id="id-home-assistant">
         <source>Home Assistant</source>
-        <translation type="unfinished"></translation>
+        <translation>Home Assistant</translation>
     </message>
     <message id="id-connection-error">
         <source>Connection error</source>
-        <translation type="unfinished"></translation>
+        <translation>Yhteysvirhe</translation>
     </message>
     <message id="id-connection-error-desc">
         <source>Error connecting to Home Assistant API:</source>
-        <translation type="unfinished"></translation>
+        <translation>Virhe yhdistettäessä Home Assistanttiin:</translation>
     </message>
     <message id="id-information">
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Tietoa</translation>
     </message>
     <message id="id-location-name">
         <source>Location name</source>
-        <translation type="unfinished"></translation>
+        <translation>Sijainnin nimi</translation>
     </message>
     <message id="id-version">
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Versio</translation>
     </message>
     <message id="id-configuration-checks">
         <source>Configuration checks</source>
-        <translation type="unfinished"></translation>
+        <translation>Asetustiedostojen tarkistus</translation>
     </message>
     <message id="id-version-compatibility">
         <source>Version compatibility</source>
-        <translation type="unfinished"></translation>
+        <translation>Versioyhteensopivuus</translation>
     </message>
     <message id="id-version-compatibility-desc">
         <source>Version of Home Assistant is incompatible with this app!</source>
-        <translation type="unfinished"></translation>
+        <translation>Home Assistantin versio ei ole yhteensopiva tämän sovelluksen kanssa!</translation>
     </message>
     <message id="id-mobile-app-component">
         <source>Mobile app component</source>
-        <translation type="unfinished"></translation>
+        <translation>Mobile app \u2011komponentti</translation>
     </message>
     <message id="id-mobile-app-component-not-activated">
         <source>Mobile app component is not activated!</source>
-        <translation type="unfinished"></translation>
+        <translation>Mobile app \u2011komponentti ei ole käytössä!</translation>
     </message>
     <message id="id-check-yaml-config">
         <source>Please check your Home Assistant configuration.yaml!</source>
-        <translation type="unfinished"></translation>
+        <translation>Tarkista Home Assistantin configuration.yaml-tiedosto!</translation>
     </message>
     <message id="id-webhook-component">
         <source>Webhook component</source>
-        <translation type="unfinished"></translation>
+        <translation>Webhook-komponentti</translation>
     </message>
     <message id="id-webhook-component-not-activated">
         <source>Webhook component is not activated!</source>
-        <translation type="unfinished"></translation>
+        <translation>Webhook-komponentti ei ole käytössä!</translation>
     </message>
     <message id="id-websocket-component">
         <source>Websocket component</source>
-        <translation type="unfinished"></translation>
+        <translation>Websocket-komponentti</translation>
     </message>
     <message id="id-websocket-component-not-activated">
         <source>Optional Websocket component is not activated!</source>
-        <translation type="unfinished"></translation>
+        <translation>Valinnainen Websocket-komponentti ei ole käytössä!</translation>
     </message>
     <message id="id-missing">
         <source>MISSING</source>
-        <translation type="unfinished"></translation>
+        <translation>PUUTTUU</translation>
     </message>
     <message id="id-welcome-title">
         <source>Welcome to Quartermaster</source>
-        <translation type="unfinished"></translation>
+        <translation>Tervettuloa Quartermasteriin</translation>
     </message>
     <message id="id-welcome-info-1">
         <source>This device is not yet connected to a Home Assistant server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Laite ei ole vielä yhdistetty Home Assistant \u2011palvelimeen.</translation>
     </message>
     <message id="id-welcome-info-2">
         <source>The setup wizard will guide you through the connection process.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ohjattu asennustoiminto opastaa sinua yhdistämisessä.</translation>
     </message>
     <message id="id-reset-app-desc">
         <source>If there are errors during the setup process, you can try to reset the data from a previous installation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jos yhdistämisessä on ongelmia, voit kokeilla nollata edellisen asennuksen jättämät tiedot.</translation>
     </message>
     <message id="id-complete">
         <source>Complete</source>
-        <translation type="unfinished"></translation>
+        <translation>Valmis</translation>
     </message>
     <message id="id-setup-process-completed">
         <source>Setup process completed</source>
-        <translation type="unfinished"></translation>
+        <translation>Asennus valmis</translation>
     </message>
     <message id="id-setup-process-completed-desc">
         <source>You can now proceed to the main screen.Some of the setting from this wizard can be changed in the applications settings page.</source>
         <oldsource>You can now proceed to the main screen. Some of the setting from this wizard can be changed in the applications settings page.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Voit nyt jatkaa päänäkymään. Voit muuttaa joitain nyt luotuja asetuksia sovelluksen asetuksista.</translation>
     </message>
     <message id="id-welcome-to-smart-home">
         <source>Welcome to your smart home!</source>
-        <translation type="unfinished"></translation>
+        <translation>Tervetuloa älykotiisi!</translation>
     </message>
     <message id="id-registration-failed">
         <source>Registration failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Rekisteröinti epäonnistui</translation>
     </message>
     <message id="id-registration-next-step-info">
         <source>In the next step you can choose your home network access point. This information is used to recognize whether you are at home.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seuraavaksi vglitse kotiverkkosi tukiasema. Tätä käytetään tunnistamaan milloin olet kotona.</translation>
     </message>
     <message id="id-select">
         <source>Select</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse</translation>
     </message>
     <message id="id-access-token">
         <source>Access token</source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttöoikeustunniste</translation>
     </message>
     <message id="id-access-token-desc">
         <source>You need to provide a valid Long-Lived Access Token.You can create one on profile page in your Home Assistant webfrontend and copy the token string into the input field below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tarvitset käyvän käyttöoikeustunnisteen (access token). Voit luoda sellaisen Home Assistantin web-käyttöliittymässä profiilisivulla ja kopioida tähän.</translation>
     </message>
     <message id="id-enter-token-desc">
         <source>Enter Long-Lived Access Token</source>
-        <translation type="unfinished"></translation>
+        <translation>Syötä tunniste (Long-Liven Access Token)</translation>
     </message>
     <message id="id-token">
         <source>Token</source>
-        <translation type="unfinished"></translation>
+        <translation>Tunniste</translation>
     </message>
     <message id="id-enter-token">
         <source>Enter token</source>
-        <translation type="unfinished"></translation>
+        <translation>Syötä tunniste</translation>
     </message>
     <message id="id-battery-state">
         <source>Battery State</source>
-        <translation type="unfinished"></translation>
+        <translation>Akun tila</translation>
     </message>
     <message id="id-battery-charging">
         <source>Battery Charging</source>
-        <translation type="unfinished"></translation>
+        <translation>Akku latautuu</translation>
     </message>
     <message id="id-alarms">
         <source>Alarms</source>
-        <translation type="unfinished"></translation>
+        <translation>Hälytykset</translation>
     </message>
     <message id="id-list-of-all-alarms">
         <source>List of all alarms</source>
-        <translation type="unfinished"></translation>
+        <translation>Hälytyslista</translation>
     </message>
     <message id="id-automations">
         <source>Automations</source>
-        <translation type="unfinished"></translation>
+        <translation>Automaatiot</translation>
     </message>
     <message id="id-list-of-all-automations">
         <source>List of all automations</source>
-        <translation type="unfinished"></translation>
+        <translation>Automaatiolista</translation>
     </message>
     <message id="id-cameras">
         <source>Cameras</source>
-        <translation type="unfinished"></translation>
+        <translation>Kamerat</translation>
     </message>
     <message id="id-list-of-all-cameras">
         <source>List of all cameras</source>
-        <translation type="unfinished"></translation>
+        <translation>Kameralista</translation>
     </message>
     <message id="id-climates">
         <source>Climates</source>
-        <translation type="unfinished"></translation>
+        <translation>Termostaatit</translation>
     </message>
     <message id="id-list-of-all-climates">
         <source>List of all climates</source>
-        <translation type="unfinished"></translation>
+        <translation>Termostaattilista</translation>
     </message>
     <message id="id-groups">
         <source>Groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Ryhmät</translation>
     </message>
     <message id="id-list-of-all-groups">
         <source>List of all groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Ryhmälista</translation>
     </message>
     <message id="id-lights">
         <source>Lights</source>
-        <translation type="unfinished"></translation>
+        <translation>Valot</translation>
     </message>
     <message id="id-list-of-all-lights">
         <source>List of all lights</source>
-        <translation type="unfinished"></translation>
+        <translation>Valolista</translation>
     </message>
     <message id="id-persons">
         <source>Persons</source>
-        <translation type="unfinished"></translation>
+        <translation>Henkilöt</translation>
     </message>
     <message id="id-list-of-all-persons">
         <source>List of all persons</source>
-        <translation type="unfinished"></translation>
+        <translation>Henkilölista</translation>
     </message>
     <message id="id-sensors">
         <source>Sensors</source>
-        <translation type="unfinished"></translation>
+        <translation>Anturit</translation>
     </message>
     <message id="id-list-of-all-sensors">
         <source>List of all sensors</source>
-        <translation type="unfinished"></translation>
+        <translation>Anturilista</translation>
     </message>
     <message id="id-switches">
         <source>Switches</source>
-        <translation type="unfinished"></translation>
+        <translation>Kytkimet</translation>
     </message>
     <message id="id-list-of-all-switches">
         <source>List of all switches</source>
-        <translation type="unfinished"></translation>
+        <translation>Kytkinlista</translation>
     </message>
     <message id="id-notification-update-available-body">
         <source>There is an update to version %1 available.</source>
-        <translation type="unfinished"></translation>
+        <translation>Päivitys saatavilla versioon %1.</translation>
     </message>
     <message id="id-notification-update-available-summary">
         <source>Home Assistant update available!</source>
-        <translation type="unfinished"></translation>
+        <translation>Home Assistantin päivitys saatavilla!</translation>
     </message>
     <message id="id-resetting-app">
         <source>Resetting application</source>
-        <translation type="unfinished"></translation>
+        <translation>Nollaa sovellus</translation>
     </message>
     <message id="id-registration-completed">
         <source>Registration completed</source>
-        <translation type="unfinished"></translation>
+        <translation>Rekisteröinti valmis</translation>
     </message>
     <message id="id-at-home">
         <source>At home</source>
-        <translation type="unfinished"></translation>
+        <translation>Kotona</translation>
     </message>
     <message id="id-not-at-home">
         <source>Not at home</source>
-        <translation type="unfinished"></translation>
+        <translation>Poissa kotoa</translation>
     </message>
     <message id="id-unkown">
         <source>Unkown</source>
-        <translation type="unfinished"></translation>
+        <translation>Tuntematon</translation>
     </message>
     <message id="id-live-updates">
         <source>Live updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Jatkuvat päivitykset</translation>
     </message>
     <message id="id-live-updates-desc">
         <source>Here you can manage live updates for your entities state.Activating these options leads to higher battery consumption and network traffic.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tässä voit hallita jatkuvia päivityksiä yksiköiden tiloille. Näiden aktivointi tuottaa paljon mikä lisää akun kulutusta.</translation>
     </message>
     <message id="id-switch-live-updates-desc">
         <source>When active the entities will be updated live using websocket connection.This can lead to very high data consumption, especially with many entities that often change their state!</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivoituna yksiköiden tilaa päivitetään jatkuvasti websocket-yhteydellä. Tämä lisää huomattavasti datan ja akun kulutusta, etenkin jos yksiköitä jotka vaihtavat tilaansa usein on paljon!</translation>
     </message>
     <message id="id-websocket-component-not-enabled">
         <source>Websocket component is not enabled in Home Assistant!</source>
-        <translation type="unfinished"></translation>
+        <translation>Websocket-komponentti ei ole käytössä Home Assistantissa!</translation>
     </message>
     <message id="id-notifications">
         <source>Notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Ilmoitukset</translation>
     </message>
     <message id="id-notifcations-desc">
         <source>Here you can manage notifications from your Home Assistant server.&lt;br&gt;&lt;br&gt;Activating these options leads to higher battery consumption and network traffic.</source>
         <oldsource>Here you can manage notifications from your Home Assistant server.Activating these options leads to higher battery consumption and network traffic.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Tässä voit hallita ilmoituksia Home Assistant \u2011palvelimellasi. Näiden valintojen käyttöönotto lisää akun ja datan kulutusta.</translation>
     </message>
     <message id="id-updates">
         <source>Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Päivitykset</translation>
     </message>
     <message id="id-switch-updates-desc">
         <source>When active you are notified about Home Assistant updates for your server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivoimalla saat ilmoituksia Home Assistantin päivityksistä palvelimellesi.</translation>
     </message>
     <message id="id-switch-notifications-desc">
         <source>When active the application will receive notifications from Home Assistant server over a websocket connection.The data of service calls from the notify integration are used. For details, refer to the Home Assistant&apos;s documentation!</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivoimalla sovellus vastaanottaa ilmoituksia Home Assistantilta websocket-yhteydellä. Tähän käytetään notify-integraation palvelukutsujen dataa. Lisätietoja löydät Home Assistantin dokumentaatiosta!</translation>
     </message>
     <message id="id-connections-list-desc">
         <source>Manage connections settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Hallitse yhteysasetuksia</translation>
     </message>
     <message id="id-device-tracking">
         <source>Device tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Laiteseuranta</translation>
     </message>
     <message id="id-device-tracking-list-desc">
         <source>Manage tracking options</source>
-        <translation type="unfinished"></translation>
+        <translation>Hallitse seuranna asetuksia</translation>
     </message>
     <message id="id-device-sensors">
         <source>Device sensors</source>
-        <translation type="unfinished"></translation>
+        <translation>Laiteanturit</translation>
     </message>
     <message id="id-device-sensors-list-desc">
         <source>Manage device sensors</source>
-        <translation type="unfinished"></translation>
+        <translation>Hallitse laitteen antureita</translation>
     </message>
     <message id="id-zones-list-desc">
         <source>Manage zones and access points</source>
-        <translation type="unfinished"></translation>
+        <translation>Hallitse alueita ja tukiasemia</translation>
     </message>
     <message id="id-notifications-list-desc">
         <source>Manage system notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Hallitse järjestelmän ilmoituksia</translation>
     </message>
     <message id="id-live-updates-list-desc">
         <source>Manage live updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Hallitse jatkuvia päivityksiä</translation>
     </message>
     <message id="id-backup-restore">
         <source>Backup &amp; Restore</source>
-        <translation type="unfinished"></translation>
+        <translation>Varmuuskopiot &amp; palautus</translation>
     </message>
     <message id="id-backup-restore-list-desc">
         <source>Manage backup of settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Hallitse asetuksien varmuuskopiointia</translation>
     </message>
     <message id="id-device-info">
         <source>Device info</source>
-        <translation type="unfinished"></translation>
+        <translation>Laitteen tiedot</translation>
     </message>
     <message id="id-device-info-list-desc">
         <source>Manage device informations</source>
-        <translation type="unfinished"></translation>
+        <translation>Hallitse laitteen tietoja</translation>
     </message>
     <message id="id-home-assistant-list-desc">
         <source>Manage Home Assistant</source>
-        <translation type="unfinished"></translation>
+        <translation>Hallitse Home Assistantia</translation>
     </message>
     <message id="id-developer-mode">
         <source>Developer mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Kehittäjätila</translation>
     </message>
     <message id="id-developer-mode-list-desc">
         <source>Manage developer options</source>
-        <translation type="unfinished"></translation>
+        <translation>Hallitse kehittäjäasetuksia</translation>
     </message>
     <message id="id-about-list-desc">
         <source>Infos about Quartermaster</source>
-        <translation type="unfinished"></translation>
+        <translation>Tietoa Quartermasterista</translation>
     </message>
     <message id="id-no-error">
         <source>No error</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei virheitä</translation>
     </message>
     <message id="id-undefined-error">
         <source>An undefined error occured</source>
-        <translation type="unfinished"></translation>
+        <translation>Tapahtui tuntematon virhe</translation>
     </message>
     <message id="id-error-in-service-configuration">
         <source>Error in service configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Virhe palveluasetuksissa</translation>
     </message>
     <message id="id-initialization-failed">
         <source>Initialization failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Alustus epäonnistui</translation>
     </message>
     <message id="id-reset-registration">
         <source>Reset registration</source>
-        <translation type="unfinished"></translation>
+        <translation>Poista rekisteröinti</translation>
     </message>
     <message id="id-reset-registration-text">
         <source>Resetting device registration &amp; closing app</source>
-        <translation type="unfinished"></translation>
+        <translation>Poistetaan laitteen rekisteröinti ja suljetaan sovellus</translation>
     </message>
     <message id="id-device-id">
         <source>Device ID</source>
-        <translation type="unfinished"></translation>
+        <translation>Laitteen ID</translation>
     </message>
     <message id="id-manufacturer">
         <source>Manufacturer</source>
-        <translation type="unfinished"></translation>
+        <translation>Valmistaja</translation>
     </message>
     <message id="id-model">
         <source>Model</source>
-        <translation type="unfinished"></translation>
+        <translation>Malli</translation>
     </message>
     <message id="id-software-name">
         <source>Software name</source>
-        <translation type="unfinished"></translation>
+        <translation>Ohjelmiston nimi</translation>
     </message>
     <message id="id-software-version">
         <source>Software version</source>
-        <translation type="unfinished"></translation>
+        <translation>Ohjelmiston versio</translation>
     </message>
     <message id="id-wifi-mac">
         <source>Wifi MAC</source>
-        <translation type="unfinished"></translation>
+        <translation>Wifi MAC</translation>
     </message>
     <message id="id-compatibility">
         <source>Compatibility</source>
         <oldsource>id-compatibility</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Yhteensopivuus</translation>
     </message>
     <message id="id-compatible">
         <source>compatible</source>
-        <translation type="unfinished"></translation>
+        <translation>yhteenopiva</translation>
     </message>
     <message id="id-incompatible">
         <source>icompatible</source>
-        <translation type="unfinished"></translation>
+        <translation>epäyhteensopiva</translation>
     </message>
     <message id="id-components">
         <source>Components</source>
-        <translation type="unfinished"></translation>
+        <translation>Komponentit</translation>
     </message>
     <message id="id-device-sensors-desc">
         <source>Device sensors can send their current state to the Home Assistant server.Activating these options leads to higher battery consumption and network traffic.</source>
-        <translation type="unfinished"></translation>
+        <translation>Laitteen anturit voivat lähettää nykyisen tilansa Home Assistantille. Näiden asetusten aktivointi lisää akun ja datan kulutusta.</translation>
     </message>
     <message id="id-sensor-update-on-off">
         <source>This toggles all sensors on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä kytkee kaikki anturit päälle/pois</translation>
     </message>
     <message id="id-sensor-list">
         <source>Sensor list</source>
-        <translation type="unfinished"></translation>
+        <translation>Anturilista</translation>
     </message>
     <message id="id-active">
         <source>active</source>
-        <translation type="unfinished"></translation>
+        <translation>päällä</translation>
     </message>
     <message id="id-inactive">
         <source>inactive</source>
-        <translation type="unfinished"></translation>
+        <translation>pois päältä</translation>
     </message>
     <message id="id-api-logging">
         <source>API logging</source>
-        <translation type="unfinished"></translation>
+        <translation>Rajapinnan lokit</translation>
     </message>
     <message id="id-api-logging-desc">
         <source>Log all API requests and replies. This helps to fix errors or to include new devices to Quartermaster.Only turn on logging if needed, because it will create a lot of data! Files are stored into Documents folder.Attach this data to a new issue on GitHub if you need support!</source>
-        <translation type="unfinished"></translation>
+        <translation>Kirjaa lokiin kaikki rajapinnan pyynnöt ja vastaukset. Tämä helpottaa virheiden korjausta tai uusien laitteiden lisäystä. Kytke päälle vain tarvittaessa, sillä tämä tuottaa paljon dataa! Tiedostot tallennetaan Documents-kansioon. Liitä tämä data uuteen issue-tikettiin Githubissa jos tarvitset tukea!</translation>
     </message>
     <message id="id-device-tracking-desc">
         <source>Manage options to track your device location and send it to the Home Assistant server.Activating these options leads to higher battery consumption and network traffic.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hallitse laitteen sijainnin seurannan asetuksia. Näiden asetusten käyttö lisää akun ja datan kulutusta.</translation>
     </message>
     <message id="id-gps-tracking">
         <source>GPS tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>GPS-seuranta</translation>
     </message>
     <message id="id-gps">
         <source>GPS</source>
-        <translation type="unfinished"></translation>
+        <translation>GPS</translation>
     </message>
     <message id="id-gps-tracking-desc">
         <source>Use GPS data to track the device position.</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä GPS-dataa laitteen sijainnin seuraamiseen.</translation>
     </message>
     <message id="id-update-interval-msec">
         <source>Update Interval (msec)</source>
-        <translation type="unfinished"></translation>
+        <translation>Päivitysväli (ms)</translation>
     </message>
     <message id="id-disable-gps-at-home">
         <source>Disable GPS at home</source>
-        <translation type="unfinished"></translation>
+        <translation>Kytke GPS pois kun olet kotona</translation>
     </message>
     <message id="id-disable-gps-at-home-desc">
         <source>GPS tracking is turned off when at home. This option needs enabled Wifi tracking.</source>
-        <translation type="unfinished"></translation>
+        <translation>GPS seuranva kytketään pois päältä kun olet kotona. Tämä asetus vaatii Wifi-seurannan käyttöä.</translation>
     </message>
     <message id="id-wifi-tracking">
         <source>Wifi tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Wifi-seuranta</translation>
     </message>
     <message id="id-wifi">
         <source>Wifi</source>
-        <translation type="unfinished"></translation>
+        <translation>Wifi</translation>
     </message>
     <message id="id-wifi-tracking-desc">
         <source>Available access points will be used to track the device.If the device discovers a known access point, it will send the position information of its parent zone.It is recommend to keep the wifi tracking enabled!You need to add the access points to your different zones on zone settings page. Zones can be created in the Home Assistant web interface.</source>
-        <translation type="unfinished"></translation>
+        <translation>Havaittuja tukiasemia käytetään laitteen seurantaan. Jos laite havaitsee tunnetun tukiaseman, se lähettää sijainnikseen tukiasemalle määritetyn alueen sijainnin. Tämän asetuksen käyttö on suositeltavaa! Voit lisätä tukiasemia alueillesi alueiden asetukset \u2011sivulla. Alueita voi luoda Home Assistantin web-käyttöliittymällä.</translation>
     </message>
 </context>
 </TS>
