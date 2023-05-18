@@ -38,6 +38,7 @@ public:
         Person,
         Remote,
         Sensor,
+        Scene,
         Sun,
         Switch,
         Weather,

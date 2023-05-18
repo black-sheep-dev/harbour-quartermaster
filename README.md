@@ -42,6 +42,7 @@ Here is a list of all implemented features so far. Not all features listed below
 >  - *Lights*
 >  - *Persons*
 >  - *Sensors*
+>  - *Scenes*
 >  - *Switches*
 >  - *Zones*
  

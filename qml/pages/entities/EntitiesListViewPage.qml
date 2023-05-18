@@ -159,6 +159,10 @@ Page {
                         pageStack.push(Qt.resolvedUrl("types/LightPage.qml"), { entity: filterModel.entityAt(index) })
                         break;
 
+                    case Entity.Scene:
+                        pageStack.push(Qt.resolvedUrl("types/ScenePage.qml"), { entity: filterModel.entityAt(index) })
+                        break;
+
                     case Entity.Switch:
                         pageStack.push(Qt.resolvedUrl("types/SwitchPage.qml"), { entity: filterModel.entityAt(index) })
                         break;

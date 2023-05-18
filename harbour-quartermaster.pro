@@ -80,6 +80,7 @@ DISTFILES += qml/harbour-quartermaster.qml \
     qml/pages/entities/types/EntityPage.qml \
     qml/pages/entities/types/GroupPage.qml \
     qml/pages/entities/types/LightPage.qml \
+    qml/pages/entities/types/ScenePage.qml \
     qml/pages/entities/types/SwitchPage.qml \
     qml/pages/log/ErrorLogEntryPage.qml \
     qml/pages/settings/SettingsBackupPage.qml \
