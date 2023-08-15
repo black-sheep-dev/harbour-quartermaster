@@ -36,7 +36,7 @@ void EntitiesSortFilterModel::resetEntityFilter()
     invalidate();
 }
 
-void EntitiesSortFilterModel::search(const QString &pattern)
+void EntitiesSortFilterModel::setFilterFixedString(const QString &pattern)
 {
     m_pattern = pattern;
     invalidate();
