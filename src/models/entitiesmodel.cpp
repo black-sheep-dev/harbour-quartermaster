@@ -178,6 +178,7 @@ bool EntitiesModel::setData(const QModelIndex &index, const QVariant &value, int
     }
 
     emit dataChanged(index, index, QVector<int>() << role);
+    return true;
 }
 
 QHash<int, QByteArray> EntitiesModel::roleNames() const
