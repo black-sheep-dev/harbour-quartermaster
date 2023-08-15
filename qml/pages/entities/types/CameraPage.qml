@@ -22,6 +22,14 @@ Page {
     }
 
     SilicaFlickable {
+        PullDownMenu {
+            MenuItem {
+                //% "Attributes"
+                text: qsTrId("id-attributes")
+                onClicked: pageStack.push(Qt.resolvedUrl("../EntityAttributesPage.qml"), { entity: entity })
+            }
+        }
+
         anchors.fill: parent
         contentHeight: column.height
 
