@@ -981,5 +981,17 @@ Deze opties leiden tot een hoger batterijverbruik en meer netwerkverkeer.</trans
 Als je toestel een bekend toegangspunt ontdekt, zal het de positieinformatie van de toegewezen zone doorgeven.
 Het is aangeraden om WiFi-tracking te gebruiken! Je dient de toegangspunten toe te voegen aan de verschillende zones in de zone-instellingen. Nieuwe zones kan je maken in de Home Assistant webinterface.</translation>
     </message>
+    <message id="id-scene-activate">
+        <source>Activate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="id-scenes">
+        <source>Scenes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="id-list-of-all-scenes">
+        <source>List of all scenes</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

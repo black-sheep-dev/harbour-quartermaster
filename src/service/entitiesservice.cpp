@@ -71,6 +71,9 @@ QString EntitiesService::getEntityIcon(quint8 entityType) const
         case Entity::BinarySensor:
             return QStringLiteral("image://theme/icon-m-global-proxy");
 
+        case Entity::Scene:
+            return QStringLiteral("image://theme/icon-m-image");
+
         case Entity::Switch:
             return QStringLiteral("image://theme/icon-m-charging");
 
@@ -149,6 +152,8 @@ Entity::EntityType EntitiesService::getEntityType(const QString &entityId) const
         return Entity::Person;
     } else if (type == QLatin1String("sensor")) {
         return Entity::Sensor;
+    } else if (type == QLatin1String("scene")) {
+        return Entity::Scene;
     } else if (type == QLatin1String("sun")) {
         return Entity::Sun;
     } else if (type == QLatin1String("switch")) {
@@ -228,6 +233,14 @@ EntityTypeItem EntitiesService::getEntityTypeItem(const Entity::EntityType &enti
         item.type = Entity::Sensor;
         break;
 
+    case Entity::Scene:
+        //% "Scenes"
+        item.title = qtTrId("id-scenes");
+        //% "List of all scenes"
+        item.description = qtTrId("id-list-of-all-scenes");
+        item.type = Entity::Scene;
+        break;
+
     case Entity::Switch:
         //% "Switches"
         item.title = qtTrId("id-switches");
@@ -269,6 +282,7 @@ void EntitiesService::parseStates(const QJsonArray &arr)
         case Entity::MediaPlayer:
         case Entity::Person:
         case Entity::Sensor:
+        case Entity::Scene:
         case Entity::Sun:
         case Entity::Switch:
         case Entity::Weather:
@@ -352,6 +366,7 @@ void EntitiesService::parseStates(const QJsonArray &arr)
         case Entity::Light:
         case Entity::Person:
         case Entity::Switch:
+        case Entity::Scene:
         case Entity::Sensor:
             entities.append(entity);
             types.insert(type, types.value(type, 0) + 1);

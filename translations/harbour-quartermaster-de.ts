@@ -981,5 +981,17 @@ Das Aktivieren dieser Optionen führt zu höherem Akkuverbrauch und Netzwerkverk
 Wenn das Gerät einen bekannten Zugangspunkt entdeckt, sendet es die Positionsinformationen dessen zugeordneten Zone.
 Es wird empfohlen, das WLAN-Tracking aktiviert zu lassen!Du musst den Accespoint zu den verschiedenen Zonen zuvor hinzufügen. Zonen können in der Home Assistant-Weboberfläche erstellt werden.</translation>
     </message>
+    <message id="id-scene-activate">
+        <source>Activate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="id-scenes">
+        <source>Scenes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="id-list-of-all-scenes">
+        <source>List of all scenes</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

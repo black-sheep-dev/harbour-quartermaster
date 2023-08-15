@@ -982,5 +982,17 @@ Activating these options leads to higher battery consumption and network traffic
 If the device discovers a known access point, it will send the position information of its parent zone.It is recommend to keep the wifi tracking enabled!
 You need to add the access points to your different zones on zone settings page. Zones can be created in the Home Assistant web interface.</translation>
     </message>
+    <message id="id-scene-activate">
+        <source>Activate</source>
+        <translation>Activate</translation>
+    </message>
+    <message id="id-scenes">
+        <source>Scenes</source>
+        <translation>Scenes</translation>
+    </message>
+    <message id="id-list-of-all-scenes">
+        <source>List of all scenes</source>
+        <translation>List of all scenes</translation>
+    </message>
 </context>
 </TS>
